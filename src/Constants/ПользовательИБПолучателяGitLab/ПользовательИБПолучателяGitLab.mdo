@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="aa56ac8d-e903-4310-b01d-4253d9059be0">
+  <producedTypes>
+    <managerType typeId="27fe85a9-e3ef-4e7b-b473-a91571e9fa97" valueTypeId="88a6a458-f282-4319-b874-4adcd3abc044"/>
+    <valueManagerType typeId="14324a8c-ffc8-4f61-a4a6-484c62114ce2" valueTypeId="b25c3507-bba6-442d-a899-850af0139033"/>
+  </producedTypes>
+  <name>ПользовательИБПолучателяGitLab</name>
+  <synonym>
+    <key>ru</key>
+    <value>Пользователь GitLab ИБ-получателя</value>
+  </synonym>
+  <comment></comment>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>50</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <mask></mask>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

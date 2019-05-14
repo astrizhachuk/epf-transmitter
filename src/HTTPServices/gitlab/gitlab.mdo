@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="670fae95-e5d3-4f55-a705-aa3422f1a821">
+  <name>gitlab</name>
+  <synonym>
+    <key>ru</key>
+    <value>gitlab services</value>
+  </synonym>
+  <comment>Сервисы для работы с GitLab</comment>
+  <rootURL>gitlab</rootURL>
+  <reuseSessions>AutoUse</reuseSessions>
+  <sessionMaxAge>20</sessionMaxAge>
+  <urlTemplates uuid="160aae0f-93ea-4931-addd-a2cfc0a3ea84">
+    <name>webhook</name>
+    <synonym>
+      <key>ru</key>
+      <value>webhook</value>
+    </synonym>
+    <comment>Обработка webhooks от GitLab.</comment>
+    <template>/webhook/{ТипВнешнегоХранилища}/{ИмяМетода}/*</template>
+    <methods uuid="dac1c217-fb98-4ec1-9b24-e99a308236de">
+      <name>updates</name>
+      <synonym>
+        <key>ru</key>
+        <value>updates</value>
+      </synonym>
+      <comment>Обновление данных в ИБ по изменениям в GitLab.</comment>
+      <httpMethod>POST</httpMethod>
+      <handler>WebhookUpdates</handler>
+    </methods>
+  </urlTemplates>
+  <urlTemplates uuid="74a26fe0-749a-491a-8507-f3a2613b49b5">
+    <name>version</name>
+    <synonym>
+      <key>ru</key>
+      <value>version</value>
+    </synonym>
+    <comment>Описание REST-сервиса.</comment>
+    <template>/*</template>
+    <methods uuid="02939f82-2346-4338-ba0f-1badb42b5fdd">
+      <name>version</name>
+      <synonym>
+        <key>ru</key>
+        <value>version</value>
+      </synonym>
+      <comment>Описание REST-сервиса.</comment>
+      <handler>Version</handler>
+    </methods>
+  </urlTemplates>
+</mdclass:HTTPService>

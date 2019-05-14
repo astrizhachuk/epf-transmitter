@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="021d5ecb-1efb-4ba8-9cc1-55fa8c576c63">
+  <producedTypes>
+    <managerType typeId="dcad2a88-6f52-4eb3-b8e3-65450b925e2a" valueTypeId="b1d9f1b9-6b77-4f93-84e9-643079a9c501"/>
+    <valueManagerType typeId="d43c0b72-3780-43d9-84a1-09050cf7cb6f" valueTypeId="f5fab537-7108-483b-99d3-4b8f3e0268d5"/>
+  </producedTypes>
+  <name>ТаймаутGitLab</name>
+  <synonym>
+    <key>ru</key>
+    <value>Таймаут запросов для GitLab</value>
+  </synonym>
+  <comment></comment>
+  <type>
+    <types>Number</types>
+    <numberQualifiers>
+      <precision>4</precision>
+      <nonNegative>true</nonNegative>
+    </numberQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <mask></mask>
+  <minValue xsi:type="core:StringValue">
+    <value>0</value>
+  </minValue>
+  <maxValue xsi:type="core:StringValue">
+    <value>3600</value>
+  </maxValue>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

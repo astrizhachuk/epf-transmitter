@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ff555ae7-5598-4fd7-a428-bcb7b4b7ef0b">
+  <producedTypes>
+    <refType typeId="94e0bfee-4375-46b1-afe7-bce3086f8fb2" valueTypeId="e82b7b3a-005a-4ab3-bd20-e5b1f7b4381b"/>
+    <listType typeId="9300f13c-bd5c-4964-8322-6ad5f54d8ec2" valueTypeId="5fbb535d-269b-48e8-8939-ac61c37882ae"/>
+    <managerType typeId="c7619195-f5c7-4724-b058-058080b9f9bc" valueTypeId="c4540993-e327-4135-970c-a9a8c0052bd1"/>
+  </producedTypes>
+  <name>УровеньЖурналаРегистрации</name>
+  <synonym>
+    <key>ru</key>
+    <value>Уровень журнала регистрации</value>
+  </synonym>
+  <comment></comment>
+  <standardAttributes>
+    <name>Order</name>
+    <comment></comment>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <mask></mask>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <standardAttributes>
+    <name>Ref</name>
+    <comment></comment>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <mask></mask>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="b45f5e6e-61a5-4351-aef1-304daf3ff1a2">
+    <name>Информация</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация</value>
+    </synonym>
+    <comment></comment>
+  </enumValues>
+  <enumValues uuid="c6cc024b-c7d9-4883-b11a-f22887e3217b">
+    <name>Ошибка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ошибка</value>
+    </synonym>
+    <comment></comment>
+  </enumValues>
+  <enumValues uuid="dd6aca5a-936a-45fe-8be1-6a0212a4f556">
+    <name>Предупреждение</name>
+    <synonym>
+      <key>ru</key>
+      <value>Предупреждение</value>
+    </synonym>
+    <comment></comment>
+  </enumValues>
+  <enumValues uuid="9373713e-34a4-4f11-a5de-91d29a439478">
+    <name>Примечание</name>
+    <synonym>
+      <key>ru</key>
+      <value>Примечание</value>
+    </synonym>
+    <comment></comment>
+  </enumValues>
+  <enumValues uuid="4c7e80de-2654-45b9-b9e8-4cb93ec3e75e">
+    <name>Другое</name>
+    <synonym>
+      <key>ru</key>
+      <value>Другое</value>
+    </synonym>
+    <comment></comment>
+  </enumValues>
+</mdclass:Enum>

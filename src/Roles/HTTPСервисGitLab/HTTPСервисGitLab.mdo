@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Role xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d80ef2b3-da95-4df2-b15a-f9f44f508373">
+  <name>HTTPСервисGitLab</name>
+  <synonym>
+    <key>ru</key>
+    <value>HTTP-сервис GitLab</value>
+  </synonym>
+  <comment></comment>
+</mdclass:Role>

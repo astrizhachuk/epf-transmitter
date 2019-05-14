@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c59104da-5d46-4f7f-9ba3-868f44236268">
+  <name>СервисыGitLab</name>
+  <synonym>
+    <key>ru</key>
+    <value>Сервисы GitLab</value>
+  </synonym>
+  <comment></comment>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.GitLab</picture>
+  </picture>
+  <content>CommonModule.СервисыGitLab</content>
+  <content>CommonModule.РаботаСИнтернетСервисами</content>
+  <content>Role.ПользовательGitLab</content>
+  <content>HTTPService.gitlab</content>
+  <content>Constant.ЗагружатьФайлыИзВнешнегоХранилища</content>
+  <content>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</content>
+  <content>Constant.ПользовательИБПолучателяGitLab</content>
+  <content>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</content>
+  <content>Constant.GitLabUserPrivateToken</content>
+  <content>Catalog.Webhooks</content>
+  <content>InformationRegister.Webhooks</content>
+  <content>Constant.ПарольПользователяИБПолучателяGitLab</content>
+  <content>CommonPicture.GitLab</content>
+  <content>CommonForm.НастройкиGitLab</content>
+  <content>Constant.ТаймаутGitLab</content>
+  <content>Constant.ТаймаутИБПолучателя</content>
+  <content>Constant.МестоположениеСервисаИБПолучателя</content>
+  <content>Role.HTTPСервисGitLab</content>
+</mdclass:Subsystem>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:WSReference xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6fc5331f-5de2-4199-9c15-0a661c13370e">
+  <producedTypes>
+    <managerType typeId="54bc549c-2f4e-4019-9dbf-8d949895d3c2" valueTypeId="73b7dbd3-99d1-4163-a818-57f0ab0c8061"/>
+  </producedTypes>
+  <name>EpfService</name>
+  <synonym>
+    <key>ru</key>
+    <value>Epf Service</value>
+  </synonym>
+  <locationURL>http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService?wsdl</locationURL>
+</mdclass:WSReference>
