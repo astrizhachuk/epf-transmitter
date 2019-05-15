@@ -3,6 +3,10 @@
   <items xsi:type="form:FormField">
     <name>ЗагружатьФайлыИзВнешнегоХранилища</name>
     <id>1</id>
+    <title>
+      <key>ru</key>
+      <value>Включить загрузку файлов из внешнего хранилища</value>
+    </title>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
