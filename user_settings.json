@@ -1,0 +1,14 @@
+{
+    "userSettings": [
+        {
+            "user": "a.strizhachuk",
+            "settings": {
+                "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
+                "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
+                "ПользовательИБПолучателя": "Тестер",
+                "ПарольПользователяИБПолучателя": "Тестер",
+                "МестоположениеСервисаИБПолучателя": "http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService"
+            }
+        }
+    ]
+}
