@@ -9,7 +9,9 @@
                 "ПользовательИБПолучателя": "Тестер",
                 "ПарольПользователяИБПолучателя": "Тестер",
                 "МестоположениеСервисовИБРаспределителя": "http://spbcoit58.stdp.ru/api/hs/gitlab",
-                "МестоположениеСервисаИБПолучателя": "http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService"
+                "МестоположениеСервисаИБПолучателя": "http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService",
+                "GitlabToken": "gita",
+                "ТелоPOSTЗапросаJSON": "./post-from-gitlab.json"
             }
         }
     ]
