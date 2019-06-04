@@ -61,6 +61,7 @@
   <constants>Constant.ТаймаутИБПолучателя</constants>
   <constants>Constant.МестоположениеСервисаИБПолучателя</constants>
   <commonForms>CommonForm.НастройкиGitLab</commonForms>
+  <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
   <catalogs>Catalog.Webhooks</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>
   <informationRegisters>InformationRegister.Webhooks</informationRegisters>

@@ -3,10 +3,12 @@
         {
             "user": "a.strizhachuk",
             "settings": {
+                "КорневойURLСервисовGitLab": "gitlab",
                 "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
                 "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
                 "ПользовательИБПолучателя": "Тестер",
                 "ПарольПользователяИБПолучателя": "Тестер",
+                "МестоположениеСервисовИБРаспределителя": "http://spbcoit58.stdp.ru/api/hs/gitlab",
                 "МестоположениеСервисаИБПолучателя": "http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService"
             }
         }
