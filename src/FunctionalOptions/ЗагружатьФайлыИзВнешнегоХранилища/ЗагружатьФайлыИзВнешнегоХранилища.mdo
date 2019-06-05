@@ -8,6 +8,4 @@
   <comment></comment>
   <location>Constant.ЗагружатьФайлыИзВнешнегоХранилища</location>
   <privilegedGetMode>true</privilegedGetMode>
-  <content>Catalog.Webhooks</content>
-  <content>InformationRegister.Webhooks</content>
 </mdclass:FunctionalOption>
