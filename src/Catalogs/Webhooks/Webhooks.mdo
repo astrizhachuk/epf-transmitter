@@ -113,7 +113,6 @@
   <codeAllowedLength>Variable</codeAllowedLength>
   <checkUnique>true</checkUnique>
   <autonumbering>true</autonumbering>
-  <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.Webhooks.Form.ФормаЭлемента</defaultObjectForm>
