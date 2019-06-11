@@ -11,7 +11,8 @@
                 "МестоположениеСервисовИБРаспределителя": "http://spbcoit58.stdp.ru/api/hs/gitlab",
                 "МестоположениеСервисаИБПолучателя": "http://std-dtrm04.stdp.ru/ut_2010_upd/ws/EpfService",
                 "GitlabToken": "gita",
-                "ТелоPOSTЗапросаJSON": "./post-from-gitlab.json"
+                "ЭталонТелоPOSTЗапросаJSON": "./features/mock/post-from-gitlab.json",
+                "ЭталонПравилМаршрутизацииJSON": "./features/mock/routing.json"
             }
         }
     ]

@@ -1,0 +1,32 @@
+{
+  "ws": [
+      {
+          "name": "spb",
+          "address": "http://spbcoit58.stdp.ru/Endpoint/ws/EpfService",
+          "enabled": true
+      },
+      {
+          "name": "msk",
+          "address": "adsfdasfasdfasdf2",
+          "enabled": false
+      },
+      {
+        "name": "msk2",
+        "address": "adsfdasfasdfasdf2",
+        "enabled": false
+    }
+      ],
+    "epf" :
+    
+    [
+      {
+          "name": "fileadsfdasfasdfasdf1",
+          "exclude": [
+              "spb",
+               "msk"]
+      },
+      {
+          "name": "fileadsfdasfasdfasdf2"
+      }
+      ]
+}
