@@ -1,6 +1,5 @@
 *Log.txt
 *.epf
 .settings
-.gitmodules
 test/.tester/request
 test/.tester/response
