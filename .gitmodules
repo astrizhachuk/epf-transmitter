@@ -1,6 +1,6 @@
 [submodule "test"]
 	path = test
-	url = https://github.com/AlexStrizh/gitlab-services-tester
+	url = git@git.a:a.strizhachuk/gitlab-services-tester.git
 [submodule "xUnits"]
 	path = xUnits
-	url = https://github.com/AlexStrizh/gitlab-services-xunits
+	url = git@git.a:a.strizhachuk/gitlab-services-xunits.git
