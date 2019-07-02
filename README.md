@@ -28,9 +28,9 @@
 
 * BDD [vanessa-automation](https://github.com/Pr-Mex/vanessa-automation) - ./features
 
-* Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester)
+* Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля
 
-* Модульные тесты в отдельном репозитории (см. gitlab-services-xunits)
+* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - ./xUnits (см. gitlab-services-xunits) - реализовано в виде подмодуля
 
 ## BPMN: изменение внешней обработки
 
