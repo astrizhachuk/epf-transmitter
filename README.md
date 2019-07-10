@@ -30,7 +30,7 @@
 
 * Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля
 
-* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - ./xUnits (см. gitlab-services-xunits) - реализовано в виде подмодуля
+* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - (в отдельном репозитории gitlab-services-xunits)
 
 ## BPMN: изменение внешней обработки
 
