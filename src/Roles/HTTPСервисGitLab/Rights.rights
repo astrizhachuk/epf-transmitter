@@ -25,7 +25,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.Webhooks</name>
+		<name>Catalog.ОбработчикиСобытий</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -64,7 +64,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.Webhooks</name>
+		<name>InformationRegister.ДанныеОбработчиковСобытий</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

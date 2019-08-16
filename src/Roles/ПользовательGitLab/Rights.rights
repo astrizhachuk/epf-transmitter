@@ -49,7 +49,14 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.Webhooks</name>
+		<name>CommonForm.ПроверкаПодключенияКСервисам</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Catalog.ОбработчикиСобытий</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -202,7 +209,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.Webhooks</name>
+		<name>InformationRegister.ДанныеОбработчиковСобытий</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -263,13 +270,6 @@
 	</object>
 	<object>
 		<name>CommonForm.НастройкиGitLab</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.ПроверкаПодключенияКСервисам</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Пользователь GitLab ИБ-получателя</value>
   </synonym>
-  <comment></comment>
   <type>
     <types>String</types>
     <stringQualifiers>
@@ -17,7 +16,6 @@
     </stringQualifiers>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <mask></mask>
   <minValue xsi:type="core:UndefinedValue"/>
   <maxValue xsi:type="core:UndefinedValue"/>
   <dataLockControlMode>Managed</dataLockControlMode>

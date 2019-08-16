@@ -5,7 +5,6 @@
     <key>ru</key>
     <value>Загружать файлы из внешнего хранилища</value>
   </synonym>
-  <comment></comment>
   <location>Constant.ЗагружатьФайлыИзВнешнегоХранилища</location>
   <privilegedGetMode>true</privilegedGetMode>
 </mdclass:FunctionalOption>

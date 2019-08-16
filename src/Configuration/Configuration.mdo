@@ -5,22 +5,17 @@
     <key>ru</key>
     <value>GitLab Services</value>
   </synonym>
-  <comment></comment>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="2eb7d482-1b4a-4bd3-8bbe-ae34a536ce1b"/>
   <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="c062b91a-21e7-4d3a-874b-190c5438edb2"/>
   <containedObjects classId="e3687481-0a87-462c-a166-9f34594f9bba" objectId="a3ae9eb6-7331-4f72-8b95-baec066103f5"/>
   <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="49f5a3ac-9183-492a-987c-da298b216074"/>
   <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="3c22c9b9-2aec-4b3d-ad7a-0f240ffba04f"/>
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="e5040620-326b-4a0c-a178-7f930b26ffab"/>
-  <namePrefix></namePrefix>
   <configurationExtensionCompatibilityMode>8.3.10</configurationExtensionCompatibilityMode>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.ПолныеПрава</defaultRoles>
-  <vendor></vendor>
-  <version></version>
-  <updateCatalogAddress></updateCatalogAddress>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
@@ -33,7 +28,6 @@
       <key>ru</key>
       <value>Русский</value>
     </synonym>
-    <comment></comment>
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.СервисыGitLab</subsystems>
@@ -62,7 +56,7 @@
   <constants>Constant.МестоположениеСервисаИБПолучателя</constants>
   <commonForms>CommonForm.НастройкиGitLab</commonForms>
   <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
-  <catalogs>Catalog.Webhooks</catalogs>
+  <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>
-  <informationRegisters>InformationRegister.Webhooks</informationRegisters>
+  <informationRegisters>InformationRegister.ДанныеОбработчиковСобытий</informationRegisters>
 </mdclass:Configuration>

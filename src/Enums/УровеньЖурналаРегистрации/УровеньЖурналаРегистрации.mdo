@@ -10,22 +10,17 @@
     <key>ru</key>
     <value>Уровень журнала регистрации</value>
   </synonym>
-  <comment></comment>
   <standardAttributes>
     <name>Order</name>
-    <comment></comment>
     <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
-    <mask></mask>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </standardAttributes>
   <standardAttributes>
     <name>Ref</name>
-    <comment></comment>
     <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
-    <mask></mask>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </standardAttributes>
@@ -37,7 +32,6 @@
       <key>ru</key>
       <value>Информация</value>
     </synonym>
-    <comment></comment>
   </enumValues>
   <enumValues uuid="c6cc024b-c7d9-4883-b11a-f22887e3217b">
     <name>Ошибка</name>
@@ -45,7 +39,6 @@
       <key>ru</key>
       <value>Ошибка</value>
     </synonym>
-    <comment></comment>
   </enumValues>
   <enumValues uuid="dd6aca5a-936a-45fe-8be1-6a0212a4f556">
     <name>Предупреждение</name>
@@ -53,7 +46,6 @@
       <key>ru</key>
       <value>Предупреждение</value>
     </synonym>
-    <comment></comment>
   </enumValues>
   <enumValues uuid="9373713e-34a4-4f11-a5de-91d29a439478">
     <name>Примечание</name>
@@ -61,7 +53,6 @@
       <key>ru</key>
       <value>Примечание</value>
     </synonym>
-    <comment></comment>
   </enumValues>
   <enumValues uuid="4c7e80de-2654-45b9-b9e8-4cb93ec3e75e">
     <name>Другое</name>
@@ -69,6 +60,5 @@
       <key>ru</key>
       <value>Другое</value>
     </synonym>
-    <comment></comment>
   </enumValues>
 </mdclass:Enum>

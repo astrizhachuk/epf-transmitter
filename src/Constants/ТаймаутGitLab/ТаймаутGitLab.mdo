@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Таймаут запросов для GitLab</value>
   </synonym>
-  <comment></comment>
   <type>
     <types>Number</types>
     <numberQualifiers>
@@ -18,7 +17,6 @@
     </numberQualifiers>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <mask></mask>
   <minValue xsi:type="core:StringValue">
     <value>0</value>
   </minValue>
