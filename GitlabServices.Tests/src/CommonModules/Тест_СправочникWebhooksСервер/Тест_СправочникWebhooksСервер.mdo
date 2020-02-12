@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="cf306376-08e4-4e1f-b947-d49740105585">
+  <name>Тест_СправочникWebhooksСервер</name>
+  <synonym>
+    <key>ru</key>
+    <value>Тест справочник webhooks сервер</value>
+  </synonym>
+  <server>true</server>
+  <serverCall>true</serverCall>
+</mdclass:CommonModule>
