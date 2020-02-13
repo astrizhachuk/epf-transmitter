@@ -2,8 +2,10 @@
   image:
     name: ${CI_REGISTRY}/devops/sonar-scanner-cli:latest
     entrypoint: [""]
+  variables:
+    MAIN_PROJECT: "GitlabServices"
   script:
-    - export PROJECT_VERSION="$(grep -oPm1 "(?<=<version>)[^<]+" ${CI_PROJECT_NAME}/src/Configuration/Configuration.mdo)"
+    - export PROJECT_VERSION="$(grep -oPm1 "(?<=<version>)[^<]+" ${MAIN_PROJECT}/src/Configuration/Configuration.mdo)"
   tags:
     - docker
 
