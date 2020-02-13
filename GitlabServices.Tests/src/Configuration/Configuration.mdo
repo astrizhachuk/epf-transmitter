@@ -23,7 +23,7 @@
   <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="6dc943f1-c48c-4616-bcc7-60dd3447cca3"/>
   <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="09c25a91-d2fb-491b-8658-e5bb9afd7d9c"/>
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="e734b06e-e5d8-4087-b052-20afbf354603"/>
-  <namePrefix>Tests_</namePrefix>
+  <namePrefix>Тест_</namePrefix>
   <configurationExtensionCompatibilityMode>8.3.10</configurationExtensionCompatibilityMode>
   <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
   <defaultRunMode>ManagedApplication</defaultRunMode>
