@@ -2,8 +2,6 @@
   image:
     name: ${CI_REGISTRY}/devops/sonar-scanner-cli:latest
     entrypoint: [""]
-  script:
-    - export PROJECT_VERSION="$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)"
   tags:
     - docker
 
@@ -12,7 +10,7 @@ push:
   <<: *job_image
   script: sonar-scanner
       -D"sonar.host.url=${SONAR_SERVER}"
-      -D"sonar.projectVersion=${PROJECT_VERSION}"
+      -D"sonar.projectVersion=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)"
       -D"sonar.login=${SONAR_LOGIN}"
       -D"sonar.branch.name=${CI_COMMIT_REF_NAME}"
   rules:
@@ -24,7 +22,7 @@ merge_request:
   <<: *job_image
   script: sonar-scanner
     -D"sonar.host.url=${SONAR_SERVER}"
-    -D"sonar.projectVersion=${PROJECT_VERSION}"
+    -D"sonar.projectVersion=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)"
     -D"sonar.login=${SONAR_LOGIN}"
     -D"sonar.pullrequest.key=${CI_MERGE_REQUEST_IID}"
     -D"sonar.pullrequest.branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
