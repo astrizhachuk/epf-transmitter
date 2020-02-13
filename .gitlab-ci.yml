@@ -1,0 +1,30 @@
+.job_image: &job_image
+  image:
+    name: ${CI_REGISTRY}/devops/sonar-scanner-cli:latest
+    entrypoint: [""]
+  tags:
+    - docker
+
+push:
+  stage: test
+  <<: *job_image
+  script: sonar-scanner
+      -D"sonar.host.url=${SONAR_SERVER}"
+      -D"sonar.branch.name=${CI_COMMIT_REF_NAME}"
+      -D"sonar.login=${SONAR_LOGIN}"
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: always
+
+merge_request:
+  stage: test
+  <<: *job_image
+  script: sonar-scanner
+    -D"sonar.host.url=${SONAR_SERVER}"
+    -D"sonar.pullrequest.key=${CI_MERGE_REQUEST_IID}"
+    -D"sonar.pullrequest.branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+    -D"sonar.pullrequest.base=${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+    -D"sonar.login=${SONAR_LOGIN}"
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+      when: always
