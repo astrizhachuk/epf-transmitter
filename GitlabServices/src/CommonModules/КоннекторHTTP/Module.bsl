@@ -1,3 +1,5 @@
+// BSLLS-выкл
+
 // Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
 //
 // Copyright 2017-2019 Vladimir Bondarevskiy
