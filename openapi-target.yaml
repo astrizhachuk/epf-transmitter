@@ -3,7 +3,7 @@ info:
   title: Внешние отчеты и обработки
   description: 'Управление внешними отчетами и обработками через HTTP сервис (REST).'
   contact:
-    email: a.strizhachuk@petrovich.ru
+    email: a.strizhachuk@yandex.ru
   version: 1.0.0
 servers:
 - url: http://localhost/target/hs/gitlab

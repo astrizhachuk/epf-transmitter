@@ -41,6 +41,7 @@
 
 * 1С не ниже v.8.3.10.2667.
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
+* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf/1.0.0) или [тут](./openapi-target.yaml).
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)
 
