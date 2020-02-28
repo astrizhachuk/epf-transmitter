@@ -1,0 +1,89 @@
+openapi: 3.0.1
+info:
+  title: Внешние отчеты и обработки
+  description: 'Управление внешними отчетами и обработками через HTTP сервис (REST).'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: a.strizhachuk@petrovich.ru
+  version: 1.0.0
+servers:
+- url: http://spbcoit58.stdp.ru/target/hs/gitlab
+  description: Develop
+paths:
+  /version:
+    get:
+      summary: Версия конфигурации
+      operationId: version
+      responses:
+        200:
+          description: Версия конфигурации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              examples:
+                foo:
+                  summary: Версия конфигурации
+                  value: {
+                    "type": "info",
+                    "message": "10.3.6.98"
+                  }
+  /update:
+    post:
+      summary: Обновить внешний отчет или обработку
+      operationId: updateEpf
+      requestBody:
+        description: Замена внешнего отчета или обработки
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/epf'
+        required: true
+      responses:
+        200:
+          description: Результат обновления
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              examples:
+                true:
+                  summary: Обновление успешно
+                  value: {
+                    "type": "info",
+                    "message": "Любое сообщение..."
+                  }
+                false:
+                  summary: Обновление не произошло
+                  value: {
+                    "type": "error",
+                    "message": "Ошибка такая-то..."
+                  }
+        400:
+          description: Ошибочный запрос
+          content: {}
+        423:
+          description: Функционал отключен
+          content: {}
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - info
+          - error
+        message:
+          type: string
+    epf:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Полное имя внешнего отчета или обработки (с расширением)
+        data:
+          type: string
+          format: binary
+          description: Внешний отчет или обработка в двоичном формате
