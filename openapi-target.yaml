@@ -2,12 +2,11 @@ openapi: 3.0.1
 info:
   title: Внешние отчеты и обработки
   description: 'Управление внешними отчетами и обработками через HTTP сервис (REST).'
-  termsOfService: http://swagger.io/terms/
   contact:
     email: a.strizhachuk@petrovich.ru
   version: 1.0.0
 servers:
-- url: http://spbcoit58.stdp.ru/target/hs/gitlab
+- url: http://localhost/target/hs/gitlab
   description: Develop
 paths:
   /version:
