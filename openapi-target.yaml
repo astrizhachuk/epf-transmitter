@@ -31,12 +31,19 @@ paths:
     post:
       summary: Обновить внешний отчет или обработку
       operationId: updateEpf
+      parameters:
+      - name: Name
+        in: header
+        description: Имя файла (без расширения)
+        required: true
+        schema:
+          type: string
       requestBody:
         description: Замена внешнего отчета или обработки
         content:
-          application/json:
+          application/octet-stream:
             schema:
-              $ref: '#/components/schemas/epf'
+              format: binary
         required: true
       responses:
         200:
@@ -78,16 +85,6 @@ components:
           - error
         message:
           type: string
-    epf:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Полное имя внешнего отчета или обработки (с расширением)
-        data:
-          type: string
-          format: binary
-          description: Внешний отчет или обработка в двоичном формате
   securitySchemes:
     api_key:
       type: apiKey
