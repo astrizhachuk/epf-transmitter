@@ -19,7 +19,7 @@
 		<service name="gitlab" 
 				rootUrl="gitlab" 
 				enable="true" 
-				reuseSessions="autouse" 
+				reuseSessions="dontuse" 
 				sessionMaxAge="20" 
 				poolSize="10" 
 				poolTimeout="5"/>

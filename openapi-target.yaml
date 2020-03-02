@@ -64,6 +64,8 @@ paths:
         423:
           description: Функционал отключен
           content: {}
+      security:
+      - api_key: []
 components:
   schemas:
     response:
@@ -86,3 +88,8 @@ components:
           type: string
           format: binary
           description: Внешний отчет или обработка в двоичном формате
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Token
+      in: header
