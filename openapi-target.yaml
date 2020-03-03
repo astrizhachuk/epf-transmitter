@@ -34,7 +34,7 @@ paths:
       parameters:
       - name: Name
         in: header
-        description: Имя файла (без расширения)
+        description: Полное имя файла (с расширением)
         required: true
         schema:
           type: string
