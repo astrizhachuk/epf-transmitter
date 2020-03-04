@@ -16,21 +16,15 @@
 
 Однотипность процесса разработки, уменьшение затрат на разработку, разработка в любой среде, контроль качества кода.
 
-## Описание проекта
+## Инструменты
 
-Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10).
+* Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10). Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
-* ./web - примеры настройки веб-сервера;
+* 1С не ниже v.8.3.10.2667;
 
-* ./tools - различные вспомогательные инструменты подготовки и обслуживания проекта в процессе разработки;
+* Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля;
 
-### Тестирование
-
-* BDD [vanessa-automation](https://github.com/Pr-Mex/vanessa-automation) - ./features
-
-* Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля
-
-* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - (в отдельном репозитории gitlab-services-xunits)
+* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitLabServices.Test](./GitLabServices.Test);
 
 ## BPMN: изменение внешней обработки
 
@@ -39,9 +33,8 @@
 
 ## Архитектура решения
 
-* 1С не ниже v.8.3.10.2667.
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
-* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf/1.0.0) или [тут](./openapi-target.yaml).
+* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf/1.0.0) или [тут](./api-target.yaml). Пример реализации сервиса для базы-приемника - [gitlab-services-target](https://github.com/astrizhachuk/gitlab-services-target)
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)
 
