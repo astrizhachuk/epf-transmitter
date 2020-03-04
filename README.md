@@ -1,5 +1,8 @@
 # Описание
 
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=gitlab-services&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=gitlab-services)
+[![Maintainability Rating](https://sonar.openbsl.ru/api/project_badges/measure?project=gitlab-services&metric=sqale_rating)](https://sonar.openbsl.ru/dashboard?id=gitlab-services)
+
 ## Суть проблемы
 
 * Редактирование неактуальных версий внешних отчетов и обработок.
@@ -20,11 +23,11 @@
 
 * Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10). Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
-* 1С не ниже v.8.3.10.2667;
+* Платформа 1С не ниже v.8.3.10.2667;
 
 * Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля;
 
-* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitLabServices.Test](./GitLabServices.Test);
+* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
 ## BPMN: изменение внешней обработки
 
