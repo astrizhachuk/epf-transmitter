@@ -27,10 +27,52 @@ paths:
                     "type": "info",
                     "message": "10.3.6.98"
                   }
+  /switch:
+    post:
+      summary: Включить/отключить функционал загрузки внешнего отчета или обработки
+      operationId: switch
+      parameters:
+      - name: Value
+        in: header
+        description: true - включить, false - отключить
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content: {}
+        required: false
+      responses:
+        200:
+          description: Текущее состояние
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              examples:
+                enabled:
+                  summary: Включено
+                  value: {
+                    "type": "info",
+                    "message": "Включено"
+                  }
+                disabled:
+                  summary: Отключено
+                  value: {
+                    "type": "info",
+                    "message": "Отключено"
+                  }
+        400:
+          description: Ошибочный запрос
+        401:
+          description: Не авторизован
+        403:
+          description: Доступ закрыт
+      security:
+      - api_key: []
   /update:
     post:
       summary: Обновить внешний отчет или обработку
-      operationId: updateEpf
+      operationId: update
       parameters:
       - name: Name
         in: header
@@ -39,7 +81,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: Замена внешнего отчета или обработки
+        description: Внешний отчет или обработка в двоичном формате
         content:
           application/octet-stream:
             schema:
@@ -67,10 +109,12 @@ paths:
                   }
         400:
           description: Ошибочный запрос
-          content: {}
+        401:
+          description: Не авторизован
+        403:
+          description: Доступ закрыт
         423:
           description: Функционал отключен
-          content: {}
       security:
       - api_key: []
 components:
