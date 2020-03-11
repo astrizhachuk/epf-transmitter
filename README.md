@@ -11,8 +11,8 @@
 
 ## Цели
 
-* Хранение внешних обработок в едином внешнем хранилище.
-* Версионирование изменений.
+* Хранение внешних обработок в одном месте для различных информационных баз.
+* Использование системы контроля версий.
 * Автоматизированная доставка изменений до информационных баз.
 
 ## Связь с целями и стратегией
@@ -24,8 +24,6 @@
 * Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10). Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
 * Платформа 1С не ниже v.8.3.10.2667;
-
-* Тесты в процессе разработки при помощи [Тестер](https://github.com/grumagargler/tester) - ./test (см. gitlab-services-tester) - реализовано в виде подмодуля;
 
 * Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
