@@ -1,5 +1,3 @@
-*Log.txt
 *.epf
 .settings
-test/.tester/request
-test/.tester/response
+!/test/**/*.epf
