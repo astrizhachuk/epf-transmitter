@@ -16,16 +16,13 @@
   <content>HTTPService.gitlab</content>
   <content>Constant.ЗагружатьФайлыИзВнешнегоХранилища</content>
   <content>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</content>
-  <content>Constant.ПользовательИБПолучателяGitLab</content>
   <content>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</content>
   <content>Constant.GitLabUserPrivateToken</content>
   <content>Catalog.ОбработчикиСобытий</content>
   <content>InformationRegister.ДанныеОбработчиковСобытий</content>
-  <content>Constant.ПарольПользователяИБПолучателяGitLab</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.НастройкиGitLab</content>
   <content>Constant.ТаймаутGitLab</content>
   <content>Constant.ТаймаутИБПолучателя</content>
-  <content>Constant.МестоположениеСервисаИБПолучателя</content>
   <content>Role.HTTPСервисGitLab</content>
 </mdclass:Subsystem>

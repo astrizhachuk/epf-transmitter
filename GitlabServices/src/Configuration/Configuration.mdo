@@ -46,13 +46,11 @@
   <wsReferences>WSReference.EpfService</wsReferences>
   <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
   <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
-  <constants>Constant.ПользовательИБПолучателяGitLab</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
-  <constants>Constant.ПарольПользователяИБПолучателяGitLab</constants>
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутИБПолучателя</constants>
-  <constants>Constant.МестоположениеСервисаИБПолучателя</constants>
+  <constants>Constant.ApiKeyИБПолучателя</constants>
   <commonForms>CommonForm.НастройкиGitLab</commonForms>
   <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
