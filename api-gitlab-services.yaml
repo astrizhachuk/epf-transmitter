@@ -1,0 +1,141 @@
+openapi: 3.0.1
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/astrizhachuk/gitlab-services/1.0.0
+  - description: Develop
+    url: http://localhost/api/hs/gitlab
+info:
+  title: API взаимодействия с GitLab
+  description: |
+    Работа с сервисами GitLab
+  contact:
+    email: a.strizhachuk@yandex.ru
+  version: 1.0.0
+tags:
+  - name: default
+    description: Общие методы
+  - name: webhooks
+    description: Обработка вебхук
+paths:
+  /services:
+    get:
+      tags:
+        - default
+      summary: Описание сервисов
+      description: |
+        Описание текущего состояния настроек HTTP-сервисов
+        взаимодействия с GitLab и описание их метаданных в системе 1С
+      operationId: services
+      responses:
+        200:
+          description: Описание сервисов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services'
+  /webhooks/epf/push:
+    post:
+      tags:
+        - webhooks
+      summary: Обработка события "push events"
+      description: |
+        Обработка события "push events" вебхука GitLab
+      operationId: webhooksEpfPush
+      parameters:
+      - name: X-Gitlab-File-Name
+        in: header
+        description: X-Gitlab-File-Name
+        required: true
+        schema:
+          type: string
+      - name: X-Gitlab-Event
+        in: header
+        description: X-Gitlab-Event
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: "Результат обработки события ???"
+          content: {}
+        400:
+          description: Ошибочный запрос
+        401:
+          description: Не авторизован
+        403:
+          description: Доступ закрыт
+        423:
+          description: Функционал отключен
+      security:
+      - api_key: []
+components:
+  schemas:
+    services:
+      type: object
+      description: "Описание сервисов из метаданных"
+      properties:
+        version:
+          type: string
+          description: "Версия конфигурации"
+        services:
+           $ref: "#/components/schemas/gitlab"
+    gitlab:
+      type: object
+      description: "Описание сервиса из метаданных"
+      properties:
+        name:
+          type: string
+          description: "Имя сервиса"
+        desc:
+          type: string
+          description: "Описание сервиса (из комментария)"
+        enabled:
+          type: boolean
+          description: "Текущее состояние"
+        templates:
+          $ref: "#/components/schemas/templates"
+    templates:
+      type: array
+      description: "Описание шаблонов из метаданных"
+      items:
+        $ref: "#/components/schemas/template"
+    template:
+      type: object
+      description: "Описание шаблона из метаданных"
+      properties:
+        name:
+          type: string
+          description: "Имя шаблона"
+        desc:
+          type: string
+          description: "Описание шаблона (из комментария)"
+        template:
+          type: string
+          description: "Шаблон"
+        methods:
+          type: array
+          description: "Описание методов из метаданных"
+          items:
+            $ref: "#/components/schemas/method"
+    method:
+      type: object
+      description: "Описание метода из метаданных"
+      properties:
+        name:
+          type: string
+          description: "Имя метода"
+        desc:
+          type: string
+          description: "Описание метода (из комментария)"
+        method:
+          type: string
+          description: "Метод"
+          enum:
+          - GET
+          - POST
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Gitlab-Token
+      in: header
