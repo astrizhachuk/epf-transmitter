@@ -36,6 +36,9 @@
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
+  <commonModules>CommonModule.КодОтветаHTTP</commonModules>
+  <commonModules>CommonModule.КодОтветаHTTPПовтИсп</commonModules>
+  <commonModules>CommonModule.КодОтветаHTTPСервер</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
@@ -43,7 +46,6 @@
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
-  <wsReferences>WSReference.EpfService</wsReferences>
   <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
   <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</constants>

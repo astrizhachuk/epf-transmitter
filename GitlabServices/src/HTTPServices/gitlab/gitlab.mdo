@@ -5,7 +5,7 @@
     <key>ru</key>
     <value>gitlab services</value>
   </synonym>
-  <comment>Сервисы для работы с GitLab</comment>
+  <comment>Работа с сервисами GitLab</comment>
   <rootURL>gitlab</rootURL>
   <reuseSessions>AutoUse</reuseSessions>
   <sessionMaxAge>20</sessionMaxAge>
@@ -15,35 +15,34 @@
       <key>ru</key>
       <value>webhook</value>
     </synonym>
-    <comment>Обработка webhooks от GitLab.</comment>
-    <template>/webhook/{ТипВнешнегоХранилища}/{ИмяМетода}/*</template>
+    <comment>Обработка webhooks GitLab</comment>
+    <template>/webhooks/{ТипВнешнегоХранилища}/{ИмяМетода}/*</template>
     <methods uuid="dac1c217-fb98-4ec1-9b24-e99a308236de">
       <name>updates</name>
       <synonym>
         <key>ru</key>
         <value>updates</value>
       </synonym>
-      <comment>Обновление данных в ИБ по изменениям в GitLab.</comment>
+      <comment>Обработка события &quot;push events&quot;</comment>
       <httpMethod>POST</httpMethod>
       <handler>WebhookUpdates</handler>
     </methods>
   </urlTemplates>
   <urlTemplates uuid="74a26fe0-749a-491a-8507-f3a2613b49b5">
-    <name>version</name>
+    <name>services</name>
     <synonym>
       <key>ru</key>
-      <value>version</value>
+      <value>Services</value>
     </synonym>
-    <comment>Описание REST-сервиса.</comment>
-    <template>/*</template>
+    <comment>Описание сервисов из метаданных</comment>
+    <template>/services</template>
     <methods uuid="02939f82-2346-4338-ba0f-1badb42b5fdd">
-      <name>version</name>
+      <name>GET</name>
       <synonym>
         <key>ru</key>
-        <value>version</value>
+        <value>GET</value>
       </synonym>
-      <comment>Описание REST-сервиса.</comment>
-      <handler>Version</handler>
+      <handler>ServicesGET</handler>
     </methods>
   </urlTemplates>
 </mdclass:HTTPService>
