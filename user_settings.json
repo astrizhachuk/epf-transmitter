@@ -10,7 +10,7 @@
                 "МестоположениеСервисаИБПолучателя": "http://localhost/receiver/hs/gitlab",
                 "GitlabToken": "gita",
                 "ЭталонТелоPOSTЗапросаJSON": "./features/mock/post-from-gitlab.json",
-                "ЭталонПравилМаршрутизацииJSON": "./features/mock/routing.json",
+                "ЭталонПравилМаршрутизацииJSON": "./features/mock/routing.json"
             }
         }
     ]
