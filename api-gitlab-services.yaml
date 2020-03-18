@@ -1,10 +1,10 @@
 openapi: 3.0.1
 servers:
 # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/astrizhachuk/gitlab-services/1.0.0
   - description: Develop
     url: http://localhost/api/hs/gitlab
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/astrizhachuk/gitlab-services/1.0.0
 info:
   title: API взаимодействия с GitLab
   description: |
@@ -43,22 +43,17 @@ paths:
         Обработка события "push events" вебхука GitLab
       operationId: webhooksEpfPush
       parameters:
-      - name: X-Gitlab-File-Name
-        in: header
-        description: X-Gitlab-File-Name
-        required: true
-        schema:
-          type: string
       - name: X-Gitlab-Event
         in: header
         description: X-Gitlab-Event
         required: true
         schema:
           type: string
+          enum:
+            - Push Hook
       responses:
         200:
-          description: "Результат обработки события ???"
-          content: {}
+          description: Успех
         400:
           description: Ошибочный запрос
         401:
