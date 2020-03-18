@@ -61,7 +61,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.gitlab.URLTemplate.webhook.Method.updates</name>
+		<name>HTTPService.gitlab.URLTemplate.webhooks.Method.POST</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
