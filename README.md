@@ -40,9 +40,41 @@
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)
 
+```
+@startuml
+GitLab -> "1C:Transmitter" ++ : webhook
+"1C:Transmitter" -> "1C:Transmitter" ++ : authentication
+return
+"1C:Transmitter" -> "1C:Transmitter" ++ : check request
+return
+"1C:Transmitter" -> "1C:Transmitter:BackgroundJobs" ** : start
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : prepare
+GitLab <- "1C:Transmitter:BackgroundJobs" : request files
+GitLab -> "1C:Transmitter:BackgroundJobs" : files
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
+"1C:Transmitter:BackgroundJobs" -> "1C:Receiver" : file
+return
+@enduml
+```
 
-
-
+```plantuml
+@startuml
+GitLab -> "1C:Transmitter" ++ : webhook
+"1C:Transmitter" -> "1C:Transmitter" ++ : authentication
+return
+"1C:Transmitter" -> "1C:Transmitter" ++ : check request
+return
+"1C:Transmitter" -> "1C:Transmitter:BackgroundJobs" ** : start
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : prepare
+GitLab <- "1C:Transmitter:BackgroundJobs" : request files
+GitLab -> "1C:Transmitter:BackgroundJobs" : files
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
+"1C:Transmitter:BackgroundJobs" -> "1C:Receiver" : file
+return
+@enduml
+```
 
 1. В основной ветке удаленного репозитория на GitLab осуществляется commit изменений.
 2. На сервере GitLab срабатывает webhook в виде запроса по методу POST в HTTP-сервис (REST) веб-сервера 1С ИБ-распределителя.
