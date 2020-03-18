@@ -56,6 +56,13 @@ paths:
           description: Успех
         400:
           description: Ошибочный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "error"
+                message: "Не определен метод сервиса, см. описание сервисов ../gitlab/services"
         401:
           description: Не авторизован
         403:
@@ -66,6 +73,16 @@ paths:
       - api_key: []
 components:
   schemas:
+    response:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - info
+          - error
+        message:
+          type: string
     services:
       type: object
       description: "Описание сервисов из метаданных"
