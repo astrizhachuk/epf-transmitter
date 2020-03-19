@@ -32,6 +32,7 @@
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.СервисыGitLab</subsystems>
+  <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
@@ -40,6 +41,7 @@
   <commonModules>CommonModule.КодОтветаHTTPПовтИсп</commonModules>
   <commonModules>CommonModule.КодОтветаHTTPСервер</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
   <commonModules>CommonModule.РаботаСИнтернетСервисами</commonModules>
