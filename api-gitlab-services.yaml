@@ -80,6 +80,7 @@ components:
           type: string
           enum:
           - info
+          - warning
           - error
         message:
           type: string
