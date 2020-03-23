@@ -56,19 +56,24 @@ paths:
           description: Успех
         400:
           description: Ошибочный запрос
+        403:
+          description: Доступ закрыт
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
               example:
                 type: "error"
-                message: "Не определен метод сервиса, см. описание сервисов ../gitlab/services"
-        401:
-          description: Не авторизован
-        403:
-          description: Доступ закрыт
+                message: "Секретный токен не найден."
         423:
           description: Функционал отключен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "warning"
+                message: "Отключен функционал загрузки из внешнего хранилища."
       security:
       - api_key: []
 components:
