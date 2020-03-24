@@ -63,7 +63,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/response'
               example:
-                type: "error"
+                type: "warning"
                 message: "Секретный токен не найден."
         423:
           description: Функционал отключен
