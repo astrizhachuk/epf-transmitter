@@ -1,12 +1,12 @@
 openapi: 3.0.1
 info:
-  title: Внешние отчеты и обработки
-  description: 'Управление внешними отчетами и обработками через HTTP сервис (REST).'
+  title: Внешние отчеты и обработки (receiver)
+  description: 'Управление внешними отчетами и обработками через HTTP сервис (REST). Receiver.'
   contact:
     email: a.strizhachuk@yandex.ru
   version: 1.0.0
 servers:
-- url: http://localhost/target/hs/gitlab
+- url: http://localhost/receiver/hs/gitlab
   description: Develop
 paths:
   /version:

@@ -291,61 +291,7 @@
     <name>ГруппаНастройкиИБПолучателя</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>ПользовательИБПолучателя</name>
-      <id>4</id>
-      <title>
-        <key>ru</key>
-        <value>Пользователь</value>
-      </title>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ПользовательИБПолучателя</segments>
-      </dataPath>
-      <extendedTooltip>
-        <name>ПользовательИБПолучателяРасширеннаяПодсказка</name>
-        <id>6</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>ПользовательИБПолучателяКонтекстноеМеню</name>
-        <id>5</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>ПарольПользователяИБПолучателя</name>
+      <name>ApiKeyИБПолучателя</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -353,8 +299,13 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>ПарольПользователяИБПолучателя</segments>
+        <segments>ApiKeyИБПолучателя</segments>
       </dataPath>
+      <toolTip>
+        <key>ru</key>
+        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок в ИБ-получатель</value>
+      </toolTip>
+      <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
         <name>ПарольПользователяИБПолучателяРасширеннаяПодсказка</name>
         <id>15</id>
@@ -389,61 +340,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
-        <passwordMode>true</passwordMode>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>МестоположениеСервисаИБПолучателя</name>
-      <id>32</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>МестоположениеСервисаИБПолучателя</segments>
-      </dataPath>
-      <toolTip>
-        <key>ru</key>
-        <value>Используется для инициализации сервисов доставки (получение wsdl).</value>
-      </toolTip>
-      <extendedTooltip>
-        <name>МестоположениеСервисаИБПолучателяРасширеннаяПодсказка</name>
-        <id>34</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>МестоположениеСервисаИБПолучателяКонтекстноеМеню</name>
-        <id>33</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>Enter</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
+        <passwordMode>false</passwordMode>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
@@ -517,7 +414,7 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Настройки подключения к конечной точке</value>
+      <value>Настройки подключения к конечным точкам</value>
     </title>
     <toolTip>
       <key>ru</key>
@@ -679,37 +576,16 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПользовательИБПолучателя</name>
+    <name>ApiKeyИБПолучателя</name>
     <title>
       <key>ru</key>
-      <value>Пользователь</value>
-    </title>
-    <id>2</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers>
-        <length>50</length>
-      </stringQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <fillChecking>ShowError</fillChecking>
-  </attributes>
-  <attributes>
-    <name>ПарольПользователяИБПолучателя</name>
-    <title>
-      <key>ru</key>
-      <value>Пароль</value>
+      <value>API-key</value>
     </title>
     <id>3</id>
     <valueType>
       <types>String</types>
       <stringQualifiers>
-        <length>50</length>
+        <length>20</length>
       </stringQualifiers>
     </valueType>
     <view>
@@ -793,26 +669,6 @@
         <precision>4</precision>
         <nonNegative>true</nonNegative>
       </numberQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>МестоположениеСервисаИБПолучателя</name>
-    <title>
-      <key>ru</key>
-      <value>Местоположение сервиса ИБ получателя (по умолчанию)</value>
-    </title>
-    <id>8</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers>
-        <length>255</length>
-      </stringQualifiers>
     </valueType>
     <view>
       <common>true</common>

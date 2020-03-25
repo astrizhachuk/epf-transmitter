@@ -11,7 +11,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.gitlab.URLTemplate.version.Method.version</name>
+		<name>HTTPService.gitlab.URLTemplate.services.Method.GET</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -50,20 +50,6 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.МестоположениеСервисаИБПолучателя</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Constant.ПользовательИБПолучателяGitLab</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
 		<name>InformationRegister.ДанныеОбработчиковСобытий</name>
 		<right>
 			<name>Read</name>
@@ -75,14 +61,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ПарольПользователяИБПолучателяGitLab</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>HTTPService.gitlab.URLTemplate.webhook.Method.updates</name>
+		<name>HTTPService.gitlab.URLTemplate.webhooks.Method.POST</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

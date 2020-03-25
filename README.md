@@ -19,11 +19,11 @@
 
 Однотипность процесса разработки, уменьшение затрат на разработку, разработка в любой среде, контроль качества кода.
 
-## Инструменты
+## Инструменты разработки
 
 * Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10). Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
-* Платформа 1С не ниже v.8.3.10.2667;
+* Платформа 1С не ниже 8.3.10.2667;
 
 * Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
@@ -34,10 +34,29 @@
 
 ## Архитектура решения
 
+* Описание API [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services/1.0.0) или [тут](./api-gitlab-services.yaml).
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
-* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf/1.0.0) или [тут](./api-target.yaml). Пример реализации сервиса для базы-приемника - [gitlab-services-target](https://github.com/astrizhachuk/gitlab-services-target)
+* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0) или [тут](./api-receiver.yaml). Пример реализации сервиса для базы-приемника - [gitlab-services-receiver](https://github.com/astrizhachuk/gitlab-services-receiver)
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)
+
+```plantuml
+@startuml
+GitLab -> "1C:Transmitter" ++ : webhook
+"1C:Transmitter" -> "1C:Transmitter:BackgroundJobs" ** : start job
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : prepare
+GitLab <- "1C:Transmitter:BackgroundJobs" ++ : request files
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
+"1C:Transmitter:BackgroundJobs" -> "1C:Receiver" : file
+"1C:Transmitter:BackgroundJobs" <- "1C:Receiver" : status
+return
+return
+@enduml
+```
+
+![UML](./doc/images/UML.png)
 
 1. В основной ветке удаленного репозитория на GitLab осуществляется commit изменений.
 2. На сервере GitLab срабатывает webhook в виде запроса по методу POST в HTTP-сервис (REST) веб-сервера 1С ИБ-распределителя.
@@ -51,7 +70,7 @@
 5. В ИБ-получателе производятся действия согласно правилам настроек маршрутизации.
 6. Мониторинг ИБ-распределителя осуществляется либо через web-client, либо через тонкий клиент.
 
-## Включение и откючение функционала
+## Включение и отключение функционала
 
 Включить или отключить процесс обработки событий от GitLab и доставку внешних обработок в базы-получатели можно в ИБ-распределителе через "Сервисы GitLab" - "Сервис" - "Настройки сервисов GitLab" флажок "Включить загрузку файлов из внешнего хранилища".
 

@@ -16,7 +16,7 @@
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.ПолныеПрава</defaultRoles>
-  <version>1.0.0.2</version>
+  <version>1.0.1.4</version>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
@@ -32,27 +32,28 @@
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.СервисыGitLab</subsystems>
+  <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
+  <commonModules>CommonModule.КодОтветаHTTP</commonModules>
+  <commonModules>CommonModule.КодОтветаHTTPПовтИсп</commonModules>
+  <commonModules>CommonModule.КодОтветаHTTPСервер</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
   <commonModules>CommonModule.РаботаСИнтернетСервисами</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
-  <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
-  <wsReferences>WSReference.EpfService</wsReferences>
   <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
   <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
-  <constants>Constant.ПользовательИБПолучателяGitLab</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
-  <constants>Constant.ПарольПользователяИБПолучателяGitLab</constants>
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутИБПолучателя</constants>
-  <constants>Constant.МестоположениеСервисаИБПолучателя</constants>
+  <constants>Constant.ApiKeyИБПолучателя</constants>
   <commonForms>CommonForm.НастройкиGitLab</commonForms>
   <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>

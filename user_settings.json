@@ -3,17 +3,14 @@
         {
             "user": "a.strizhachuk",
             "settings": {
-                "КорневойURLСервисовGitLab": "gitlab",
                 "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
                 "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
-                "ПользовательИБПолучателя": "Тестер",
-                "ПарольПользователяИБПолучателя": "Тестер",
+                "ApiKeyИБПолучателя": "12345678901234567890",
                 "МестоположениеСервисовИБРаспределителя": "http://localhost/api/hs/gitlab",
-                "МестоположениеСервисаИБПолучателя": "http://localhost/target/hs/gitlab",
+                "МестоположениеСервисаИБПолучателя": "http://localhost/receiver/hs/gitlab",
                 "GitlabToken": "gita",
-                "ЭталонТелоPOSTЗапросаJSON": "./features/mock/post-from-gitlab.json",
-                "ЭталонПравилМаршрутизацииJSON": "./features/mock/routing.json",
-                "ЭталонОписанияСервисовJSON": "./features/mock/services.json"
+                "ЭталонТелоPOSTЗапросаJSON": "/features/mock/post-from-gitlab.json",
+                "ЭталонПравилМаршрутизацииJSON": "/features/mock/routing.json"
             }
         }
     ]
