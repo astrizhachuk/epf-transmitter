@@ -54,6 +54,13 @@ paths:
       responses:
         200:
           description: Успех
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "info"
+                message: "Запрос обработан."
         400:
           description: Ошибочный запрос
         403:
