@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  srv:
+    image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
+    hostname: srv
+    #domainname: host.docker.internal
+    depends_on:
+      - db
+    ports:
+      - "1540-1541:1540-1541"
+      - "1560-1591:1560-1591"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+    networks:
+      - back_net
+
+  db:
+    image: strizhhh/postgresql-pro-1c:9.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    networks:
+      - back_net
+
+  client:
+    image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
+    ports:
+      - "5900:5900"
+    volumes:
+      - client_data:/home/usr1cv8/.1cv8
+    networks:
+      - back_net
+
+volumes:
+  srv_data:
+  srv_log:
+  db_data:
+  client_data:
+
+networks:
+  back_net:
