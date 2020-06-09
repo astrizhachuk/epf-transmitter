@@ -5,12 +5,15 @@ services:
   srv:
     image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
     hostname: srv
-    #domainname: host.docker.internal
     depends_on:
       - db
     ports:
       - "1540-1541:1540-1541"
+      # для режима отладки
+      - "1550:1550"
       - "1560-1591:1560-1591"
+    # entrypoint нужен только для запуска сервера с отладкой
+    entrypoint: ["/opt/1C/v8.3/x86_64/ragent", "-debug", "-http"]
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
     networks:
