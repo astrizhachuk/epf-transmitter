@@ -3,13 +3,12 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 		xmlns:core="http://v8.1c.ru/8.1/data/core" 
 		base="/api" 
-		ib="Srvr=&quot;localhost&quot;;Ref=&quot;gitlabServices&quot;;usr=&quot;site&quot;;pwd=&quot;12345&quot;"
+		ib="Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345"
 		enable="false" 
-		enableStandardOData="false" 
-		temp="C:\w\1c\tmp">
+		enableStandardOData="false">
 	<debug enable="true" 
 			protocol="http" 
-			url="http://localhost:1550"/>
+			url="http://srv:1550"/>
 	<ws enable="true" 
 			pointEnableCommon="true" 
 			publishExtensionsByDefault="true">
