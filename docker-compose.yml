@@ -31,7 +31,7 @@ services:
 
   web:
     image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
-    domainname: host.docker.internal 
+    #domainname: host.docker.internal 
     depends_on:
       - srv
     command: >
