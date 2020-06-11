@@ -27,6 +27,10 @@
 
 * Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
+## Процесс разработки и сборки проекта
+
+//TODO описание сценария разворачивания дева через compose и сборки релизного контейнера
+
 ## BPMN: изменение внешней обработки
 
 ![Изменение внешней обработки: 1](./doc/images/ВнешниеОбработки.png)
