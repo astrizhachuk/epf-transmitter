@@ -11,8 +11,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Объект.Code</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Объект.Code</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>КодРасширеннаяПодсказка</name>
@@ -61,8 +63,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Объект.Description</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Объект.Description</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>НаименованиеРасширеннаяПодсказка</name>
@@ -140,8 +144,10 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>Объект.СекретныйТокен</segments>
+    <dataPath xsi:type="form:MultiLanguageDataPath">
+      <paths xsi:type="form:DataPath">
+        <segments>Объект.СекретныйТокен</segments>
+      </paths>
     </dataPath>
     <toolTip>
       <key>ru</key>
@@ -216,8 +222,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>СохраненныеДанные.Ключ</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>СохраненныеДанные.Ключ</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>СохраненныеДанныеКлючРасширеннаяПодсказка</name>
@@ -749,8 +757,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.Дата</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.Дата</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияДатаРасширеннаяПодсказка</name>
@@ -797,8 +807,10 @@
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible/>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.Источник</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.Источник</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияИсточникРасширеннаяПодсказка</name>
@@ -843,8 +855,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.Уровень</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.Уровень</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияУровеньРасширеннаяПодсказка</name>
@@ -893,8 +907,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.КодСостоянияHTTP</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.КодСостоянияHTTP</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияКодСостоянияHTTPРасширеннаяПодсказка</name>
@@ -941,8 +957,10 @@
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible/>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.Событие</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.Событие</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияСобытиеРасширеннаяПодсказка</name>
@@ -989,8 +1007,10 @@
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible/>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.ПредставлениеСобытия</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.ПредставлениеСобытия</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияПредставлениеСобытияРасширеннаяПодсказка</name>
@@ -1039,8 +1059,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.Комментарий</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.Комментарий</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияКомментарийРасширеннаяПодсказка</name>
@@ -1089,8 +1111,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.ИмяПользователя</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.ИмяПользователя</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияИмяПользователяРасширеннаяПодсказка</name>
@@ -1139,8 +1163,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.ПредставлениеПриложения</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияСобытий.ПредставлениеПриложения</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ИсторияПредставлениеПриложенияРасширеннаяПодсказка</name>
@@ -1351,6 +1377,11 @@
         <verticalStretch>true</verticalStretch>
         <extInfo xsi:type="form:DynamicListTableExtInfo">
           <autoRefreshPeriod>60</autoRefreshPeriod>
+          <period>
+            <startDate>0001-01-01T00:00:00</startDate>
+            <endDate>0001-01-01T00:00:00</endDate>
+          </period>
+          <topLevelParent xsi:type="core:UndefinedValue"/>
           <showRoot>true</showRoot>
         </extInfo>
       </items>

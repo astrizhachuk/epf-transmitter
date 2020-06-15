@@ -12,8 +12,10 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>ЗагружатьФайлыИзВнешнегоХранилища</segments>
+    <dataPath xsi:type="form:MultiLanguageDataPath">
+      <paths xsi:type="form:DataPath">
+        <segments>ЗагружатьФайлыИзВнешнегоХранилища</segments>
+      </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
@@ -90,8 +92,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>GitLabUserPrivateToken</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>GitLabUserPrivateToken</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -145,8 +149,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ИмяФайлаНастроекМаршрутизации</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ИмяФайлаНастроекМаршрутизации</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ИмяФайлаНастроекМаршрутизацииРасширеннаяПодсказка</name>
@@ -195,8 +201,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ТаймаутGitLab</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ТаймаутGitLab</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -298,8 +306,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ApiKeyИБПолучателя</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ApiKeyИБПолучателя</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -354,8 +364,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ТаймаутИБПолучателя</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ТаймаутИБПолучателя</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>

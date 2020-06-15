@@ -20,8 +20,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.УникальныйИдентификатор</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.УникальныйИдентификатор</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокУникальныйИдентификаторРасширеннаяПодсказка</name>
@@ -66,8 +68,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.Состояние</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.Состояние</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокСостояниеРасширеннаяПодсказка</name>
@@ -116,8 +120,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.ИмяМетода</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.ИмяМетода</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокИмяМетодаРасширеннаяПодсказка</name>
@@ -166,8 +172,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.Ключ</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.Ключ</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокКлючРасширеннаяПодсказка</name>
@@ -216,8 +224,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.Наименование</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.Наименование</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокНаименованиеРасширеннаяПодсказка</name>
@@ -266,8 +276,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.Начало</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.Начало</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокНачалоРасширеннаяПодсказка</name>
@@ -316,8 +328,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.Конец</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.Конец</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокКонецРасширеннаяПодсказка</name>
@@ -366,8 +380,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Список.ИнформацияОбОшибке</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Список.ИнформацияОбОшибке</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СписокИнформацияОбОшибкеРасширеннаяПодсказка</name>

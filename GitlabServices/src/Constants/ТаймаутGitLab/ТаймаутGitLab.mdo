@@ -3,6 +3,7 @@
   <producedTypes>
     <managerType typeId="dcad2a88-6f52-4eb3-b8e3-65450b925e2a" valueTypeId="b1d9f1b9-6b77-4f93-84e9-643079a9c501"/>
     <valueManagerType typeId="d43c0b72-3780-43d9-84a1-09050cf7cb6f" valueTypeId="f5fab537-7108-483b-99d3-4b8f3e0268d5"/>
+    <valueKeyType typeId="d7e4454e-c76a-53f5-a01a-16772850443e" valueTypeId="be674dd1-6007-5b54-8bdd-fa14cbf9ea99"/>
   </producedTypes>
   <name>ТаймаутGitLab</name>
   <synonym>

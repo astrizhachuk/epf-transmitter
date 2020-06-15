@@ -11,8 +11,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Период</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Период</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ПериодРасширеннаяПодсказка</name>
