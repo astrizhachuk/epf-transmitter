@@ -11,18 +11,22 @@
   <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="49f5a3ac-9183-492a-987c-da298b216074"/>
   <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="3c22c9b9-2aec-4b3d-ad7a-0f240ffba04f"/>
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="e5040620-326b-4a0c-a178-7f930b26ffab"/>
-  <configurationExtensionCompatibilityMode>8.3.10</configurationExtensionCompatibilityMode>
+  <configurationExtensionCompatibilityMode>8.3.16</configurationExtensionCompatibilityMode>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.ПолныеПрава</defaultRoles>
   <version>1.0.1.4</version>
+  <requiredMobileApplicationPermissions>
+    <permission>AllowOSBackup</permission>
+    <use>true</use>
+  </requiredMobileApplicationPermissions>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
-  <compatibilityMode>8.3.10</compatibilityMode>
+  <compatibilityMode>8.3.16</compatibilityMode>
   <languages uuid="c6c2ae86-2d14-4c59-8acb-8919a72352b1">
     <name>Русский</name>
     <synonym>

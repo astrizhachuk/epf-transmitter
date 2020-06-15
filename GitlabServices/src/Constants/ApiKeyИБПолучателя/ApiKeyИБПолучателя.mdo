@@ -3,6 +3,7 @@
   <producedTypes>
     <managerType typeId="e85ca2f4-e442-4e7f-814a-4a979c0ca28f" valueTypeId="534d5216-8962-4c61-966a-e5c02012954d"/>
     <valueManagerType typeId="c6778151-1187-425c-ab3a-fb5a94b8bcc2" valueTypeId="aa7b2e41-2cec-42e3-a3d3-15c7e2711546"/>
+    <valueKeyType typeId="9c8f8d64-fe02-5114-8c44-039c3b8320be" valueTypeId="64c0bbcc-5104-5c87-aa15-5ab795810f8a"/>
   </producedTypes>
   <name>ApiKeyИБПолучателя</name>
   <synonym>

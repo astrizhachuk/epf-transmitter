@@ -21,9 +21,9 @@
 
 ## Инструменты разработки
 
-* Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10). Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
+* Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2020.4.0+425. Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
-* Платформа 1С не ниже 8.3.10.2667;
+* Платформа 1С не ниже 8.3.16.1502;
 
 * Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 

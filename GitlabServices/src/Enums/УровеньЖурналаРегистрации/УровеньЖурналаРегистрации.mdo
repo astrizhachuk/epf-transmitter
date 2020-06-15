@@ -11,6 +11,7 @@
     <value>Уровень журнала регистрации</value>
   </synonym>
   <standardAttributes>
+    <dataHistory>Use</dataHistory>
     <name>Order</name>
     <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
@@ -18,6 +19,7 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </standardAttributes>
   <standardAttributes>
+    <dataHistory>Use</dataHistory>
     <name>Ref</name>
     <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
