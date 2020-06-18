@@ -47,13 +47,39 @@ services:
     networks:
       - back_net
 
+  ras:
+    image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
+    depends_on:
+      - srv
+    entrypoint: /opt/1C/v8.3/x86_64/ras
+    command: "cluster srv:1540"
+    ports:
+      - "1545:1545"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+    networks:
+      - back_net
+    
   client:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     ports:
       - "5900:5900"
     volumes:
       - client_data:/home/usr1cv8/.1cv8
-      - client_data:/home/usr1cv8/.1C
+      - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
+      - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
+    networks:
+      - back_net
+
+  client-va:
+    image: ${DOCKER_USERNAME}/client-vnc-va:${ONEC_VERSION}
+    ports:
+      - "5901:5900"
+    environment: 
+      - ONEC_EXEC_PARAMS=ENTERPRISE /s srv\gitlabServices16 /Execute /opm/va/vanessa-automation.epf
+    volumes:
+      - client_data:/home/usr1cv8/.1cv8
       - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
     networks:
       - back_net
