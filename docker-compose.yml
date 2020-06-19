@@ -62,28 +62,14 @@ services:
   #   networks:
   #     - back_net
     
-  # client:
-  #   image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
-  #   ports:
-  #     - "5900:5900"
-  #   volumes:
-  #     - client_data:/home/usr1cv8/.1cv8
-  #     - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
-  #     - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
-  #   networks:
-  #     - back_net
-
-  client-va:
-    image: ${DOCKER_USERNAME}/client-vnc-vas:${ONEC_VERSION}
+  client:
+    image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     ports:
-      - "5901:5900"
-    environment: 
-      - ONEC_EXEC_PARAMS=ENTERPRISE /s srv\gitlabServices16 /N Администратор /Execute /usr/lib/vanessa-automation-single.epf /C"StartFeaturePlayer;workspaceRoot=/home/usr1cv8/project;VBParams=/home/usr1cv8/VAParams.json"
+      - "5900:5900"
     volumes:
       - client_data:/home/usr1cv8/.1cv8
+      - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
       - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
-      - ./tools/VAParams.json:/home/usr1cv8/VAParams.json
-      - ./:/home/usr1cv8/project
     networks:
       - back_net
 
