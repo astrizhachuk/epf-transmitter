@@ -1,3 +1,0 @@
-[submodule "tools/onec-docker"]
-	path = tools/onec-docker
-	url = git@github.com:astrizhachuk/onec-docker.git
