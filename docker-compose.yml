@@ -4,6 +4,13 @@ services:
 
   srv:
     image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
+    build:
+      context: https://github.com/astrizhachuk/onec-docker.git
+      dockerfile: ./server/Dockerfile
+      args:
+        - ONEC_USERNAME
+        - ONEC_PASSWORD
+        - ONEC_VERSION
     hostname: srv
     depends_on:
       - db
@@ -11,8 +18,7 @@ services:
       - "1540-1541:1540-1541"
       - "1550:1550" # для режима отладки
       - "1560-1591:1560-1591"
-    # entrypoint нужен только для запуска сервера с отладкой
-    entrypoint: ["/opt/1C/v8.3/x86_64/ragent", "-debug", "-http"]
+    entrypoint: ["/opt/1C/v8.3/x86_64/ragent", "-debug", "-http"] # entrypoint только для отладки, иначе - удалить
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
@@ -30,9 +36,16 @@ services:
     networks:
       - back_net
 
-  web:
+  ws:
     image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
     #domainname: host.docker.internal
+    build:
+      context: https://github.com/astrizhachuk/onec-docker.git
+      dockerfile: ./ws/Dockerfile
+      args:
+        - ONEC_USERNAME
+        - ONEC_PASSWORD
+        - ONEC_VERSION
     depends_on:
       - srv
     command: >
@@ -65,6 +78,14 @@ services:
     
   client:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
+    build:
+      context: https://github.com/astrizhachuk/onec-docker.git
+      dockerfile: ./client-all/Dockerfile
+      args:
+        - ONEC_USERNAME
+        - ONEC_PASSWORD
+        - ONEC_VERSION
+      target: client-vnc
     ports:
       - "5900:5900"
     volumes:
