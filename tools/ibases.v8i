@@ -1,0 +1,10 @@
+﻿[srv]
+Connect=Srvr="srv";Ref="gitlabServices";
+ID=be2772dc-44b9-4310-8c8c-5bbf58d312d6
+OrderInList=16384
+Folder=/
+OrderInTree=16384
+External=0
+App=Auto
+WA=1
+Version=8.3
