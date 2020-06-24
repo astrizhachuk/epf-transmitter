@@ -38,7 +38,6 @@ services:
 
   ws:
     image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
-    #domainname: host.docker.internal
     build:
       context: https://github.com/astrizhachuk/onec-docker.git
       dockerfile: ./ws/Dockerfile

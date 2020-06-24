@@ -21,15 +21,89 @@
 
 ## Инструменты разработки
 
-* Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2020.4.0+425. Проект создан по [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
+* Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2020.4.0+425. Проект создан на основе [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
 * Платформа 1С не ниже 8.3.16.1502;
 
-* Модульные тесты EDT [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении, см. [./GitlabServices.Tests](./GitlabServices.Tests);
+* Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении конфигурации EDT, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
-## Процесс разработки и сборки проекта
+* Среда для разработки разворачивается с помощью docker-compose, а сам продукт поставляется в виде образов [docker](https://www.docker.com)
 
-//TODO описание сценария разворачивания дева через compose и сборки релизного контейнера
+## Процесс разработки
+
+Предполагается следующий цикл при работе над проектом:
+
+Начинаем...
+
+1. Pull проекта из удаленного репозитория;
+
+2. Разворачивание среды;
+
+3. Разработка в EDT в развернутой среде (база-данных, веб-сервис, утилиты);
+
+4. Тестирование в развернутой среде;
+
+5. Push изменений и PR (MR) в удаленный репозиторий;
+
+6. Прогон автоматических тестов, сборка релиза и документации на сервере;
+
+...повторяем.
+
+### Сборка проекта
+
+#### Установка требуемого ПО
+
+Например, для ```windows```, можно воспользоваться менеджером пакетов [chocolatey](https://chocolatey.org):
+
+```bash
+> tools\install-env.cmd
+```
+
+#### Клонирование проекта из удаленного репозитория
+
+```bash
+> git clone https://github.com/astrizhachuk/gitlab-services.git
+```
+
+#### Конфигурация проекта
+
+Для самостоятельной сборки проекта необходимо любым способом установить переменные окружения. Если образы уже есть, то данные шаг не обязателен.
+
+>ONEC_USERNAME - учётная запись на http://releases.1c.ru
+>
+>ONEC_PASSWORD - пароль для учётной записи на http://releases.1c.ru
+>
+>ONEC_VERSION - версия платформы 1С:Преприятия 8.3, для которой собирается проект
+>
+>DOCKER_USERNAME - учетная запись на [Docker Hub](https://hub.docker.com) или в корпоративном registry
+>
+Настроить в проекте подключение к серверу лицензий в файле [nethasp.ini](./tools/nethasp.ini)
+
+#### Операции с окружением
+
+Разворачивание окружения с предварительной сборкой образов:
+
+```bash
+> docker-compose up -d --build
+```
+
+Запуск всех сервисов:
+
+```bash
+> docker-compose start
+```
+
+Запуск выборочных сервисов:
+
+```bash
+> docker-compose start srv db ws
+```
+
+Остановка всех сервисов:
+
+```bash
+> docker-compose stop
+```
 
 ## BPMN: изменение внешней обработки
 
