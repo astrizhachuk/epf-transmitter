@@ -49,4 +49,6 @@
   <commonModules>CommonModule.Тест_СправочникОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыКлиент</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыСервер</commonModules>
+  <commonModules>CommonModule.Тест_СтроковыеФункцииКлиент</commonModules>
+  <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
 </mdclass:Configuration>
