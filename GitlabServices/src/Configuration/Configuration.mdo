@@ -51,6 +51,7 @@
   <commonModules>CommonModule.РаботаСИнтернетСервисами</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
   <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>

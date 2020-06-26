@@ -108,10 +108,10 @@
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.ОбработчикиСобытий.Form.ФормаЭлемента</defaultObjectForm>
   <attributes uuid="55455e9c-9afd-4878-ad8f-a14d78247c46">
-    <name>СекретныйТокен</name>
+    <name>СекретныйКлюч</name>
     <synonym>
       <key>ru</key>
-      <value>Секретный токен (Secret Token)</value>
+      <value>Секретный ключ (Secret Token)</value>
     </synonym>
     <type>
       <types>String</types>
