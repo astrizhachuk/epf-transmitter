@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<point xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:core="http://v8.1c.ru/8.1/data/core" 
+		base="/receiver" 
+		ib="File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab"
+		enable="false" 
+		enableStandardOData="false">
+	<ws enable="true" 
+			pointEnableCommon="true" 
+			publishExtensionsByDefault="true">
+	</ws>
+	<httpServices publishByDefault="true" 
+			publishExtensionsByDefault="true">
+		<service name="gitlab" 
+				rootUrl="gitlab" 
+				enable="true" 
+				reuseSessions="dontuse" 
+				sessionMaxAge="20" 
+				poolSize="10" 
+				poolTimeout="5"/>
+	</httpServices>
+</point>
