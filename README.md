@@ -122,6 +122,27 @@
 > docker-compose stop
 ```
 
+Пример, как сложное сделать простым:
+
+(тестирование в ```vanessa-automation```  в среде ```linux``` на ```windows``` при наличии ```WSL2``` подключившись "сбоку" еще одним контейнером)
+
+```bash
+> docker run --rm \
+    -it -p 5901:5900/tcp \
+    --env-file=.env.docker \
+    --network=gitlab-services_back_net \
+    -v gitlab-services_client_data:/home/usr1cv8/.1cv8 \
+    -v $PWD/tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini \
+    -v $PWD/tools/VAParams.json:/home/usr1cv8/VAParams.json \
+    -v $PWD/:/home/usr1cv8/project \
+    ${DOCKER_USERNAME}/client-vnc-va:${ONEC_VERSION}
+
+```
+
+в файл [.env.docker](./.env.docker) вынесены параметры запуска толстого клиента в контейнере, которые передаются в него через переменные окружения
+
+> Помни! В файлах ```linux``` перевод строки - ```LF```, а в ```windows``` - ```CRLF```
+
 ## BPMN: изменение внешней обработки
 
 ![Изменение внешней обработки: 1](./doc/images/ВнешниеОбработки.png)
