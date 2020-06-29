@@ -1,0 +1,10 @@
+﻿[receiver]
+Connect=File="/home/usr1cv8/db";
+ID=3a7333ba-9aab-4a84-9cf5-cdc9742447ad
+OrderInList=16384
+Folder=/
+OrderInTree=16384
+External=0
+App=Auto
+WA=1
+Version=8.3

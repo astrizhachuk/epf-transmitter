@@ -82,19 +82,22 @@
 Установить в системном hosts связь ip докер-демона с именами сервисов из файла [docker-compose.yml](./docker-compose.yml).
 
 ```bash
-# srv - сервер 1С, ws - веб-сервер
-172.28.189.202 srv ws
+# srv - сервер 1С;
+# web - веб-сервер для API и веб-клиента сервиса;
+# receiver-web-1 receiver-web-2 - веб-сервера для API тестовых баз (получателей)
+
+172.28.189.202 srv web receiver-web-1 receiver-web-2
 ```
 
 Местоположения hosts:
 
-```windows```
+```bash
+# windows
+C:\Windows\System32\drivers\etc\hosts
 
->C:\Windows\System32\drivers\etc\hosts
-
-```linux```
-
->/etc/hosts
+# linux
+/etc/hosts
+```
 
 #### Операции с окружением
 
@@ -113,13 +116,23 @@
 Запуск выборочных сервисов:
 
 ```bash
-> docker-compose start srv db ws
+> docker-compose start srv db web
 ```
 
 Остановка всех сервисов:
 
 ```bash
 > docker-compose stop
+```
+
+Запуск двух тестовых баз-получателей с веб-сервером, клиентом и инициализацией базы из файла .dt:
+
+```bash
+# база_1 - http://receiver-web:8081/receiver/hs/gitlab/version
+# база_2 - http://receiver-web:8082/receiver/hs/gitlab/version
+# если hosts настроен так, как указано в [# ], то вместо receiver-web можно использовать receiver-web-1 и receiver-web-2
+
+> docker-compose up --build receiver-web receiver-web-2
 ```
 
 Пример, как сложное сделать простым:
