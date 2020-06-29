@@ -79,7 +79,7 @@ services:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     build:
       context: https://github.com/astrizhachuk/onec-docker.git
-      dockerfile: ./client-all/Dockerfile
+      dockerfile: ./client/Dockerfile
       args:
         - ONEC_USERNAME
         - ONEC_PASSWORD
