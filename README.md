@@ -136,7 +136,7 @@ C:\Windows\System32\drivers\etc\hosts
 # client для база_2 - receiver:8082/client
 # и т.д.
 
-> docker-compose up --scale receiver=2 --build receiver 
+> docker-compose up --scale receiver=2 --build receiver
 ```
 
 Пример, как сложное сделать простым:

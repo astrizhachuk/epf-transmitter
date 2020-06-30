@@ -82,7 +82,7 @@ services:
       - back_net
 
   receiver:
-    image: ${DOCKER_USERNAME}/receiver-test:${ONEC_VERSION}
+    image: ${DOCKER_USERNAME}/receiver:${ONEC_VERSION}
     build:
       context: .
       dockerfile: ./test/receiver/Dockerfile
