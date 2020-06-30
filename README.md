@@ -1,3 +1,5 @@
+... проект в процессе разработки, релизов пока нет ...
+
 # Описание
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=gitlab-services&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=gitlab-services)
