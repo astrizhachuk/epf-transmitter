@@ -137,7 +137,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>СекретныйТокен</name>
+    <name>СекретныйКлюч</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -146,7 +146,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Объект.СекретныйТокен</segments>
+        <segments>Объект.СекретныйКлюч</segments>
       </paths>
     </dataPath>
     <toolTip>
@@ -154,7 +154,7 @@
       <value>Настройки репозитория GitLab (Settings -> Integrations)</value>
     </toolTip>
     <extendedTooltip>
-      <name>СекретныйТокенРасширеннаяПодсказка</name>
+      <name>СекретныйКлючРасширеннаяПодсказка</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -169,7 +169,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СекретныйТокенКонтекстноеМеню</name>
+      <name>СекретныйКлючКонтекстноеМеню</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>

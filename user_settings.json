@@ -6,11 +6,11 @@
                 "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
                 "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
                 "ApiKeyИБПолучателя": "12345678901234567890",
-                "МестоположениеСервисовИБРаспределителя": "http://localhost/api/hs/gitlab",
-                "МестоположениеСервисаИБПолучателя": "http://localhost/receiver/hs/gitlab",
+                "МестоположениеСервисовИБРаспределителя": "http://ws/api/hs/gitlab",
+                "МестоположениеСервисаИБПолучателя": "http://ws/receiver/hs/gitlab",
                 "GitlabToken": "gita",
-                "ЭталонТелоPOSTЗапросаJSON": "/features/mock/post-from-gitlab.json",
-                "ЭталонПравилМаршрутизацииJSON": "/features/mock/routing.json"
+                "ЭталонWebHookGitLab": "/test/post-from-gitlab.json",
+                "ЭталонПравилаМаршрутизации": "/test/routing.json"
             }
         }
     ]

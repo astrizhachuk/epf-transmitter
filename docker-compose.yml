@@ -36,7 +36,7 @@ services:
     networks:
       - back_net
 
-  ws:
+  web:
     image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
     build:
       context: https://github.com/astrizhachuk/onec-docker.git
@@ -60,26 +60,12 @@ services:
       - ./web:/tmp/web
     networks:
       - back_net
-
-  ras:
-    image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
-    depends_on:
-      - srv
-    entrypoint: /opt/1C/v8.3/x86_64/ras
-    command: "cluster srv:1540"
-    ports:
-      - "1545:1545"
-    volumes:
-      - srv_data:/home/usr1cv8/.1cv8
-      - srv_log:/var/log/1C
-    networks:
-      - back_net
     
   client:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     build:
       context: https://github.com/astrizhachuk/onec-docker.git
-      dockerfile: ./client-all/Dockerfile
+      dockerfile: ./client/Dockerfile
       args:
         - ONEC_USERNAME
         - ONEC_PASSWORD
@@ -94,6 +80,30 @@ services:
       - ./tools/conf.cfg:/opt/1C/v8.3/x86_64/conf/conf.cfg
     networks:
       - back_net
+
+  receiver:
+    image: ${DOCKER_USERNAME}/receiver-test:${ONEC_VERSION}
+    build:
+      context: .
+      dockerfile: ./test/receiver/Dockerfile
+      args:
+        - DOCKER_USERNAME
+        - ONEC_VERSION
+    command: >
+      bash -c "/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'File=/home/usr1cv8/db'
+      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/default.vrd -connstr 'File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab'
+      && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api /home/usr1cv8/db
+      && /usr/sbin/apache2ctl -DFOREGROUND"
+    ports:
+      - "8081-8082:80"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+      - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
+      - ./test/receiver/web:/tmp/web
+    networks:
+      - back_net
+
 
 volumes:
   srv_data:

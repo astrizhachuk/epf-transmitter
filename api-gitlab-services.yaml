@@ -71,7 +71,7 @@ paths:
                 $ref: '#/components/schemas/response'
               example:
                 type: "warning"
-                message: "Секретный токен не найден."
+                message: "Секретный ключ не найден."
         423:
           description: Функционал отключен
           content:
