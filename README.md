@@ -84,9 +84,9 @@
 ```bash
 # srv - сервер 1С;
 # web - веб-сервер для API и веб-клиента сервиса;
-# receiver-web-1 receiver-web-2 - веб-сервера для API тестовых баз (получателей)
+# receiver:[port] - веб-сервера для API тестовых баз (получателей)
 
-172.28.189.202 srv web receiver-web-1 receiver-web-2
+172.28.189.202 srv web receiver
 ```
 
 Местоположения hosts:
@@ -125,14 +125,16 @@ C:\Windows\System32\drivers\etc\hosts
 > docker-compose stop
 ```
 
-Запуск двух тестовых баз-получателей с веб-сервером, клиентом и инициализацией базы из файла .dt:
+Запуск нескольких тестовых баз-получателей (масштабированием) с веб-сервером, веб-клиентом и инициализацией базы из эталона:
 
 ```bash
-# база_1 - http://receiver-web:8081/receiver/hs/gitlab/version
-# база_2 - http://receiver-web:8082/receiver/hs/gitlab/version
-# если hosts настроен так, как указано в [# ], то вместо receiver-web можно использовать receiver-web-1 и receiver-web-2
+# api для база_1 - receiver:8081/api/hs/gitlab/version
+# client для база_1 - receiver:8081/client
+# api для база_2 - receiver:8082/api/hs/gitlab/version
+# client для база_2 - receiver:8082/client
+# и т.д.
 
-> docker-compose up --build receiver-web receiver-web-2
+> docker-compose up --scale receiver=2 --build receiver 
 ```
 
 Пример, как сложное сделать простым:
