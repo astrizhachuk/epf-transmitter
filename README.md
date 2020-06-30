@@ -139,6 +139,12 @@ C:\Windows\System32\drivers\etc\hosts
 > docker-compose up --scale receiver=2 --build receiver
 ```
 
+Пример определения IP адресов баз-получателей (для user_settings.json):
+
+```bash
+docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" gitlab-services_receiver_1 gitlab-services_receiver_2
+```
+
 Пример, как сложное сделать простым:
 
 (тестирование в ```vanessa-automation```  в среде ```linux``` на ```windows``` при наличии ```WSL2``` подключившись "сбоку" еще одним контейнером)
