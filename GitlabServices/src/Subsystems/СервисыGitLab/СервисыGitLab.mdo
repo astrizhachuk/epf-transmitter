@@ -25,6 +25,6 @@
   <content>Constant.ТаймаутGitLab</content>
   <content>Constant.ТаймаутИБПолучателя</content>
   <content>Role.HTTPСервисGitLab</content>
-  <content>Constant.ApiKeyИБПолучателя</content>
+  <content>Constant.AccessTokenReceiver</content>
   <content>CommonForm.ПроверкаПодключенияКСервисам</content>
 </mdclass:Subsystem>

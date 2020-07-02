@@ -60,7 +60,7 @@
   <constants>Constant.GitLabUserPrivateToken</constants>
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутИБПолучателя</constants>
-  <constants>Constant.ApiKeyИБПолучателя</constants>
+  <constants>Constant.AccessTokenReceiver</constants>
   <commonForms>CommonForm.НастройкиGitLab</commonForms>
   <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>

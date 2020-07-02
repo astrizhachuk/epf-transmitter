@@ -299,7 +299,7 @@
     <name>ГруппаНастройкиИБПолучателя</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>ApiKeyИБПолучателя</name>
+      <name>AccessTokenReceiver</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -308,16 +308,16 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ApiKeyИБПолучателя</segments>
+          <segments>AccessTokenReceiver</segments>
         </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
-        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок в ИБ-получатель</value>
+        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок в базе-получателе</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ПарольПользователяИБПолучателяРасширеннаяПодсказка</name>
+        <name>AccessTokenReceiverРасширеннаяПодсказка</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -332,7 +332,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПарольПользователяИБПолучателяКонтекстноеМеню</name>
+        <name>AccessTokenReceiverКонтекстноеМеню</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -588,10 +588,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ApiKeyИБПолучателя</name>
+    <name>AccessTokenReceiver</name>
     <title>
       <key>ru</key>
-      <value>API-key</value>
+      <value>Access Token Receiver</value>
     </title>
     <id>3</id>
     <valueType>

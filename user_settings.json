@@ -5,9 +5,9 @@
             "settings": {
                 "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
                 "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
-                "ApiKeyИБПолучателя": "12345678901234567890",
+                "AccessTokenReceiver": "12345678901234567890",
                 "МестоположениеСервисовИБРаспределителя": "http://web/api/hs/gitlab",
-                "МестоположениеСервисаИБПолучателя_1": "http://172.23.0.4/api/hs/gitlab",
+                "МестоположениеСервисаИБПолучателя_1": "http://172.23.0.3/api/hs/gitlab",
                 "МестоположениеСервисаИБПолучателя_2": "http://172.23.0.7/api/hs/gitlab",
                 "GitlabToken": "gita",
                 "ЭталонWebHookGitLab": "/test/post-from-gitlab.json",

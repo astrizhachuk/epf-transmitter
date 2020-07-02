@@ -26,7 +26,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ApiKeyИБПолучателя.StandardCommand.Open</command>
+      <command>Constant.AccessTokenReceiver.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
   </commandsVisibility>

@@ -182,7 +182,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ApiKeyИБПолучателя</name>
+		<name>Constant.AccessTokenReceiver</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
