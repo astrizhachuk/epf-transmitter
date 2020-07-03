@@ -208,7 +208,7 @@
       </dataPath>
       <toolTip>
         <key>ru</key>
-        <value>0 - таймаут не установлен; макс.- 3600 сек;</value>
+        <value>0 - таймаут не установлен</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
@@ -296,7 +296,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНастройкиИБПолучателя</name>
+    <name>ГруппаНастройкиПолучатели</name>
     <id>22</id>
     <items xsi:type="form:FormField">
       <name>AccessTokenReceiver</name>
@@ -357,7 +357,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ТаймаутИБПолучателя</name>
+      <name>ТаймаутДоставкиПолучатель</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -366,16 +366,16 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаймаутИБПолучателя</segments>
+          <segments>ТаймаутДоставкиПолучатель</segments>
         </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
-        <value>0 - таймаут не установлен; макс.- 3600 сек;</value>
+        <value>Таймаут на доставку одного файла до информационной базы получателя (0 - таймаут не установлен).</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ТаймаутИБПолучателяРасширеннаяПодсказка</name>
+        <name>ТаймаутДоставкиПолучательРасширеннаяПодсказка</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -390,7 +390,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаймаутИБПолучателяКонтекстноеМеню</name>
+        <name>ТаймаутДоставкиПолучательКонтекстноеМеню</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -414,9 +414,7 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:NumberValue">
-          <value>3600</value>
-        </maxValue>
+        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -426,14 +424,10 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Настройки подключения к конечным точкам</value>
+      <value>Настройки подключения к конечным точкам </value>
     </title>
-    <toolTip>
-      <key>ru</key>
-      <value>Группа настройки ИБПолучателя</value>
-    </toolTip>
     <extendedTooltip>
-      <name>ГруппаНастройкиИБПолучателяРасширеннаяПодсказка</name>
+      <name>ГруппаНастройкиПолучателиРасширеннаяПодсказка</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -669,10 +663,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаймаутИБПолучателя</name>
+    <name>ТаймаутДоставкиПолучатель</name>
     <title>
       <key>ru</key>
-      <value>Таймаут, сек</value>
+      <value>Таймаут доставки, сек</value>
     </title>
     <id>7</id>
     <valueType>

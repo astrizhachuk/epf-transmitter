@@ -23,7 +23,7 @@
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.НастройкиGitLab</content>
   <content>Constant.ТаймаутGitLab</content>
-  <content>Constant.ТаймаутИБПолучателя</content>
+  <content>Constant.ТаймаутДоставкиПолучатель</content>
   <content>Role.HTTPСервисGitLab</content>
   <content>Constant.AccessTokenReceiver</content>
   <content>CommonForm.ПроверкаПодключенияКСервисам</content>

@@ -5,10 +5,10 @@
     <valueManagerType typeId="055e8cb4-7bf3-4f24-a46a-c43c8713a31c" valueTypeId="18a275cd-3492-4572-a272-59147add31b6"/>
     <valueKeyType typeId="b2182bd9-7a45-5fb1-a852-df65a5ea1bd2" valueTypeId="9a40b918-b59f-51d5-912c-f47c914a2f33"/>
   </producedTypes>
-  <name>ТаймаутИБПолучателя</name>
+  <name>ТаймаутДоставкиПолучатель</name>
   <synonym>
     <key>ru</key>
-    <value>Таймаут запросов для ИБ-получателя</value>
+    <value>Таймаут доставки данных до базы получателя</value>
   </synonym>
   <type>
     <types>Number</types>
