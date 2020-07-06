@@ -13,16 +13,11 @@
   <type>
     <types>Number</types>
     <numberQualifiers>
-      <precision>4</precision>
       <nonNegative>true</nonNegative>
     </numberQualifiers>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <minValue xsi:type="core:StringValue">
-    <value>0</value>
-  </minValue>
-  <maxValue xsi:type="core:StringValue">
-    <value>3600</value>
-  </maxValue>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
   <dataLockControlMode>Managed</dataLockControlMode>
 </mdclass:Constant>

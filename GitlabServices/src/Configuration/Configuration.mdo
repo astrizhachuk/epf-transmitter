@@ -53,11 +53,11 @@
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ПередачаДанных</commonModules>
-  <commonModules>CommonModule.НастройкиСервисов</commonModules>
+  <commonModules>CommonModule.НастройкаСервисов</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
   <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
-  <constants>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</constants>
+  <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутДоставкиПолучатель</constants>

@@ -53,4 +53,5 @@
   <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхКлиент</commonModules>
+  <commonModules>CommonModule.Тест_НастройкаСервисовСервер</commonModules>
 </mdclass:Configuration>

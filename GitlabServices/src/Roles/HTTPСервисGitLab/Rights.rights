@@ -36,7 +36,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</name>
+		<name>Constant.ИмяФайлаНастроекМаршрутизации</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

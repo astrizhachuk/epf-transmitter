@@ -5,7 +5,7 @@
     <valueManagerType typeId="5335802a-7450-420c-a9ff-9f1b4fcdccb3" valueTypeId="10263557-a84f-4826-86f4-7d9b8891f475"/>
     <valueKeyType typeId="e0f10503-a58f-5dca-a62c-923edda398cd" valueTypeId="d8c8a82f-6896-5957-baa3-892be775f232"/>
   </producedTypes>
-  <name>ИмяФайлаНастроекМаршрутизацииGitLab</name>
+  <name>ИмяФайлаНастроекМаршрутизации</name>
   <synonym>
     <key>ru</key>
     <value>Имя файла настроек маршрутизации GitLab</value>
