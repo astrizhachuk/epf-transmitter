@@ -145,7 +145,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ЗагружатьФайлыИзВнешнегоХранилища</name>
+		<name>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

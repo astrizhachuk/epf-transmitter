@@ -10,7 +10,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ЗагружатьФайлыИзВнешнегоХранилища.StandardCommand.Open</command>
+      <command>Constant.ОбрабатыватьЗапросыВнешнегоХранилища.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>

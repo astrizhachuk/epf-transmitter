@@ -5,10 +5,10 @@
     <valueManagerType typeId="1eeb038d-f802-4aac-9fc0-c8be23dc004f" valueTypeId="e094cca0-2039-45c6-8e48-b20d7b05e8b4"/>
     <valueKeyType typeId="44ac243c-802b-5718-9952-e6f6cb55f03b" valueTypeId="80ec4c18-aa46-510d-bf2c-844dbb9e248a"/>
   </producedTypes>
-  <name>ЗагружатьФайлыИзВнешнегоХранилища</name>
+  <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
   <synonym>
     <key>ru</key>
-    <value>Загружать файлы из внешнего хранилища</value>
+    <value>Обрабатывать запросы внешнего хранилища</value>
   </synonym>
   <type>
     <types>Boolean</types>

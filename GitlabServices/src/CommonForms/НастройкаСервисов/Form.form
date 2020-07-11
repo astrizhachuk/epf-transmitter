@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>ЗагружатьФайлыИзВнешнегоХранилища</name>
+    <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
     <id>1</id>
     <title>
       <key>ru</key>
-      <value>Включить загрузку файлов из внешнего хранилища</value>
+      <value>Обрабатывать запросы внешнего хранилища</value>
     </title>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -14,12 +14,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ЗагружатьФайлыИзВнешнегоХранилища</segments>
+        <segments>ОбрабатыватьЗапросыВнешнегоХранилища</segments>
       </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>ЗагружатьФайлыИзВнешнегоХранилищаРасширеннаяПодсказка</name>
+      <name>ОбрабатыватьЗапросыВнешнегоХранилищаРасширеннаяПодсказка</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -34,7 +34,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ЗагружатьФайлыИзВнешнегоХранилищаКонтекстноеМеню</name>
+      <name>ОбрабатыватьЗапросыВнешнегоХранилищаКонтекстноеМеню</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -51,7 +51,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:Button">
-    <name>ФормаТестироватьПодключение</name>
+    <name>ФормаПроверитьПодключение</name>
     <id>37</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -59,7 +59,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ФормаТестироватьПодключениеРасширеннаяПодсказка</name>
+      <name>ФормаПроверитьПодключениеРасширеннаяПодсказка</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -565,10 +565,10 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ЗагружатьФайлыИзВнешнегоХранилища</name>
+    <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
     <title>
       <key>ru</key>
-      <value>Разрешить загрузку файлов из внешнего хранилища</value>
+      <value>Обрабатывать запросы внешнего хранилища</value>
     </title>
     <id>1</id>
     <valueType>
@@ -725,7 +725,7 @@
     <name>ПроверитьПодключение</name>
     <title>
       <key>ru</key>
-      <value>Проверить подключение к сервисам</value>
+      <value>Проверить подключение к сервису</value>
     </title>
     <id>3</id>
     <use>

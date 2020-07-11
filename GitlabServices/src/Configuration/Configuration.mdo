@@ -55,8 +55,8 @@
   <commonModules>CommonModule.ПередачаДанных</commonModules>
   <commonModules>CommonModule.НастройкаСервисов</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
-  <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
-  <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
+  <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
+  <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
   <constants>Constant.ТаймаутGitLab</constants>
