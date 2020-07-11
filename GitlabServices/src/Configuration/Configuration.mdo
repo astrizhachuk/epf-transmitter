@@ -62,8 +62,8 @@
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутДоставкиПолучатель</constants>
   <constants>Constant.AccessTokenReceiver</constants>
-  <commonForms>CommonForm.НастройкиGitLab</commonForms>
-  <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
+  <commonForms>CommonForm.НастройкаСервисов</commonForms>
+  <commonForms>CommonForm.ПроверкаПодключения</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>
   <informationRegisters>InformationRegister.ДанныеОбработчиковСобытий</informationRegisters>
