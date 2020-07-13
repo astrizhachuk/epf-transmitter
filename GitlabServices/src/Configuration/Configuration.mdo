@@ -60,7 +60,7 @@
   <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
   <constants>Constant.ТаймаутGitLab</constants>
-  <constants>Constant.ТаймаутДоставкиПолучатель</constants>
+  <constants>Constant.ТаймаутДоставкиФайла</constants>
   <constants>Constant.AccessTokenReceiver</constants>
   <commonForms>CommonForm.НастройкаСервисов</commonForms>
   <commonForms>CommonForm.ПроверкаПодключения</commonForms>

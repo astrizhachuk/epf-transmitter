@@ -22,7 +22,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ТаймаутДоставкиПолучатель.StandardCommand.Open</command>
+      <command>Constant.ТаймаутДоставкиФайла.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>

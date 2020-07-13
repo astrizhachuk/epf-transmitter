@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
+  <items xsi:type="form:Button">
+    <name>ФормаПроверитьПодключение</name>
+    <id>37</id>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <extendedTooltip>
+      <name>ФормаПроверитьПодключениеРасширеннаяПодсказка</name>
+      <id>38</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <type>Hyperlink</type>
+    <commandName>Form.Command.ПроверитьПодключение</commandName>
+    <representation>Auto</representation>
+    <autoMaxWidth>true</autoMaxWidth>
+    <autoMaxHeight>true</autoMaxHeight>
+    <placementArea>UserCmds</placementArea>
+    <representationInContextMenu>Auto</representationInContextMenu>
+  </items>
   <items xsi:type="form:FormField">
     <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
     <id>1</id>
@@ -50,17 +81,22 @@
     <showInFooter>true</showInFooter>
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
-  <items xsi:type="form:Button">
-    <name>ФормаПроверитьПодключение</name>
-    <id>37</id>
+  <items xsi:type="form:FormField">
+    <name>ИмяФайлаНастроекМаршрутизации</name>
+    <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
+    <dataPath xsi:type="form:MultiLanguageDataPath">
+      <paths xsi:type="form:DataPath">
+        <segments>ИмяФайлаНастроекМаршрутизации</segments>
+      </paths>
+    </dataPath>
     <extendedTooltip>
-      <name>ФормаПроверитьПодключениеРасширеннаяПодсказка</name>
-      <id>38</id>
+      <name>ИмяФайлаНастроекМаршрутизацииРасширеннаяПодсказка</name>
+      <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -73,13 +109,29 @@
         <horizontalAlign>Left</horizontalAlign>
       </extInfo>
     </extendedTooltip>
-    <type>Hyperlink</type>
-    <commandName>Form.Command.ПроверитьПодключение</commandName>
-    <representation>Auto</representation>
-    <autoMaxWidth>true</autoMaxWidth>
-    <autoMaxHeight>true</autoMaxHeight>
-    <placementArea>UserCmds</placementArea>
-    <representationInContextMenu>Auto</representationInContextMenu>
+    <contextMenu>
+      <name>ИмяФайлаНастроекМаршрутизацииКонтекстноеМеню</name>
+      <id>8</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <autoFill>true</autoFill>
+    </contextMenu>
+    <type>InputField</type>
+    <editMode>EnterOnInput</editMode>
+    <showInHeader>true</showInHeader>
+    <headerHorizontalAlign>Left</headerHorizontalAlign>
+    <showInFooter>true</showInFooter>
+    <extInfo xsi:type="form:InputFieldExtInfo">
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <wrap>true</wrap>
+      <chooseType>true</chooseType>
+      <typeDomainEnabled>true</typeDomainEnabled>
+      <textEdit>true</textEdit>
+    </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
     <name>ГруппаНастройкиСервераGitLab</name>
@@ -120,58 +172,6 @@
       <contextMenu>
         <name>GitLabUserPrivateTokenКонтекстноеМеню</name>
         <id>11</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>ИмяФайлаНастроекМаршрутизации</name>
-      <id>7</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ИмяФайлаНастроекМаршрутизации</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>ИмяФайлаНастроекМаршрутизацииРасширеннаяПодсказка</name>
-        <id>9</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>ИмяФайлаНастроекМаршрутизацииКонтекстноеМеню</name>
-        <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -251,9 +251,7 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:NumberValue">
-          <value>3600</value>
-        </maxValue>
+        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -263,7 +261,7 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Настройки сервера GitLab</value>
+      <value>Сервер GitLab</value>
     </title>
     <toolTip>
       <key>ru</key>
@@ -357,7 +355,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ТаймаутДоставкиПолучатель</name>
+      <name>ТаймаутДоставкиФайла</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -366,16 +364,16 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаймаутДоставкиПолучатель</segments>
+          <segments>ТаймаутДоставкиФайла</segments>
         </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
-        <value>Таймаут на доставку одного файла до информационной базы получателя (0 - таймаут не установлен).</value>
+        <value>Таймаут на доставку файла до информационной базы получателя (0 - таймаут не установлен).</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ТаймаутДоставкиПолучательРасширеннаяПодсказка</name>
+        <name>ТаймаутДоставкиФайлаРасширеннаяПодсказка</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -390,7 +388,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаймаутДоставкиПолучательКонтекстноеМеню</name>
+        <name>ТаймаутДоставкиФайлаКонтекстноеМеню</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -424,7 +422,7 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Настройки подключения к конечным точкам </value>
+      <value>Получатели</value>
     </title>
     <extendedTooltip>
       <name>ГруппаНастройкиПолучателиРасширеннаяПодсказка</name>
@@ -645,7 +643,7 @@
     <name>ТаймаутGitLab</name>
     <title>
       <key>ru</key>
-      <value>Таймаут, сек</value>
+      <value>Таймаут соединения, сек</value>
     </title>
     <id>6</id>
     <valueType>
@@ -663,10 +661,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаймаутДоставкиПолучатель</name>
+    <name>ТаймаутДоставкиФайла</name>
     <title>
       <key>ru</key>
-      <value>Таймаут доставки, сек</value>
+      <value>Таймаут доставки файла, сек</value>
     </title>
     <id>7</id>
     <valueType>
