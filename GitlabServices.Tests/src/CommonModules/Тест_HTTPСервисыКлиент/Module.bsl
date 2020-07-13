@@ -3,7 +3,9 @@
 // @unit-test:fast
 Процедура Тест_ServicesGET(Фреймворк) Экспорт
 	
-	URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
+	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
+	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
+	URL = "http://web/api/hs/gitlab";
 
 	Результат = Тест_HTTPСервисыСервер.КоннекторHTTPGet(URL + "/services");
 	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
@@ -27,12 +29,18 @@
 // @unit-test:fast
 Процедура Тест_WebhooksPOST(Фреймворк) Экспорт
 	
-	URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	ЭталонWebHookGitLab = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("ЭталонWebHookGitLab");
+	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
+	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
+	URL = "http://web/api/hs/gitlab";
+		ЭталонWebHookGitLab = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("ЭталонWebHookGitLab");
+	
 	BadURLEpf = URL + "/webhooks/epf3/push";
 	BadURLPush = URL + "/webhooks/epf/push3";
 	URL = URL + "/webhooks/epf/push";
-	ПутьЭталонWebHookGitLab = Фреймворк.Объект.КаталогПроекта + ЭталонWebHookGitLab;
+	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
+	//ПутьЭталонWebHookGitLab = Фреймворк.Объект.КаталогПроекта + ЭталонWebHookGitLab;
+	ПутьЭталонWebHookGitLab = "C:\w\1c\workspace\gitlab-services\test\post-from-gitlab.json";
+	
 	СекретныйКлюч = "блаблаблаюниттест";	
 
 	Тест_РаботаСИнтернетСервисамиСервер.УстановитьОбрабатыватьЗапросыВнешнегоХранилища(Ложь);

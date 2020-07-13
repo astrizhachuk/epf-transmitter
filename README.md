@@ -27,7 +27,7 @@
 
 * Платформа 1С не ниже 8.3.16.1502;
 
-* Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) - в расширении конфигурации EDT, см. [./GitlabServices.Tests](./GitlabServices.Tests);
+* Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) не ниже 0.4.0 - в расширении конфигурации EDT, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
 * Среда для разработки разворачивается с помощью docker-compose, а сам продукт поставляется в виде образов [docker](https://www.docker.com)
 
