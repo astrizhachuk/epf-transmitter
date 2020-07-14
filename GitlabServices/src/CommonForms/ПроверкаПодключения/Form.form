@@ -116,7 +116,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ФормаРезультат</name>
+    <name>ФормаРезультатПроверки</name>
     <id>25</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -125,12 +125,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Результат</segments>
+        <segments>РезультатПроверки</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ФормаРезультатРасширеннаяПодсказка</name>
+      <name>ФормаРезультатПроверкиРасширеннаяПодсказка</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -145,7 +145,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ФормаРезультатКонтекстноеМеню</name>
+      <name>ФормаРезультатПроверкиКонтекстноеМеню</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -165,10 +165,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаJSON</name>
+    <name>ГруппаОтвет</name>
     <id>31</id>
     <items xsi:type="form:FormField">
-      <name>ФормаJSON</name>
+      <name>ФормаТекстОтвета</name>
       <id>28</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -177,12 +177,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>JSON</segments>
+          <segments>ТекстОтвета</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ФормаJSONРасширеннаяПодсказка</name>
+        <name>ФормаТекстОтветаРасширеннаяПодсказка</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -197,7 +197,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ФормаJSONКонтекстноеМеню</name>
+        <name>ФормаТекстОтветаКонтекстноеМеню</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -231,7 +231,7 @@
       <value>Текст ответа</value>
     </title>
     <extendedTooltip>
-      <name>ГруппаJSONРасширеннаяПодсказка</name>
+      <name>ГруппаОтветРасширеннаяПодсказка</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -286,7 +286,7 @@
     <name>Адрес</name>
     <title>
       <key>ru</key>
-      <value>URL</value>
+      <value>Адрес</value>
     </title>
     <id>2</id>
     <valueType>
@@ -305,10 +305,10 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>Результат</name>
+    <name>РезультатПроверки</name>
     <title>
       <key>ru</key>
-      <value>Результат</value>
+      <value>Результат проверки</value>
     </title>
     <id>5</id>
     <valueType>
@@ -322,10 +322,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>JSON</name>
+    <name>ТекстОтвета</name>
     <title>
       <key>ru</key>
-      <value>JSON</value>
+      <value>Текст ответа</value>
     </title>
     <id>7</id>
     <valueType>
