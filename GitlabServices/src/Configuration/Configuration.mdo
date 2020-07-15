@@ -35,7 +35,7 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
-  <subsystems>Subsystem.СервисыGitLab</subsystems>
+  <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
   <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
@@ -48,7 +48,7 @@
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.РаботаСИнтернетСервисами</commonModules>
+  <commonModules>CommonModule.HTTPСервисы</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
@@ -62,7 +62,7 @@
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутДоставкиФайла</constants>
   <constants>Constant.AccessTokenReceiver</constants>
-  <commonForms>CommonForm.НастройкаСервисов</commonForms>
+  <commonForms>CommonForm.НастройкиСервиса</commonForms>
   <commonForms>CommonForm.ПроверкаПодключения</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>

@@ -43,8 +43,6 @@
   </languages>
   <commonModules>CommonModule.Тест_ЛогированиеСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбщийМодульСервер</commonModules>
-  <commonModules>CommonModule.Тест_РаботаСИнтернетСервисамиКлиент</commonModules>
-  <commonModules>CommonModule.Тест_РаботаСИнтернетСервисамиСервер</commonModules>
   <commonModules>CommonModule.Тест_СервисыGitLabСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыКлиент</commonModules>
@@ -53,5 +51,5 @@
   <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхКлиент</commonModules>
-  <commonModules>CommonModule.Тест_НастройкаСервисовСервер</commonModules>
+  <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
 </mdclass:Configuration>

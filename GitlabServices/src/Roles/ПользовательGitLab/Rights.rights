@@ -164,7 +164,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.СервисыGitLab</name>
+		<name>Subsystem.ИнтеграцияGitLab</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -251,7 +251,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.НастройкаСервисов</name>
+		<name>CommonForm.НастройкиСервиса</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
