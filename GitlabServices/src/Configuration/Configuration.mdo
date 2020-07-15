@@ -16,7 +16,7 @@
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.ПолныеПрава</defaultRoles>
-  <version>1.0.1.4</version>
+  <version>0.1.0</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
@@ -35,7 +35,7 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
-  <subsystems>Subsystem.СервисыGitLab</subsystems>
+  <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
   <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
@@ -48,21 +48,22 @@
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.РаботаСИнтернетСервисами</commonModules>
+  <commonModules>CommonModule.HTTPСервисы</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
-  <commonModules>CommonModule.Получатели</commonModules>
+  <commonModules>CommonModule.ПередачаДанных</commonModules>
+  <commonModules>CommonModule.НастройкаСервисов</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
-  <functionalOptions>FunctionalOption.ЗагружатьФайлыИзВнешнегоХранилища</functionalOptions>
-  <constants>Constant.ЗагружатьФайлыИзВнешнегоХранилища</constants>
-  <constants>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</constants>
+  <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
+  <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
+  <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
   <constants>Constant.GitLabUserPrivateToken</constants>
   <constants>Constant.ТаймаутGitLab</constants>
-  <constants>Constant.ТаймаутИБПолучателя</constants>
-  <constants>Constant.ApiKeyИБПолучателя</constants>
-  <commonForms>CommonForm.НастройкиGitLab</commonForms>
-  <commonForms>CommonForm.ПроверкаПодключенияКСервисам</commonForms>
+  <constants>Constant.ТаймаутДоставкиФайла</constants>
+  <constants>Constant.AccessTokenReceiver</constants>
+  <commonForms>CommonForm.НастройкиСервиса</commonForms>
+  <commonForms>CommonForm.ПроверкаПодключения</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>
   <informationRegisters>InformationRegister.ДанныеОбработчиковСобытий</informationRegisters>

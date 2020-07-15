@@ -36,14 +36,14 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</name>
+		<name>Constant.ИмяФайлаНастроекМаршрутизации</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ТаймаутИБПолучателя</name>
+		<name>Constant.ТаймаутДоставкиФайла</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

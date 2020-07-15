@@ -68,7 +68,7 @@ paths:
         403:
           description: Доступ закрыт
       security:
-      - api_key: []
+      - access_token_receiver: []
   /update:
     post:
       summary: Обновить внешний отчет или обработку
@@ -116,7 +116,7 @@ paths:
         423:
           description: Функционал отключен
       security:
-      - api_key: []
+      - access_token_receiver: []
 components:
   schemas:
     response:
@@ -130,7 +130,7 @@ components:
         message:
           type: string
   securitySchemes:
-    api_key:
+    access_token_receiver:
       type: apiKey
       name: Token
       in: header
