@@ -49,7 +49,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.ПроверкаПодключенияКСервисам</name>
+		<name>CommonForm.ПроверкаПодключения</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -107,7 +107,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ИмяФайлаНастроекМаршрутизацииGitLab</name>
+		<name>Constant.ИмяФайлаНастроекМаршрутизации</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -126,7 +126,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ТаймаутИБПолучателя</name>
+		<name>Constant.ТаймаутДоставкиФайла</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -145,7 +145,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ЗагружатьФайлыИзВнешнегоХранилища</name>
+		<name>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -164,7 +164,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.СервисыGitLab</name>
+		<name>Subsystem.ИнтеграцияGitLab</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -182,7 +182,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ApiKeyИБПолучателя</name>
+		<name>Constant.AccessTokenReceiver</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -251,7 +251,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.НастройкиGitLab</name>
+		<name>CommonForm.НастройкиСервиса</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
