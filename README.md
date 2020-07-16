@@ -41,9 +41,9 @@
 
 2. Разворачивание среды;
 
-3. Разработка в EDT в развернутой среде (база-данных, веб-сервис, утилиты);
+3. Разработка в EDT в ранее созданном окружении (база-данных, веб-сервер, утилиты);
 
-4. Тестирование в развернутой среде;
+4. Тестирование (юнит-тесты, функциональные и интеграционные тесты);
 
 5. Push изменений и PR (MR) в удаленный репозиторий;
 
@@ -69,7 +69,7 @@
 
 #### Конфигурация проекта
 
-Для самостоятельной сборки проекта необходимо любым способом установить переменные окружения. Если образы уже есть, то данные шаг не обязателен.
+Для самостоятельной сборки проекта необходимо предварительно установить переменные окружения. Если docker-образы уже собраны, то данный шаг не обязателен.
 
 >ONEC_USERNAME - учётная запись на http://releases.1c.ru
 >
@@ -79,9 +79,9 @@
 >
 >DOCKER_USERNAME - учетная запись на [Docker Hub](https://hub.docker.com) или в корпоративном registry
 >
-Настроить в проекте подключение к серверу лицензий в файле [nethasp.ini](./tools/nethasp.ini)
+Настроить подключение к серверу лицензий в файле [nethasp.ini](./tools/nethasp.ini)
 
-Установить в системном hosts связь ip докер-демона с именами сервисов из файла [docker-compose.yml](./docker-compose.yml).
+Перечислить в системном hosts для ip docker-демона имена сервисов из файла [docker-compose.yml](./docker-compose.yml).
 
 ```bash
 # srv - сервер 1С;
@@ -145,6 +145,34 @@ C:\Windows\System32\drivers\etc\hosts
 docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" gitlab-services_receiver_1 gitlab-services_receiver_2
 ```
 
+```Runtime``` копирование файла в контейнер с толстым клиентом:
+
+```bash
+docker cp ./test/empty.dt gitlab-services_client_1:/tmp/empty.dt
+```
+
+```Runtime``` удаление всех данных (в т. ч. пользователей) в информационной базе через пакетный режим запуска:
+
+```bash
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /IBName'srv' /N'Администратор' /EraseData"
+```
+
+```Runtime``` загрузка в ранее очищенную базу dt-файла эталонной тестовой базы через пакетный режим запуска:
+
+```bash
+# вариант для загрузки dt-файла, переданного в контейнер при его создании
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /IBName'srv' /RestoreIB /home/usr1cv8/empty.dt"
+
+# вариант для загрузки dt-файла, ранее переданного в runtime
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /IBName'srv' /RestoreIB /tmp/empty.dt"
+```
+
+```Runtime``` загрузка в "испорченную" базу dt-файла эталонной тестовой базы через пакетный режим запуска:
+
+```bash
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /IBName'srv' /N'Администратор' /RestoreIB /tmp/empty.dt"
+```
+
 Пример, как сложное сделать простым:
 
 (тестирование в ```vanessa-automation```  в среде ```linux``` на ```windows``` при наличии ```WSL2``` подключившись "сбоку" еще одним контейнером)
@@ -162,7 +190,7 @@ docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}
 
 ```
 
-в файл [.env.docker](./.env.docker) вынесены параметры запуска толстого клиента в контейнере, которые передаются в него через переменные окружения
+В файле [.env.docker](./.env.docker) указываются параметры запуска толстого клиента в контейнере.
 
 > Помни! В файлах ```linux``` перевод строки - ```LF```, а в ```windows``` - ```CRLF```
 
