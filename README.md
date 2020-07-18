@@ -81,14 +81,15 @@
 >
 Настроить подключение к серверу лицензий в файле [nethasp.ini](./tools/nethasp.ini)
 
-Перечислить в системном hosts для ip docker-демона имена сервисов из файла [docker-compose.yml](./docker-compose.yml).
+Настроить в системном hosts resolve имен сервисов из файла [docker-compose.yml](./docker-compose.yml).
 
 ```bash
 # srv - сервер 1С;
-# web - веб-сервер для API и веб-клиента сервиса;
+# gitlab - сервер gitlab;
+# transmitter - веб-сервер для API и веб-клиента сервиса gitlab;
 # receiver:[port] - веб-сервера для API тестовых баз (получателей)
-
-172.28.189.202 srv web receiver
+127.0.0.1 localhost gitlab transmitter receiver
+172.28.189.202 srv  #ult 172.28.189.202 - ip docker-демона
 ```
 
 Местоположения hosts:
@@ -118,7 +119,7 @@ C:\Windows\System32\drivers\etc\hosts
 Запуск выборочных сервисов:
 
 ```bash
-> docker-compose start srv db web
+> docker-compose start srv db transmitter
 ```
 
 Остановка всех сервисов:

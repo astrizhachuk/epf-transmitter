@@ -2,6 +2,36 @@ version: '3.8'
 
 services:
 
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - nginx_log:/var/log/nginx
+      - "./tools/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./tools/nginx/gitlab-http.conf:/etc/nginx/conf.d/gitlab-http.conf:ro"
+      - "./tools/nginx/transmitter-http.conf:/etc/nginx/conf.d/transmitter-http.conf:ro"
+      - "./tools/nginx/receiver-http.conf:/etc/nginx/conf.d/receiver-http.conf:ro"
+    ports:
+    - "80:80"
+    networks:
+      - back_net
+
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    container_name: gitlab
+    hostname: gitlab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab'
+        gitlab_rails['initial_root_password'] = "administrator"
+    volumes:
+      - gitlab_conf:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    networks:
+      - back_net
+
   srv:
     image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
     build:
@@ -27,40 +57,6 @@ services:
     networks:
       - back_net
 
-  db:
-    image: strizhhh/postgresql-pro-1c:9.6
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql
-    networks:
-      - back_net
-
-  web:
-    image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
-    build:
-      context: https://github.com/astrizhachuk/onec-docker.git
-      dockerfile: ./ws/Dockerfile
-      args:
-        - ONEC_USERNAME
-        - ONEC_PASSWORD
-        - ONEC_VERSION
-    depends_on:
-      - srv
-    command: >
-      bash -c "/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;'
-      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
-      && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api
-      && /usr/sbin/apache2ctl -DFOREGROUND"
-    ports:
-      - "80:80"
-    volumes:
-      - srv_data:/home/usr1cv8/.1cv8
-      - srv_log:/var/log/1C
-      - ./web:/tmp/web
-    networks:
-      - back_net
-    
   client:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     build:
@@ -82,6 +78,38 @@ services:
     networks:
       - back_net
 
+  db:
+    image: strizhhh/postgresql-pro-1c:9.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    networks:
+      - back_net
+
+  transmitter:
+    image: ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
+    build:
+      context: https://github.com/astrizhachuk/onec-docker.git
+      dockerfile: ./ws/Dockerfile
+      args:
+        - ONEC_USERNAME
+        - ONEC_PASSWORD
+        - ONEC_VERSION
+    depends_on:
+      - srv
+    command: >
+      bash -c "/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;'
+      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
+      && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api
+      && /usr/sbin/apache2ctl -DFOREGROUND"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+      - ./web:/tmp/web
+    networks:
+      - back_net
+    
   receiver:
     image: ${DOCKER_USERNAME}/receiver:${ONEC_VERSION}
     build:
@@ -110,6 +138,10 @@ volumes:
   srv_log:
   db_data:
   client_data:
+  nginx_log:
+  gitlab_conf:
+  gitlab_logs:
+  gitlab_data:
 
 networks:
   back_net:

@@ -32,7 +32,7 @@
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	URL = "http://transmitter/api/hs/gitlab";
 	
 	Фреймворк.ПроверитьЗаполненность(URL, "Нет URL (user_settings.json -> МестоположениеСервисовИБРаспределителя");
 	Фреймворк.ПроверитьЛожь(ПустаяСтрока(URL), "URL не может быть пустым, проверьте user_settings.json.");
@@ -87,7 +87,7 @@
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	URL = "http://transmitter/api/hs/gitlab";
 
 	Результат = Тест_HTTPСервисыСервер.КоннекторHTTPGet(URL + "/services");
 	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
@@ -113,7 +113,7 @@
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	URL = "http://transmitter/api/hs/gitlab";
 	ЭталонWebHookGitLab = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("ЭталонWebHookGitLab");
 	
 	BadURLEpf = URL + "/webhooks/epf3/push";
