@@ -180,6 +180,18 @@ docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER 
 
 > Помни! EDT может блокировать монопольный доступ к базе (запущен агент), что препятствует загрузке dt-файла. Перед загрузкой dt-файлов необходимо удалять блокирующие процессы на клиенте (либо закрывать EDT).
 
+Создание бэкапа ```gitlab```:
+
+```bash
+docker-compose exec gitlab gitlab-backup create BACKUP=new_dump strategy=copy force=yes
+```
+
+Восстановление эталонного состояния ```gitlab```:
+
+```bash
+docker-compose exec gitlab /restore.sh
+```
+
 Пример, как сложное сделать простым:
 
 (тестирование в ```vanessa-automation```  в среде ```linux``` на ```windows``` при наличии ```WSL2``` подключившись "сбоку" еще одним контейнером)

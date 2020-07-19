@@ -22,6 +22,7 @@ services:
     container_name: gitlab
     hostname: gitlab
     environment:
+      GITLAB_POST_RECONFIGURE_SCRIPT: "chmod +x /restore.sh"
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://gitlab'
         gitlab_rails['initial_root_password'] = "administrator"
@@ -29,6 +30,8 @@ services:
       - gitlab_conf:/etc/gitlab
       - gitlab_logs:/var/log/gitlab
       - gitlab_data:/var/opt/gitlab
+      - ./test/gitlab:/tmp/gitlab
+      - ./tools/gitlab/restore.sh:/restore.sh
     networks:
       - back_net
 
