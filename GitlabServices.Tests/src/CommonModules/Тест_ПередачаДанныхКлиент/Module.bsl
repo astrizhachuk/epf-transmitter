@@ -5,7 +5,7 @@
 
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20	
 	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисаИБПолучателя_1");
-	URL = "http://172.19.0.6/api/hs/gitlab";
+	URL = "http://172.19.0.8/api/hs/gitlab";
 	
 	Результат = Тест_HTTPСервисыСервер.КоннекторHTTPGet(URL + "/version");
 	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
@@ -20,7 +20,7 @@
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20	
 	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисаИБПолучателя_1");
-	URL = "http://172.19.0.6/api/hs/gitlab";
+	URL = "http://172.19.0.8/api/hs/gitlab";
 	
 	//Token = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("AccessTokenReceiver");
 	Token = "12345678901234567890";
