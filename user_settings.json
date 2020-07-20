@@ -3,7 +3,7 @@
         {
             "user": "a.strizhachuk",
             "settings": {
-                "GitLabUserPrivateToken": "t_cNCwQsid47JFRZMWn6",
+                "GitLabUserPrivateToken": "-U2ssrBsM4rmx85HXzZ1",
                 "ИмяФайлаНастроекМаршрутизации": ".ext-epf.json",
                 "AccessTokenReceiver": "12345678901234567890",
                 "МестоположениеСервисовИБРаспределителя": "http://transmitter/api/hs/gitlab",
