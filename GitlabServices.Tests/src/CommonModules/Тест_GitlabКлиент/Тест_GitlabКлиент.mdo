@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0336862a-1ea6-46c4-8cff-d64fba5458b6">
+  <name>Тест_GitlabКлиент</name>
+  <synonym>
+    <key>ru</key>
+    <value>Gitlab клиент</value>
+  </synonym>
+  <clientManagedApplication>true</clientManagedApplication>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

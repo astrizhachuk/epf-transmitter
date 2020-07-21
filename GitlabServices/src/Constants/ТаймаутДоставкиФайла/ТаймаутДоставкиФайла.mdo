@@ -13,6 +13,7 @@
   <type>
     <types>Number</types>
     <numberQualifiers>
+      <precision>4</precision>
       <nonNegative>true</nonNegative>
     </numberQualifiers>
   </type>

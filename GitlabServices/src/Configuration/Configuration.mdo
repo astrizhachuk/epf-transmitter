@@ -54,6 +54,7 @@
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ПередачаДанных</commonModules>
   <commonModules>CommonModule.НастройкаСервисов</commonModules>
+  <commonModules>CommonModule.Gitlab</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
