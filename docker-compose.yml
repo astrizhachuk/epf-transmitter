@@ -35,6 +35,15 @@ services:
     networks:
       - back_net
 
+  mock:
+    image: mockserver/mockserver
+    container_name: mock
+    command: -logLevel DEBUG -serverPort 1080
+    ports:
+      - "1080:1080"
+    # volumes:
+    #   - ./api-receiver.yaml:/tmp/receiver.yaml
+
   srv:
     image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
     build:
