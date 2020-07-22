@@ -1,13 +1,14 @@
 #Область СлужебныйПрограммныйИнтерфейс
 
-// @unit-test:dev
+// @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+//
 Процедура ПолучитьФайл(Фреймворк) Экспорт
 	
-	//given
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер("http://host.docker.internal:1080").Сбросить();
+	
 	Запрос = "
 		|		""method"": ""GET"",
 		|		""path"": ""/%D1%84%D1%8D%D0%B9%D0%BA.epf"",
@@ -71,38 +72,40 @@
 	Мок = Неопределено;
 		
 	URL="http://host.docker.internal:1080";
-	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
-	//GitLabUserPrivateToken = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("GitLabUserPrivateToken");
-	GitLabUserPrivateToken = "-U2ssrBsM4rmx85HXzZ1";
+	commit = "ef3529e5486ff39c6439ab5d745eb56588202b86";
 	ПутьКФайлу = КодироватьСтроку(	"Каталог с отчетами и обработками/Внешняя Обработка 1.epf",
 									СпособКодированияСтроки.КодировкаURL );
-	commit = "ef3529e5486ff39c6439ab5d745eb56588202b86";
 	ПутьКФайлу = СтрШаблон("/api/v4/projects/1/repository/files/%1/raw?ref=%2", ПутьКФайлу, commit);
+	GitLabUserPrivateToken = "-U2ssrBsM4rmx85HXzZ1";
 
+	// given
 	// ошибка, неверный URL
+	ФэйкURL = "http://фэйк";
 	// when
-	Результат = Gitlab.ПолучитьФайл("http://фэйк", ПутьКФайлу, GitLabUserPrivateToken, 5);
+	Результат = Gitlab.ПолучитьФайл(ФэйкURL, ПутьКФайлу, GitLabUserPrivateToken, 5);
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
-	
+
+	// given	
 	// 404
+	ФэйкПутьКФайлу = "/фэйк.epf";
 	// when
-	Результат = Gitlab.ПолучитьФайл(URL, "/фэйк.epf", GitLabUserPrivateToken, 5);
-	
+	Результат = Gitlab.ПолучитьФайл(URL, ФэйкПутьКФайлу, GitLabUserPrivateToken, 5);
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
 
+	// given
 	// 401
+	ФэйкGitLabUserPrivateToken = "1234567890";
 	// when
-	Результат = Gitlab.ПолучитьФайл(URL, ПутьКФайлу, "1234567890", 5);
-	
+	Результат = Gitlab.ПолучитьФайл(URL, ПутьКФайлу, ФэйкGitLabUserPrivateToken, 5);
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
 
+	// given
 	// 200
 	// when
 	Результат = Gitlab.ПолучитьФайл(URL, ПутьКФайлу, GitLabUserPrivateToken, 5);
-	
 	// then	
 	Фреймворк.ПроверитьТип(Результат, "Структура");
 	Фреймворк.ПроверитьРавенство(Результат.ИмяФайлаИзЗапроса, "Внешняя Обработка 1.epf");
@@ -113,9 +116,10 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+//
 Процедура ПутьКФайлуRAW(Фреймворк) Экспорт
 	
 	Эталон = "/api/v4/projects/1/repository/files/%D0%B0%2F%D0%B1%2F%D0%B2/raw?ref=0123456789";

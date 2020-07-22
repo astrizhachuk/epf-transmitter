@@ -52,7 +52,6 @@
   <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхКлиент</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
-  <commonModules>CommonModule.Тест_GitlabКлиент</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>
