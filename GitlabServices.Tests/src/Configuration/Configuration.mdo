@@ -50,7 +50,6 @@
   <commonModules>CommonModule.Тест_СтроковыеФункцииКлиент</commonModules>
   <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
-  <commonModules>CommonModule.Тест_ПередачаДанныхКлиент</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
