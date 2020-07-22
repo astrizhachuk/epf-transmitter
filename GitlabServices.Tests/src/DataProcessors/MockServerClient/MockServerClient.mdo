@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c8927af7-aa37-40c4-a650-f597fd9a6cf4">
+  <producedTypes>
+    <objectType typeId="6fe4e53c-8ff6-43d8-b56e-1379e40b4a03" valueTypeId="5836eb8e-109d-4a96-a82d-24bdf77c61f3"/>
+    <managerType typeId="798890ad-7d4a-48f4-bf54-6060debd5ae1" valueTypeId="a9a60d18-769b-4e7e-8176-0345ca1376b3"/>
+  </producedTypes>
+  <name>MockServerClient</name>
+  <synonym>
+    <key>ru</key>
+    <value>MockServer client</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <attributes uuid="b281e7e2-283e-450c-8c83-9eef3bc15090">
+    <name>URL</name>
+    <synonym>
+      <key>ru</key>
+      <value>URL</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+  </attributes>
+  <attributes uuid="242bf380-570c-4cb9-bfda-de50ad464647">
+    <name>Запрос</name>
+    <synonym>
+      <key>ru</key>
+      <value>Запрос</value>
+    </synonym>
+    <type>
+      <types>Arbitrary</types>
+    </type>
+  </attributes>
+  <attributes uuid="37dcca89-1d9c-4b11-80b8-27476ec9fd9f">
+    <name>Ответ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ответ</value>
+    </synonym>
+    <type>
+      <types>Arbitrary</types>
+    </type>
+  </attributes>
+  <attributes uuid="2c13b18a-3af1-4e83-9c6a-0bc211d96725">
+    <name>Результат</name>
+    <synonym>
+      <key>ru</key>
+      <value>Результат</value>
+    </synonym>
+    <type>
+      <types>Arbitrary</types>
+    </type>
+  </attributes>
+</mdclass:DataProcessor>

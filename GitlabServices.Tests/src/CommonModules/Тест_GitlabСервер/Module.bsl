@@ -5,104 +5,71 @@
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 Процедура ПолучитьФайл(Фреймворк) Экспорт
 	
-	КодВозврата = Неопределено;
-	
-	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/reset""", , Истина, КодВозврата);
-	Если КодВозврата <> 0 Тогда
-		ВызватьИсключение "Ошибка запуска приложения curl.";
-	КонецЕсли;	
-	
-		// ошибка, нет файла
-	КодВозврата = Неопределено;
-	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/expectation"" -d '{
-		 |    ""httpRequest"": {
-		 |        ""method"": ""GET"",
-		 |        ""path"": ""/%D1%84%D1%8D%D0%B9%D0%BA.epf"",
-		 |        ""headers"": {
-		 |            ""PRIVATE-TOKEN"": [
-		 |                ""-U2ssrBsM4rmx85HXzZ1""
-		 |            ]
-		 |        }
-		 |    },
-		|  ""httpResponse"" : {
-		|    ""statusCode"": 404
-		|  }
-		|}'", , Истина, КодВозврата);
+	//given
+	Мок = Обработки.MockServerClient.Создать();
+	Мок.Сервер("http://host.docker.internal:1080").Сбросить();
+	Запрос = "
+		|		""method"": ""GET"",
+		|		""path"": ""/%D1%84%D1%8D%D0%B9%D0%BA.epf"",
+		|		""headers"": {
+		|       	""PRIVATE-TOKEN"": [
+		|           	""-U2ssrBsM4rmx85HXzZ1""
+		|			]
+		|		}";
 		
-	Если КодВозврата <> 0 Тогда
-		ВызватьИсключение "Ошибка запуска приложения curl.";
-	КонецЕсли;	
+	Ответ = "
+		|		""statusCode"": 404
+		|";
+
+	Мок.Когда(Запрос).Ожидаем(Ответ);
 	
-	КодВозврата = Неопределено;
-	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/expectation"" -d '{
-		 |    ""httpRequest"": {
-		 |        ""method"": ""GET"",
-		 |        ""path"": ""/api/v4/projects/1/repository/files/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D1%81%20%D0%BE%D1%82%D1%87%D0%B5%D1%82%D0%B0%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%D0%BC%D0%B8%2F%D0%92%D0%BD%D0%B5%D1%88%D0%BD%D1%8F%D1%8F%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%201.epf/raw"",
-		 |        ""queryStringParameters"": {
-		 |            ""ref"": [
-		 |                ""ef3529e5486ff39c6439ab5d745eb56588202b86""
-		 |            ],
-		 |        },
-		 |        ""headers"": {
-		 |            ""PRIVATE-TOKEN"": [
-		 |                ""!-U2ssrBsM4rmx85HXzZ1""
-		 |            ]
-		 |        }
-		 |    },
-		 |    ""httpResponse"": {
-		 |        ""statusCode"": 401
-		 |    }
-		 |}'", , Истина, КодВозврата);
-	Если КодВозврата <> 0 Тогда
-		ВызватьИсключение "Ошибка запуска приложения curl.";
-	КонецЕсли;
-	
-	КодВозврата = Неопределено;
-	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/expectation"" -d '{
-		 |    ""httpRequest"": {
-		 |        ""method"": ""GET"",
-		 |        ""path"": ""/api/v4/projects/1/repository/files/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D1%81%20%D0%BE%D1%82%D1%87%D0%B5%D1%82%D0%B0%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%D0%BC%D0%B8%2F%D0%92%D0%BD%D0%B5%D1%88%D0%BD%D1%8F%D1%8F%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%201.epf/raw"",
-		 |        ""queryStringParameters"": {
-		 |            ""ref"": [
-		 |                ""ef3529e5486ff39c6439ab5d745eb56588202b86""
-		 |            ]
-		 |        },
-		 |        ""headers"": {
-		 |            ""PRIVATE-TOKEN"": [
-		 |                ""-U2ssrBsM4rmx85HXzZ1""
-		 |            ]
-		 |        }
-		 |    },
-		 |    ""httpResponse"": {
-		 |        ""statusCode"": 200,
-		 |        ""headers"": {
-		 |            ""X-Gitlab-File-Name"": [
-		 |                ""ÐÐ½ÐµÑÐ½ÑÑ ÐÐ±ÑÐ°Ð±Ð¾ÑÐºÐ° 1.epf""
-		 |            ]
-		 |        },
-		 |        ""body"": ""some_response_body""
-		 |    }
-		 |}'", , Истина, КодВозврата);
-	Если КодВозврата <> 0 Тогда
-		ВызватьИсключение "Ошибка запуска приложения curl.";
-	КонецЕсли;
-	
-//	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/openapi"" -d '{
-//						|    ""specUrlOrPayload"": ""file:/tmp/receiver.yaml""
-//						|}'", , Истина, КодВозврата);
-//	Если КодВозврата <> 0 Тогда
-//		ВызватьИсключение "Ошибка запуска приложения curl.";
-//	КонецЕсли;
+	Запрос = "
+		|		""method"": ""GET"",
+		|       ""path"": ""/api/v4/projects/1/repository/files/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D1%81%20%D0%BE%D1%82%D1%87%D0%B5%D1%82%D0%B0%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%D0%BC%D0%B8%2F%D0%92%D0%BD%D0%B5%D1%88%D0%BD%D1%8F%D1%8F%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%201.epf/raw"",
+		|       ""queryStringParameters"": {
+		|       	""ref"": [
+		|           	""ef3529e5486ff39c6439ab5d745eb56588202b86""
+		|       	],
+		|       },
+		|       ""headers"": {
+		|       	""PRIVATE-TOKEN"": [
+		|       		""!-U2ssrBsM4rmx85HXzZ1""
+		|       	]
+		|		}";
+		
+	Ответ = "
+		|		""statusCode"": 401
+		|";
 
-//	ЗапуститьПриложение("curl -v -X PUT ""http://host.docker.internal:1080/mockserver/clear?type=EXPECTATIONS"" -d '{
-//						|    ""path"": ""/version""
-//						|}'", , Истина, КодВозврата);
-//	Если КодВозврата <> 0 Тогда
-//		ВызватьИсключение "Ошибка запуска приложения curl.";
-//	КонецЕсли;
+	Мок.Когда(Запрос).Ожидаем(Ответ);
 
+	Запрос = "
+		|       ""method"": ""GET"",
+		|       ""path"": ""/api/v4/projects/1/repository/files/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D1%81%20%D0%BE%D1%82%D1%87%D0%B5%D1%82%D0%B0%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%D0%BC%D0%B8%2F%D0%92%D0%BD%D0%B5%D1%88%D0%BD%D1%8F%D1%8F%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%201.epf/raw"",
+		|       ""queryStringParameters"": {
+		|           ""ref"": [
+		|               ""ef3529e5486ff39c6439ab5d745eb56588202b86""
+		|           ]
+		|       },
+		|       ""headers"": {
+		|           ""PRIVATE-TOKEN"": [
+		|               ""-U2ssrBsM4rmx85HXzZ1""
+		|           ]
+		|       }";
+		
+	Ответ = "
+		|       ""statusCode"": 200,
+		|       ""headers"": {
+		|           ""X-Gitlab-File-Name"": [
+		|               ""ÐÐ½ÐµÑÐ½ÑÑ ÐÐ±ÑÐ°Ð±Ð¾ÑÐºÐ° 1.epf""
+		|           ]
+		|       },
+		|       ""body"": ""some_response_body""
+		|";
 
-
+	Мок.Когда(Запрос).Ожидаем(Ответ);
+	Мок = Неопределено;
+		
 	URL="http://host.docker.internal:1080";
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//GitLabUserPrivateToken = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("GitLabUserPrivateToken");
@@ -113,19 +80,30 @@
 	ПутьКФайлу = СтрШаблон("/api/v4/projects/1/repository/files/%1/raw?ref=%2", ПутьКФайлу, commit);
 
 	// ошибка, неверный URL
+	// when
 	Результат = Gitlab.ПолучитьФайл("http://фэйк", ПутьКФайлу, GitLabUserPrivateToken, 5);
+	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
 	
 	// 404
+	// when
 	Результат = Gitlab.ПолучитьФайл(URL, "/фэйк.epf", GitLabUserPrivateToken, 5);
+	
+	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
 
 	// 401
+	// when
 	Результат = Gitlab.ПолучитьФайл(URL, ПутьКФайлу, "1234567890", 5);
+	
+	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.Ошибка, Неопределено);
 
 	// 200
+	// when
 	Результат = Gitlab.ПолучитьФайл(URL, ПутьКФайлу, GitLabUserPrivateToken, 5);
+	
+	// then	
 	Фреймворк.ПроверитьТип(Результат, "Структура");
 	Фреймворк.ПроверитьРавенство(Результат.ИмяФайлаИзЗапроса, "Внешняя Обработка 1.epf");
 	FromWin1251 = СтроковыеФункцииКлиентСервер.ПерекодироватьСтроку("Внешняя Обработка 1.epf", "windows-1251");
