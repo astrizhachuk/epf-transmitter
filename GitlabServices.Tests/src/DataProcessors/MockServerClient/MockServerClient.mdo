@@ -42,10 +42,20 @@
     </type>
   </attributes>
   <attributes uuid="2c13b18a-3af1-4e83-9c6a-0bc211d96725">
-    <name>Результат</name>
+    <name>MockServerResponse</name>
     <synonym>
       <key>ru</key>
-      <value>Результат</value>
+      <value>Mock server response</value>
+    </synonym>
+    <type>
+      <types>Arbitrary</types>
+    </type>
+  </attributes>
+  <attributes uuid="b51842c4-9b23-4811-8347-868c5b7a57b2">
+    <name>Конструктор</name>
+    <synonym>
+      <key>ru</key>
+      <value>Конструктор</value>
     </synonym>
     <type>
       <types>Arbitrary</types>
