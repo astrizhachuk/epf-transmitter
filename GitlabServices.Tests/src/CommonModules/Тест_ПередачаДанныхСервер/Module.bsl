@@ -8,13 +8,13 @@
 	
 	// given
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер("http://host.docker.internal:1080").Сбросить();
+	Мок.Сервер("http://mock-server:1080").Сбросить();
 	Настройки = "
 		|		""version"": ""200""";
 	Мок.ИмпортироватьНастройки("file:/tmp/receiver.yaml", Настройки);
 	Мок = Неопределено;
 	
-	URL = "http://host.docker.internal:1080";
+	URL = "http://mock-server:1080";
 	
 	// when
 	Результат = КоннекторHTTP.Get(URL + "/version");

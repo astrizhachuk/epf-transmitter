@@ -121,7 +121,7 @@
 	URL = URL + "/webhooks/epf/push";
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//ПутьЭталонWebHookGitLab = Фреймворк.Объект.КаталогПроекта + ЭталонWebHookGitLab;
-	ПутьЭталонWebHookGitLab = "C:\w\1c\workspace\gitlab-services\test\post-from-gitlab.json";
+	ПутьЭталонWebHookGitLab = "C:\w\1c\edt\gitlab-services\gitlab-services\test\post-from-gitlab.json";
 	
 	СекретныйКлюч = "блаблаблаюниттест";	
 

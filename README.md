@@ -87,10 +87,11 @@
 
 ```bash
 # srv - сервер 1С;
-# gitlab - сервер gitlab;
+# mock-server - mock-сервер (требуется для установки заглушек веб-сервисов);
+# gitlab - сервер gitlab (требуется для интеграционных тестов);
 # transmitter - веб-сервер для API и веб-клиента сервиса gitlab;
 # receiver:[port] - веб-сервера для API тестовых баз (получателей)
-127.0.0.1 localhost gitlab transmitter receiver
+127.0.0.1 localhost mock-server gitlab transmitter receiver
 172.28.189.202 srv  #ult 172.28.189.202 - ip docker-демона
 ```
 

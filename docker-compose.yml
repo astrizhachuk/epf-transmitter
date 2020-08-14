@@ -12,8 +12,10 @@ services:
       - "./tools/nginx/gitlab-http.conf:/etc/nginx/conf.d/gitlab-http.conf:ro"
       - "./tools/nginx/transmitter-http.conf:/etc/nginx/conf.d/transmitter-http.conf:ro"
       - "./tools/nginx/receiver-http.conf:/etc/nginx/conf.d/receiver-http.conf:ro"
+      - "./tools/nginx/mock-server-http.conf:/etc/nginx/conf.d/mock-server-http.conf:ro"
     ports:
-    - "80:80"
+      - "80:80"
+      - "1090:1080" # для доступа к mock-server (не обязательно)
     networks:
       - back_net
 
@@ -35,14 +37,14 @@ services:
     networks:
       - back_net
 
-  mock:
+  mock-server:
     image: mockserver/mockserver
-    container_name: mock
+    container_name: mock-server
     command: -logLevel DEBUG -serverPort 1080
-    ports:
-      - "1080:1080"
     volumes:
       - ./api-receiver.yaml:/tmp/receiver.yaml
+    networks:
+      - back_net
 
   srv:
     image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
