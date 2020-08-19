@@ -31,10 +31,10 @@
 Процедура Тест_ОписаниеСервисаURL(Фреймворк) Экспорт
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
-	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("АдресСервисаИБРаспределителя");
+	URL = "http://transmitter/api/hs/gitlab";
 	
-	Фреймворк.ПроверитьЗаполненность(URL, "Нет URL (user_settings.json -> МестоположениеСервисовИБРаспределителя");
+	Фреймворк.ПроверитьЗаполненность(URL, "Нет URL (user_settings.json -> АдресСервисаИБРаспределителя");
 	Фреймворк.ПроверитьЛожь(ПустаяСтрока(URL), "URL не может быть пустым, проверьте user_settings.json.");
 	
 	BadURL = "йохохо";
@@ -86,8 +86,8 @@
 Процедура Тест_ServicesGET(Фреймворк) Экспорт
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
-	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("АдресСервисаИБРаспределителя");
+	URL = "http://transmitter/api/hs/gitlab";
 
 	Результат = Тест_HTTPСервисыСервер.КоннекторHTTPGet(URL + "/services");
 	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
@@ -112,8 +112,8 @@
 Процедура Тест_WebhooksPOST(Фреймворк) Экспорт
 	
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
-	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("МестоположениеСервисовИБРаспределителя");
-	URL = "http://web/api/hs/gitlab";
+	//URL = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("АдресСервисаИБРаспределителя");
+	URL = "http://transmitter/api/hs/gitlab";
 	ЭталонWebHookGitLab = Фреймворк.ПолучитьСохраненноеЗначениеИзКонтекстаСохраняемого("ЭталонWebHookGitLab");
 	
 	BadURLEpf = URL + "/webhooks/epf3/push";
@@ -121,7 +121,7 @@
 	URL = URL + "/webhooks/epf/push";
 	//https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher/issues/20
 	//ПутьЭталонWebHookGitLab = Фреймворк.Объект.КаталогПроекта + ЭталонWebHookGitLab;
-	ПутьЭталонWebHookGitLab = "C:\w\1c\workspace\gitlab-services\test\post-from-gitlab.json";
+	ПутьЭталонWebHookGitLab = "C:\w\1c\edt\gitlab-services\gitlab-services\test\post-from-gitlab.json";
 	
 	СекретныйКлюч = "блаблаблаюниттест";	
 

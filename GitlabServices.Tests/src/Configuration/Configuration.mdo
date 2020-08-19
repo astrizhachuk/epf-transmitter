@@ -28,10 +28,7 @@
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultLanguage>Language.Русский</defaultLanguage>
-  <dataLockControlMode>Managed</dataLockControlMode>
-  <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
-  <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
   <compatibilityMode>8.3.16</compatibilityMode>
   <languages uuid="d98e3d2b-0147-412c-b455-5a8c476af9f7">
     <name>Русский</name>
@@ -50,6 +47,9 @@
   <commonModules>CommonModule.Тест_СтроковыеФункцииКлиент</commonModules>
   <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
   <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
-  <commonModules>CommonModule.Тест_ПередачаДанныхКлиент</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
+  <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
+  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
+  <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

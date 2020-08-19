@@ -35,15 +35,21 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
+  <languages uuid="07eec7ed-7daf-411c-a1bb-3464325c0ee6">
+    <name>English</name>
+    <synonym>
+      <key>ru</key>
+      <value>English</value>
+    </synonym>
+    <languageCode>en</languageCode>
+  </languages>
   <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
   <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
-  <commonModules>CommonModule.КодОтветаHTTP</commonModules>
-  <commonModules>CommonModule.КодОтветаHTTPПовтИсп</commonModules>
-  <commonModules>CommonModule.КодОтветаHTTPСервер</commonModules>
+  <commonModules>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
@@ -54,6 +60,7 @@
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ПередачаДанных</commonModules>
   <commonModules>CommonModule.НастройкаСервисов</commonModules>
+  <commonModules>CommonModule.Gitlab</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
