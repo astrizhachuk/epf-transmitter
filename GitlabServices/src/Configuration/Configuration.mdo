@@ -35,6 +35,14 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
+  <languages uuid="07eec7ed-7daf-411c-a1bb-3464325c0ee6">
+    <name>English</name>
+    <synonym>
+      <key>ru</key>
+      <value>English</value>
+    </synonym>
+    <languageCode>en</languageCode>
+  </languages>
   <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
   <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
