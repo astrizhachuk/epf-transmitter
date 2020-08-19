@@ -41,9 +41,7 @@
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
-  <commonModules>CommonModule.КодОтветаHTTP</commonModules>
-  <commonModules>CommonModule.КодОтветаHTTPПовтИсп</commonModules>
-  <commonModules>CommonModule.КодОтветаHTTPСервер</commonModules>
+  <commonModules>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>

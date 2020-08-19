@@ -158,7 +158,7 @@
 	ДополнительныеПараметры = Новый Структура("Заголовки", Заголовки);
 	ЭтотОбъект.MockServerResponse = КоннекторHTTP.Put(URL + "/mockserver/expectation", JSON(), ДополнительныеПараметры);
 	
-	Если НЕ КодОтветаHTTP.isCreated(ЭтотОбъект.MockServerResponse.КодСостояния) Тогда
+	Если НЕ КодыСостоянияHTTPКлиентСерверПовтИсп.isCreated(ЭтотОбъект.MockServerResponse.КодСостояния) Тогда
 		
 		ВызватьИсключение "MockServer: can't create Expectation.";
 		
@@ -188,7 +188,7 @@
 	ДополнительныеПараметры = Новый Структура("Заголовки", Заголовки);
 	ЭтотОбъект.MockServerResponse = КоннекторHTTP.Put(URL + "/mockserver/openapi", JSON, ДополнительныеПараметры);
 	
-	Если НЕ КодОтветаHTTP.isCreated(ЭтотОбъект.MockServerResponse.КодСостояния) Тогда
+	Если НЕ КодыСостоянияHTTPКлиентСерверПовтИсп.isCreated(ЭтотОбъект.MockServerResponse.КодСостояния) Тогда
 		
 		ВызватьИсключение "MockServer: can't create openAPIExpectation.";
 		
