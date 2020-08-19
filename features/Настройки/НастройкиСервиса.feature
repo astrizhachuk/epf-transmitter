@@ -1,4 +1,4 @@
-#language: ru
+﻿#language: ru
 
 @ExportScenarios
 @ignoreoncimainbuild
