@@ -15,39 +15,19 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <attributes uuid="b281e7e2-283e-450c-8c83-9eef3bc15090">
-    <name>Url</name>
+    <name>URL</name>
     <synonym>
       <key>en</key>
-      <value>Url</value>
+      <value>URL</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Url</value>
+      <value>URL</value>
     </synonym>
     <type>
       <types>String</types>
       <stringQualifiers/>
     </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="242bf380-570c-4cb9-bfda-de50ad464647">
-    <name>Запрос</name>
-    <synonym>
-      <key>ru</key>
-      <value>Запрос</value>
-    </synonym>
-    <type/>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="37dcca89-1d9c-4b11-80b8-27476ec9fd9f">
-    <name>Ответ</name>
-    <synonym>
-      <key>ru</key>
-      <value>Ответ</value>
-    </synonym>
-    <type/>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
@@ -68,16 +48,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="b51842c4-9b23-4811-8347-868c5b7a57b2">
-    <name>Конструктор</name>
-    <synonym>
-      <key>ru</key>
-      <value>Конструктор</value>
-    </synonym>
-    <type/>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
   <attributes uuid="8612dc00-2353-43b5-90a8-6a245653e621">
     <name>Constructor</name>
     <synonym>
@@ -93,14 +63,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="259a239b-f688-498e-a6c4-c4ffd50dffb8">
-    <name>Json</name>
+    <name>JSON</name>
     <synonym>
       <key>en</key>
-      <value>Json</value>
+      <value>JSON</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Json</value>
+      <value>JSON</value>
     </synonym>
     <type>
       <types>String</types>
@@ -110,42 +80,42 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="93054b63-e2c2-4c70-9ce3-f4fc6df6c31b">
-    <name>HttpRequestJson</name>
+    <name>HttpRequestNode</name>
     <synonym>
       <key>en</key>
-      <value>HttpRequestJson</value>
+      <value>HttpRequestNode</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>HttpRequestJson</value>
+      <value>HttpRequestNode</value>
     </synonym>
     <type/>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="13d4cea9-38f2-4636-8968-451eec4057dc">
-    <name>HttpResponseJson</name>
+    <name>HttpResponseNode</name>
     <synonym>
       <key>en</key>
-      <value>HttpResponseJson</value>
+      <value>HttpResponseNode</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>HttpResponseJson</value>
+      <value>HttpResponseNode</value>
     </synonym>
     <type/>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="f6902609-2086-4001-9e15-31f518861bd1">
-    <name>TimesJson</name>
+    <name>TimesNode</name>
     <synonym>
       <key>en</key>
-      <value>TimesJson</value>
+      <value>TimesNode</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>TimesJson</value>
+      <value>TimesNode</value>
     </synonym>
     <type/>
     <minValue xsi:type="core:UndefinedValue"/>
