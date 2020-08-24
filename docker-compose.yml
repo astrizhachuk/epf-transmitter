@@ -20,7 +20,7 @@ services:
       - back_net
 
   gitlab:
-    image: 'gitlab/gitlab-ee:latest'
+    image: gitlab/gitlab-ee:13.1.4-ee.0
     container_name: gitlab
     hostname: gitlab
     environment:
