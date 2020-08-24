@@ -804,7 +804,7 @@ EndFunction
 //  Мок = Обработки.MockServerClient.Создать().Сервер("http://server", "1090");
 //  Мок = Обработки.MockServerClient.Создать().Сервер("http://server", "1090", Истина);
 //
-Function Сервер( URL, Порт = Undefined, Сбросить = Undefined ) Export
+Function Сервер( URL, Порт = Undefined, Сбросить = False ) Export
 	
 	Return Server( URL, Порт, Сбросить );
 	
