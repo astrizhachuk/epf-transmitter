@@ -1,7 +1,7 @@
 // BSLLS-выкл.
 #Область СлужебныйПрограммныйИнтерфейс
 
-// @unit-test:dev
+// @unit-test
 Процедура СтруктураОтвета(Фреймворк) Экспорт
 
 	// when
@@ -13,7 +13,7 @@
 	
 КонецПроцедуры
 
-//@unit-test:dev
+//@unit-test
 Процедура ОписаниеНеСуществующегоСервиса(Фреймворк) Экспорт
 
 	// given
@@ -26,7 +26,7 @@
 
 КонецПроцедуры
 
-//@unit-test:dev
+//@unit-test
 Процедура ОписаниеСуществующегоСервиса(Фреймворк) Экспорт
 
 	// given
@@ -52,7 +52,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURLBadURL(Фреймворк) Экспорт
 	
 	// given
@@ -71,7 +71,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURLПустойURL(Фреймворк) Экспорт
 	
 	// given
@@ -84,7 +84,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURLНеверныйТип(Фреймворк) Экспорт
 	
 	// given
@@ -97,7 +97,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURLНеверноеИмяСервиса(Фреймворк) Экспорт
 	
 	// given
@@ -115,7 +115,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURLОшибкаПреобразования(Фреймворк) Экспорт
 	
 	// given
@@ -128,7 +128,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURL404NotFound(Фреймворк) Экспорт
 	
 	// given
@@ -141,7 +141,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура ОписаниеСервисаURL(Фреймворк) Экспорт
 	
 	// given
@@ -231,7 +231,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST403Forbidden(Фреймворк) Экспорт
 
 	// given
@@ -269,8 +269,7 @@
 	
 КонецПроцедуры
 
-
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST423Locked(Фреймворк) Экспорт
 
 	// given
@@ -299,7 +298,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Экспорт
 
 	// given
@@ -336,7 +335,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Экспорт
 
 	// given
@@ -365,7 +364,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestBadURLPush(Фреймворк) Экспорт
 
 	// given
@@ -394,7 +393,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспорт
 
 	// given
@@ -448,7 +447,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestProject(Фреймворк) Экспорт
 
 	// given
@@ -497,7 +496,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Экспорт
 
 	// given
@@ -551,7 +550,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestCommits(Фреймворк) Экспорт
 
 	// given
@@ -592,7 +591,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestCommitsId(Фреймворк) Экспорт
 
 	// given
