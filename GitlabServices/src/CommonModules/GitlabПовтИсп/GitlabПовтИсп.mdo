@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="578ab6d4-7bd8-4a4e-893e-e4589a8acec6">
+  <name>GitlabПовтИсп</name>
+  <synonym>
+    <key>ru</key>
+    <value>Gitlab повт исп</value>
+  </synonym>
+  <server>true</server>
+  <returnValuesReuse>DuringSession</returnValuesReuse>
+</mdclass:CommonModule>
