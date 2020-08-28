@@ -67,4 +67,18 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.AccessTokenReceiver</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
