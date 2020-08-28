@@ -49,19 +49,19 @@
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
+  <commonModules>CommonModule.Gitlab</commonModules>
+  <commonModules>CommonModule.GitlabПовтИсп</commonModules>
+  <commonModules>CommonModule.HTTPСервисы</commonModules>
   <commonModules>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</commonModules>
   <commonModules>CommonModule.КоннекторHTTP</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
+  <commonModules>CommonModule.НастройкаСервисов</commonModules>
+  <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.HTTPСервисы</commonModules>
+  <commonModules>CommonModule.ПередачаДанных</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
-  <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
-  <commonModules>CommonModule.ПередачаДанных</commonModules>
-  <commonModules>CommonModule.НастройкаСервисов</commonModules>
-  <commonModules>CommonModule.Gitlab</commonModules>
-  <commonModules>CommonModule.GitlabПовтИсп</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
