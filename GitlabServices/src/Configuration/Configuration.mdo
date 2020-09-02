@@ -62,6 +62,7 @@
   <commonModules>CommonModule.ПередачаДанных</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.Маршрутизация</commonModules>
   <httpServices>HTTPService.gitlab</httpServices>
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
