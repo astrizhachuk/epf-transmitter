@@ -13,19 +13,19 @@
     {
       "name": "szfo",
       "address": "http://receiver:8083/api/hs/gitlab",
-      "enabled": false
+      "enabled": true
     }
   ],
   "epf": [
     {
-      "name": "test1",
+      "name": "Каталог 1/test1.epf",
       "exclude": [
         "spb",
         "msk"
       ]
     },
     {
-      "name": "test2"
+      "name": "Каталог 2/test2.epf"
     }
   ]
 }
