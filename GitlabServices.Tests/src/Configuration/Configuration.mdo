@@ -44,7 +44,7 @@
   <commonModules>CommonModule.Тест_HTTPСервисыСервер</commonModules>
   <commonModules>CommonModule.Тест_СтроковыеФункцииКлиент</commonModules>
   <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
-  <commonModules>CommonModule.Тест_ПередачаДанныхСервер</commonModules>
+  <commonModules>CommonModule.Тест_ПолучателиСервер</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>

@@ -59,7 +59,7 @@
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.ПередачаДанных</commonModules>
+  <commonModules>CommonModule.Получатели</commonModules>
   <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.Маршрутизация</commonModules>
