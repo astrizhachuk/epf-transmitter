@@ -25,7 +25,7 @@
 
 * Разработка ведется в [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2020.4.0+425. Проект создан на основе [bootstrap-1c](https://github.com/astrizhachuk/bootstrap-1c);
 
-* Платформа 1С не ниже 8.3.16.1502;
+* Платформа 1С не ниже 8.3.17.1549;
 
 * Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) не ниже 0.4.0 - в расширении конфигурации EDT, см. [./GitlabServices.Tests](./GitlabServices.Tests);
 
