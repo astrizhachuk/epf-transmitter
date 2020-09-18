@@ -251,7 +251,6 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -412,7 +411,6 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
