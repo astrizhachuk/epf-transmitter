@@ -1,32 +1,34 @@
 {
   "ws": [
-      {
-          "name": "spb",
-          "address": "http://spbcoit58.stdp.ru/Endpoint/ws/EpfService",
-          "enabled": true
-      },
-      {
-          "name": "msk",
-          "address": "adsfdasfasdfasdf2",
-          "enabled": false
-      },
-      {
-        "name": "msk2",
-        "address": "adsfdasfasdfasdf2",
-        "enabled": false
+    {
+      "name": "spb",
+      "address": "http://receiver:8081/api/hs/gitlab",
+      "enabled": true
+    },
+    {
+      "name": "msk",
+      "address": "http://receiver:8082/api/hs/gitlab",
+      "enabled": false
+    },
+    {
+      "name": "szfo",
+      "address": "http://receiver:8083/api/hs/gitlab",
+      "enabled": true
     }
-      ],
-    "epf" :
-    
-    [
-      {
-          "name": "fileadsfdasfasdfasdf1",
-          "exclude": [
-              "spb",
-               "msk"]
-      },
-      {
-          "name": "fileadsfdasfasdfasdf2"
-      }
+  ],
+  "epf": [
+    {
+      "name": "Каталог 1/test1.epf",
+      "exclude": [
+        "spb",
+        "msk"
       ]
+    },
+    {
+      "name": "Каталог 2/test2.epf"
+    },
+    {
+      "name": "Нет такого файла.epf"
+    }
+  ]
 }

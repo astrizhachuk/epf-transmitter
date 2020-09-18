@@ -251,7 +251,6 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -290,7 +289,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -412,7 +411,6 @@
         <minValue xsi:type="core:NumberValue">
           <value>0</value>
         </minValue>
-        <maxValue xsi:type="core:UndefinedValue"/>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -447,7 +445,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
