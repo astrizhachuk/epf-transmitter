@@ -48,9 +48,9 @@
   <commonModules>CommonModule.Тест_ПолучателиСервер</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
   <commonModules>CommonModule.Тест_Маршрутизация</commonModules>
+  <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
-  <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>
