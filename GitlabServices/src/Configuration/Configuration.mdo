@@ -46,6 +46,7 @@
   </languages>
   <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
   <subsystems>Subsystem.Логирование</subsystems>
+  <subsystems>Subsystem.ВнешниеЗависимости</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
