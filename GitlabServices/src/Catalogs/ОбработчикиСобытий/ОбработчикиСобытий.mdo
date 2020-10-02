@@ -125,6 +125,7 @@
     <fillValue xsi:type="core:StringValue">
       <value></value>
     </fillValue>
+    <indexing>Index</indexing>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
