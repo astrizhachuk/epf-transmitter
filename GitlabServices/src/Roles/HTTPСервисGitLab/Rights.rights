@@ -81,4 +81,26 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>InformationRegister.ДанныеЗапросов</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ВнешниеФайлы</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>

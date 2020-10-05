@@ -349,6 +349,7 @@
 				|      ],
 				|      ""modified"": [
 				|        ""src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin"",
+				|        ""test_none.epf"",
 				|        ""test1.epf""
 				|      ],
 				|      ""removed"": [
