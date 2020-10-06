@@ -658,12 +658,14 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <parameters>
-    <name>Ключ</name>
-    <valueType/>
+    <name>КлючЗаписи</name>
+    <valueType>
+      <types>InformationRegisterRecordManager.ДанныеЗапросов</types>
+    </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>Команда</name>
+    <name>ИмяКоманды</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>

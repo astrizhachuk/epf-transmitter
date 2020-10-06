@@ -19,7 +19,6 @@
   <content>Constant.ИмяФайлаНастроекМаршрутизации</content>
   <content>Constant.GitLabUserPrivateToken</content>
   <content>Catalog.ОбработчикиСобытий</content>
-  <content>InformationRegister.ДанныеОбработчиковСобытий</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.НастройкиСервиса</content>
   <content>Constant.ТаймаутGitLab</content>

@@ -78,7 +78,6 @@
   <commonForms>CommonForm.ПроверкаПодключения</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <enums>Enum.УровеньЖурналаРегистрации</enums>
-  <informationRegisters>InformationRegister.ДанныеОбработчиковСобытий</informationRegisters>
   <informationRegisters>InformationRegister.ДанныеЗапросов</informationRegisters>
   <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>
 </mdclass:Configuration>
