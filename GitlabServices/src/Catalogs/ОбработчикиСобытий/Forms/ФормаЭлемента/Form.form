@@ -296,7 +296,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьJSONМаршрутизации</commandName>
+            <commandName>Form.Command.ОткрытьНастройкиМаршрутизацииВРедактореJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -326,7 +326,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьJSONТелаЗапроса</commandName>
+            <commandName>Form.Command.ОткрытьТекстЗапросаВРедактореJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1872,7 +1872,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьJSONТелаЗапроса</name>
+    <name>ОткрытьТекстЗапросаВРедактореJSON</name>
     <title>
       <key>ru</key>
       <value>.json запроса</value>
@@ -1887,13 +1887,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьJSONТелаЗапроса</name>
+        <name>ОткрытьТекстЗапросаВРедактореJSON</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьJSONМаршрутизации</name>
+    <name>ОткрытьНастройкиМаршрутизацииВРедактореJSON</name>
     <title>
       <key>ru</key>
       <value>.json маршрутизации</value>
@@ -1908,7 +1908,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьJSONМаршрутизации</name>
+        <name>ОткрытьНастройкиМаршрутизацииВРедактореJSON</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
