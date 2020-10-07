@@ -662,6 +662,7 @@
     <valueType>
       <types>Arbitrary</types>
     </valueType>
+    <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
     <name>ИмяКоманды</name>
