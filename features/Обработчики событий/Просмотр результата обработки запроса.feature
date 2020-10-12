@@ -8,11 +8,14 @@
 
 Контекст:
 	Дано Я подключаю TestClient "Этот клиент" логин "Пользователь" пароль ""
+	И Я очищаю MockServer
+	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-routing.json"
+	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-epf-push.json"
 	И я удаляю все элементы Справочника "ОбработчикиСобытий"
 	И я удаляю все записи РегистрСведений "ДанныеЗапросов"
 	И я удаляю все записи РегистрСведений "ВнешниеФайлы"
 	И я закрыл все окна клиентского приложения
-	И Я настраиваю сервис работы с GitLab по значениям глобальным переменным
+	И Я настраиваю сервис работы с GitLab для функционального тестирования
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики событий'
 	Тогда открылось окно 'Обработчики событий'
 	И Я добавляю новый обработчик событий "Тест обработки запроса фэйк" с ключом "фэйк"
@@ -20,9 +23,9 @@
 	И Я добавляю новый обработчик событий "Тест обработки запроса фэйк 2" с ключом "gita2"
 
 Сценарий: Я проверяю что данные запроса и полученные внешние файлы сохранились
-	Когда Я отправляю "Push Hook" запрос с ключом "фэйк" и телом "/home/usr1cv8/test/request_epf_push_3.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request_epf_push.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request_epf_push_2.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Когда Я отправляю "Push Hook" запрос с ключом "фэйк" и телом "/home/usr1cv8/test/request-epf-push-3.json" для "/api/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
 	
 	Тогда в таблице "Список" я перехожу к строке:

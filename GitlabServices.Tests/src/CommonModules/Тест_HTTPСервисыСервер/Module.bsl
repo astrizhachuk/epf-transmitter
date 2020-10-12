@@ -197,7 +197,7 @@
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	URL = "http://transmitter/api/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
-	ЭталонWebHookGitLab = "/home/usr1cv8/test/request_epf_push.json";
+	ЭталонWebHookGitLab = "/home/usr1cv8/test/request-epf-push.json";
 	Текст = Новый ЧтениеТекста(ЭталонWebHookGitLab, КодировкаТекста.UTF8);
 	JSON = Текст.Прочитать();
 

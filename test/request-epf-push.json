@@ -4,7 +4,7 @@
   "before": "968eca170a80a5c825b0808734cb5b109eaedcd3",
   "after": "1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
   "ref": "refs/heads/master",
-  "checkout_sha": "2b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+  "checkout_sha": "1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
   "message": null,
   "user_id": 1,
   "user_name": "Administrator",
@@ -16,27 +16,27 @@
     "id": 1,
     "name": "external-epf",
     "description": "",
-    "web_url": "http://gitlab/root/external-epf",
+    "web_url": "http://mock-server:1080/root/external-epf",
     "avatar_url": null,
     "git_ssh_url": "git@gitlab:root/external-epf.git",
-    "git_http_url": "http://gitlab/root/external-epf.git",
+    "git_http_url": "http://mock-server:1080/root/external-epf.git",
     "namespace": "Administrator",
     "visibility_level": 0,
     "path_with_namespace": "root/external-epf",
     "default_branch": "master",
     "ci_config_path": null,
-    "homepage": "http://gitlab/root/external-epf",
+    "homepage": "http://mock-server:1080/root/external-epf",
     "url": "git@gitlab:root/external-epf.git",
     "ssh_url": "git@gitlab:root/external-epf.git",
-    "http_url": "http://gitlab/root/external-epf.git"
+    "http_url": "http://mock-server:1080/root/external-epf.git"
   },
   "commits": [
     {
-      "id": "2b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+      "id": "1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
       "message": "Merge branch 'feature/update-epf' into 'master'\n\ndeploy\n\nSee merge request root/external-epf!5",
       "title": "Merge branch 'feature/update-epf' into 'master'",
       "timestamp": "2020-07-21T09:22:30+00:00",
-      "url": "http://gitlab/root/external-epf/-/commit/1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+      "url": "http://mock-server:1080/root/external-epf/-/commit/1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
       "author": {
         "name": "Administrator",
         "email": "admin@example.com"
@@ -63,7 +63,7 @@
       "message": "deploy\n",
       "title": "deploy",
       "timestamp": "2020-07-21T09:22:30+00:00",
-      "url": "http://gitlab/root/external-epf/-/commit/ef886bb4e372250d8212387350f7e139cbe5a1af",
+      "url": "http://mock-server:1080/root/external-epf/-/commit/ef886bb4e372250d8212387350f7e139cbe5a1af",
       "author": {
         "name": "Administrator",
         "email": "admin@example.com"
@@ -90,7 +90,7 @@
       "message": "first\n",
       "title": "first",
       "timestamp": "2020-03-16T16:00:15+03:00",
-      "url": "http://gitlab/root/external-epf/-/commit/968eca170a80a5c825b0808734cb5b109eaedcd3",
+      "url": "http://mock-server:1080/root/external-epf/-/commit/968eca170a80a5c825b0808734cb5b109eaedcd3",
       "author": {
         "name": "a.strizhachuk",
         "email": "strizhhh@mail.ru"
@@ -115,8 +115,8 @@
     "name": "external-epf",
     "url": "git@gitlab:root/external-epf.git",
     "description": "",
-    "homepage": "http://gitlab/root/external-epf",
-    "git_http_url": "http://gitlab/root/external-epf.git",
+    "homepage": "http://mock-server:1080/root/external-epf",
+    "git_http_url": "http://mock-server:1080/root/external-epf.git",
     "git_ssh_url": "git@gitlab:root/external-epf.git",
     "visibility_level": 0
   }
