@@ -506,7 +506,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.СохранитьJSON</commandName>
+      <commandName>Form.Command.ВыполнитьСохранениеJSON</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -659,22 +659,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>СохранитьJSON</name>
-    <title>
-      <key>ru</key>
-      <value>Сохранить</value>
-    </title>
+    <name>ВыполнитьСохранениеJSON</name>
     <id>1</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Сохранить JSON</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьJSON</name>
+        <name>ВыполнитьСохранениеJSON</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
