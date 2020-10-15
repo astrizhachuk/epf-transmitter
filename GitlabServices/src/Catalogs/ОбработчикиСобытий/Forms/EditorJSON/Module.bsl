@@ -243,7 +243,7 @@ Function FindCommitById( Val QueryData, Val CommitSHA )
 		
 	EndDo;
 	
-	Return Undefined;
+	Return New Map();
 	
 EndFunction
 
@@ -264,14 +264,14 @@ Procedure DeleteUserSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 
 	Commit = FindCommitById( QueryData, CommitSHA );
 	DefaultSetting = Commit.Get( "settings" ).Get( "json" );
-	Commit.Delete( "user_settings" );
 	
 	If ( IsBlankString(DefaultSetting) OR DefaultSetting = CurrentSetting ) Then
 		
 		Return;
 		
 	EndIf;		
-				
+
+	Commit.Delete( "user_settings" );				
 	ОбработчикиСобытий.СохранитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ, QueryData );
 	
 	CurrentSetting = DefaultSetting; 
