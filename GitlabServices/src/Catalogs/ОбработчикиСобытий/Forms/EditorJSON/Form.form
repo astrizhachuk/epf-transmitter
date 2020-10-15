@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаCommits</name>
+    <name>GroupCommits</name>
     <id>4</id>
     <items xsi:type="form:Table">
       <name>Commits</name>
@@ -79,7 +79,7 @@
       </autoCommandBar>
       <handlers>
         <event>OnActivateRow</event>
-        <name>CommitsПриАктивизацииСтроки</name>
+        <name>CommitsOnActivateRow</name>
       </handlers>
       <searchStringAddition>
         <visible>true</visible>
@@ -250,6 +250,10 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Commits</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Commits</value>
     </title>
@@ -258,7 +262,7 @@
       <value>Группа коммиты</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаCommitsРасширеннаяПодсказка</name>
+      <name>GroupCommitsРасширеннаяПодсказка</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -284,10 +288,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОкноРедактора</name>
+    <name>GroupEditor</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>CommitsJSONRouting</name>
+      <name>CommitsRoutingJSON</name>
       <id>77</id>
       <enabled>true</enabled>
       <userVisible>
@@ -298,7 +302,7 @@
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>CommitsJSONRoutingРасширеннаяПодсказка</name>
+        <name>CommitsRoutingJSONРасширеннаяПодсказка</name>
         <id>79</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -313,7 +317,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsJSONRoutingКонтекстноеМеню</name>
+        <name>CommitsRoutingJSONКонтекстноеМеню</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -338,7 +342,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>CommitsJSONQuery</name>
+      <name>CommitsQueryJSON</name>
       <id>71</id>
       <enabled>true</enabled>
       <userVisible>
@@ -349,7 +353,7 @@
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>CommitsJSONQueryРасширеннаяПодсказка</name>
+        <name>CommitsQueryJSONРасширеннаяПодсказка</name>
         <id>73</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -364,7 +368,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsJSONQueryКонтекстноеМеню</name>
+        <name>CommitsQueryJSONКонтекстноеМеню</name>
         <id>72</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -402,7 +406,7 @@
       <value>Группа окно редактора</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаОкноРедактораРасширеннаяПодсказка</name>
+      <name>GroupEditorРасширеннаяПодсказка</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -428,10 +432,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПользовательскийВариант</name>
+    <name>GroupUserSettings</name>
     <id>29</id>
     <items xsi:type="form:FormField">
-      <name>CommitsIsUserSettings</name>
+      <name>CommitsIsUserSetting</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -439,15 +443,15 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Элементы.Commits.ТекущиеДанные.IsUserSettings</segments>
+        <segments>Элементы.Commits.ТекущиеДанные.IsUserSetting</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>ПользовательскийВариантПриИзменении</name>
+        <name>CommitsIsUserSettingOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>CommitsIsUserSettingsРасширеннаяПодсказка</name>
+        <name>CommitsIsUserSettingРасширеннаяПодсказка</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -462,7 +466,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsIsUserSettingsКонтекстноеМеню</name>
+        <name>CommitsIsUserSettingКонтекстноеМеню</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -479,8 +483,12 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:Button">
-      <name>СохранитьJSON</name>
+      <name>SaveJSON</name>
       <id>27</id>
+      <title>
+        <key>en</key>
+        <value>Save JSON</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Сохранить JSON</value>
@@ -491,7 +499,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>СохранитьJSONРасширеннаяПодсказка</name>
+        <name>SaveJSONРасширеннаяПодсказка</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -506,7 +514,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.ВыполнитьСохранениеJSON</commandName>
+      <commandName>Form.Command.ExecuteSaveJSON</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -522,7 +530,7 @@
     </userVisible>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаПользовательскийВариантРасширеннаяПодсказка</name>
+      <name>GroupUserSettingsРасширеннаяПодсказка</name>
       <id>30</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -556,11 +564,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -624,7 +632,11 @@
       </edit>
     </columns>
     <columns>
-      <name>IsUserSettings</name>
+      <name>IsUserSetting</name>
+      <title>
+        <key>en</key>
+        <value>User Setting</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Пользовательский вариант</value>
@@ -642,11 +654,7 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ЭтоЗапрос</name>
-    <title>
-      <key>ru</key>
-      <value>Это запрос</value>
-    </title>
+    <name>IsQuery</name>
     <id>4</id>
     <valueType>
       <types>Boolean</types>
@@ -659,27 +667,27 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыполнитьСохранениеJSON</name>
+    <name>ExecuteSaveJSON</name>
     <id>1</id>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьСохранениеJSON</name>
+        <name>ExecuteSaveJSON</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <parameters>
-    <name>КлючЗаписи</name>
+    <name>RecordKey</name>
     <valueType>
       <types>Arbitrary</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ИмяКоманды</name>
+    <name>CommandName</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>

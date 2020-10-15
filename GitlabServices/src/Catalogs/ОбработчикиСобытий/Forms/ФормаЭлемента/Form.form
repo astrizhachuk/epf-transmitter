@@ -296,7 +296,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьНастройкиМаршрутизацииВРедактореJSON</commandName>
+            <commandName>Form.Command.OpenRoutingJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -326,7 +326,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьТекстЗапросаВРедактореJSON</commandName>
+            <commandName>Form.Command.OpenQueryJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1872,7 +1872,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьТекстЗапросаВРедактореJSON</name>
+    <name>OpenQueryJSON</name>
     <title>
       <key>ru</key>
       <value>.json запроса</value>
@@ -1893,7 +1893,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьНастройкиМаршрутизацииВРедактореJSON</name>
+    <name>OpenRoutingJSON</name>
     <title>
       <key>ru</key>
       <value>.json маршрутизации</value>

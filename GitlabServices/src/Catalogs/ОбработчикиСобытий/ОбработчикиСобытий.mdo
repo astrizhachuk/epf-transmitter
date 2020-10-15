@@ -315,7 +315,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="73a4b558-dde7-418a-b9db-eeaff642abda">
-    <name>РедакторJSON</name>
+    <name>EditorJSON</name>
+    <synonym>
+      <key>en</key>
+      <value>Editor JSON</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактор JSON</value>
