@@ -210,6 +210,11 @@
           <segments>ПолученныеЗапросы</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
+        <excludedCommands>Create</excludedCommands>
+        <excludedCommands>Change</excludedCommands>
+        <excludedCommands>Copy</excludedCommands>
+        <excludedCommands>Delete</excludedCommands>
+        <excludedCommands>ShowMultipleSelection</excludedCommands>
         <items xsi:type="form:FormField">
           <name>ПолученныеЗапросыКлюч</name>
           <id>365</id>
@@ -441,6 +446,10 @@
           </userVisible>
           <horizontalAlign>Left</horizontalAlign>
         </autoCommandBar>
+        <handlers>
+          <event>Selection</event>
+          <name>ReceivedRequestsSelection</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
