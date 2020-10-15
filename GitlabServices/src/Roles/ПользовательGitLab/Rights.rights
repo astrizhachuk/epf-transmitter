@@ -86,10 +86,6 @@
 			<value>true</value>
 		</right>
 		<right>
-			<name>InteractiveDelete</name>
-			<value>true</value>
-		</right>
-		<right>
 			<name>InteractiveSetDeletionMark</name>
 			<value>true</value>
 		</right>
