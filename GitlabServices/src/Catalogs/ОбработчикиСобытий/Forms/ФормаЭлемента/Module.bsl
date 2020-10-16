@@ -19,7 +19,6 @@
 Procedure ReceivedRequestsSelection( Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
 	
 	СтандартнаяОбработка = Ложь;
-	
 	Return;
 
 EndProcedure
@@ -29,32 +28,61 @@ EndProcedure
 #Область ОбработчикиКомандФормы
 
 &AtClient
-Процедура ЗагрузитьИсториюСобытий(Команда)
-	
-	ОткрытьФорму("Справочник.ОбработчикиСобытий.Форма.УсловияОтбора",
-				 ,
-				 ЭтаФорма,
-				 Новый УникальныйИдентификатор(),
-				 ,
-				 ,
-				 Новый ОписаниеОповещения("ЗагрузитьИсториюСобытийЗавершение", ЭтаФорма),
-				 РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-	
-КонецПроцедуры
-
-&AtClient
 Procedure OpenQueryJSON( Command )
 	
-	OpenEditorJSON( ThisObject.Items.ReceivedRequests.CurrentRow, Command );
+	OpenEditorJSON( Items.ReceivedRequests.CurrentRow, Command );
 
 EndProcedure
 
 &AtClient
 Procedure OpenRoutingJSON( Command )
 	
-	OpenEditorJSON( ThisObject.Items.ReceivedRequests.CurrentRow, Command );
+	OpenEditorJSON( Items.ReceivedRequests.CurrentRow, Command );
 
 EndProcedure
+
+Procedure DoAfterApplicationStart( ReturnCode, AdditionalParameters ) Export
+	// No processing is required.
+EndProcedure
+
+&AtClient
+Procedure OpenMergeRequestRemote( Command )
+	
+	Var CurrentRow;
+	Var MergeRequestURL;
+	Var Notify;
+	
+	CurrentRow = Items.ReceivedRequests.CurrentRow;
+	
+	If ( CurrentRow = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
+
+	MergeRequestURL = MergeRequestURL( CurrentRow );
+	
+	If ( NOT IsBlankstring(MergeRequestURL) ) Then
+		
+		#If WebClient Then
+			
+			GotoURL( MergeRequestURL );
+			
+		#Else
+			
+			Notify = New NotifyDescription( "DoAfterApplicationStart", ThisObject );
+			BeginRunningApplication( Notify,  MergeRequestURL );
+			
+   		#EndIf
+   				
+	EndIf;
+	
+EndProcedure
+
+
+
+
+
 
 &AtClient
 Процедура РучнаяОтправкаДанных(Команда)
@@ -98,28 +126,20 @@ EndProcedure
 				 
 КонецПроцедуры
 
-&AtClient
-Процедура ОткрытьСайтСMergeRequests(Команда)
-	
-	Перем ТекущаяСтрока;
-	Перем ОписаниеОповещения;
-	Перем URL;
-	
-	ТекущаяСтрока = ЭтотОбъект.Элементы.ReceivedRequests.ТекущаяСтрока;
-	Если ТекущаяСтрока = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
 
-	URL = MergeRequestsURL(ТекущаяСтрока);
+
+
+&AtClient
+Процедура ЗагрузитьИсториюСобытий(Команда)
 	
-	Если НЕ ПустаяСтрока(URL) Тогда
-		#Если ВебКлиент Тогда
-			ОписаниеОповещения = Новый ОписаниеОповещения("ПослеПодключенияРасширенияРаботыСФайлами", Этаформа, URL);
-			НачатьПодключениеРасширенияРаботыСФайлами(ОписаниеОповещения);
-		#Иначе
-			ЗапуститьПриложение(URL);
-   		#КонецЕсли		
-	КонецЕсли;
+	ОткрытьФорму("Справочник.ОбработчикиСобытий.Форма.УсловияОтбора",
+				 ,
+				 ЭтаФорма,
+				 Новый УникальныйИдентификатор(),
+				 ,
+				 ,
+				 Новый ОписаниеОповещения("ЗагрузитьИсториюСобытийЗавершение", ЭтаФорма),
+				 РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 	
 КонецПроцедуры
 
@@ -172,7 +192,42 @@ Procedure OpenEditorJSON( Val CurrentRow, Val Command )
 	
 EndProcedure
 
+&AtServerNoContext
+Function MergeRequestURL( Val RecordKey )
+	
+	Var QueryData;
+	Var MergeRequests;
+	Var MergeCommitSHA;
+	Var Result;
+	
+	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	MergeRequests = GitLab.GetMergeRequestsByQueryData( QueryData );
 
+	Result = "";
+	
+	For Each MergeRequest In MergeRequests Do
+		
+		MergeCommitSHA = MergeRequest.Get( "merge_commit_sha" );
+		
+		If ( MergeCommitSHA = Undefined OR MergeCommitSHA <> RecordKey.Ключ ) Then
+			
+			Continue;
+			
+		EndIf;
+		
+		Result = MergeRequest.Get( "web_url" );
+		
+		If ( Result <> Undefined ) Then
+			
+			Return Result;
+
+		EndIf;
+
+	EndDo;
+	
+	Return Result;
+
+EndFunction
 
 
 
@@ -239,89 +294,5 @@ EndProcedure
 	Справочники.ОбработчикиСобытий.ЗапуститьОбработкуДанныхВручную(Ссылка, КлючЗапроса);
 КонецПроцедуры
 
-&AtServerNoContext
-Функция MergeRequestsURL(Знач КлючЗапроса)
-	
-	Перем ДанныеТелаЗапроса;
-	Перем Запрос;
-	Перем ПараметрыЗапроса;
-	Перем MergeRequests;
-	Перем Ключ;
-	Перем URL;
-	Перем Результат;
-	
-	//ДанныеТелаЗапроса = РегистрыСведений.ДанныеОбработчиковСобытий.ПолучитьДанныеТелаЗапроса(КлючЗапроса);
-	ДанныеТелаЗапроса = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( КлючЗапроса.ОбработчикСобытия, КлючЗапроса.Ключ );
-	
-	Результат = "";
-	
-	Если ТипЗнч(ДанныеТелаЗапроса) <> Тип("Соответствие") Тогда
-		Возврат Результат;
-	КонецЕсли;
-	
-	Запрос = СервисыGitLab.СформироватьЗапросНаMergeRequests(ДанныеТелаЗапроса);
-	
-	ПараметрыЗапроса = Новый Соответствие;
-	ПараметрыЗапроса.Вставить("PRIVATE-TOKEN", Запрос.СекретныйКлюч);
-	
-	MergeRequests = КоннекторHTTP.GetJson(Запрос.URL, ПараметрыЗапроса);
-	
-	// Значит запрос вернул не JSON, а ошибку или что-то еще, что нам не нужно.
-	Если ТипЗнч(MergeRequests) = Тип("Соответствие") Тогда
-		Возврат Результат;
-	КонецЕсли;
-
-	Для каждого MergeRequest Из MergeRequests Цикл
-		
-		Ключ = MergeRequest.Получить("merge_commit_sha");
-		Если Ключ = Неопределено ИЛИ Ключ <> КлючЗапроса.Ключ Тогда
-			Продолжить;
-		КонецЕсли;
-		
-		URL = MergeRequest.Получить("web_url");
-		Если URL <> Неопределено Тогда
-			Результат = URL;
-			Прервать;
-		КонецЕсли;
-
-	КонецЦикла;
-	
-	Возврат Результат;
-
-КонецФункции
-
-&AtClient
-Процедура ПослеПодключенияРасширенияРаботыСФайлами(Подключено, ДополнительныеПараметры)Экспорт
-	
-	Перем ОписаниеОповещения;
-	 
-    Если Подключено Тогда
-        НачатьЗапускПриложения(Новый ОписаниеОповещения("ПослеЗапуска", Этаформа), ДополнительныеПараметры);
-    Иначе
-        ОписаниеОповещения = Новый ОписаниеОповещения("ПослеУстановкиРасширенияРаботыСФайлами",
-        												Этаформа,
-        												ДополнительныеПараметры);
-        НачатьУстановкуРасширенияРаботыСФайлами(ОписаниеОповещения);
-    КонецЕсли;
-КонецПроцедуры
-
-&AtClient
-Процедура ПослеУстановкиРасширенияРаботыСФайлами(ДополнительныеПараметры) Экспорт
-	
-	Перем ОписаниеОповещения;
-	 
-    ОписаниеОповещения = Новый ОписаниеОповещения("ПослеПодключенияРасширенияРаботыСФайлами",
-    													Этаформа,
-    													ДополнительныеПараметры);
-    НачатьПодключениеРасширенияРаботыСФайлами(ОписаниеОповещения)
-КонецПроцедуры
-
-&AtClient
-Процедура ПослеЗапуска(КодВозврата, ДополнительныеПараметры) Экспорт 
-
-КонецПроцедуры
 
 #КонецОбласти
-
-
-

@@ -62,7 +62,6 @@
   <commonModules>CommonModule.ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
   <commonModules>CommonModule.Получатели</commonModules>
-  <commonModules>CommonModule.СервисыGitLab</commonModules>
   <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.Маршрутизация</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>

@@ -279,6 +279,39 @@
           <name>ReceivedRequestsКоманднаяПанель</name>
           <id>350</id>
           <items xsi:type="form:Button">
+            <name>СохраненныеДанныеРучнаяОтправкаДанных</name>
+            <id>339</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>СохраненныеДанныеРучнаяОтправкаДанныхРасширеннаяПодсказка</name>
+              <id>340</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.РучнаяОтправкаДанных</commandName>
+            <representation>PictureAndText</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <picture xsi:type="core:PictureRef">
+              <picture>StdPicture.GenerateReport</picture>
+            </picture>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
             <name>ReceivedRequestsOpenQueryJSON</name>
             <id>327</id>
             <visible>true</visible>
@@ -339,39 +372,6 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеРучнаяОтправкаДанных</name>
-            <id>339</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>СохраненныеДанныеРучнаяОтправкаДанныхРасширеннаяПодсказка</name>
-              <id>340</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.РучнаяОтправкаДанных</commandName>
-            <representation>PictureAndText</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <picture xsi:type="core:PictureRef">
-              <picture>StdPicture.GenerateReport</picture>
-            </picture>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
             <name>СохраненныеДанныеПоказатьФоновыеЗадания</name>
             <id>331</id>
             <visible>true</visible>
@@ -406,7 +406,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеОткрытьСайтСMergeRequests</name>
+            <name>ReceivedRequestsOpenMergeRequestRemote</name>
             <id>341</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -414,7 +414,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеОткрытьСайтСMergeRequestsРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsOpenMergeRequestRemoteРасширеннаяПодсказка</name>
               <id>342</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -429,7 +429,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.ОткрытьСайтСMergeRequests</commandName>
+            <commandName>Form.Command.OpenMergeRequestRemote</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -664,7 +664,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьСайтСMergeRequests</commandName>
+            <commandName>Form.Command.OpenMergeRequestRemote</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1719,22 +1719,26 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьСайтСMergeRequests</name>
+    <name>OpenMergeRequestRemote</name>
+    <title>
+      <key>en</key>
+      <value>Open MR on Remote</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Открыть Merge Request</value>
+      <value>Открыть удаленный MR</value>
     </title>
     <id>6</id>
     <toolTip>
       <key>ru</key>
-      <value>Открыть сайт с merge requests</value>
+      <value>Открыть веб-сайт с Merge Request</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьСайтСMergeRequests</name>
+        <name>OpenMergeRequestRemote</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

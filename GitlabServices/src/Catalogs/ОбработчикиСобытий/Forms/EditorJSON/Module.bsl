@@ -86,7 +86,7 @@ Procedure ExecuteSaveJSON( Command )
 	Var Notify;
 	Var QuestionText;
 	
-	CurrentData = Элементы.Commits.CurrentData;
+	CurrentData = Items.Commits.CurrentData;
 	
 	If ( CurrentData = Undefined ) Then
 		
@@ -140,15 +140,15 @@ EndProcedure
 &AtServer
 Procedure FillFormValues( Val RecordKey )
 	
-	Var Query;
+	Var QueryData;
 	Var QueryCommits;
 	Var Settings;
 	Var UserSettings;
 	Var NewRaw;
 	
-	Query = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
 	
-	If ( Query = Undefined ) Then
+	If ( QueryData = Undefined ) Then
 		
 		Return;
 		
@@ -157,11 +157,11 @@ Procedure FillFormValues( Val RecordKey )
 	If ( ThisObject.IsQuery ) Then
 		
 		NewRaw = ThisObject.Commits.Add();
-		NewRaw.JSON = Query.Get( "json" );
+		NewRaw.JSON = QueryData.Get( "json" );
 		
 	Else
 
-		QueryCommits = Query.Get( "commits" );
+		QueryCommits = QueryData.Get( "commits" );
 		
 		For Each Commit In QueryCommits Do
 			

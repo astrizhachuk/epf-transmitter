@@ -10,7 +10,6 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.GitLab</picture>
   </picture>
-  <content>CommonModule.СервисыGitLab</content>
   <content>CommonModule.HTTPСервисы</content>
   <content>Role.ПользовательGitLab</content>
   <content>HTTPService.gitlab</content>

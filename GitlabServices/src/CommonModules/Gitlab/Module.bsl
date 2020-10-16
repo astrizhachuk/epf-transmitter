@@ -163,7 +163,7 @@
 // 
 // Параметры:
 // 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-// 	ДанныеЗапроса - Соответствие - преобразованное в коллекцию тело запроса;
+// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
 //
 // Возвращаемое значение:
 // 	ТаблицаЗначений - описание:
@@ -211,6 +211,38 @@
 	
 КонецФункции
 
+// Возвращает девериализованный из JSON ответ сервера GitLab с описанием всех Merge Request проекта.
+// Информация о проекте и адресе сервера GitLab определяется из данных запроса.
+// 
+// Параметры:
+// 	QueryData - Соответствие - десериализованное из JSON тело запроса;
+// Возвращаемое значение:
+//   Массив, Соответствие, Структура - ответ, десериализованный из JSON. 
+//
+Function GetMergeRequestsByQueryData( Val QueryData ) Export
+	
+	Var ProjectParams;
+	Var ConnectionParams;
+	Var Headers;
+	Var URL;
+	Var AdditionalParams;
+	
+	ProjectParams = ОписаниеПроекта( QueryData );
+	ConnectionParams = ПараметрыСоединения( ProjectParams.АдресСервера );
+	
+	Headers = New Map();
+	Headers.Insert( "PRIVATE-TOKEN", ConnectionParams.Token );
+		
+	AdditionalParams = New Structure();
+	AdditionalParams.Insert( "Заголовки", Headers );
+	AdditionalParams.Insert( "Таймаут", ConnectionParams.Таймаут );
+	
+	URL = ConnectionParams.Адрес + MergeRequestsPath( ProjectParams.Идентификатор );
+
+	Return КоннекторHTTP.GetJson( URL, Undefined, AdditionalParams );
+	
+EndFunction
+
 #КонецОбласти
 
 #Область СлужебныйПрограммныйИнтерфейс
@@ -232,7 +264,7 @@
 	Шаблон = "/api/v4/projects/%1/repository/files/%2/raw?ref=%3";
 	ПолноеИмяФайла = КодироватьСтроку( ПолноеИмяФайла, СпособКодированияСтроки.КодировкаURL );
 	
-	Возврат СтрШаблон(Шаблон, ProjectId, ПолноеИмяФайла, Commit);
+	Возврат СтрШаблон( Шаблон, ProjectId, ПолноеИмяФайла, Commit );
 	
 КонецФункции
 
@@ -243,7 +275,7 @@
 // Возвращает описание проекта GitLab по данным запроса.
 // 
 // Параметры:
-// 	ДанныеЗапроса - Соответствие - преобразованное в коллекцию тело запроса;
+// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
 //
 // Возвращаемое значение:
 // 	Структура - Описание:
@@ -278,6 +310,12 @@
 	Возврат Результат;
 	
 КонецФункции
+
+Function MergeRequestsPath( Val ProjectId )
+	
+	Return StrTemplate( "/api/v4/projects/%1/merge_requests", ProjectId );
+	
+EndFunction
 
 // Возвращает перечень возможных действий над файлами в соответствии с REST API GitLab.
 // 
