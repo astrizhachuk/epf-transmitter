@@ -201,7 +201,10 @@ Function MergeRequestURL( Val RecordKey )
 	Var Result;
 	
 	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
-	MergeRequests = GitLab.GetMergeRequestsByQueryData( QueryData );
+
+	// TODO тут необработанное исключение, когда по URL не возможно получить JSON с MR (неверная ссылка или сервер лежит),
+	// подумать, или зарегать в ишузах 
+	MergeRequests = GitLab.GetMergeRequestsByQueryData( QueryData ); 
 
 	Result = "";
 	
