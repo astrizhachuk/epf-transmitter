@@ -1,0 +1,16 @@
+{
+    "httpRequest": {
+        "method": "POST",
+        "path": "/gitlab.*"
+    },
+    "httpResponse": {
+        "body": {
+            "type": "STRING",
+            "string": "{\"type\":\"info\",\"message\":\"Успех\"}",
+            "contentType": "text/plain; charset=utf-8"
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

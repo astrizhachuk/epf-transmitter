@@ -279,7 +279,7 @@
           <name>ReceivedRequestsКоманднаяПанель</name>
           <id>350</id>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеРучнаяОтправкаДанных</name>
+            <name>ReceivedRequestsResendData</name>
             <id>339</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -287,7 +287,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеРучнаяОтправкаДанныхРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsResendDataРасширеннаяПодсказка</name>
               <id>340</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -301,7 +301,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РучнаяОтправкаДанных</commandName>
+            <commandName>Form.Command.ResendData</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -604,7 +604,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РучнаяОтправкаДанных</commandName>
+            <commandName>Form.Command.ResendData</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1698,22 +1698,22 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РучнаяОтправкаДанных</name>
+    <name>ResendData</name>
+    <title>
+      <key>en</key>
+      <value>Resend</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Отправить вручную</value>
+      <value>Отправить повторно</value>
     </title>
     <id>5</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Ручная отправка данных</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РучнаяОтправкаДанных</name>
+        <name>ResendData</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
