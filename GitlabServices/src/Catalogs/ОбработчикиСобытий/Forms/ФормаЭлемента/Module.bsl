@@ -41,6 +41,8 @@ Procedure ResendData( Command )
 	EndIf;
 	
 	ResendDataAtServer( CurrentRow );
+	
+	ShowMessageBox( , NStr("ru = 'Запущена повторная обработка запроса.'; en = 'Resend the request was started.'") );
 		
 EndProcedure
 
@@ -211,7 +213,7 @@ Function MergeRequestURL( Val RecordKey )
 	
 	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
 
-	// TODO тут необработанное исключение, когда по URL не возможно получить JSON с MR (неверная ссылка или сервер лежит),
+	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
 	// подумать, или зарегать в ишузах 
 	MergeRequests = GitLab.GetMergeRequestsByQueryData( QueryData ); 
 

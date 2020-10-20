@@ -1,7 +1,7 @@
 {
     "httpRequest": {
         "method": "POST",
-        "path": "/gitlab.*"
+        "path": "/receiver.*"
     },
     "httpResponse": {
         "body": {
