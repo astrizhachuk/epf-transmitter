@@ -33,8 +33,8 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
-	Тогда открылось окно 'Настройка маршрутизации'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
+	Тогда открылось окноИ я нажимаю на гиперссылку с именем "Гиперссылка" 'Настройка маршрутизации'
 
 	И таблица "Commits" стала равной:
 		| 'commit_sha'                               |
@@ -50,7 +50,7 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '2b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 
 	Тогда открылось окно 'Настройка маршрутизации'
 	И таблица "Commits" стала равной:
@@ -74,7 +74,7 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 
 	Редактируем текст по одной строке (некорректный формат)
 
@@ -93,7 +93,7 @@
 
 		И я закрываю окно 'Настройка маршрутизации'
 		И я жду закрытия окна 'Настройка маршрутизации' в течение 2 секунд
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
@@ -129,7 +129,7 @@
 		И в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
 			| 'ef886bb4e372250d8212387350f7e139cbe5a1af' |
@@ -152,7 +152,7 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 
 	Редактируем текст по одной строке
 
@@ -172,7 +172,7 @@
 		И в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
 			| "ef886bb4e372250d8212387350f7e139cbe5a1af" |
@@ -186,7 +186,7 @@
 		Тогда открылось окно 'Настройка маршрутизации'
 		И Я закрываю окно 'Настройка маршрутизации'
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		Тогда открылось окно 'Настройка маршрутизации'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
@@ -201,7 +201,7 @@
 		И в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
 			| "ef886bb4e372250d8212387350f7e139cbe5a1af" |
@@ -215,7 +215,7 @@
 		Тогда открылось окно 'Настройка маршрутизации'
 		И Я закрываю окно 'Настройка маршрутизации'
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		Тогда открылось окно 'Настройка маршрутизации'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
@@ -233,7 +233,7 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 
 	Редактируем текст по одной строке
 
@@ -253,7 +253,7 @@
 		И в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
 			| "ef886bb4e372250d8212387350f7e139cbe5a1af" |
@@ -267,7 +267,7 @@
 		Тогда открылось окно 'Настройка маршрутизации'
 		И Я закрываю окно 'Настройка маршрутизации'
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		Тогда открылось окно 'Настройка маршрутизации'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
@@ -284,7 +284,7 @@
 		И в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть настройку маршрутизации'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
 		И в таблице "Commits" я перехожу к строке:
 			| 'commit_sha'                               |
 			| "ef886bb4e372250d8212387350f7e139cbe5a1af" |

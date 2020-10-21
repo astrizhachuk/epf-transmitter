@@ -34,7 +34,7 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть запрос'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenQueryJSON'
 	
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
@@ -48,7 +48,7 @@
 	Когда в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
 		| '2b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку 'Открыть запрос'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenQueryJSON'
 
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
