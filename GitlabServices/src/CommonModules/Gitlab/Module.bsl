@@ -243,7 +243,7 @@ Function GetMergeRequestsByQueryData( Val QueryData ) Export
 	
 EndFunction
 
-#КонецОбласти
+#EndRegion
 
 #Область СлужебныйПрограммныйИнтерфейс
 
@@ -268,9 +268,9 @@ EndFunction
 	
 КонецФункции
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Private
 
 // Возвращает описание проекта GitLab по данным запроса.
 // 
@@ -461,4 +461,4 @@ EndFunction
 
 КонецФункции
 
-#КонецОбласти
+#EndRegion

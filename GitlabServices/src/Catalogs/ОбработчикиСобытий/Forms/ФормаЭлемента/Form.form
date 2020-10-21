@@ -13,7 +13,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.Code</segments>
+          <segments>Object.Code</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -65,7 +65,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.Description</segments>
+          <segments>Object.Description</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -146,7 +146,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Объект.СекретныйКлюч</segments>
+        <segments>Object.СекретныйКлюч</segments>
       </paths>
     </dataPath>
     <toolTip>
@@ -207,7 +207,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ПолученныеЗапросы</segments>
+          <segments>ReceivedRequests</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Create</excludedCommands>
@@ -230,10 +230,10 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ПолученныеЗапросы.Ключ</segments>
+              <segments>ReceivedRequests.Ключ</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ПолученныеЗапросы.Ключ</segments>
+              <segments>ReceivedRequests.Ключ</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -334,6 +334,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
+            <type>CommandBarHyperlink</type>
             <commandName>Form.Command.OpenQueryJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
@@ -364,6 +365,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
+            <type>CommandBarHyperlink</type>
             <commandName>Form.Command.OpenRoutingJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
@@ -395,7 +397,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.ПоказатьФоновыеЗадания</commandName>
+            <commandName>Form.Command.OpenBackgroundJobs</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -634,7 +636,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ПоказатьФоновыеЗадания</commandName>
+            <commandName>Form.Command.OpenBackgroundJobs</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -746,58 +748,8 @@
     <items xsi:type="form:FormGroup">
       <name>ГруппаИсторияСобытий</name>
       <id>302</id>
-      <items xsi:type="form:FormField">
-        <name>ИсторияСобытийКоличествоСтрок</name>
-        <id>411</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Объект.ИсторияСобытий.КоличествоСтрок</segments>
-        </dataPath>
-        <extendedTooltip>
-          <name>ИсторияСобытийКоличествоСтрокРасширеннаяПодсказка</name>
-          <id>413</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <type>Label</type>
-          <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
-          <extInfo xsi:type="form:LabelDecorationExtInfo">
-            <horizontalAlign>Left</horizontalAlign>
-          </extInfo>
-        </extendedTooltip>
-        <contextMenu>
-          <name>ИсторияСобытийКоличествоСтрокКонтекстноеМеню</name>
-          <id>412</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <autoFill>true</autoFill>
-        </contextMenu>
-        <type>InputField</type>
-        <editMode>Enter</editMode>
-        <showInHeader>true</showInHeader>
-        <headerHorizontalAlign>Left</headerHorizontalAlign>
-        <showInFooter>true</showInFooter>
-        <extInfo xsi:type="form:InputFieldExtInfo">
-          <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
-          <wrap>true</wrap>
-          <chooseType>true</chooseType>
-          <typeDomainEnabled>true</typeDomainEnabled>
-          <textEdit>true</textEdit>
-        </extInfo>
-      </items>
       <items xsi:type="form:Table">
-        <name>ИсторияСобытий</name>
+        <name>EventsHistory</name>
         <id>215</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -805,7 +757,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ИсторияСобытий</segments>
+          <segments>EventsHistory</segments>
         </dataPath>
         <items xsi:type="form:FormField">
           <name>ИсторияДата</name>
@@ -817,7 +769,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.Дата</segments>
+              <segments>EventsHistory.Дата</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -867,7 +819,7 @@
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.Источник</segments>
+              <segments>EventsHistory.Источник</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -915,7 +867,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.Уровень</segments>
+              <segments>EventsHistory.Уровень</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -967,7 +919,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.КодСостоянияHTTP</segments>
+              <segments>EventsHistory.КодСостоянияHTTP</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1017,7 +969,7 @@
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.Событие</segments>
+              <segments>EventsHistory.Событие</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1067,7 +1019,7 @@
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.ПредставлениеСобытия</segments>
+              <segments>EventsHistory.ПредставлениеСобытия</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1119,7 +1071,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.Комментарий</segments>
+              <segments>EventsHistory.Комментарий</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1171,7 +1123,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.ИмяПользователя</segments>
+              <segments>EventsHistory.ИмяПользователя</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1223,7 +1175,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияСобытий.ПредставлениеПриложения</segments>
+              <segments>EventsHistory.ПредставлениеПриложения</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1266,7 +1218,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ИсторияСобытийКоманднаяПанель</name>
+          <name>EventsHistoryКоманднаяПанель</name>
           <id>216</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1282,10 +1234,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ИсторияСобытийСтрокаПоиска</name>
+          <name>EventsHistoryСтрокаПоиска</name>
           <id>219</id>
           <extendedTooltip>
-            <name>ИсторияСобытийСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>EventsHistoryСтрокаПоискаРасширеннаяПодсказка</name>
             <id>221</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1300,7 +1252,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияСобытийСтрокаПоискаКонтекстноеМеню</name>
+            <name>EventsHistoryСтрокаПоискаКонтекстноеМеню</name>
             <id>220</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1319,10 +1271,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ИсторияСобытийСостояниеПросмотра</name>
+          <name>EventsHistoryСостояниеПросмотра</name>
           <id>225</id>
           <extendedTooltip>
-            <name>ИсторияСобытийСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>EventsHistoryСостояниеПросмотраРасширеннаяПодсказка</name>
             <id>227</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1337,7 +1289,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияСобытийСостояниеПросмотраКонтекстноеМеню</name>
+            <name>EventsHistoryСостояниеПросмотраКонтекстноеМеню</name>
             <id>226</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1358,10 +1310,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ИсторияСобытийУправлениеПоиском</name>
+          <name>EventsHistoryУправлениеПоиском</name>
           <id>222</id>
           <extendedTooltip>
-            <name>ИсторияСобытийУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>EventsHistoryУправлениеПоискомРасширеннаяПодсказка</name>
             <id>224</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1376,7 +1328,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияСобытийУправлениеПоискомКонтекстноеМеню</name>
+            <name>EventsHistoryУправлениеПоискомКонтекстноеМеню</name>
             <id>223</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1391,7 +1343,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ИсторияСобытийРасширеннаяПодсказка</name>
+          <name>EventsHistoryРасширеннаяПодсказка</name>
           <id>218</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1406,7 +1358,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИсторияСобытийКонтекстноеМеню</name>
+          <name>EventsHistoryКонтекстноеМеню</name>
           <id>217</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1474,6 +1426,9 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <showTitle>true</showTitle>
+        <titleDataPath xsi:type="form:DataPath">
+          <segments>Object.EventsHistory.RowsCount</segments>
+        </titleDataPath>
         <throughAlign>Auto</throughAlign>
         <currentRowUse>Auto</currentRowUse>
       </extInfo>
@@ -1565,7 +1520,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>ru</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>CatalogObject.ОбработчикиСобытий</types>
@@ -1580,7 +1539,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>ИсторияСобытий</name>
+    <name>EventsHistory</name>
+    <title>
+      <key>en</key>
+      <value>Events History</value>
+    </title>
     <title>
       <key>ru</key>
       <value>История событий</value>
@@ -1597,18 +1560,18 @@
     </edit>
     <extInfo xsi:type="form:DynamicListExtInfo">
       <queryText>ВЫБРАТЬ
-	ИсторияСобытий.Ссылка,
-	ИсторияСобытий.Дата,
-	ИсторияСобытий.Источник,
-	ИсторияСобытий.Уровень,
-	ИсторияСобытий.Событие,
-	ИсторияСобытий.ПредставлениеСобытия,
-	ИсторияСобытий.КодСостоянияHTTP,
-	ИсторияСобытий.ПредставлениеПриложения,
-	ИсторияСобытий.ИмяПользователя,
-	ИсторияСобытий.Комментарий
+	EventsHistory.Ссылка,
+	EventsHistory.Дата,
+	EventsHistory.Источник,
+	EventsHistory.Уровень,
+	EventsHistory.Событие,
+	EventsHistory.ПредставлениеСобытия,
+	EventsHistory.КодСостоянияHTTP,
+	EventsHistory.ПредставлениеПриложения,
+	EventsHistory.ИмяПользователя,
+	EventsHistory.Комментарий
 ИЗ
-	Справочник.ОбработчикиСобытий.ИсторияСобытий КАК ИсторияСобытий</queryText>
+	Справочник.ОбработчикиСобытий.EventsHistory КАК EventsHistory</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -1616,7 +1579,11 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ПолученныеЗапросы</name>
+    <name>ReceivedRequests</name>
+    <title>
+      <key>en</key>
+      <value>Received Requests</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Полученные запросы</value>
@@ -1640,7 +1607,11 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ВнешниеФайлы</name>
+    <name>ExternalFiles</name>
+    <title>
+      <key>en</key>
+      <value>External Files</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Внешние файлы</value>
@@ -1667,7 +1638,7 @@
     <name>LoadEventsHistory</name>
     <title>
       <key>en</key>
-      <value>Load history</value>
+      <value>Load History</value>
     </title>
     <title>
       <key>ru</key>
@@ -1692,11 +1663,11 @@
     <name>OpenQueryJSON</name>
     <title>
       <key>en</key>
-      <value>Open Query JSON</value>
+      <value>Query JSON</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Открыть запрос</value>
+      <value>Полученный JSON</value>
     </title>
     <id>2</id>
     <use>
@@ -1713,11 +1684,11 @@
     <name>OpenRoutingJSON</name>
     <title>
       <key>en</key>
-      <value>Open Routing JSON</value>
+      <value>Routing JSON</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Открыть настройку маршрутизации</value>
+      <value>Настройка маршрутизации</value>
     </title>
     <id>3</id>
     <use>
@@ -1731,7 +1702,11 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПоказатьФоновыеЗадания</name>
+    <name>OpenBackgroundJobs</name>
+    <title>
+      <key>en</key>
+      <value>Background Jobs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Фоновые задания</value>
@@ -1746,7 +1721,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПоказатьФоновыеЗадания</name>
+        <name>OpenBackgroundJobs</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
@@ -1802,7 +1777,7 @@
       <cmiFragmentRecord>
         <command>InformationRegister.ДанныеЗапросов.StandardCommand.OpenByValue.ОбработчикСобытия</command>
         <commandParameter xsi:type="form:DataPath">
-          <segments>Объект.Ref</segments>
+          <segments>Object.Ref</segments>
         </commandParameter>
         <group>FormNavigationPanelGoTo</group>
         <index>1</index>
@@ -1811,7 +1786,7 @@
       <cmiFragmentRecord>
         <command>InformationRegister.ВнешниеФайлы.StandardCommand.OpenByValue.ОбработчикСобытия</command>
         <commandParameter xsi:type="form:DataPath">
-          <segments>Объект.Ref</segments>
+          <segments>Object.Ref</segments>
         </commandParameter>
         <group>FormNavigationPanelGoTo</group>
         <index>2</index>

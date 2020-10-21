@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаВсеЭлементы</name>
+    <name>GroupPeriod</name>
     <id>12</id>
     <items xsi:type="form:FormField">
-      <name>Период</name>
+      <name>Period</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13,11 +13,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Период</segments>
+          <segments>Period</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПериодРасширеннаяПодсказка</name>
+        <name>PeriodРасширеннаяПодсказка</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +32,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПериодКонтекстноеМеню</name>
+        <name>PeriodКонтекстноеМеню</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,7 +56,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаУстановитьОтбор</name>
+      <name>FormSetFilter</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -64,7 +64,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаУстановитьОтборРасширеннаяПодсказка</name>
+        <name>FormSetFilterРасширеннаяПодсказка</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -79,7 +79,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.УстановитьОтбор</commandName>
+      <commandName>Form.Command.SetFilter</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -94,7 +94,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ГруппаВсеЭлементыРасширеннаяПодсказка</name>
+      <name>GroupPeriodРасширеннаяПодсказка</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -136,7 +136,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Период</name>
+    <name>Period</name>
+    <title>
+      <key>en</key>
+      <value>Period</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Период</value>
@@ -152,11 +156,15 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Период</segments>
+      <segments>Period</segments>
     </settingsSavedData>
   </attributes>
   <formCommands>
-    <name>УстановитьОтбор</name>
+    <name>SetFilter</name>
+    <title>
+      <key>en</key>
+      <value>Set</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Установить</value>
@@ -167,7 +175,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьОтбор</name>
+        <name>SetFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
