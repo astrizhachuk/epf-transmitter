@@ -1050,6 +1050,7 @@
   <parameters>
     <name>RecordKey</name>
     <valueType/>
+    <keyParameter>true</keyParameter>
   </parameters>
   <commandInterface>
     <navigationPanel/>
