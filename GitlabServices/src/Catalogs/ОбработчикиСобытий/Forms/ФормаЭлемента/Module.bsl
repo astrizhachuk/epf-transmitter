@@ -193,9 +193,8 @@ Procedure LoadEventsHistoryAtServer( Val Period, RecordsLoaded = 0 )
 	Filter = New Structure();
 	Filter.Insert( "StartDate", Period.StartDate );
 	Filter.Insert( "EndDate", Period.EndDate );
-	Filter.Insert( "Data", Object.Ref );
 	
-	Справочники.ОбработчикиСобытий.ЗагрузитьИсториюСобытий( ObjectData, "EventsHistory", Filter, RecordsLoaded );
+	ОбработчикиСобытий.ЗагрузитьИсториюСобытий( ObjectData, "EventsHistory", Filter, RecordsLoaded );
 
 	ThisObject.ValueToFormAttribute( ObjectData, "Object" );
 	

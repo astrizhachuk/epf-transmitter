@@ -153,6 +153,10 @@
     <attributes uuid="a2108bd0-b017-4416-ab68-dc5b010f9668">
       <name>Дата</name>
       <synonym>
+        <key>en</key>
+        <value>Date</value>
+      </synonym>
+      <synonym>
         <key>ru</key>
         <value>Дата</value>
       </synonym>
@@ -166,15 +170,15 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="805eb371-124c-472c-9b30-7aedfce453fb">
-      <name>Источник</name>
+      <name>Операция</name>
       <synonym>
         <key>ru</key>
-        <value>Источник</value>
+        <value>Операция</value>
       </synonym>
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>6</length>
+          <length>50</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
@@ -208,7 +212,7 @@
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>50</length>
+          <length>100</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
@@ -225,7 +229,7 @@
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>50</length>
+          <length>100</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>

@@ -760,7 +760,7 @@
           <segments>EventsHistory</segments>
         </dataPath>
         <items xsi:type="form:FormField">
-          <name>ИсторияДата</name>
+          <name>EventsHistoryDate</name>
           <id>237</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -773,7 +773,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияДатаРасширеннаяПодсказка</name>
+            <name>EventsHistoryDateРасширеннаяПодсказка</name>
             <id>239</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -788,7 +788,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияДатаКонтекстноеМеню</name>
+            <name>EventsHistoryDateКонтекстноеМеню</name>
             <id>238</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -812,18 +812,18 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияИсточник</name>
+          <name>EventsHistoryAction</name>
           <id>336</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Источник</segments>
+              <segments>EventsHistory.Операция</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияИсточникРасширеннаяПодсказка</name>
+            <name>EventsHistoryActionРасширеннаяПодсказка</name>
             <id>338</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -838,7 +838,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияИсточникКонтекстноеМеню</name>
+            <name>EventsHistoryActionКонтекстноеМеню</name>
             <id>337</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -858,7 +858,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияУровень</name>
+          <name>EventsHistoryLevel</name>
           <id>240</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -871,7 +871,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияУровеньРасширеннаяПодсказка</name>
+            <name>EventsHistoryLevelРасширеннаяПодсказка</name>
             <id>242</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -886,7 +886,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияУровеньКонтекстноеМеню</name>
+            <name>EventsHistoryLevelКонтекстноеМеню</name>
             <id>241</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -910,7 +910,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияКодСостоянияHTTP</name>
+          <name>EventsHistoryHTTPStatusCode</name>
           <id>246</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -923,7 +923,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияКодСостоянияHTTPРасширеннаяПодсказка</name>
+            <name>EventsHistoryHTTPStatusCodeРасширеннаяПодсказка</name>
             <id>248</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -938,7 +938,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияКодСостоянияHTTPКонтекстноеМеню</name>
+            <name>EventsHistoryHTTPStatusCodeКонтекстноеМеню</name>
             <id>247</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -962,7 +962,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияСобытие</name>
+          <name>EventsHistoryEvent</name>
           <id>249</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -973,7 +973,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияСобытиеРасширеннаяПодсказка</name>
+            <name>EventsHistoryEventРасширеннаяПодсказка</name>
             <id>251</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -988,7 +988,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияСобытиеКонтекстноеМеню</name>
+            <name>EventsHistoryEventКонтекстноеМеню</name>
             <id>250</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1012,18 +1012,20 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияПредставлениеСобытия</name>
+          <name>EventsHistoryEventPresentation</name>
           <id>231</id>
           <visible>true</visible>
           <enabled>true</enabled>
-          <userVisible/>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
               <segments>EventsHistory.ПредставлениеСобытия</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияПредставлениеСобытияРасширеннаяПодсказка</name>
+            <name>EventsHistoryEventPresentationРасширеннаяПодсказка</name>
             <id>233</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1038,7 +1040,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияПредставлениеСобытияКонтекстноеМеню</name>
+            <name>EventsHistoryEventPresentationКонтекстноеМеню</name>
             <id>232</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1062,7 +1064,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияКомментарий</name>
+          <name>EventsHistoryComment</name>
           <id>243</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1075,7 +1077,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияКомментарийРасширеннаяПодсказка</name>
+            <name>EventsHistoryCommentРасширеннаяПодсказка</name>
             <id>245</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1090,7 +1092,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияКомментарийКонтекстноеМеню</name>
+            <name>EventsHistoryCommentКонтекстноеМеню</name>
             <id>244</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1114,7 +1116,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияИмяПользователя</name>
+          <name>EventsHistoryUserName</name>
           <id>228</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1127,7 +1129,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияИмяПользователяРасширеннаяПодсказка</name>
+            <name>EventsHistoryUserNameРасширеннаяПодсказка</name>
             <id>230</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1142,7 +1144,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияИмяПользователяКонтекстноеМеню</name>
+            <name>EventsHistoryUserNameКонтекстноеМеню</name>
             <id>229</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1166,7 +1168,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИсторияПредставлениеПриложения</name>
+          <name>EventsHistoryApplicationPresentation</name>
           <id>252</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1179,7 +1181,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИсторияПредставлениеПриложенияРасширеннаяПодсказка</name>
+            <name>EventsHistoryApplicationPresentationРасширеннаяПодсказка</name>
             <id>254</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1194,7 +1196,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИсторияПредставлениеПриложенияКонтекстноеМеню</name>
+            <name>EventsHistoryApplicationPresentationКонтекстноеМеню</name>
             <id>253</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1562,7 +1564,7 @@
       <queryText>ВЫБРАТЬ
 	EventsHistory.Ссылка,
 	EventsHistory.Дата,
-	EventsHistory.Источник,
+	EventsHistory.Операция,
 	EventsHistory.Уровень,
 	EventsHistory.Событие,
 	EventsHistory.ПредставлениеСобытия,

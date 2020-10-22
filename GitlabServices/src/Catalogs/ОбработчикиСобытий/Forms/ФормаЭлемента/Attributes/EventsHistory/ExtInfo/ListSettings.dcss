@@ -26,8 +26,13 @@
 			</filter>
 			<appearance>
 				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
 					<dcscor:parameter>ЦветФона</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">web:LimeGreen</dcscor:value>
+					<dcscor:value xsi:type="v8ui:Color">style:FieldBackColor</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:parameter>ЦветТекста</dcscor:parameter>
+					<dcscor:value xsi:type="v8ui:Color">web:Green</dcscor:value>
 				</dcscor:item>
 			</appearance>
 		</item>
@@ -46,12 +51,13 @@
 			</filter>
 			<appearance>
 				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
 					<dcscor:parameter>ЦветФона</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">web:Red</dcscor:value>
+					<dcscor:value xsi:type="v8ui:Color">style:FieldBackColor</dcscor:value>
 				</dcscor:item>
 				<dcscor:item xsi:type="SettingsParameterValue">
 					<dcscor:parameter>ЦветТекста</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">style:FieldBackColor</dcscor:value>
+					<dcscor:value xsi:type="v8ui:Color">web:Red</dcscor:value>
 				</dcscor:item>
 			</appearance>
 		</item>
@@ -61,41 +67,18 @@
 				<item xsi:type="FilterItemComparison">
 					<left xsi:type="dcscor:Field">Уровень</left>
 					<comparisonType>Equal</comparisonType>
-					<right xsi:type="dcscor:DesignTimeValue">Перечисление.УровеньЖурналаРегистрации.Ошибка</right>
+					<right xsi:type="xs:string">Ошибка</right>
 				</item>
 			</filter>
 			<appearance>
 				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
 					<dcscor:parameter>ЦветФона</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">web:Red</dcscor:value>
+					<dcscor:value xsi:type="v8ui:Color">style:FieldBackColor</dcscor:value>
 				</dcscor:item>
 				<dcscor:item xsi:type="SettingsParameterValue">
 					<dcscor:parameter>ЦветТекста</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">style:FieldBackColor</dcscor:value>
-				</dcscor:item>
-			</appearance>
-		</item>
-		<item>
-			<selection/>
-			<filter>
-				<item xsi:type="FilterItemGroup">
-					<groupType>OrGroup</groupType>
-					<item xsi:type="FilterItemComparison">
-						<left xsi:type="dcscor:Field">Событие</left>
-						<comparisonType>Contains</comparisonType>
-						<right xsi:type="xs:string">.Начало</right>
-					</item>
-					<item xsi:type="FilterItemComparison">
-						<left xsi:type="dcscor:Field">Событие</left>
-						<comparisonType>Contains</comparisonType>
-						<right xsi:type="xs:string">.Окончание</right>
-					</item>
-				</item>
-			</filter>
-			<appearance>
-				<dcscor:item xsi:type="SettingsParameterValue">
-					<dcscor:parameter>ЦветФона</dcscor:parameter>
-					<dcscor:value xsi:type="v8ui:Color">web:Gainsboro</dcscor:value>
+					<dcscor:value xsi:type="v8ui:Color">web:Red</dcscor:value>
 				</dcscor:item>
 			</appearance>
 		</item>
