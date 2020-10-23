@@ -3,9 +3,6 @@
 &НаСервере
 Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
 
-	Перем КлючЗаписиФормы;
-	Перем ЗаписьСуществует;
-	
 	If ( Parameters.RecordKey.IsEmpty() ) Then
 		
 		Return;
@@ -15,17 +12,9 @@
 
 	СформироватьТаблицуФоновыхЗаданий( Parameters.RecordKey );
 
-	ЭтаФорма.КлючЗаписи = Parameters.RecordKey; // TODO удалить?
+	//ЭтаФорма.КлючЗаписи = Parameters.RecordKey; // TODO удалить?
 	
 КонецПроцедуры
-
-#EndRegion
-
-#Region FormHeaderItemsEventHandlers
-
-#EndRegion
-
-#Область ОбработчикиСобытийЭлементовТаблицыФормыИмяТаблицыФормы
 
 #EndRegion
 
