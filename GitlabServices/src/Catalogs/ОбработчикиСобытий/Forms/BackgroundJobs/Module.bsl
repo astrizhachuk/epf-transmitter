@@ -1,7 +1,7 @@
 #Region FormEventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer( Cancel, StandardProcessing )
 
 	If ( Parameters.RecordKey.IsEmpty() ) Then
 		
@@ -9,162 +9,184 @@
 		
 	EndIf;
 
-	ЗаполнитьСписокФоновыхЗаданий( Parameters.RecordKey );
+	FillBackgroundJobs( Parameters.RecordKey );
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region FormCommandsEventHandlers
 
-&НаКлиенте
-Процедура RefreshBackgroundJobs(Команда)
+&AtClient
+Procedure RefreshBackgroundJobs( Command )
 	
-	ЗаполнитьСписокФоновыхЗаданий( Parameters.RecordKey );
+	FillBackgroundJobs( Parameters.RecordKey );
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RefreshSelectedBackgroundJob(Команда)
+&AtClient
+Procedure RefreshSelectedBackgroundJob( Command )
 	
-	Перем ТекущиеДанные;
-	//Перем ТекущееФоновоеЗадание;
+	Var CurrentData;
 	
-	ТекущиеДанные = Items.BackgroundJobs.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	CurrentData = Items.BackgroundJobs.CurrentData;
 	
-	ТекущееФоновоеЗадание = ТекущиеДанные.UUID;
-	АктуализироватьСостояниеЗаданияНаСервере(ТекущиеДанные.ПолучитьИдентификатор(), ТекущиеДанные.UUID);
-	//ЗаполнитьЗначенияСвойств(ТекущиеДанные, ТекущееФоновоеЗадание);
+	If ( CurrentData = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
 	
-КонецПроцедуры
+	RefreshSelectedBackgroundJobAtServer( CurrentData.GetID(), CurrentData.UUID );
+	
+EndProcedure
 
-&НаКлиенте
-Процедура KillSelectedBackgroundJob(Команда)
+&AtClient
+Procedure KillSelectedBackgroundJob( Command )
 	
-	Перем ТекущиеДанные;
-	Перем ТекущееФоновоеЗадание;
+	Var CurrentData;
+	
+	CurrentData = Items.BackgroundJobs.CurrentData;
+	
+	If ( CurrentData = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
 
-	ТекущиеДанные = Items.BackgroundJobs.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	KillSelectedBackgroundJobAtServer( CurrentData.GetID(), CurrentData.UUID );
 	
-	ТекущееФоновоеЗадание = ТекущиеДанные.UUID;
-	ЗавершитьЗаданиеНаСервере(ТекущиеДанные.ПолучитьИдентификатор(), ТекущиеДанные.UUID);
-	//ЗаполнитьЗначенияСвойств(ТекущиеДанные, ТекущееФоновоеЗадание);
-	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region Private
 
-
-
-&НаСервере
-Процедура ЗавершитьЗаданиеНаСервере(ИдентификаторСтроки, UUID)
+&AtServer
+Procedure KillSelectedBackgroundJobAtServer( Val Id, Val UUID )
 	
-	Перем ТекущееФоновоеЗадание;
-	Перем ИдентификаторФоновогоЗадания;
+	Var BackgroundJobId;
+	Var FindedBackgroundJob;
 	
-	ИдентификаторФоновогоЗадания = Новый УникальныйИдентификатор(UUID);
-	Если НЕ ПривилегированныйРежим() Тогда
-		УстановитьПривилегированныйРежим(Истина);
-	КонецЕсли;
-	ТекущееФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторФоновогоЗадания);
-
+	BackgroundJobId = New UUID( UUID );
 	
-	Если ТекущееФоновоеЗадание <> Неопределено Тогда
-		Если ТекущееФоновоеЗадание.State = СостояниеФоновогоЗадания.Активно Тогда
-
-			ТекущееФоновоеЗадание.Отменить();
-			ТекущееФоновоеЗадание.ОжидатьЗавершенияВыполнения();
-
-		КонецЕсли;
-		//АктуализироватьСостояниеЗаданияНаСервере(Результат);
-		АктуализироватьСостояниеЗаданияНаСервере(ИдентификаторСтроки, UUID)
-	КонецЕсли;
-	
-	
-КонецПроцедуры
-
-&НаСервере
-Процедура АктуализироватьСостояниеЗаданияНаСервере(ИдентификаторСтроки, UUID)
-	
-	Перем ТекущееФоновоеЗадание;
-	Перем ИдентификаторФоновогоЗадания;
-	
-
-	
-	ИдентификаторФоновогоЗадания = Новый УникальныйИдентификатор(UUID);
-	
-	Если НЕ ПривилегированныйРежим() Тогда
-		УстановитьПривилегированныйРежим(Истина);
-	КонецЕсли;
-	ТекущееФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторФоновогоЗадания);
-
-	
-	Если ТекущееФоновоеЗадание <> Неопределено Тогда
-		СтрокаКоллекции = BackgroundJobs.НайтиПоИдентификатору(ИдентификаторСтроки);
-		ЗаполнитьЗначенияСвойств(СтрокаКоллекции, ТекущееФоновоеЗадание);
+	If ( NOT PrivilegedMode() ) Then
 		
-Если ТекущееФоновоеЗадание.ErrorInfo <> Неопределено Тогда
-			СтрокаКоллекции.ErrorInfo = ПодробноеПредставлениеОшибки(ТекущееФоновоеЗадание.ИнформацияОбОшибке);
-		КонецЕсли;
+		SetPrivilegedMode( True );
 		
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+	FindedBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
+	
+	If ( FindedBackgroundJob = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
+	
+	If ( FindedBackgroundJob.State = BackgroundJobState.Active ) Then
+
+		FindedBackgroundJob.Cancel();
+		FindedBackgroundJob.WaitForExecutionCompletion();
+
+	EndIf;
+
+	RefreshSelectedBackgroundJobAtServer( Id, UUID )
+	
+EndProcedure
 
 &AtServer
-Function ФоновыеЗаданияПоКлючу( Знач Key )
+Procedure RefreshSelectedBackgroundJobAtServer( Val Id, Val UUID )
 	
-	Перем ПараметрыОтбора;
+	Var BackgroundJobId;
+	Var FindedBackgroundJob;
+	Var BackgroundJobInList;
 	
-	Если НЕ ПривилегированныйРежим() Тогда
-		УстановитьПривилегированныйРежим(Истина);
-	КонецЕсли;
+	BackgroundJobId = New UUID( UUID );
+	
+	If ( NOT PrivilegedMode() ) Then
 		
-	ПараметрыОтбора = Новый Структура( "MethodName, Key", "ОбработкаДанных.ОбработатьДанные", Key );
-	МассивФоновыхЗаданий = ФоновыеЗадания.ПолучитьФоновыеЗадания( ПараметрыОтбора );
+		SetPrivilegedMode( True );
+		
+	EndIf;
 	
-	ПараметрыОтбора = Новый Структура("MethodName, Наименование", "Получатели.ОтправитьФайл", Key);
-	ФоновыеЗаданияОтправляемыеФайлы = ФоновыеЗадания.ПолучитьФоновыеЗадания( ПараметрыОтбора );
+	FindedBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
 	
-	Результат = МассивФоновыхЗаданий;
+	If ( FindedBackgroundJob = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
+	
+	BackgroundJobInList = BackgroundJobs.FindByID( Id );
+	
+	FillPropertyValues( BackgroundJobInList, FindedBackgroundJob );
+		
+	If ( FindedBackgroundJob.ErrorInfo <> Undefined ) Then
+		
+		BackgroundJobInList.ErrorInfo = ErrorProcessing.DetailErrorDescription( FindedBackgroundJob.ErrorInfo );
+		
+	EndIf;
+	
+EndProcedure
 
-	Для Каждого Значение Из ФоновыеЗаданияОтправляемыеФайлы Цикл
-		
-		Результат.Добавить(Значение);
-		
-	КонецЦикла;
+&AtServerNoContext
+Function BackgroundJobsByKey( Val Key )
 	
-	Возврат Результат;
+	Var Filter;
+	Var BackgroundJobsFindByName;
+	Var Result;
+	
+	If ( NOT PrivilegedMode() ) Then
+		
+		SetPrivilegedMode( True );
+		
+	EndIf;
+		
+	Filter = New Structure( "MethodName, Key", "ОбработкаДанных.ОбработатьДанные", Key );
+	Result = ФоновыеЗадания.GetBackgroundJobs( Filter );
+	
+	Filter = New Structure( "MethodName, Description", "Получатели.ОтправитьФайл", Key );
+	BackgroundJobsFindByName = ФоновыеЗадания.GetBackgroundJobs( Filter );
+	
+	For Each Value In BackgroundJobsFindByName Do
+		
+		Result.Add( Value );
+		
+	EndDo;
+	
+	Return Result;
 	
 EndFunction
 
 &AtServer
-Procedure ЗаполнитьСписокФоновыхЗаданий( Знач RecordKey )
+Procedure FillBackgroundJobs( Val RecordKey )
 	
-	СписокФоновыхЗаданий = ЭтотОбъект.РеквизитФормыВЗначение( "BackgroundJobs" );
-	СписокФоновыхЗаданий.Очистить();
+	Var BackgroundJobsList;
+	Var BackgroundJobsByKey;
+	
+	BackgroundJobsList = ThisObject.FormAttributeToValue( "BackgroundJobs" );
+	BackgroundJobsList.Clear();
 
-	МассивФоновыхЗаданий = ФоновыеЗаданияПоКлючу( RecordKey.Ключ );
+	BackgroundJobsByKey = BackgroundJobsByKey( RecordKey.Ключ );
 
-	Для каждого ФоновоеЗадание Из МассивФоновыхЗаданий Цикл
-		НоваяСтрока = СписокФоновыхЗаданий.Добавить();
-		ЗаполнитьЗначенияСвойств(НоваяСтрока, ФоновоеЗадание);
-		Если ФоновоеЗадание.ErrorInfo <> Неопределено Тогда
-			НоваяСтрока.ErrorInfo = ПодробноеПредставлениеОшибки(ФоновоеЗадание.ИнформацияОбОшибке);
-		КонецЕсли;
-	КонецЦикла;
+	For Each BackgroundJob In BackgroundJobsByKey Do
+		
+		NewBackgroundJob = BackgroundJobsList.Add();
+		
+		FillPropertyValues( NewBackgroundJob, BackgroundJob );
+		
+		If ( BackgroundJob.ErrorInfo <> Undefined ) Then
+			
+			NewBackgroundJob.ErrorInfo = ErrorProcessing.DetailErrorDescription( BackgroundJob.ErrorInfo );
+			
+		EndIf;
+		
+	EndDo;
 	
-	СписокФоновыхЗаданий.Сортировать("Begin УБЫВ, State");
+	BackgroundJobsList.Sort( "Begin DESC, State" );
 	
-	ЗначениеВРеквизитФормы(СписокФоновыхЗаданий, "BackgroundJobs");	
+	ThisObject.ValueToFormAttribute( BackgroundJobsList, "BackgroundJobs" );	
 
 EndProcedure
 

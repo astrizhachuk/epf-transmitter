@@ -743,7 +743,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -952,7 +952,7 @@
     </title>
     <title>
       <key>ru</key>
-      <value>Обновить выбранное задание</value>
+      <value>Обновить текущее задание</value>
     </title>
     <id>2</id>
     <use>
@@ -973,7 +973,7 @@
     </title>
     <title>
       <key>ru</key>
-      <value>Завершить выбранное задание</value>
+      <value>Завершить текущее задание</value>
     </title>
     <id>3</id>
     <use>

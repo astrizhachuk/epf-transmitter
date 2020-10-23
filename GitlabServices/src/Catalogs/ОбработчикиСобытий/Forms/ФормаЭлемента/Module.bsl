@@ -65,7 +65,7 @@ EndProcedure
 &AtClient
 Procedure ResendData( Command )
 	
-	Перем CurrentRow;
+	Var CurrentRow;
 
 	CurrentRow = Items.ReceivedRequests.CurrentRow;
 	
