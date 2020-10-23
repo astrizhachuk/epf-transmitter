@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>Список</name>
+    <name>BackgroundJobs</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,267 +9,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>Список</segments>
+      <segments>BackgroundJobs</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>СписокУникальныйИдентификатор</name>
-      <id>14</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Список.УникальныйИдентификатор</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>СписокУникальныйИдентификаторРасширеннаяПодсказка</name>
-        <id>16</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СписокУникальныйИдентификаторКонтекстноеМеню</name>
-        <id>15</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>LabelField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:LabelFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СписокСостояние</name>
-      <id>17</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Список.Состояние</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>СписокСостояниеРасширеннаяПодсказка</name>
-        <id>19</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СписокСостояниеКонтекстноеМеню</name>
-        <id>18</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СписокИмяМетода</name>
-      <id>35</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Список.ИмяМетода</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>СписокИмяМетодаРасширеннаяПодсказка</name>
-        <id>37</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СписокИмяМетодаКонтекстноеМеню</name>
-        <id>36</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СписокКлюч</name>
-      <id>20</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Список.Ключ</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>СписокКлючРасширеннаяПодсказка</name>
-        <id>22</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СписокКлючКонтекстноеМеню</name>
-        <id>21</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СписокНаименование</name>
-      <id>23</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Список.Наименование</segments>
-        </paths>
-      </dataPath>
-      <extendedTooltip>
-        <name>СписокНаименованиеРасширеннаяПодсказка</name>
-        <id>25</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СписокНаименованиеКонтекстноеМеню</name>
-        <id>24</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
-      </extInfo>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СписокНачало</name>
+      <name>BackgroundJobsBegin</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -278,11 +22,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Список.Начало</segments>
+          <segments>BackgroundJobs.Begin</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокНачалоРасширеннаяПодсказка</name>
+        <name>BackgroundJobsBeginРасширеннаяПодсказка</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -297,7 +41,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокНачалоКонтекстноеМеню</name>
+        <name>BackgroundJobsBeginКонтекстноеМеню</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -321,7 +65,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокКонец</name>
+      <name>BackgroundJobsEnd</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -330,11 +74,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Список.Конец</segments>
+          <segments>BackgroundJobs.End</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокКонецРасширеннаяПодсказка</name>
+        <name>BackgroundJobsEndРасширеннаяПодсказка</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -349,7 +93,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонецКонтекстноеМеню</name>
+        <name>BackgroundJobsEndКонтекстноеМеню</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -373,7 +117,163 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокИнформацияОбОшибке</name>
+      <name>BackgroundJobsMethodName</name>
+      <id>35</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>BackgroundJobs.MethodName</segments>
+        </paths>
+      </dataPath>
+      <extendedTooltip>
+        <name>BackgroundJobsMethodNameРасширеннаяПодсказка</name>
+        <id>37</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>BackgroundJobsMethodNameКонтекстноеМеню</name>
+        <id>36</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>EnterOnInput</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>BackgroundJobsKey</name>
+      <id>20</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>BackgroundJobs.Key</segments>
+        </paths>
+      </dataPath>
+      <extendedTooltip>
+        <name>BackgroundJobsKeyРасширеннаяПодсказка</name>
+        <id>22</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>BackgroundJobsKeyКонтекстноеМеню</name>
+        <id>21</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>EnterOnInput</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>BackgroundJobsState</name>
+      <id>17</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>BackgroundJobs.State</segments>
+        </paths>
+      </dataPath>
+      <extendedTooltip>
+        <name>BackgroundJobsStateРасширеннаяПодсказка</name>
+        <id>19</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>BackgroundJobsStateКонтекстноеМеню</name>
+        <id>18</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>EnterOnInput</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>BackgroundJobsErrorInfo</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -382,11 +282,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Список.ИнформацияОбОшибке</segments>
+          <segments>BackgroundJobs.ErrorInfo</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокИнформацияОбОшибкеРасширеннаяПодсказка</name>
+        <name>BackgroundJobsErrorInfoРасширеннаяПодсказка</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -401,7 +301,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокИнформацияОбОшибкеКонтекстноеМеню</name>
+        <name>BackgroundJobsErrorInfoКонтекстноеМеню</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -424,8 +324,56 @@
         <textEdit>true</textEdit>
       </extInfo>
     </items>
+    <items xsi:type="form:FormField">
+      <name>BackgroundJobsUUID</name>
+      <id>14</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>BackgroundJobs.UUID</segments>
+        </paths>
+      </dataPath>
+      <extendedTooltip>
+        <name>BackgroundJobsUUIDРасширеннаяПодсказка</name>
+        <id>16</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>BackgroundJobsUUIDКонтекстноеМеню</name>
+        <id>15</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>LabelField</type>
+      <editMode>EnterOnInput</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:LabelFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+      </extInfo>
+    </items>
     <autoCommandBar>
-      <name>СписокКоманднаяПанель</name>
+      <name>BackgroundJobsКоманднаяПанель</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -440,10 +388,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокСтрокаПоиска</name>
+      <name>BackgroundJobsСтрокаПоиска</name>
       <id>5</id>
       <extendedTooltip>
-        <name>СписокСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>BackgroundJobsСтрокаПоискаРасширеннаяПодсказка</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -458,7 +406,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокСтрокаПоискаКонтекстноеМеню</name>
+        <name>BackgroundJobsСтрокаПоискаКонтекстноеМеню</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -477,10 +425,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокСостояниеПросмотра</name>
+      <name>BackgroundJobsСостояниеПросмотра</name>
       <id>8</id>
       <extendedTooltip>
-        <name>СписокСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>BackgroundJobsСостояниеПросмотраРасширеннаяПодсказка</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -495,7 +443,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокСостояниеПросмотраКонтекстноеМеню</name>
+        <name>BackgroundJobsСостояниеПросмотраКонтекстноеМеню</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -516,10 +464,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокУправлениеПоиском</name>
+      <name>BackgroundJobsУправлениеПоиском</name>
       <id>11</id>
       <extendedTooltip>
-        <name>СписокУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>BackgroundJobsУправлениеПоискомРасширеннаяПодсказка</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -534,7 +482,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокУправлениеПоискомКонтекстноеМеню</name>
+        <name>BackgroundJobsУправлениеПоискомКонтекстноеМеню</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -549,7 +497,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>СписокРасширеннаяПодсказка</name>
+      <name>BackgroundJobsРасширеннаяПодсказка</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -564,10 +512,10 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СписокКонтекстноеМеню</name>
+      <name>BackgroundJobsКонтекстноеМеню</name>
       <id>2</id>
       <items xsi:type="form:Button">
-        <name>СписокКонтекстноеМенюАктуализироватьСостояние</name>
+        <name>BackgroundJobsContextMenuRefreshSelected</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -575,7 +523,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СписокКонтекстноеМенюАктуализироватьСостояниеРасширеннаяПодсказка</name>
+          <name>BackgroundJobsContextMenuRefreshSelectedРасширеннаяПодсказка</name>
           <id>41</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -589,7 +537,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.АктуализироватьСостояниеЗадания</commandName>
+        <commandName>Form.Command.RefreshSelectedBackgroundJob</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -597,7 +545,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>СписокКонтекстноеМенюЗавершитьЗадание</name>
+        <name>BackgroundJobsContextMenuKillSelected</name>
         <id>48</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -605,7 +553,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СписокКонтекстноеМенюЗавершитьЗаданиеРасширеннаяПодсказка</name>
+          <name>BackgroundJobsContextMenuKillSelectedРасширеннаяПодсказка</name>
           <id>49</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -619,7 +567,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ЗавершитьЗадание</commandName>
+        <commandName>Form.Command.KillSelectedBackgroundJob</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -634,6 +582,7 @@
       <autoFill>true</autoFill>
     </contextMenu>
     <representation>Tree</representation>
+    <readOnly>true</readOnly>
     <changeRowSet>true</changeRowSet>
     <changeRowOrder>true</changeRowOrder>
     <autoMaxWidth>true</autoMaxWidth>
@@ -660,7 +609,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаОбновитьТаблицуФоновых</name>
+      <name>RefreshBackgroundJobs</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -668,7 +617,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаОбновитьТаблицуФоновыхРасширеннаяПодсказка</name>
+        <name>RefreshBackgroundJobsРасширеннаяПодсказка</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -682,7 +631,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОбновитьТаблицуФоновых</commandName>
+      <commandName>Form.Command.RefreshBackgroundJobs</commandName>
       <representation>PictureAndText</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -690,10 +639,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ФормаДействияЗадание</name>
+      <name>BackgroundJob</name>
       <id>42</id>
       <items xsi:type="form:Button">
-        <name>ФормаАктуализироватьСостояние</name>
+        <name>RefreshSelectedBackgroundJob</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -701,7 +650,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаАктуализироватьСостояниеРасширеннаяПодсказка</name>
+          <name>RefreshSelectedBackgroundJobРасширеннаяПодсказка</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -715,7 +664,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.АктуализироватьСостояниеЗадания</commandName>
+        <commandName>Form.Command.RefreshSelectedBackgroundJob</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -723,7 +672,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаЗавершитьЗадание</name>
+        <name>KillSelectedBackgroundJob</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -731,7 +680,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаЗавершитьЗаданиеРасширеннаяПодсказка</name>
+          <name>KillSelectedBackgroundJobРасширеннаяПодсказка</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -745,7 +694,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ЗавершитьЗадание</commandName>
+        <commandName>Form.Command.KillSelectedBackgroundJob</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -757,12 +706,16 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>ru</key>
+        <value>Background job</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Форма действия задание</value>
       </toolTip>
       <extendedTooltip>
-        <name>ФормаДействияЗаданиеРасширеннаяПодсказка</name>
+        <name>BackgroundJobРасширеннаяПодсказка</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -801,11 +754,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Список</name>
-    <title>
-      <key>ru</key>
-      <value>Список</value>
-    </title>
+    <name>BackgroundJobs</name>
     <id>1</id>
     <valueType>
       <types>ValueTable</types>
@@ -817,7 +766,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>УникальныйИдентификатор</name>
+      <name>UUID</name>
+      <title>
+        <key>en</key>
+        <value>UUID</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Уникальный идентификатор</value>
@@ -835,7 +788,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Состояние</name>
+      <name>State</name>
+      <title>
+        <key>en</key>
+        <value>State</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Состояние</value>
@@ -853,7 +810,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
+      <title>
+        <key>en</key>
+        <value>Key</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ключ</value>
@@ -871,27 +832,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Наименование</name>
+      <name>Begin</name>
       <title>
-        <key>ru</key>
-        <value>Наименование</value>
+        <key>en</key>
+        <value>Begin</value>
       </title>
-      <id>4</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers>
-          <length>60</length>
-        </stringQualifiers>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>Начало</name>
       <title>
         <key>ru</key>
         <value>Начало</value>
@@ -909,7 +854,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Конец</name>
+      <name>End</name>
+      <title>
+        <key>en</key>
+        <value>End</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Конец</value>
@@ -927,7 +876,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИнформацияОбОшибке</name>
+      <name>ErrorInfo</name>
+      <title>
+        <key>en</key>
+        <value>Error Info</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Информация об ошибке</value>
@@ -945,7 +898,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяМетода</name>
+      <name>MethodName</name>
+      <title>
+        <key>en</key>
+        <value>Method Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя метода</value>
@@ -963,35 +920,17 @@
       </edit>
     </columns>
   </attributes>
-  <attributes>
-    <name>КлючЗаписи</name>
-    <title>
-      <key>ru</key>
-      <value>Ключ записи</value>
-    </title>
-    <id>2</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <formCommands>
-    <name>ОбновитьТаблицуФоновых</name>
+    <name>RefreshBackgroundJobs</name>
+    <title>
+      <key>en</key>
+      <value>Refresh All Jobs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить все задания</value>
     </title>
     <id>1</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Обновить таблицу фоновых</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
@@ -1000,49 +939,49 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьТаблицуФоновыхЗаданий</name>
+        <name>RefreshBackgroundJobs</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>АктуализироватьСостояниеЗадания</name>
+    <name>RefreshSelectedBackgroundJob</name>
+    <title>
+      <key>en</key>
+      <value>Refresh Current Job</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Актуализировать состояние</value>
+      <value>Обновить выбранное задание</value>
     </title>
     <id>2</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Актуализировать состояние задания</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>АктуализироватьСостояниеЗадания</name>
+        <name>RefreshSelectedBackgroundJob</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗавершитьЗадание</name>
+    <name>KillSelectedBackgroundJob</name>
+    <title>
+      <key>en</key>
+      <value>Kill Selected Job</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Завершить задание</value>
+      <value>Завершить выбранное задание</value>
     </title>
     <id>3</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Завершить задание</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗавершитьЗадание</name>
+        <name>KillSelectedBackgroundJob</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

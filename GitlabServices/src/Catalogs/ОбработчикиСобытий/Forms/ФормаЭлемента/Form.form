@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаИдентификаторы</name>
+    <name>GroupWebhookId</name>
     <id>213</id>
     <items xsi:type="form:FormField">
-      <name>Код</name>
+      <name>Code</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -17,7 +17,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>КодРасширеннаяПодсказка</name>
+        <name>CodeРасширеннаяПодсказка</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +32,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КодКонтекстноеМеню</name>
+        <name>CodeКонтекстноеМеню</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,7 +56,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Наименование</name>
+      <name>Name</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -69,7 +69,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НаименованиеРасширеннаяПодсказка</name>
+        <name>NameРасширеннаяПодсказка</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -84,7 +84,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НаименованиеКонтекстноеМеню</name>
+        <name>NameКонтекстноеМеню</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -113,7 +113,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ГруппаИдентификаторыРасширеннаяПодсказка</name>
+      <name>GroupWebhookIdРасширеннаяПодсказка</name>
       <id>214</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -137,7 +137,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>СекретныйКлюч</name>
+    <name>SecretToken</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -154,7 +154,7 @@
       <value>Настройки репозитория GitLab (Settings -> Integrations)</value>
     </toolTip>
     <extendedTooltip>
-      <name>СекретныйКлючРасширеннаяПодсказка</name>
+      <name>SecretTokenРасширеннаяПодсказка</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -169,7 +169,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СекретныйКлючКонтекстноеМеню</name>
+      <name>SecretTokenКонтекстноеМеню</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -193,7 +193,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаДанные</name>
+    <name>GroupData</name>
     <id>325</id>
     <items xsi:type="form:FormGroup">
       <name>GroupReceivedRequests</name>
@@ -374,7 +374,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеПоказатьФоновыеЗадания</name>
+            <name>ReceivedRequestsOpenBackgroundJobs</name>
             <id>331</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -382,7 +382,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеПоказатьФоновыеЗаданияРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsOpenBackgroundJobsРасширеннаяПодсказка</name>
               <id>332</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -584,7 +584,7 @@
           <name>ReceivedRequestsКонтекстноеМеню</name>
           <id>351</id>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеКонтекстноеМенюРучнаяОтправкаДанных</name>
+            <name>ReceivedRequestsContextMenuResendData</name>
             <id>345</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -592,7 +592,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеКонтекстноеМенюРучнаяОтправкаДанныхРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsContextMenuResendDataРасширеннаяПодсказка</name>
               <id>346</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -614,7 +614,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеКонтекстноеМенюПоказатьФоновыеЗадания</name>
+            <name>ReceivedRequestsContextMenuOpenBackgroundJobs</name>
             <id>343</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -622,7 +622,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеКонтекстноеМенюПоказатьФоновыеЗаданияРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsContextMenuOpenBackgroundJobsРасширеннаяПодсказка</name>
               <id>344</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -644,7 +644,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СохраненныеДанныеКонтекстноеМенюОткрытьСайтСMergeRequests</name>
+            <name>ReceivedRequestsContextMenuOpenMergeRequestRemote</name>
             <id>347</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -652,7 +652,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СохраненныеДанныеКонтекстноеМенюОткрытьСайтСMergeRequestsРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsContextMenuOpenMergeRequestRemoteРасширеннаяПодсказка</name>
               <id>348</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -746,7 +746,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаИсторияСобытий</name>
+      <name>GroupEventsHistory</name>
       <id>302</id>
       <items xsi:type="form:Table">
         <name>EventsHistory</name>
@@ -1403,11 +1403,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Events History</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>История событий</value>
       </title>
       <extendedTooltip>
-        <name>ГруппаИсторияСобытийРасширеннаяПодсказка</name>
+        <name>GroupEventsHistoryРасширеннаяПодсказка</name>
         <id>303</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1441,7 +1445,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ГруппаДанныеРасширеннаяПодсказка</name>
+      <name>GroupDataРасширеннаяПодсказка</name>
       <id>326</id>
       <visible>true</visible>
       <enabled>true</enabled>

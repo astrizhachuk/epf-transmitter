@@ -345,8 +345,12 @@
   <forms uuid="4ee52620-a982-4067-b0a5-c2668019d87b">
     <name>BackgroundJobs</name>
     <synonym>
-      <key>ru</key>
+      <key>en</key>
       <value>Background Jobs</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Фоновые задания</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
