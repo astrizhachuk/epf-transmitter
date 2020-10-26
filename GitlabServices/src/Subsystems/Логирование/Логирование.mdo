@@ -7,5 +7,4 @@
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <content>CommonModule.Логирование</content>
-  <content>Enum.УровеньЖурналаРегистрации</content>
 </mdclass:Subsystem>

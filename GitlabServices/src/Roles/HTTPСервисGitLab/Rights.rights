@@ -57,17 +57,6 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.ДанныеОбработчиковСобытий</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Update</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
 		<name>Constant.AccessTokenReceiver</name>
 		<right>
 			<name>Read</name>
@@ -78,6 +67,28 @@
 		<name>HTTPService.gitlab.URLTemplate.webhooks.Method.POST</name>
 		<right>
 			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ДанныеЗапросов</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ВнешниеФайлы</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
 			<value>true</value>
 		</right>
 	</object>

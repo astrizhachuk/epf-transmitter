@@ -10,7 +10,6 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.GitLab</picture>
   </picture>
-  <content>CommonModule.СервисыGitLab</content>
   <content>CommonModule.HTTPСервисы</content>
   <content>Role.ПользовательGitLab</content>
   <content>HTTPService.gitlab</content>
@@ -19,7 +18,6 @@
   <content>Constant.ИмяФайлаНастроекМаршрутизации</content>
   <content>Constant.GitLabUserPrivateToken</content>
   <content>Catalog.ОбработчикиСобытий</content>
-  <content>InformationRegister.ДанныеОбработчиковСобытий</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.НастройкиСервиса</content>
   <content>Constant.ТаймаутGitLab</content>

@@ -12,7 +12,7 @@
   <name>ДанныеЗапросов</name>
   <synonym>
     <key>ru</key>
-    <value>Десериализованные данные webhooks</value>
+    <value>Данные запросов</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>

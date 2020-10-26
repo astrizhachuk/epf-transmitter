@@ -133,7 +133,11 @@
       <objectType typeId="38e85744-dcbe-4cb8-817f-c50e5ccd669e" valueTypeId="4dffd020-8030-4121-98ac-9e18f92dc4d9"/>
       <rowType typeId="f431f71e-ce03-4329-9510-84ee9eafb7c1" valueTypeId="b2500fef-d288-480d-b6ab-d18ba8e19fa6"/>
     </producedTypes>
-    <name>ИсторияСобытий</name>
+    <name>EventsHistory</name>
+    <synonym>
+      <key>en</key>
+      <value>Events History</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>История событий</value>
@@ -149,6 +153,10 @@
     <attributes uuid="a2108bd0-b017-4416-ab68-dc5b010f9668">
       <name>Дата</name>
       <synonym>
+        <key>en</key>
+        <value>Date</value>
+      </synonym>
+      <synonym>
         <key>ru</key>
         <value>Дата</value>
       </synonym>
@@ -162,15 +170,15 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="805eb371-124c-472c-9b30-7aedfce453fb">
-      <name>Источник</name>
+      <name>Операция</name>
       <synonym>
         <key>ru</key>
-        <value>Источник</value>
+        <value>Операция</value>
       </synonym>
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>6</length>
+          <length>50</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
@@ -185,7 +193,10 @@
         <value>Уровень</value>
       </synonym>
       <type>
-        <types>EnumRef.УровеньЖурналаРегистрации</types>
+        <types>String</types>
+        <stringQualifiers>
+          <length>20</length>
+        </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
@@ -201,7 +212,7 @@
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>50</length>
+          <length>100</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
@@ -218,7 +229,7 @@
       <type>
         <types>String</types>
         <stringQualifiers>
-          <length>50</length>
+          <length>100</length>
         </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
@@ -306,16 +317,24 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="632c4875-de0d-487a-ba67-789e73264bb7">
-    <name>УсловияОтбора</name>
+    <name>FilterEventsHistory</name>
+    <synonym>
+      <key>en</key>
+      <value>Events History Filter</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Условия отбора</value>
+      <value>Отбор истории событий</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="73a4b558-dde7-418a-b9db-eeaff642abda">
-    <name>РедакторJSON</name>
+    <name>EditorJSON</name>
+    <synonym>
+      <key>en</key>
+      <value>Editor JSON</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактор JSON</value>
@@ -324,7 +343,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="4ee52620-a982-4067-b0a5-c2668019d87b">
-    <name>ФоновыеЗадания</name>
+    <name>BackgroundJobs</name>
+    <synonym>
+      <key>en</key>
+      <value>Background Jobs</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Фоновые задания</value>

@@ -50,7 +50,5 @@
   <commonModules>CommonModule.Тест_Маршрутизация</commonModules>
   <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>
-  <commonModules>CommonModule.HTTPConnector</commonModules>
-  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

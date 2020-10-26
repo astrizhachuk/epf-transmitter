@@ -1,0 +1,20 @@
+{
+    "httpRequest": {
+        "method": "POST",
+        "path": "/receiver.*"
+    },
+    "httpResponse": {
+        "body": {
+            "type": "STRING",
+            "string": "{\"type\":\"info\",\"message\":\"Успех\"}",
+            "contentType": "text/plain; charset=utf-8"
+        },
+        "delay": {
+            "timeUnit": "SECONDS",
+            "value": 3
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

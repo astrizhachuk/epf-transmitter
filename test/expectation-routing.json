@@ -1,0 +1,31 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": "/api/v4/projects/1/repository/files/.ext-epf.json/raw",
+        "queryStringParameters": {
+            "ref": [
+                "[a-z0-9]+"
+            ]
+        },
+        "headers": {
+            "PRIVATE-TOKEN": [
+                "-U2ssrBsM4rmx85HXzZ1"
+            ]
+        }
+    },
+    "httpResponse": {
+        "headers": {
+            "X-Gitlab-File-Name": [
+                ".ext-epf.json"
+            ]
+        },
+        "body": {
+            "type": "STRING",
+            "string": "{\"ws\":[{\"name\":\"spb\",\"address\":\"http:\/\/mock-server:1080\/receiver1\",\"enabled\":true},{\"name\":\"msk\",\"address\":\"http:\/\/mock-server:1080\/receiver2\",\"enabled\":false},{\"name\":\"szfo\",\"address\":\"http:\/\/mock-server:1080\/receiver3\",\"enabled\":true}],\"epf\":[{\"name\":\"\u041A\u0430\u0442\u0430\u043B\u043E\u0433 1\/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"\u041A\u0430\u0442\u0430\u043B\u043E\u0433 2\/test2.epf\"},{\"name\":\"\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u0441 \u043E\u0442\u0447\u0435\u0442\u0430\u043C\u0438 \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430\u043C\u0438\/\u0412\u043D\u0435\u0448\u043D\u044F\u044F \u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430 1.epf\"},{\"name\":\"\u041D\u0435\u0442 \u0442\u0430\u043A\u043E\u0433\u043E \u0444\u0430\u0439\u043B\u0430.epf\"}]}",
+            "contentType": "text/plain; charset=utf-8"
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

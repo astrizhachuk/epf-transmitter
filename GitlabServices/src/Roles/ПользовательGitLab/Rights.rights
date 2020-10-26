@@ -86,10 +86,6 @@
 			<value>true</value>
 		</right>
 		<right>
-			<name>InteractiveDelete</name>
-			<value>true</value>
-		</right>
-		<right>
 			<name>InteractiveSetDeletionMark</name>
 			<value>true</value>
 		</right>
@@ -165,17 +161,6 @@
 	</object>
 	<object>
 		<name>Subsystem.ИнтеграцияGitLab</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>InformationRegister.ДанныеОбработчиковСобытий</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -258,6 +243,36 @@
 		<name>CommonForm.НастройкиСервиса</name>
 		<right>
 			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ДанныеЗапросов</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ВнешниеФайлы</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
 			<value>true</value>
 		</right>
 	</object>
