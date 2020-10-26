@@ -26,9 +26,10 @@
 	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Пауза 1
 
 	Проверка получения файла получателями
+
+		И Пауза 5
 		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
 		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
 
@@ -101,6 +102,7 @@
 	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	И Пауза 5
 
 	Тогда в таблице "Список" я перехожу к строке:
 		| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
@@ -113,7 +115,8 @@
 	И я закрываю окно предупреждения
 	
 	Проверка получения файла получателями
-		И Пауза 1
+
+		И Пауза 5
 		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
 		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
 
@@ -122,6 +125,7 @@
 	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	И Пауза 5
 
 	Тогда в таблице "Список" я перехожу к строке:
 		| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
@@ -136,6 +140,7 @@
 	И я изменяю флаг 'Пользовательский вариант'
 	
 	Исключаем "spb" в маршрутах для "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
+
 		И в поле 'CommitsRoutingJSON' я ввожу текст '{\"ws\":[{\"name\":\"spb\",\"address\":\"http://mock-server:1080/receiver1\",\"enabled\":true},{\"name\":\"msk\",\"address\":\"http://mock-server:1080/receiver2\",\"enabled\":false},{\"name\":\"szfo\",\"address\":\"http://mock-server:1080/receiver3\",\"enabled\":true}],\"epf\":[{\"name\":\"Каталог 1/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"Каталог 2/test2.epf\"},{\"name\":\"Каталог с отчетами и обработками/Внешняя Обработка 1.epf\",\"exclude\":[\"spb\"]},{\"name\":\"Нет такого файла.epf\"}]}'
 		И я нажимаю на кнопку 'Сохранить JSON'
 		И Я закрываю окно 'Настройка маршрутизации'
@@ -146,6 +151,7 @@
 		И я закрываю окно предупреждения
 
 	Проверка получения файла получателями
-		И Пауза 1
+
+		И Пауза 5
 		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
 		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
