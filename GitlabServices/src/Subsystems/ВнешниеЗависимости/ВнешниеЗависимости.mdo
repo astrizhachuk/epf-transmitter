@@ -6,6 +6,6 @@
     <value>Внешние зависимости</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
-  <content>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</content>
-  <content>CommonModule.КоннекторHTTP</content>
+  <content>CommonModule.HTTPStatusCodesClientServerCached</content>
+  <content>CommonModule.HTTPConnector</content>
 </mdclass:Subsystem>

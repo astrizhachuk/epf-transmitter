@@ -92,11 +92,11 @@
 		ДополнительныеПараметры.Вставить( "Заголовки", Заголовки );
 		ДополнительныеПараметры.Вставить( "Таймаут", ПараметрыСоединения.Таймаут );
 		
-		Ответ = КоннекторHTTP.Get( Адрес, Неопределено, ДополнительныеПараметры );
+		Ответ = HTTPConnector.Get( Адрес, Неопределено, ДополнительныеПараметры );
 
-		Если ( НЕ КодыСостоянияHTTPКлиентСерверПовтИсп.isOk(Ответ.КодСостояния) ) Тогда
+		Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
 			
-			ВызватьИсключение КодыСостоянияHTTPКлиентСерверПовтИсп.НайтиИдентификаторПоКоду( Ответ.КодСостояния );
+			ВызватьИсключение HTTPStatusCodesClientServerCached.FindIdByCode( Ответ.КодСостояния );
 		
 		КонецЕсли;
 		
@@ -239,7 +239,7 @@ Function GetMergeRequestsByQueryData( Val QueryData ) Export
 	
 	URL = ConnectionParams.Адрес + MergeRequestsPath( ProjectParams.Идентификатор );
 
-	Return КоннекторHTTP.GetJson( URL, Undefined, AdditionalParams );
+	Return HTTPConnector.GetJson( URL, Undefined, AdditionalParams );
 	
 EndFunction
 

@@ -17,7 +17,7 @@
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.ПолныеПрава</defaultRoles>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
@@ -54,8 +54,8 @@
   <commonModules>CommonModule.Gitlab</commonModules>
   <commonModules>CommonModule.GitlabПовтИсп</commonModules>
   <commonModules>CommonModule.HTTPСервисы</commonModules>
-  <commonModules>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</commonModules>
-  <commonModules>CommonModule.КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.НастройкаСервисов</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
