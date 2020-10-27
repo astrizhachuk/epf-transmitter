@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="670fae95-e5d3-4f55-a705-aa3422f1a821">
-  <name>gitlab</name>
+  <name>GitLab</name>
   <synonym>
     <key>ru</key>
-    <value>gitlab services</value>
+    <value>GitLab-services</value>
   </synonym>
   <comment>Работа с сервисами GitLab</comment>
   <rootURL>gitlab</rootURL>
   <reuseSessions>AutoUse</reuseSessions>
   <sessionMaxAge>20</sessionMaxAge>
   <urlTemplates uuid="160aae0f-93ea-4931-addd-a2cfc0a3ea84">
-    <name>webhooks</name>
+    <name>Webhooks</name>
     <synonym>
       <key>ru</key>
       <value>Webhooks</value>
@@ -29,7 +29,7 @@
     </methods>
   </urlTemplates>
   <urlTemplates uuid="74a26fe0-749a-491a-8507-f3a2613b49b5">
-    <name>services</name>
+    <name>Services</name>
     <synonym>
       <key>ru</key>
       <value>Services</value>

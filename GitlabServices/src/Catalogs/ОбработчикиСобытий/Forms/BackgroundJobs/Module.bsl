@@ -66,7 +66,7 @@ EndProcedure
 Procedure KillSelectedBackgroundJobAtServer( Val Id, Val UUID )
 	
 	Var BackgroundJobId;
-	Var FindedBackgroundJob;
+	Var FoundBackgroundJob;
 	
 	BackgroundJobId = New UUID( UUID );
 	
@@ -76,22 +76,22 @@ Procedure KillSelectedBackgroundJobAtServer( Val Id, Val UUID )
 		
 	EndIf;
 	
-	FindedBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
+	FoundBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
 	
-	If ( FindedBackgroundJob = Undefined ) Then
+	If ( FoundBackgroundJob = Undefined ) Then
 		
 		Return;
 		
 	EndIf;
 	
-	If ( FindedBackgroundJob.State = BackgroundJobState.Active ) Then
+	If ( FoundBackgroundJob.State = BackgroundJobState.Active ) Then
 
-		FindedBackgroundJob.Cancel();
-		FindedBackgroundJob.WaitForExecutionCompletion();
+		FoundBackgroundJob.Cancel();
+		FoundBackgroundJob.WaitForExecutionCompletion();
 
 	EndIf;
 
-	RefreshSelectedBackgroundJobAtServer( Id, UUID )
+	RefreshSelectedBackgroundJobAtServer( Id, UUID );
 	
 EndProcedure
 
@@ -99,7 +99,7 @@ EndProcedure
 Procedure RefreshSelectedBackgroundJobAtServer( Val Id, Val UUID )
 	
 	Var BackgroundJobId;
-	Var FindedBackgroundJob;
+	Var FoundBackgroundJob;
 	Var BackgroundJobInList;
 	
 	BackgroundJobId = New UUID( UUID );
@@ -110,9 +110,9 @@ Procedure RefreshSelectedBackgroundJobAtServer( Val Id, Val UUID )
 		
 	EndIf;
 	
-	FindedBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
+	FoundBackgroundJob = ФоновыеЗадания.FindByUUID( BackgroundJobId );
 	
-	If ( FindedBackgroundJob = Undefined ) Then
+	If ( FoundBackgroundJob = Undefined ) Then
 		
 		Return;
 		
@@ -120,11 +120,11 @@ Procedure RefreshSelectedBackgroundJobAtServer( Val Id, Val UUID )
 	
 	BackgroundJobInList = BackgroundJobs.FindByID( Id );
 	
-	FillPropertyValues( BackgroundJobInList, FindedBackgroundJob );
+	FillPropertyValues( BackgroundJobInList, FoundBackgroundJob );
 		
-	If ( FindedBackgroundJob.ErrorInfo <> Undefined ) Then
+	If ( FoundBackgroundJob.ErrorInfo <> Undefined ) Then
 		
-		BackgroundJobInList.ErrorInfo = ErrorProcessing.DetailErrorDescription( FindedBackgroundJob.ErrorInfo );
+		BackgroundJobInList.ErrorInfo = ErrorProcessing.DetailErrorDescription( FoundBackgroundJob.ErrorInfo );
 		
 	EndIf;
 	

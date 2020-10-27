@@ -43,8 +43,8 @@
   <commonModules>CommonModule.Тест_ОбщийМодульСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыСервер</commonModules>
-  <commonModules>CommonModule.Тест_СтроковыеФункцииКлиент</commonModules>
-  <commonModules>CommonModule.Тест_СтроковыеФункцииСервер</commonModules>
+  <commonModules>CommonModule.Тест_StringsClient</commonModules>
+  <commonModules>CommonModule.Тест_StringsServer</commonModules>
   <commonModules>CommonModule.Тест_ПолучателиСервер</commonModules>
   <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
   <commonModules>CommonModule.Тест_Маршрутизация</commonModules>

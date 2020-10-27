@@ -50,16 +50,19 @@ EndProcedure
 
 &AtClient
 Procedure LoadEventsHistory( Command )
-	
+	Var Notify;
+
+	Notify = New NotifyDescription("DoAfterLoadEventsHistory", ThisObject);
+
 	OpenForm( "Справочник.ОбработчикиСобытий.Форма.FilterEventsHistory",
 			 ,
 			 ThisObject,
 			 ,
 			 ,
 			 ,
-			 New NotifyDescription("DoAfterLoadEventsHistory", ThisObject),
+			 Notify,
 			 FormWindowOpeningMode.LockOwnerWindow );
-			 
+
 EndProcedure
 
 &AtClient

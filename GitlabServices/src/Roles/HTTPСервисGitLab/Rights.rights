@@ -11,7 +11,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.gitlab.URLTemplate.services.Method.GET</name>
+		<name>HTTPService.GitLab.URLTemplate.Services.Method.GET</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -64,7 +64,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.gitlab.URLTemplate.webhooks.Method.POST</name>
+		<name>HTTPService.GitLab.URLTemplate.Webhooks.Method.POST</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

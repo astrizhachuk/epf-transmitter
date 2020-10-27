@@ -51,20 +51,21 @@
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ПользовательGitLab</roles>
   <roles>Role.HTTPСервисGitLab</roles>
-  <commonModules>CommonModule.Gitlab</commonModules>
-  <commonModules>CommonModule.GitlabПовтИсп</commonModules>
+  <commonModules>CommonModule.GitLab</commonModules>
+  <commonModules>CommonModule.GitLabПовтИсп</commonModules>
   <commonModules>CommonModule.HTTPСервисы</commonModules>
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.НастройкаСервисов</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
-  <commonModules>CommonModule.ОбщегоНазначения</commonModules>
+  <commonModules>CommonModule.ОбщегоНазначенияВызовСервера</commonModules>
   <commonModules>CommonModule.Получатели</commonModules>
-  <commonModules>CommonModule.СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Маршрутизация</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>
-  <httpServices>HTTPService.gitlab</httpServices>
+  <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
+  <httpServices>HTTPService.GitLab</httpServices>
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>

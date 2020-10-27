@@ -12,7 +12,7 @@
   </picture>
   <content>CommonModule.HTTPСервисы</content>
   <content>Role.ПользовательGitLab</content>
-  <content>HTTPService.gitlab</content>
+  <content>HTTPService.GitLab</content>
   <content>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</content>
   <content>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</content>
   <content>Constant.ИмяФайлаНастроекМаршрутизации</content>
