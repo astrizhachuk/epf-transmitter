@@ -1,14 +1,14 @@
-# language: ru
+# language: en
 
 @tree
 @classname=ModuleExceptionPath
 
-Функционал: GitLabServices.Tests.Тест_ОбщийМодульСервер
-	Как Разработчик
-	Я Хочу чтобы возвращаемое значение метода совпадало с эталонным
-	Чтобы я мог гарантировать работоспособность метода
+Feature: GitLabServices.Tests.Тест_ОбщийМодульСервер
+	As Developer
+	I want the returns value to be equal to expected value
+	That I can guarantee the execution of the method
 
 @OnServer
-Сценарий: МокСерверДоступен
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_ОбщийМодульСервер.МокСерверДоступен(Контекст());' |
+Scenario: МокСерверДоступен
+	And I execute 1C:Enterprise script at server
+	| 'Тест_ОбщийМодульСервер.МокСерверДоступен(Context());' |

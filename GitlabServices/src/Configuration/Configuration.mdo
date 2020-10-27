@@ -15,14 +15,13 @@
   <configurationExtensionCompatibilityMode>8.3.17</configurationExtensionCompatibilityMode>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
-  <scriptVariant>Russian</scriptVariant>
-  <defaultRoles>Role.ПолныеПрава</defaultRoles>
-  <version>0.1.5</version>
+  <defaultRoles>Role.FullRughts</defaultRoles>
+  <version>0.1.6</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
   </requiredMobileApplicationPermissions>
-  <defaultLanguage>Language.Русский</defaultLanguage>
+  <defaultLanguage>Language.English</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
@@ -44,13 +43,13 @@
     </synonym>
     <languageCode>en</languageCode>
   </languages>
-  <subsystems>Subsystem.ИнтеграцияGitLab</subsystems>
-  <subsystems>Subsystem.Логирование</subsystems>
-  <subsystems>Subsystem.ВнешниеЗависимости</subsystems>
+  <subsystems>Subsystem.GitLabIntegration</subsystems>
+  <subsystems>Subsystem.Logging</subsystems>
+  <subsystems>Subsystem.ExternalDependencies</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
-  <roles>Role.ПолныеПрава</roles>
-  <roles>Role.ПользовательGitLab</roles>
-  <roles>Role.HTTPСервисGitLab</roles>
+  <roles>Role.FullRughts</roles>
+  <roles>Role.GitLabClient</roles>
+  <roles>Role.GitLabHTTPService</roles>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabПовтИсп</commonModules>
   <commonModules>CommonModule.HTTPСервисы</commonModules>
@@ -73,8 +72,8 @@
   <constants>Constant.ТаймаутGitLab</constants>
   <constants>Constant.ТаймаутДоставкиФайла</constants>
   <constants>Constant.AccessTokenReceiver</constants>
-  <commonForms>CommonForm.НастройкиСервиса</commonForms>
-  <commonForms>CommonForm.ПроверкаПодключения</commonForms>
+  <commonForms>CommonForm.ServiceSettings</commonForms>
+  <commonForms>CommonForm.TestConnections</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <informationRegisters>InformationRegister.ДанныеЗапросов</informationRegisters>
   <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>

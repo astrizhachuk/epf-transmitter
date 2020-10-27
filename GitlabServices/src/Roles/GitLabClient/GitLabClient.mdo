@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Role xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="504303e7-a7f6-4471-abae-bbab251f8692">
-  <name>ПользовательGitLab</name>
+  <name>GitLabClient</name>
+  <synonym>
+    <key>en</key>
+    <value>GitLab User</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Пользователь GitLab</value>

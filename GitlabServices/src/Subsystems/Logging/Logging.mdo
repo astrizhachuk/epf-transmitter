@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8ce309ba-b190-4206-b41d-89d28fc4b90f">
-  <name>Логирование</name>
+  <name>Logging</name>
+  <synonym>
+    <key>en</key>
+    <value>Logging</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Логирование</value>

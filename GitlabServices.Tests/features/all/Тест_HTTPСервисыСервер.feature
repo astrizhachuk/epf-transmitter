@@ -1,119 +1,119 @@
-# language: ru
+# language: en
 
 @tree
 @classname=ModuleExceptionPath
 
-Функционал: GitLabServices.Tests.Тест_HTTPСервисыСервер
-	Как Разработчик
-	Я Хочу чтобы возвращаемое значение метода совпадало с эталонным
-	Чтобы я мог гарантировать работоспособность метода
+Feature: GitLabServices.Tests.Тест_HTTPСервисыСервер
+	As Developer
+	I want the returns value to be equal to expected value
+	That I can guarantee the execution of the method
 
 @OnServer
-Сценарий: СтруктураОтвета
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.СтруктураОтвета(Контекст());' |
+Scenario: СтруктураОтвета
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.СтруктураОтвета(Context());' |
 
 @OnServer
-Сценарий: ОписаниеНеСуществующегоСервиса
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеНеСуществующегоСервиса(Контекст());' |
+Scenario: ОписаниеНеСуществующегоСервиса
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеНеСуществующегоСервиса(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСуществующегоСервиса
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСуществующегоСервиса(Контекст());' |
+Scenario: ОписаниеСуществующегоСервиса
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСуществующегоСервиса(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURLBadURL
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLBadURL(Контекст());' |
+Scenario: ОписаниеСервисаURLBadURL
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLBadURL(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURLПустойURL
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLПустойURL(Контекст());' |
+Scenario: ОписаниеСервисаURLПустойURL
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLПустойURL(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURLНеверныйТип
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLНеверныйТип(Контекст());' |
+Scenario: ОписаниеСервисаURLНеверныйТип
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLНеверныйТип(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURLНеверноеИмяСервиса
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLНеверноеИмяСервиса(Контекст());' |
+Scenario: ОписаниеСервисаURLНеверноеИмяСервиса
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLНеверноеИмяСервиса(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURLОшибкаПреобразования
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLОшибкаПреобразования(Контекст());' |
+Scenario: ОписаниеСервисаURLОшибкаПреобразования
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURLОшибкаПреобразования(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURL404NotFound
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURL404NotFound(Контекст());' |
+Scenario: ОписаниеСервисаURL404NotFound
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURL404NotFound(Context());' |
 
 @OnServer
-Сценарий: ОписаниеСервисаURL
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURL(Контекст());' |
+Scenario: ОписаниеСервисаURL
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ОписаниеСервисаURL(Context());' |
 
 @OnServer
-Сценарий: ServicesGET
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.ServicesGET(Контекст());' |
+Scenario: ServicesGET
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.ServicesGET(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST(Контекст());' |
+Scenario: WebhooksPOST
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST403Forbidden
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST403Forbidden(Контекст());' |
+Scenario: WebhooksPOST403Forbidden
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST403Forbidden(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST423Locked
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST423Locked(Контекст());' |
+Scenario: WebhooksPOST423Locked
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST423Locked(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestXGitlabEvent
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestXGitlabEvent(Контекст());' |
+Scenario: WebhooksPOST400BadRequestXGitlabEvent
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestXGitlabEvent(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestBadURLEpf
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestBadURLEpf(Контекст());' |
+Scenario: WebhooksPOST400BadRequestBadURLEpf
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestBadURLEpf(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestBadURLPush
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestBadURLPush(Контекст());' |
+Scenario: WebhooksPOST400BadRequestBadURLPush
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestBadURLPush(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestCheckoutSHA
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCheckoutSHA(Контекст());' |
+Scenario: WebhooksPOST400BadRequestCheckoutSHA
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCheckoutSHA(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestProject
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestProject(Контекст());' |
+Scenario: WebhooksPOST400BadRequestProject
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestProject(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestProjectWebURL
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestProjectWebURL(Контекст());' |
+Scenario: WebhooksPOST400BadRequestProjectWebURL
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestProjectWebURL(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestCommits
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCommits(Контекст());' |
+Scenario: WebhooksPOST400BadRequestCommits
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCommits(Context());' |
 
 @OnServer
-Сценарий: WebhooksPOST400BadRequestCommitsId
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCommitsId(Контекст());' |
+Scenario: WebhooksPOST400BadRequestCommitsId
+	And I execute 1C:Enterprise script at server
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCommitsId(Context());' |

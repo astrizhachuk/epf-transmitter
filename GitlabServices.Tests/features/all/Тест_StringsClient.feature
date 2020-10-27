@@ -1,13 +1,13 @@
-# language: ru
+# language: en
 
 @tree
 @classname=ModuleExceptionPath
 
-Функционал: GitLabServices.Tests.Тест_StringsClient
-	Как Разработчик
-	Я Хочу чтобы возвращаемое значение метода совпадало с эталонным
-	Чтобы я мог гарантировать работоспособность метода
+Feature: GitLabServices.Tests.Тест_StringsClient
+	As Developer
+	I want the returns value to be equal to expected value
+	That I can guarantee the execution of the method
 
-Сценарий: ПерекодироватьСтроку
-	И я выполняю код встроенного языка
-	| 'Тест_StringsClient.ПерекодироватьСтроку(Контекст());' |
+Scenario: ПерекодироватьСтроку
+	And I execute 1C:Enterprise script
+	| 'Тест_StringsClient.ПерекодироватьСтроку(Context());' |

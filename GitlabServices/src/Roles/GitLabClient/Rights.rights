@@ -49,7 +49,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.ПроверкаПодключения</name>
+		<name>CommonForm.TestConnections</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -160,7 +160,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.ИнтеграцияGitLab</name>
+		<name>Subsystem.GitLabIntegration</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -240,7 +240,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.НастройкиСервиса</name>
+		<name>CommonForm.ServiceSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

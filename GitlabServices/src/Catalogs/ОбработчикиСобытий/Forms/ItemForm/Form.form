@@ -137,7 +137,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>SecretToken</name>
+    <name>Token</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -146,7 +146,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Object.СекретныйКлюч</segments>
+        <segments>Object.SecretToken</segments>
       </paths>
     </dataPath>
     <toolTip>
@@ -154,7 +154,7 @@
       <value>Настройки репозитория GitLab (Settings -> Integrations)</value>
     </toolTip>
     <extendedTooltip>
-      <name>SecretTokenРасширеннаяПодсказка</name>
+      <name>TokenРасширеннаяПодсказка</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -169,7 +169,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>SecretTokenКонтекстноеМеню</name>
+      <name>TokenКонтекстноеМеню</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1514,7 +1514,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoTitle>true</autoTitle>

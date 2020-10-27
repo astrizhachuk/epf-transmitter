@@ -1,11 +1,11 @@
 #Region FormEventHandlers
 
 &AtClient
-Процедура ПриОткрытии( Отказ )
+Procedure OnOpen( Cancel )
 	
-	УстановитьОтборыСписков( Object.Ссылка );
+	УстановитьОтборыСписков( Object.Ref );
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
@@ -180,11 +180,11 @@ Procedure SetFilter( Val Collection, Val Key, Val Value )
 EndProcedure
 
 &AtClient
-Procedure УстановитьОтборыСписков( Знач Ссылка )
+Procedure УстановитьОтборыСписков( Val Ref )
 	
-	SetFilter( ReceivedRequests.Filter, "ОбработчикСобытия", Object.Ref );
-	SetFilter( ExternalFiles.Filter, "ОбработчикСобытия", Object.Ref );
-	SetFilter( EventsHistory.Filter, "Ссылка", Object.Ref );
+	SetFilter( ReceivedRequests.Filter, "ОбработчикСобытия", Ref );
+	SetFilter( ExternalFiles.Filter, "ОбработчикСобытия", Ref );
+	SetFilter( EventsHistory.Filter, "Ссылка", Ref );
 	
 EndProcedure
 

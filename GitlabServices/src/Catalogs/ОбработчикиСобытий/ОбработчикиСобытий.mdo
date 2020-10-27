@@ -106,12 +106,16 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.ОбработчикиСобытий.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultObjectForm>Catalog.ОбработчикиСобытий.Form.ItemForm</defaultObjectForm>
   <attributes uuid="55455e9c-9afd-4878-ad8f-a14d78247c46">
-    <name>СекретныйКлюч</name>
+    <name>SecretToken</name>
+    <synonym>
+      <key>en</key>
+      <value>Secret Token</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Секретный ключ (Secret Token)</value>
+      <value>Секретный ключ</value>
     </synonym>
     <type>
       <types>String</types>
@@ -308,7 +312,11 @@
     </attributes>
   </tabularSections>
   <forms uuid="3e3b8249-434a-4e72-a14b-2a3f9fba665a">
-    <name>ФормаЭлемента</name>
+    <name>ItemForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Item form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма элемента</value>

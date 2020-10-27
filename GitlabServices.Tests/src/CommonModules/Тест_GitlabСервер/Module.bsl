@@ -34,7 +34,7 @@
 	ПутьКФайлуRAW = "/test";
 	
 	// when
-	Результат = Gitlab.ПолучитьФайл(ПараметрыСоединения, ПутьКФайлуRAW);
+	Результат = Gitlab.GetFile(ПараметрыСоединения, ПутьКФайлуRAW);
 	
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.ОписаниеОшибки, Неопределено);
@@ -74,7 +74,7 @@
 	Мок = Неопределено;
 
 	// when
-	Результат = Gitlab.ПолучитьФайл(ПараметрыСоединения, ФэйкПутьКФайлуRAW);
+	Результат = Gitlab.GetFile(ПараметрыСоединения, ФэйкПутьКФайлуRAW);
 	
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.ОписаниеОшибки, Неопределено);
@@ -111,7 +111,7 @@
 	Мок = Неопределено;
 
 	// when
-	Результат = Gitlab.ПолучитьФайл(ПараметрыСоединения, ПутьКФайлуRAW);
+	Результат = Gitlab.GetFile(ПараметрыСоединения, ПутьКФайлуRAW);
 	
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.ОписаниеОшибки, Неопределено);
@@ -155,7 +155,7 @@
 	Мок = Неопределено;
 
 	// when
-	Результат = Gitlab.ПолучитьФайл(ПараметрыСоединения, ПутьКФайлуRAW + "?ref=" + Commit);
+	Результат = Gitlab.GetFile(ПараметрыСоединения, ПутьКФайлуRAW + "?ref=" + Commit);
 
 	// then
 	Фреймворк.ПроверитьНеРавенство(Результат.ОписаниеОшибки, Неопределено);
@@ -203,7 +203,7 @@
 	Мок = Неопределено;
 
 	// when
-	Результат = Gitlab.ПолучитьФайл(ПараметрыСоединения, ПутьКФайлуRAW);
+	Результат = Gitlab.GetFile(ПараметрыСоединения, ПутьКФайлуRAW);
 	
 	// then	
 	Фреймворк.ПроверитьТип(Результат, "Структура");
@@ -261,7 +261,7 @@
 	Мок = Неопределено;
 
 	// when
-	Результат = Gitlab.ПолучитьФайлы(ПараметрыСоединения, ПутиКФайлам);
+	Результат = Gitlab.GetRemoteFiles(ПараметрыСоединения, ПутиКФайлам);
 	
 	// then	
 	Фреймворк.ПроверитьТип(Результат, "Массив");
@@ -277,7 +277,7 @@
 
 КонецПроцедуры
 
-// @unit-test
+// @unit-test:dev
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
@@ -333,61 +333,61 @@
 	    );
 	Мок = Неопределено;
 
-	JSON = НСтр("ru = '{
-				|  ""project"": {
-				|    ""id"": 1,
-				|    ""http_url"": """ + URL + "/root/external-epf.git""
-				|  },
-				|  ""commits"": [
-				|    {
-				|      ""id"": ""1b9949a21e6c897b3dcb4dd510ddb5f893adae2f"",
-				|      ""timestamp"": ""2020-07-21T09:22:31+00:00"",
-				|      ""added"": [
-				|        "".ext-epf.json"",
-				|        ""src/Внешняя Обработка 1.xml"",
-				|        ""test3.epf""
-				|      ],
-				|      ""modified"": [
-				|        ""src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin"",
-				|        ""test1.epf""
-				|      ],
-				|      ""removed"": [
-				|
-				|      ]
-				|    },
-				|    {
-				|      ""id"": ""ef886bb4e372250d8212387350f7e139cbe5a1af"",
-				|      ""timestamp"": ""2020-07-21T09:22:30+00:00"",
-				|      ""added"": [
-				|        "".ext-epf.json"",
-				|        ""src/Внешняя Обработка 3/Forms/Форма/Ext/Form.bin"",
-				|        ""test3.epf""
-				|      ],
-				|      ""modified"": [
-				|        ""src/Внешняя Обработка 1/Forms/Форма.xml"",
-				|        ""test1.epf""
-				|      ],
-				|      ""removed"": [
-				|
-				|      ]
-				|    },
-				|    {
-				|      ""id"": ""968eca170a80a5c825b0808734cb5b109eaedcd3"",
-				|      ""timestamp"": ""2020-03-16T16:00:15+03:00"",
-				|      ""added"": [
-				|
-				|      ],
-				|      ""modified"": [
-				|        ""src/Внешняя Обработка 3/Forms/Форма.xml"",
-				|        ""test9.epf"",
-				|        ""test3.epf""
-				|      ],
-				|      ""removed"": [
-				|
-				|      ]
-				|    }
-				|  ]
-				|}'");
+	JSON = "{
+			|  ""project"": {
+			|    ""id"": 1,
+			|    ""http_url"": """ + URL + "/root/external-epf.git""
+			|  },
+			|  ""commits"": [
+			|    {
+			|      ""id"": ""1b9949a21e6c897b3dcb4dd510ddb5f893adae2f"",
+			|      ""timestamp"": ""2020-07-21T09:22:31+00:00"",
+			|      ""added"": [
+			|        "".ext-epf.json"",
+			|        ""src/Внешняя Обработка 1.xml"",
+			|        ""test3.epf""
+			|      ],
+			|      ""modified"": [
+			|        ""src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin"",
+			|        ""test1.epf""
+			|      ],
+			|      ""removed"": [
+			|
+			|      ]
+			|    },
+			|    {
+			|      ""id"": ""ef886bb4e372250d8212387350f7e139cbe5a1af"",
+			|      ""timestamp"": ""2020-07-21T09:22:30+00:00"",
+			|      ""added"": [
+			|        "".ext-epf.json"",
+			|        ""src/Внешняя Обработка 3/Forms/Форма/Ext/Form.bin"",
+			|        ""test3.epf""
+			|      ],
+			|      ""modified"": [
+			|        ""src/Внешняя Обработка 1/Forms/Форма.xml"",
+			|        ""test1.epf""
+			|      ],
+			|      ""removed"": [
+			|
+			|      ]
+			|    },
+			|    {
+			|      ""id"": ""968eca170a80a5c825b0808734cb5b109eaedcd3"",
+			|      ""timestamp"": ""2020-03-16T16:00:15+03:00"",
+			|      ""added"": [
+			|
+			|      ],
+			|      ""modified"": [
+			|        ""src/Внешняя Обработка 3/Forms/Форма.xml"",
+			|        ""test9.epf"",
+			|        ""test3.epf""
+			|      ],
+			|      ""removed"": [
+			|
+			|      ]
+			|    }
+			|  ]
+			|}";
 	ПараметрыПреобразования = Новый Структура();
 	ПараметрыПреобразования.Вставить( "ПрочитатьВСоответствие", Истина );
 	ПараметрыПреобразования.Вставить( "ИменаСвойствСоЗначениямиДата", "timestamp" );
@@ -445,29 +445,29 @@
 	Константы.ТаймаутGitLab.Установить(5);
 	
 	ПутьMR = "/api/v4/projects/1/merge_requests";
-	JSON = Нстр("ru = '[
-				 |	{
-				 |		""project_id"": 1,
-				 |		""merge_commit_sha"": null,
-				 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/4""
-				 |	},
-				 |	{
-				 |		""project_id"": 1,
-				 |		""merge_commit_sha"": ""c1775c33f82fcf22b3c2c4a5b4e95e430ef35d89"",
-				 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/3""
-				 |	},
-				 |	{
-				 |		""project_id"": 1,
-				 |		""merge_commit_sha"": ""87fc6b2782f1bcadce980cb52941e2bd90974c0f"",
-				 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/2""
-				 |	},
-				 |	{
-				 |		""project_id"": 1,
-				 |		""merge_commit_sha"": ""686109dffcee3e8ef51013f2e7702a8590eb5d73"",
-				 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/1""
-				 |	}
-				 |]'");
-	
+	JSON = "[
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": null,
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/4""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""c1775c33f82fcf22b3c2c4a5b4e95e430ef35d89"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/3""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""87fc6b2782f1bcadce980cb52941e2bd90974c0f"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/2""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""686109dffcee3e8ef51013f2e7702a8590eb5d73"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/1""
+			 |	}
+			 |]";
+
 	Мок = Обработки.MockServerClient.Создать();
 
 	Мок.Сервер(URL, , Истина)
@@ -481,30 +481,30 @@
 	    );
 	Мок = Неопределено;
 	
-	JSON = НСтр("ru = '{
-				|  ""project"": {
-				|    ""id"": 1,
-				|    ""http_url"": """ + URL + "/root/external-epf.git""
-				|  },
-				|  ""commits"": [
-				|    {
-				|      ""id"": ""1b9949a21e6c897b3dcb4dd510ddb5f893adae2f"",
-				|      ""timestamp"": ""2020-07-21T09:22:31+00:00"",
-				|      ""added"": [
-				|        "".ext-epf.json"",
-				|        ""src/Внешняя Обработка 1.xml"",
-				|        ""test3.epf""
-				|      ],
-				|      ""modified"": [
-				|        ""src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin"",
-				|        ""test1.epf""
-				|      ],
-				|      ""removed"": [
-				|
-				|      ]
-				|    }
-				|  ]
-				|}'");
+	JSON = "{
+			|  ""project"": {
+			|    ""id"": 1,
+			|    ""http_url"": """ + URL + "/root/external-epf.git""
+			|  },
+			|  ""commits"": [
+			|    {
+			|      ""id"": ""1b9949a21e6c897b3dcb4dd510ddb5f893adae2f"",
+			|      ""timestamp"": ""2020-07-21T09:22:31+00:00"",
+			|      ""added"": [
+			|        "".ext-epf.json"",
+			|        ""src/Внешняя Обработка 1.xml"",
+			|        ""test3.epf""
+			|      ],
+			|      ""modified"": [
+			|        ""src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin"",
+			|        ""test1.epf""
+			|      ],
+			|      ""removed"": [
+			|
+			|      ]
+			|    }
+			|  ]
+			|}";
 				
 	ПараметрыПреобразования = Новый Структура();
 	ПараметрыПреобразования.Вставить( "ПрочитатьВСоответствие", Истина );

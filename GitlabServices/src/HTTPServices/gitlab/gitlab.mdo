@@ -2,6 +2,10 @@
 <mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="670fae95-e5d3-4f55-a705-aa3422f1a821">
   <name>GitLab</name>
   <synonym>
+    <key>en</key>
+    <value>GitLab-services</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>GitLab-services</value>
   </synonym>

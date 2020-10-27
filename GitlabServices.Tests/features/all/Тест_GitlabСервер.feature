@@ -1,69 +1,69 @@
-# language: ru
+# language: en
 
 @tree
 @classname=ModuleExceptionPath
 
-Функционал: GitLabServices.Tests.Тест_GitlabСервер
-	Как Разработчик
-	Я Хочу чтобы возвращаемое значение метода совпадало с эталонным
-	Чтобы я мог гарантировать работоспособность метода
+Feature: GitLabServices.Tests.Тест_GitlabСервер
+	As Developer
+	I want the returns value to be equal to expected value
+	That I can guarantee the execution of the method
 
 @OnServer
-Сценарий: ПараметрыСоединения
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПараметрыСоединения(Контекст());' |
+Scenario: ПараметрыСоединения
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПараметрыСоединения(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайлФэйкURL
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайлФэйкURL(Контекст());' |
+Scenario: ПолучитьФайлФэйкURL
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайлФэйкURL(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайл404NotFound
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайл404NotFound(Контекст());' |
+Scenario: ПолучитьФайл404NotFound
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайл404NotFound(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайл401Unauthorized
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайл401Unauthorized(Контекст());' |
+Scenario: ПолучитьФайл401Unauthorized
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайл401Unauthorized(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайлПустой
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайлПустой(Контекст());' |
+Scenario: ПолучитьФайлПустой
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайлПустой(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайл200Ok
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайл200Ok(Контекст());' |
+Scenario: ПолучитьФайл200Ok
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайл200Ok(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайлы
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайлы(Контекст());' |
+Scenario: ПолучитьФайлы
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайлы(Context());' |
 
 @OnServer
-Сценарий: ПолучитьФайлыКОтправкеПоДаннымЗапроса
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПолучитьФайлыКОтправкеПоДаннымЗапроса(Контекст());' |
+Scenario: ПолучитьФайлыКОтправкеПоДаннымЗапроса
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПолучитьФайлыКОтправкеПоДаннымЗапроса(Context());' |
 
 @OnServer
-Сценарий: GetMergeRequestsByQueryData
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.GetMergeRequestsByQueryData(Контекст());' |
+Scenario: GetMergeRequestsByQueryData
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.GetMergeRequestsByQueryData(Context());' |
 
 @OnServer
-Сценарий: ОписаниеФайлов
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ОписаниеФайлов(Контекст());' |
+Scenario: ОписаниеФайлов
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ОписаниеФайлов(Context());' |
 
 @OnServer
-Сценарий: ПутьКФайлуRAW
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПутьКФайлуRAW(Контекст());' |
+Scenario: ПутьКФайлуRAW
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПутьКФайлуRAW(Context());' |
 
 @OnServer
-Сценарий: ПереченьОперацийНадФайлами
-	И я выполняю код встроенного языка на сервере
-	| 'Тест_GitlabСервер.ПереченьОперацийНадФайлами(Контекст());' |
+Scenario: ПереченьОперацийНадФайлами
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.ПереченьОперацийНадФайлами(Context());' |
