@@ -5,7 +5,7 @@
 	</filter>
 	<order>
 		<item xsi:type="OrderItemField">
-			<field>Дата</field>
+			<field>Date</field>
 			<orderType>Desc</orderType>
 		</item>
 		<userSettingID>8caa669b-8f70-474e-9372-4f5a070ace2a</userSettingID>
@@ -14,12 +14,12 @@
 		<item>
 			<selection>
 				<item>
-					<field>КодСостоянияHTTP</field>
+					<field>HTTPStatusCode</field>
 				</item>
 			</selection>
 			<filter>
 				<item xsi:type="FilterItemComparison">
-					<left xsi:type="dcscor:Field">КодСостоянияHTTP</left>
+					<left xsi:type="dcscor:Field">HTTPStatusCode</left>
 					<comparisonType>Equal</comparisonType>
 					<right xsi:type="xs:decimal">200</right>
 				</item>
@@ -39,12 +39,12 @@
 		<item>
 			<selection>
 				<item>
-					<field>КодСостоянияHTTP</field>
+					<field>HTTPStatusCode</field>
 				</item>
 			</selection>
 			<filter>
 				<item xsi:type="FilterItemComparison">
-					<left xsi:type="dcscor:Field">КодСостоянияHTTP</left>
+					<left xsi:type="dcscor:Field">HTTPStatusCode</left>
 					<comparisonType>Greater</comparisonType>
 					<right xsi:type="xs:decimal">200</right>
 				</item>
@@ -65,7 +65,7 @@
 			<selection/>
 			<filter>
 				<item xsi:type="FilterItemComparison">
-					<left xsi:type="dcscor:Field">Уровень</left>
+					<left xsi:type="dcscor:Field">Level</left>
 					<comparisonType>Equal</comparisonType>
 					<right xsi:type="xs:string">Ошибка</right>
 				</item>

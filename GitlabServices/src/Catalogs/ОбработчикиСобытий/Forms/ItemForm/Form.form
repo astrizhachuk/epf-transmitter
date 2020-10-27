@@ -769,7 +769,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Дата</segments>
+              <segments>EventsHistory.Date</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -819,7 +819,7 @@
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Операция</segments>
+              <segments>EventsHistory.Action</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -867,7 +867,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Уровень</segments>
+              <segments>EventsHistory.Level</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -919,7 +919,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.КодСостоянияHTTP</segments>
+              <segments>EventsHistory.HTTPStatusCode</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -969,7 +969,7 @@
           <userVisible/>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Событие</segments>
+              <segments>EventsHistory.Event</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1021,7 +1021,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.ПредставлениеСобытия</segments>
+              <segments>EventsHistory.EventPresentation</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1073,7 +1073,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.Комментарий</segments>
+              <segments>EventsHistory.Comment</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1125,7 +1125,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.ИмяПользователя</segments>
+              <segments>EventsHistory.UserName</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1177,7 +1177,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.ПредставлениеПриложения</segments>
+              <segments>EventsHistory.ApplicationPresentation</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1567,15 +1567,15 @@
     <extInfo xsi:type="form:DynamicListExtInfo">
       <queryText>ВЫБРАТЬ
 	EventsHistory.Ссылка,
-	EventsHistory.Дата,
-	EventsHistory.Операция,
-	EventsHistory.Уровень,
-	EventsHistory.Событие,
-	EventsHistory.ПредставлениеСобытия,
-	EventsHistory.КодСостоянияHTTP,
-	EventsHistory.ПредставлениеПриложения,
-	EventsHistory.ИмяПользователя,
-	EventsHistory.Комментарий
+	EventsHistory.Date,
+	EventsHistory.Action,
+	EventsHistory.Level,
+	EventsHistory.Event,
+	EventsHistory.EventPresentation,
+	EventsHistory.HTTPStatusCode,
+	EventsHistory.ApplicationPresentation,
+	EventsHistory.UserName,
+	EventsHistory.Comment
 ИЗ
 	Справочник.ОбработчикиСобытий.EventsHistory КАК EventsHistory</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>

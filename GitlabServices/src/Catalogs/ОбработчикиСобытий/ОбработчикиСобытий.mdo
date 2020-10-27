@@ -155,7 +155,7 @@
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
     <attributes uuid="a2108bd0-b017-4416-ab68-dc5b010f9668">
-      <name>Дата</name>
+      <name>Date</name>
       <synonym>
         <key>en</key>
         <value>Date</value>
@@ -174,7 +174,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="805eb371-124c-472c-9b30-7aedfce453fb">
-      <name>Операция</name>
+      <name>Action</name>
+      <synonym>
+        <key>en</key>
+        <value>Action</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Операция</value>
@@ -191,7 +195,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="cf21b526-5535-4201-8b21-e0a5c0228c0f">
-      <name>Уровень</name>
+      <name>Level</name>
+      <synonym>
+        <key>en</key>
+        <value>Level</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Уровень</value>
@@ -208,7 +216,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="2db090e1-24fa-411c-9ad1-9bfc31cbe75d">
-      <name>Событие</name>
+      <name>Event</name>
+      <synonym>
+        <key>en</key>
+        <value>Event</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Событие</value>
@@ -225,7 +237,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="a47a9835-9236-4360-8003-1bf406af955f">
-      <name>ПредставлениеСобытия</name>
+      <name>EventPresentation</name>
+      <synonym>
+        <key>en</key>
+        <value>Event Presentation</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Представление события</value>
@@ -242,7 +258,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="ee62fde0-e005-42dd-8a8e-a85b2eeddd2f">
-      <name>КодСостоянияHTTP</name>
+      <name>HTTPStatusCode</name>
+      <synonym>
+        <key>en</key>
+        <value>HTTPStatusCode</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Код состояния HTTP</value>
@@ -260,7 +280,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="a132ddea-6a92-4dcd-9a1e-a68cea6b62bb">
-      <name>ПредставлениеПриложения</name>
+      <name>ApplicationPresentation</name>
+      <synonym>
+        <key>en</key>
+        <value>Application</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Приложение</value>
@@ -277,7 +301,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="35b10b16-1313-48bb-92d3-1a8158b57f93">
-      <name>ИмяПользователя</name>
+      <name>UserName</name>
+      <synonym>
+        <key>en</key>
+        <value>User name</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Имя пользователя</value>
@@ -294,7 +322,11 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="3cdca01a-4e5a-44d1-b6a8-41df39e131fc">
-      <name>Комментарий</name>
+      <name>Comment</name>
+      <synonym>
+        <key>en</key>
+        <value>Comment</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Комментарий</value>
