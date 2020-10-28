@@ -290,8 +290,8 @@
 	Var Сообщение;
 	
 	EVENT_MESSAGE = НСтр( "ru = 'Core';en = 'Core'" );
-	OPERATION_SUCCEEDED_MESSAGE = НСтр( "ru = операция выполнена успешно.';en = 'the operation was successful.'" );
-	OPERATION_FAILED_MESSAGE = НСтр( "ru = операция не выполнена.';en = 'operation failed.'" );
+	OPERATION_SUCCEEDED_MESSAGE = НСтр( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
+	OPERATION_FAILED_MESSAGE = НСтр( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	
 	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ПараметрыСобытия.ОбработчикСобытия );
 	
@@ -323,8 +323,8 @@
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
 	
-	LOAD_QUERY_MESSAGE = НСтр( "ru = ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
-	LOAD_FILES_MESSAGE = НСтр( "ru = ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
+	LOAD_QUERY_MESSAGE = НСтр( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
+	LOAD_FILES_MESSAGE = НСтр( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.ОбработчикСобытия;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
@@ -343,7 +343,7 @@
 	Var CheckoutSHA;
 	Var ИнформацияОбОшибке;
 	
-	SAVE_QUERY_MESSAGE = НСтр( "ru = СохранениеЗапросаВБазуДанных';en = 'SaveRequestToDatabase'" );
+	SAVE_QUERY_MESSAGE = НСтр( "ru = 'СохранениеЗапросаВБазуДанных';en = 'SaveRequestToDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.ОбработчикСобытия;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
@@ -370,7 +370,7 @@
 	Var CheckoutSHA;
 	Var ИнформацияОбОшибке;
 	
-	SAVE_FILES_MESSAGE = НСтр( "ru = СохранениеВнешнихФайловВБазуДанных';en = 'SaveFilesToDatabase'" );
+	SAVE_FILES_MESSAGE = НСтр( "ru = 'СохранениеВнешнихФайловВБазуДанных';en = 'SaveFilesToDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.ОбработчикСобытия;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;

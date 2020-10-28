@@ -303,10 +303,10 @@
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.';en = 'Webhooks.Core.'");
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
 	DATA_PROCESSING_MESSAGE_END = НСтр( "ru = 'ОбработкаДанных.Окончание';en = 'DataProcessing.End'" );
-	LOAD_QUERY_MESSAGE = НСтр( "ru = ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
-	LOAD_FILES_MESSAGE = НСтр( "ru = ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
+	LOAD_QUERY_MESSAGE = НСтр( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
+	LOAD_FILES_MESSAGE = НСтр( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 	
-	OPERATION_FAILED_MESSAGE = НСтр( "ru = операция не выполнена.';en = 'operation failed.'" );
+	OPERATION_FAILED_MESSAGE = НСтр( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	LOADING_DATA_MESSAGE = НСтр( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
 	
@@ -344,11 +344,11 @@
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
 	DATA_PROCESSING_EVENT_MESSAGE = НСтр( "ru = 'ОбработкаДанных';en = 'DataProcessing'" );
 	DATA_PROCESSING_EVENT_MESSAGE_END = НСтр( "ru = 'ОбработкаДанных.Окончание';en = 'DataProcessing.End'" );
-	LOAD_QUERY_MESSAGE = НСтр( "ru = ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
-	LOAD_FILES_MESSAGE = НСтр( "ru = ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
+	LOAD_QUERY_MESSAGE = НСтр( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
+	LOAD_FILES_MESSAGE = НСтр( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 
 	DATA_PROCESSING_MESSAGE = НСтр( "ru = 'обработка данных...';en = 'data processing...'" );
-	OPERATION_SUCCEEDED_MESSAGE = НСтр( "ru = операция выполнена успешно.';en = 'the operation was successful.'" );
+	OPERATION_SUCCEEDED_MESSAGE = НСтр( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
 	LOADING_DATA_MESSAGE = НСтр( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	FILES_SENT_MESSAGE = НСтр( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
 	RUNNING_JOBS_MESSAGE = НСтр( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
