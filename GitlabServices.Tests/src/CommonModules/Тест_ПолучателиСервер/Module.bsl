@@ -7,7 +7,7 @@
 Процедура ПередачаДвоичныхДанныхБезПараметровДоставкиОтсутствуютПараметрыСобытия(Фреймворк) Экспорт
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'ОбработчикиСобытий.Core.SendingFileReceiver'");
+	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	
 	// given
@@ -38,7 +38,7 @@
 Процедура ПередачаДвоичныхДанныхБезПараметровДоставкиЕстьПараметрыСобытия(Фреймворк) Экспорт
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.500'");
+	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	
 	// given
@@ -75,7 +75,7 @@
 //
 Процедура ПередачаДвоичныхДанныхОшибка403ForbiddenОтсутствуютПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'ОбработчикиСобытий.Core.SendingFileReceiver'");
+	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
@@ -118,7 +118,7 @@
 //
 Процедура ПередачаДвоичныхДанныхОшибка403ForbiddenЕстьПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE_403 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.403';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.403'");
+	EVENT_MESSAGE_403 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.403';en = 'Webhooks.Core.SendingFileReceiver.403'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
@@ -169,7 +169,7 @@
 //
 Процедура ПередачаДвоичныхДанных200OkОтсутствуютПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'ОбработчикиСобытий.Core.SendingFileReceiver'");
+	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 
@@ -205,7 +205,7 @@
 //
 Процедура ПередачаДвоичныхДанных200OkЕстьПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.200'");
+	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
@@ -247,7 +247,7 @@
 //
 Процедура ПередачаДвоичныхДанныхБезПараметровДоставкиВФоне(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.500'");
+	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	
 	//given
@@ -287,7 +287,7 @@
 //
 Процедура ПередачаДвоичныхДанныхВФонеОдинФайл200OkЕстьПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.200'");
+	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
@@ -336,8 +336,8 @@
 //
 Процедура ПередачаДвоичныхДанныхВФонеТриФайла200OkЕстьПараметрыСобытия(Фреймворк) Экспорт
 	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.200'");
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'ОбработчикиСобытий.Core.SendingFileReceiver.500'");
+	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
+	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
 							|en = 'delivery address: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );

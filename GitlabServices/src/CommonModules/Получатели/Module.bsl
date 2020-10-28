@@ -23,7 +23,7 @@
 	Var КодСостояния;
 	Var Сообщение;
 	
-	MISSING_DELIVERY_MESSAGE = НСтр( "ru = 'Отсутствуют параметры доставки файлов.';
+	MISSING_DELIVERED_MESSAGE = НСтр( "ru = 'Отсутствуют параметры доставки файлов.';
 									|en = 'File delivery options are missing.'" );
 	Ответ = Неопределено;
 	
@@ -33,7 +33,7 @@
 				ИЛИ НЕ ПараметрыДоставки.Свойство("Адрес")
 				ИЛИ НЕ ПараметрыДоставки.Свойство("Token") ) Тогда
 			
-			ВызватьИсключение MISSING_DELIVERY_MESSAGE;
+			ВызватьИсключение MISSING_DELIVERED_MESSAGE;
 			
 		КонецЕсли; 
 		
@@ -111,11 +111,11 @@
 	Var ТекстОтвета;
 	Var Результат;
 	
-	DELIVERY_MESSAGE = НСтр( "ru = 'адрес доставки: %1; файл: %2';en = 'delivery address: %1; file: %2'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'адрес доставки: %1; файл: %2';en = 'delivery address: %1; file: %2'" );
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
 	SERVER_RESPONSE_MESSAGE = НСтр( "ru = '; текст ответа:';en = '; response message:'" ); 
 	
-	Результат = СтрШаблон( DELIVERY_MESSAGE, ПараметрыДоставки.Адрес, ИмяФайла );
+	Результат = СтрШаблон( DELIVERED_MESSAGE, ПараметрыДоставки.Адрес, ИмяФайла );
 	
 	Если ( HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
 		
