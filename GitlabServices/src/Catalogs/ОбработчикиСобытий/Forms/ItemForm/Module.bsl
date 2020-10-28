@@ -43,7 +43,7 @@ Procedure DoAfterLoadEventsHistory( Value, Params ) Export
 	LoadEventsHistoryAtServer( Value, RecordsLoaded );
 
 	Message = NStr( "ru = 'Добавлено записей: ';en = 'Records added: '" ) + RecordsLoaded;
-	MessageBoxTitle = NStr( "ru = 'Загрузка истории событий';en = 'Loading Histiry Events'" );
+	MessageBoxTitle = NStr( "ru = 'Загрузка истории событий';en = 'Loading History Events'" );
 	ShowMessageBox( Undefined, Message, TIMEOUT, MessageBoxTitle );
 	
 EndProcedure
