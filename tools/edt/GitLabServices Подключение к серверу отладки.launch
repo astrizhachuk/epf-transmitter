@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com._1c.g5.v8.dt.debug.core.RemoteRuntime">
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_DEBUG_SERVER_URL" value="http://srv:1550"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_PROJECT_NAME" value="GitLabServices"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_RUNTIME_INSTALLATION" value="com._1c.g5.v8.dt.platform.services.core.resolvableInstallations.environments:com._1c.g5.v8.dt.platform.services.core.runtimeType.EnterprisePlatform=8.3.16"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_USE_LOCAL_DEBUG_SERVER" value="AUTO"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.debug.core.INFOBASE_USE_DEFAULT" value="true"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/GitLabServices"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="IBM866"/>
+    <stringAttribute key="process_factory_id" value="com._1c.g5.v8.dt.debug.core.RunimeProcessFactory"/>
+</launchConfiguration>
