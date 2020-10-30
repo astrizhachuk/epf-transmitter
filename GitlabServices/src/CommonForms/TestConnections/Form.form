@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаЗапрос</name>
+    <name>GroupRequest</name>
     <id>9</id>
     <items xsi:type="form:FormField">
-      <name>ФормаАдрес</name>
+      <name>FormURL</name>
       <id>4</id>
+      <title>
+        <key>en</key>
+        <value>URL</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>URL</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -17,7 +25,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ФормаАдресРасширеннаяПодсказка</name>
+        <name>FormURLExtendedTooltip</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +40,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ФормаАдресКонтекстноеМеню</name>
+        <name>FormURLContextMenu</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,7 +64,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаПроверить</name>
+      <name>FormTest</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -64,7 +72,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПроверитьРасширеннаяПодсказка</name>
+        <name>FormTestExtendedTooltip</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -79,7 +87,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.Проверить</commandName>
+      <commandName>Form.Command.TestConnection</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -92,7 +100,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ГруппаЗапросРасширеннаяПодсказка</name>
+      <name>GroupRequestExtendedTooltip</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -116,7 +124,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ФормаРезультатПроверки</name>
+    <name>FormResult</name>
     <id>25</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -130,7 +138,7 @@
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ФормаРезультатПроверкиРасширеннаяПодсказка</name>
+      <name>FormResultExtendedTooltip</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -145,7 +153,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ФормаРезультатПроверкиКонтекстноеМеню</name>
+      <name>FormResultContextMenu</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -165,10 +173,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОтвет</name>
+    <name>GroupResponse</name>
     <id>31</id>
     <items xsi:type="form:FormField">
-      <name>ФормаТекстОтвета</name>
+      <name>FormResponseBody</name>
       <id>28</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -177,12 +185,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТекстОтвета</segments>
+          <segments>ResponseBody</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ФормаТекстОтветаРасширеннаяПодсказка</name>
+        <name>FormResponseBodyExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -197,7 +205,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ФормаТекстОтветаКонтекстноеМеню</name>
+        <name>FormResponseBodyContextMenu</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -227,11 +235,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Response</value>
+    </title>
+    <title>
       <key>ru</key>
-      <value>Текст ответа</value>
+      <value>Ответ</value>
     </title>
     <extendedTooltip>
-      <name>ГруппаОтветРасширеннаяПодсказка</name>
+      <name>GroupResponseExtendedTooltip</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -322,10 +334,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстОтвета</name>
+    <name>ResponseBody</name>
     <title>
       <key>ru</key>
-      <value>Текст ответа</value>
+      <value>Response body</value>
     </title>
     <id>7</id>
     <valueType>
@@ -340,7 +352,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Проверить</name>
+    <name>TestConnection</name>
+    <title>
+      <key>en</key>
+      <value>Test</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Проверить</value>
@@ -351,7 +367,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Проверить</name>
+        <name>Test</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
