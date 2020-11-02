@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Button">
-    <name>ФормаПроверитьПодключение</name>
+    <name>FormTestConnections</name>
     <id>37</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,7 +9,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>ФормаПроверитьПодключениеРасширеннаяПодсказка</name>
+      <name>FormTestConnectionsExtendedTooltip</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -24,7 +24,7 @@
       </extInfo>
     </extendedTooltip>
     <type>Hyperlink</type>
-    <commandName>Form.Command.ПроверитьПодключение</commandName>
+    <commandName>Form.Command.TestConnections</commandName>
     <representation>Auto</representation>
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
@@ -718,10 +718,14 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПроверитьПодключение</name>
+    <name>TestConnections</name>
+    <title>
+      <key>en</key>
+      <value>Test connections</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Проверить подключение к сервису</value>
+      <value>Проверить подключения</value>
     </title>
     <id>3</id>
     <use>
@@ -729,7 +733,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПроверитьПодключение</name>
+        <name>TestConnections</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

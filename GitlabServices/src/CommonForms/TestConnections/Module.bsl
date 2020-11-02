@@ -1,30 +1,31 @@
 #Region FormHeaderItemsEventHandlers
 
 &AtClient
-Procedure Test(Команда)
+Procedure Test( Command )
 	
-	Var СервисGitLab;
+	Var ServiceTestResult;
 	
-	ЭтотОбъект.ResponseBody = "";
+	ThisObject.ResponseBody = "";
 	
- 	Если ( ПроверитьЗаполнение() ) Тогда
+ 	If ( NOT CheckFilling() ) Then
+	
+		Return;
+		 		
+ 	EndIf;
  		
-		СервисGitLab = СервисGitLab();
-		
-		Попытка
-			
-			ПроверитьПодключениеКСервису( ЭтотОбъект.Адрес, СервисGitLab );
-			ЭтотОбъект.ResponseBody = СервисGitLab.ТекстОтвета;
+	Try
 
-		Исключение
-			
-			СервисGitLab = Неопределено;
+		ServiceTestResult = TestConnection( ThisObject.ServiceURL );
 
-		КонецПопытки;
+	Except
 		
-		ЭтотОбъект.РезультатПроверки = ФорматированныйРезультатПроверки( СервисGitLab );	
- 		
- 	КонецЕсли;
+		ServiceTestResult = ServiceTestResult();
+		ServiceTestResult.Error = True;
+
+	EndTry;
+	
+	ThisObject.TestResult = FormattedTestResult( ServiceTestResult );
+	ThisObject.ResponseBody = ServiceTestResult.ResponseBody;
 	
 EndProcedure
 
@@ -32,82 +33,99 @@ EndProcedure
 
 #Region Private
 
-&AtClient
-Function СервисGitLab()
+&AtClientAtServerNoContext
+Function ServiceTestResult()
 	
-	Var Результат;
+	Var Result;
 	
-	Результат = Новый Структура();
-	Результат.Вставить( "Доступен", Ложь );
-	Результат.Вставить( "Включен", Ложь );
-	Результат.Вставить( "ТекстОтвета", "" );
+	Result = New Structure();
+	Result.Insert( "Existed", False );
+	Result.Insert( "Enabled", False );
+	Result.Insert( "Error", False );
+	Result.Insert( "ResponseBody", "" );
 	
-	Возврат Результат;
+	Return Result;
 	
 EndFunction
 
 &AtServerNoContext
-Procedure ПроверитьПодключениеКСервису( Знач Адрес, Результат )
+Function TestConnection( Val URL )
 	
-	Var ОписаниеСервиса;
-	Var СервисGitLab;
-	Var СервисВключен;
+	Var ServiceDescription;
+	Var Services;
+	Var IsEnabled;
+	
+	ServiceDescription = HTTPСервисы.ОписаниеСервисаURL( URL );
+	
+	Result = ServiceTestResult();
+	
+	If ( ServiceDescription = Undefined ) Then
+		
+		Result.Error = True;
 
-	ОписаниеСервиса = HTTPСервисы.ОписаниеСервисаURL( Адрес );
-	
-	Если ( ОписаниеСервиса = Неопределено ) Тогда
+		Return Result;
 		
-		Возврат;
-		
-	КонецЕсли;
+	EndIf;
 	
-	СервисGitLab = ОписаниеСервиса.Данные.Получить( "services" );
+	Services = ServiceDescription.Data.Get( "services" );
 	
-	Если ( СервисGitLab = Неопределено ) Тогда
+	If ( Services = Undefined ) Then
 		
-		Возврат;
+		Return Result;
 				
-	КонецЕсли;
+	EndIf;
 	
-	Результат.Доступен = Истина;
-	СервисВключен = СервисGitLab.Получить( "enabled" );
-	Результат.Включен = ?( СервисВключен = Неопределено, Ложь, СервисВключен );
-	Результат.ResponseBody = ОписаниеСервиса.json;
+	Result.Existed = True;
+	IsEnabled = Services.Get( "enabled" );
+	Result.Enabled = ?( IsEnabled = Undefined, False, IsEnabled );
+	Result.ResponseBody = ServiceDescription.json;
+	
+	Return Result;
 
-EndProcedure
+EndFunction
 
 &AtClient
-Function ФорматированныйРезультатПроверки( Знач РезультатПроверкиСервиса )
+Function FormattedTestResult( Val ServiceTestResult )
 	
-	Var Сообщения;
+	Var Messages;
 	
-	Сообщения = Новый Массив();
+	CONNECTION_ERROR_MESSAGE = НСтр( "ru = 'Ошибка подключения.';en = 'Connection error.'" );
+	SERVICE_IS_AVAILABLE_MESSAGE = НСтр( "ru = 'Сервис доступен.';en = 'Service is available.'" );
+	SERVICE_IS_NOT_AVAILABLE_MESSAGE = НСтр( "ru = 'Сервис недоступен.';en = 'Service is not available.'" );
+	SERVICE_ENABLED_MESSAGE = НСтр( "ru = ' Статус работы: включен.';en = ' Service is enabled.'" );
+	SERVICE_NOT_ENABLED_MESSAGE = НСтр( "ru = ' Статус работы: выключен.';en = ' Service is disabled.'" );
 	
-	Если ( РезультатПроверкиСервиса = Неопределено ) Тогда
-		
-		Сообщения.Добавить( Новый ФорматированнаяСтрока("Ошибка подключения.", , WebЦвета.Красный) );
-		
-	ИначеЕсли ( РезультатПроверкиСервиса.Доступен ) Тогда
-		
-		Сообщения.Добавить( Новый ФорматированнаяСтрока("Сервис доступен.", , WebЦвета.Зеленый) );
-		
-		Если ( РезультатПроверкиСервиса.Включен ) Тогда
-			
-			Сообщения.Добавить( Новый ФорматированнаяСтрока(" Статус работы: включен.", , WebЦвета.Зеленый) );
-			
-		Иначе
-			
-			Сообщения.Добавить( Новый ФорматированнаяСтрока(" Статус работы: выключен.", , WebЦвета.Красный) );
-			
-		КонецЕсли;
-		
-	Иначе
-		
-		Сообщения.Добавить( Новый ФорматированнаяСтрока("Сервис недоступен.", , WebЦвета.Красный) );
-		
-	КонецЕсли; 
+	Messages = New Array();
 	
-	Возврат Новый ФорматированнаяСтрока( Сообщения );
+	If ( ServiceTestResult.Error ) Then
+		
+		Messages.Add( New FormattedString(CONNECTION_ERROR_MESSAGE, , WebColors.Red) );
+		
+	Else
+		
+		If ( ServiceTestResult.Existed ) Then
+			
+			Messages.Add( New FormattedString(SERVICE_IS_AVAILABLE_MESSAGE, , WebColors.Green) );
+			
+			If ( ServiceTestResult.Enabled ) Then
+				
+				Messages.Add( New FormattedString(SERVICE_ENABLED_MESSAGE, , WebColors.Green) );
+				
+			Else
+				
+				Messages.Add( New FormattedString(SERVICE_NOT_ENABLED_MESSAGE, , WebColors.Red) );
+				
+			EndIf;
+			
+		Else
+			
+			Messages.Add( New FormattedString(SERVICE_IS_NOT_AVAILABLE_MESSAGE, , WebColors.Red) );
+			
+		EndIf;
+		
+	EndIf; 
+	
+	Return New FormattedString( Messages );
 	
 EndFunction
 

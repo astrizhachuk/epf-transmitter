@@ -6,14 +6,6 @@
     <items xsi:type="form:FormField">
       <name>FormURL</name>
       <id>4</id>
-      <title>
-        <key>en</key>
-        <value>URL</value>
-      </title>
-      <title>
-        <key>ru</key>
-        <value>URL</value>
-      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -21,7 +13,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Адрес</segments>
+          <segments>ServiceURL</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -133,7 +125,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>РезультатПроверки</segments>
+        <segments>TestResult</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
@@ -240,7 +232,7 @@
     </title>
     <title>
       <key>ru</key>
-      <value>Ответ</value>
+      <value>Тело ответа</value>
     </title>
     <extendedTooltip>
       <name>GroupResponseExtendedTooltip</name>
@@ -261,10 +253,6 @@
     <extInfo xsi:type="form:UsualGroupExtInfo">
       <group>HorizontalIfPossible</group>
       <behavior>Collapsible</behavior>
-      <collapsedRepresentationTitle>
-        <key>ru</key>
-        <value>Текст ответа</value>
-      </collapsedRepresentationTitle>
       <collapsed>true</collapsed>
       <controlRepresentation>Picture</controlRepresentation>
       <representation>WeakSeparation</representation>
@@ -295,10 +283,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Адрес</name>
+    <name>ServiceURL</name>
+    <title>
+      <key>en</key>
+      <value>URL</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Адрес</value>
+      <value>URL</value>
     </title>
     <id>2</id>
     <valueType>
@@ -313,15 +305,11 @@
     </edit>
     <fillChecking>ShowError</fillChecking>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Адрес</segments>
+      <segments>ServiceURL</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>РезультатПроверки</name>
-    <title>
-      <key>ru</key>
-      <value>Результат проверки</value>
-    </title>
+    <name>TestResult</name>
     <id>5</id>
     <valueType>
       <types>FormattedString</types>
@@ -335,10 +323,6 @@
   </attributes>
   <attributes>
     <name>ResponseBody</name>
-    <title>
-      <key>ru</key>
-      <value>Response body</value>
-    </title>
     <id>7</id>
     <valueType>
       <types>String</types>
