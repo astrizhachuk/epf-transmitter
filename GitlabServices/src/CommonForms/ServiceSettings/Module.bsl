@@ -69,10 +69,10 @@ EndProcedure
 	SetPrivilegedMode( True );
 	
 	Constants.ОбрабатыватьЗапросыВнешнегоХранилища.Set( ThisObject.ОбрабатыватьЗапросыВнешнегоХранилища );
-	Constants.GitLabUserPrivateToken.Set( ThisObject.GitLabUserPrivateToken );
+	Constants.GitLabPersonalAccessToken.Set( ThisObject.GitLabPersonalAccessToken );
 	Constants.ИмяФайлаНастроекМаршрутизации.Set( ThisObject.ИмяФайлаНастроекМаршрутизации );
-	Constants.AccessTokenReceiver.Set( ThisObject.AccessTokenReceiver );
-	Constants.ТаймаутGitLab.Set( ThisObject.ТаймаутGitLab );
+	Constants.ReceiverAccessToken.Set( ThisObject.ReceiverAccessToken );
+	Constants.GitLabTimeout.Set( ThisObject.GitLabTimeout );
 	Constants.ТаймаутДоставкиФайла.Set( ThisObject.ТаймаутДоставкиФайла );
 	
 	SetPrivilegedMode( False );

@@ -5,7 +5,11 @@
     <valueManagerType typeId="d43c0b72-3780-43d9-84a1-09050cf7cb6f" valueTypeId="f5fab537-7108-483b-99d3-4b8f3e0268d5"/>
     <valueKeyType typeId="d7e4454e-c76a-53f5-a01a-16772850443e" valueTypeId="be674dd1-6007-5b54-8bdd-fa14cbf9ea99"/>
   </producedTypes>
-  <name>ТаймаутGitLab</name>
+  <name>GitLabTimeout</name>
+  <synonym>
+    <key>en</key>
+    <value>GitLab's Request Timeout</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Таймаут запросов для GitLab</value>

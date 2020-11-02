@@ -5,12 +5,12 @@
 // Параметры:
 // Возвращаемое значение:
 // ФиксированнаяСтруктура - описание:
-// * ОбрабатыватьЗапросыВнешнегоХранилища - Булево - (См. Константа.ОбрабатыватьЗапросыВнешнегоХранилища);
-// * ИмяФайлаНастроекМаршрутизации - Строка - (См. Константа.ИмяФайлаНастроекМаршрутизации);
-// * GitLabUserPrivateToken - Строка - (См. Константа.GitLabUserPrivateToken);
-// * ТаймаутGitLab - Число - (См. Константа.ТаймаутGitLab);
-// * AccessTokenReceiver - Строка - (См. Константа.AccessTokenReceiver);
-// * ТаймаутДоставкиФайла - Число - (См. Константа.ТаймаутДоставкиФайла);
+// * ОбрабатыватьЗапросыВнешнегоХранилища - Boolean - (see Constants.ОбрабатыватьЗапросыВнешнегоХранилища);
+// * ИмяФайлаНастроекМаршрутизации - String - (see Constants.ИмяФайлаНастроекМаршрутизации);
+// * GitLabPersonalAccessToken - String - (see Constants.GitLabPersonalAccessToken);
+// * GitLabTimeout - Number - (see Constants.GitLabTimeout);
+// * ReceiverAccessToken - String - (see Constants.ReceiverAccessToken);
+// * ТаймаутДоставкиФайла - Number - (see Constants.ТаймаутДоставкиФайла);
 //
 Функция CurrentSettings() Экспорт
 	
@@ -19,9 +19,9 @@
 	Результат = Новый Структура();
 	Результат.Вставить( "ОбрабатыватьЗапросыВнешнегоХранилища", ОбрабатыватьЗапросыВнешнегоХранилища() );
 	Результат.Вставить( "ИмяФайлаНастроекМаршрутизации", ИмяФайлаНастроекМаршрутизации() );
-	Результат.Вставить( "GitLabUserPrivateToken", GitLabUserPrivateToken() );
-	Результат.Вставить( "ТаймаутGitLab", ТаймаутGitLab() );
-	Результат.Вставить( "AccessTokenReceiver", AccessTokenReceiver() );
+	Результат.Вставить( "GitLabPersonalAccessToken", GitLabPersonalAccessToken() );
+	Результат.Вставить( "GitLabTimeout", GitLabTimeout() );
+	Результат.Вставить( "ReceiverAccessToken", ReceiverAccessToken() );
 	Результат.Вставить( "ТаймаутДоставкиФайла", ТаймаутДоставкиФайла() );
 	
 	Результат = Новый ФиксированнаяСтруктура( Результат );
@@ -45,7 +45,7 @@
 	
 	Результат = Новый Структура();
 	Результат.Вставить( "Адрес", "localhost/receiver/hs/gitlab" );
-	Результат.Вставить( "Token", AccessTokenReceiver() );
+	Результат.Вставить( "Token", ReceiverAccessToken() );
 	Результат.Вставить( "Таймаут", ТаймаутДоставкиФайла() );
 	
 	Возврат Результат;
@@ -64,29 +64,30 @@
 	
 КонецФункции
 
-// Получает значение константы с private token пользователя GitLab с правами доступа к API GitLab.
+// GitLabPersonalAccessToken returns the constant value from the private token of a GitLab user
+// with access to the GitLab API.
 // 
-// Параметры:
-// Возвращаемое значение:
-// 	Строка - значение PRIVATE-TOKEN (макс. 50);
+// Parameters:
+// Returns:
+// 	String - value of PRIVATE-TOKEN (max. 50 chars);
 // 
-Функция GitLabUserPrivateToken() Экспорт
+Function GitLabPersonalAccessToken() Export
 	
-	Возврат Константы.GitLabUserPrivateToken.Получить();
+	Return Constants.GitLabPersonalAccessToken.Get();
 	
-КонецФункции
+EndFunction
 
-// Получает значение константы с таймаутом соединения к серверу GitLab.
+// GitLabTimeout returns the constant value with the connection timeout to the GitLab server.
 //
-// Параметры:
-// Возвращаемое значение:
-// 	Число - таймаут соединения, секунд (0 - таймаут не установлен);
+// Parameters:
+// Returns:
+// 	Number - the connection timeout, sec (0 - timeout is not set);
 //
-Функция ТаймаутGitLab() Экспорт
+Function GitLabTimeout() Export
 	
-	Возврат Константы.ТаймаутGitLab.Получить();
+	Return Constants.GitLabTimeout.Get();
 
-КонецФункции
+EndFunction
 
 #EndRegion
 
@@ -104,18 +105,17 @@
 
 КонецФункции
 
-// Получает значение константы AccessTokenReceiver, используемое для подключения к сервисам
-// конечных точек доставки файлов.
+// ReceiverAccessToken returns the constant value used to connect to file delivery end-point services.
 // 
-// Параметры:
-// Возвращаемое значение:
-// 	Строка - token подключения к базе получателю (макс. 20);
-// 
-Функция AccessTokenReceiver()
+// Parameters:
+// Returns:
+// 	String - the connection to the receiver token подключения к базе получателю (max. 20 chars);
+//
+Function ReceiverAccessToken()
 	
-	Возврат Константы.AccessTokenReceiver.Получить();
+	Return Constants.ReceiverAccessToken.Get();
 	
-КонецФункции
+EndFunction
 
 // Получает значение константы с таймаутом соединения к веб-сервису информационной базы получателя.
 //

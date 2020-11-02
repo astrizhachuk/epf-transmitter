@@ -137,7 +137,7 @@
     <name>ГруппаНастройкиСервераGitLab</name>
     <id>24</id>
     <items xsi:type="form:FormField">
-      <name>GitLabUserPrivateToken</name>
+      <name>FormGitLabPersonalAccessToken</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -146,16 +146,20 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>GitLabUserPrivateToken</segments>
+          <segments>GitLabPersonalAccessToken</segments>
         </paths>
       </dataPath>
+      <toolTip>
+        <key>en</key>
+        <value>See personal user settings on the GitLab server: User Settings → Access Tokens → Personal Access Tokens</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>См. персональные настройки пользователя на сервере GitLab в разделе User Settings → Access Tokens → Personal Access Tokens</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>GitLabUserPrivateTokenРасширеннаяПодсказка</name>
+        <name>FormGitLabPersonalAccessTokenExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -170,7 +174,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>GitLabUserPrivateTokenКонтекстноеМеню</name>
+        <name>FormGitLabPersonalAccessTokenContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -194,7 +198,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ТаймаутGitLab</name>
+      <name>FormGitLabTimeout</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -203,16 +207,20 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаймаутGitLab</segments>
+          <segments>GitLabTimeout</segments>
         </paths>
       </dataPath>
+      <toolTip>
+        <key>en</key>
+        <value>0 - timeout is not set</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>0 - таймаут не установлен</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ТаймаутGitLabРасширеннаяПодсказка</name>
+        <name>FormGitLabTimeoutExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -227,7 +235,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаймаутGitLabКонтекстноеМеню</name>
+        <name>FormGitLabTimeoutContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -296,7 +304,7 @@
     <name>ГруппаНастройкиПолучатели</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>AccessTokenReceiver</name>
+      <name>FormReceiverAccessToken</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -305,16 +313,20 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>AccessTokenReceiver</segments>
+          <segments>ReceiverAccessToken</segments>
         </paths>
       </dataPath>
       <toolTip>
+        <key>en</key>
+        <value>See OpenAPI web service for updating external reports and processing</value>
+      </toolTip>
+      <toolTip>
         <key>ru</key>
-        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок в базе-получателе</value>
+        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>AccessTokenReceiverРасширеннаяПодсказка</name>
+        <name>FormReceiverAccessTokenExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -329,7 +341,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>AccessTokenReceiverКонтекстноеМеню</name>
+        <name>FormReceiverAccessTokenContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -578,10 +590,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>AccessTokenReceiver</name>
+    <name>ReceiverAccessToken</name>
+    <title>
+      <key>en</key>
+      <value>Receiver Access Token</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Access Token Receiver</value>
+      <value>Receiver Access Token</value>
     </title>
     <id>3</id>
     <valueType>
@@ -598,10 +614,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>GitLabUserPrivateToken</name>
+    <name>GitLabPersonalAccessToken</name>
+    <title>
+      <key>en</key>
+      <value>GitLab Personal Access Token</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>GitLab user private token</value>
+      <value>GitLab Personal Access Token</value>
     </title>
     <id>4</id>
     <valueType>
@@ -638,7 +658,11 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>ТаймаутGitLab</name>
+    <name>GitLabTimeout</name>
+    <title>
+      <key>en</key>
+      <value>Connection Timeout, sec</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таймаут соединения, сек</value>

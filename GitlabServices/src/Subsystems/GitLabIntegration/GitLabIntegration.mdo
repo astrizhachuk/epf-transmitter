@@ -20,13 +20,13 @@
   <content>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</content>
   <content>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</content>
   <content>Constant.ИмяФайлаНастроекМаршрутизации</content>
-  <content>Constant.GitLabUserPrivateToken</content>
+  <content>Constant.GitLabPersonalAccessToken</content>
   <content>Catalog.ОбработчикиСобытий</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.ServiceSettings</content>
-  <content>Constant.ТаймаутGitLab</content>
+  <content>Constant.GitLabTimeout</content>
   <content>Constant.ТаймаутДоставкиФайла</content>
   <content>Role.GitLabHTTPService</content>
-  <content>Constant.AccessTokenReceiver</content>
+  <content>Constant.ReceiverAccessToken</content>
   <content>CommonForm.TestConnections</content>
 </mdclass:Subsystem>

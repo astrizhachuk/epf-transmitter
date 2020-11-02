@@ -2,7 +2,7 @@
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
   <commandsVisibility>
     <visibilityFragments>
-      <command>Constant.GitLabUserPrivateToken.StandardCommand.Open</command>
+      <command>Constant.GitLabPersonalAccessToken.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
@@ -14,7 +14,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ТаймаутGitLab.StandardCommand.Open</command>
+      <command>Constant.GitLabTimeout.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
@@ -22,7 +22,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.AccessTokenReceiver.StandardCommand.Open</command>
+      <command>Constant.ReceiverAccessToken.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
   </commandsVisibility>

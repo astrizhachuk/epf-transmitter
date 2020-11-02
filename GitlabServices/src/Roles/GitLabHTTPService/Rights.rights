@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>Constant.ТаймаутGitLab</name>
+		<name>Constant.GitLabTimeout</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -18,7 +18,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.GitLabUserPrivateToken</name>
+		<name>Constant.GitLabPersonalAccessToken</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -57,7 +57,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.AccessTokenReceiver</name>
+		<name>Constant.ReceiverAccessToken</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

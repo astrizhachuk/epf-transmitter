@@ -68,10 +68,10 @@
   <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
   <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
   <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
-  <constants>Constant.GitLabUserPrivateToken</constants>
-  <constants>Constant.ТаймаутGitLab</constants>
+  <constants>Constant.GitLabPersonalAccessToken</constants>
+  <constants>Constant.GitLabTimeout</constants>
   <constants>Constant.ТаймаутДоставкиФайла</constants>
-  <constants>Constant.AccessTokenReceiver</constants>
+  <constants>Constant.ReceiverAccessToken</constants>
   <commonForms>CommonForm.ServiceSettings</commonForms>
   <commonForms>CommonForm.TestConnections</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
