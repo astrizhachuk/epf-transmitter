@@ -9,6 +9,6 @@ Feature: GitLabServices.Tests.Тест_HTTPСервисыСервер
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: WebhooksPOST400BadRequestCheckoutSHA
+Scenario: WebhooksPOST403Forbidden
 	And I execute 1C:Enterprise script at server
-	| 'Тест_HTTPСервисыСервер.WebhooksPOST400BadRequestCheckoutSHA(Context());' |
+	| 'Тест_HTTPСервисыСервер.WebhooksPOST403Forbidden(Context());' |

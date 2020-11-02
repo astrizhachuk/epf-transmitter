@@ -214,7 +214,7 @@
 
 КонецПроцедуры
 
-// @unit-test
+// @unit-test:dev
 Процедура WebhooksPOST403Forbidden(Фреймворк) Экспорт
 	
 	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
@@ -347,7 +347,7 @@
 
 КонецПроцедуры
 
-// @unit-test:dev
+// @unit-test
 Процедура WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспорт
 
 	// given
