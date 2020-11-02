@@ -1,81 +1,81 @@
 #Region FormEventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере( Отказ, СтандартнаяОбработка )
+&AtServer
+Procedure OnCreateAtServer( Cancel, StandardProcessing )
 	
-	Var Настройки;
+	Var CurrentSettings;
 	
-	Настройки = НастройкаСервисов.ТекущиеНастройки();
-	ЗаполнитьЗначенияСвойств( ЭтотОбъект, Настройки );
+	CurrentSettings = НастройкаСервисов.CurrentSettings();
+	FillPropertyValues( ThisObject, CurrentSettings );
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region FormCommandsEventHandlers
 
-&НаКлиенте
-Процедура Записать(Команда)
+&AtClient
+Procedure Write( Command )
 	
-	ЗаписатьДанныеФормы();
+	WriteDataForm();
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ЗаписатьИЗакрыть( Команда )
+&AtClient
+Procedure WriteAndClose( Command )
 	
-	Если ( ЗаписатьДанныеФормы() ) Тогда
+	If ( WriteDataForm() ) Then
 		
-		Закрыть();
+		Close();
 		
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура TestConnections( Команда )
+&AtClient
+Procedure TestConnections( Command )
 	
-	ОткрытьФорму( "ОбщаяФорма.TestConnections", , , , , , , РежимОткрытияОкнаФормы.Независимый );
+	OpenForm( "CommonForm.TestConnections", , , , , , , FormWindowOpeningMode.Independent );
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region Private
 
-&НаКлиенте
-Функция ЗаписатьДанныеФормы()
+&AtClient
+Функция WriteDataForm()
 	
-	Var Результат;
+	Var Result;
 
-	Результат = Ложь;
+	Result = False;
 	
-	Если ( ПроверитьЗаполнение() ) Тогда
+	If ( CheckFilling() ) Then
 		
-		ЗаписатьНаСервере();
-		ОбновитьИнтерфейс();
+		WriteAtServer();
+		RefreshInterface();
 		
-		Результат = Истина;
+		Result = True;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Возврат Результат;
+	Return Result;
 	
 КонецФункции
 
-&НаСервере
-Процедура ЗаписатьНаСервере()
+&AtServer
+Процедура WriteAtServer()
 	
-	УстановитьПривилегированныйРежим( Истина );
+	SetPrivilegedMode( True );
 	
-	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить( ЭтотОбъект.ОбрабатыватьЗапросыВнешнегоХранилища );
-	Константы.GitLabUserPrivateToken.Установить( ЭтотОбъект.GitLabUserPrivateToken );
-	Константы.ИмяФайлаНастроекМаршрутизации.Установить( ЭтотОбъект.ИмяФайлаНастроекМаршрутизации );
-	Константы.AccessTokenReceiver.Установить( ЭтотОбъект.AccessTokenReceiver );
-	Константы.ТаймаутGitLab.Установить( ЭтотОбъект.ТаймаутGitLab );
-	Константы.ТаймаутДоставкиФайла.Установить( ЭтотОбъект.ТаймаутДоставкиФайла );
+	Constants.ОбрабатыватьЗапросыВнешнегоХранилища.Set( ThisObject.ОбрабатыватьЗапросыВнешнегоХранилища );
+	Constants.GitLabUserPrivateToken.Set( ThisObject.GitLabUserPrivateToken );
+	Constants.ИмяФайлаНастроекМаршрутизации.Set( ThisObject.ИмяФайлаНастроекМаршрутизации );
+	Constants.AccessTokenReceiver.Set( ThisObject.AccessTokenReceiver );
+	Constants.ТаймаутGitLab.Set( ThisObject.ТаймаутGitLab );
+	Constants.ТаймаутДоставкиФайла.Set( ThisObject.ТаймаутДоставкиФайла );
 	
-	УстановитьПривилегированныйРежим( Ложь );
+	SetPrivilegedMode( False );
 	
 КонецПроцедуры
 

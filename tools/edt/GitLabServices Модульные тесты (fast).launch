@@ -2,7 +2,6 @@
 <launchConfiguration type="ru.capralow.dt.unit.launcher.plugin.ui.UnitTestLaunch">
     <intAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_DEBUG_SERVER_PORT" value="-1"/>
     <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_PROJECT_NAME" value="GitLabServices"/>
-    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_RUNTIME_INSTALLATION" value="com._1c.g5.v8.dt.platform.services.core.resolvableInstallations.environments:com._1c.g5.v8.dt.platform.services.core.runtimeType.EnterprisePlatform=8.3.16"/>
     <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_USE_LOCAL_DEBUG_SERVER" value="AUTO"/>
     <booleanAttribute key="com._1c.g5.v8.dt.debug.core.INFOBASE_USE_DEFAULT" value="true"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_ASSOCIATE_AFTER_DEPLOY" value="true"/>

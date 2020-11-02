@@ -33,8 +33,8 @@
     <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="IBM866"/>
     <stringAttribute key="process_factory_id" value="com._1c.g5.v8.dt.debug.core.RunimeProcessFactory"/>
     <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTENSION_PROJECT_TO_TEST" value="GitLabServices.Tests"/>
-    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_DUMP_PATH" value="C:/w/1c/edt/gitlab-services/.metadata/.plugins/ru.capralow.dt.framework.va.exec/GitLabServices Модульные тесты/framework.epf"/>
-    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_STARTUP_OPTIONS" value="StartFeaturePlayer;DisableUserSettingsLoader;VBParams=C:/w/1c/edt/gitlab-services/.metadata/.plugins/ru.capralow.dt.framework.va.exec/GitLabServices Модульные тесты/params.json"/>
+    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_DUMP_PATH" value="C:/w/1c/edt/gitlab-services/.metadata/.plugins/ru.capralow.dt.framework.va.exec/GitLabServices Модульные тесты (all)/framework.epf"/>
+    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_STARTUP_OPTIONS" value="StartFeaturePlayer;DisableUserSettingsLoader;VBParams=C:/w/1c/edt/gitlab-services/.metadata/.plugins/ru.capralow.dt.framework.va.exec/GitLabServices Модульные тесты (all)/params.json"/>
     <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_EXTENSION_TESTS" value="true"/>
     <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_MODULE_TESTS" value="false"/>
     <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_TAG_TESTS" value="false"/>

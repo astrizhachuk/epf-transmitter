@@ -19,6 +19,6 @@ Scenario: ПараметрыПолучателяОтрицательныйТай
 	| 'Тест_НастройкиСервисаСервер.ПараметрыПолучателяОтрицательныйТаймаутДоставкиФайла(Context());' |
 
 @OnServer
-Scenario: ТекущиеНастройки
+Scenario: CurrentSettings
 	And I execute 1C:Enterprise script at server
-	| 'Тест_НастройкиСервисаСервер.ТекущиеНастройки(Context());' |
+	| 'Тест_НастройкиСервисаСервер.CurrentSettings(Context());' |

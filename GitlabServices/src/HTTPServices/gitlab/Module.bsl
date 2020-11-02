@@ -30,7 +30,7 @@
 	Var ПараметрыЛогирования;
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ОбработкаЗапроса.Начало';en = 'WebService.QueryProcessing.Begin'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ОбработкаЗапроса.Конец';en = 'WebService.QueryProcessing.End'" );
+	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ОбработкаЗапроса.Окончание';en = 'WebService.QueryProcessing.End'" );
 	
 	RECEIVED_REQUEST_MESSAGE = НСтр( "ru = 'Получен запрос с сервера GitLab.';
 									|en = 'Received a request from the GitLab server.'" );
@@ -215,7 +215,7 @@
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.Десериализация.Конец';en = 'WebService.Unmarshalling.End'" );
+	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.Десериализация.Окончание';en = 'WebService.Unmarshalling.End'" );
 	
 	UNMARSHALLING_MESSAGE = НСтр( "ru = 'десериализация запроса...';en = 'unmarshalling from a request...'" );
 	
@@ -305,7 +305,7 @@
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ПроверкаЗапроса.Начало';en = 'WebService.RequestValidation.Begin'" );
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.ПроверкаЗапроса';en = 'WebService.RequestValidation'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ПроверкаЗапроса.Конец';en = 'WebService.RequestValidation.End'" );
+	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ПроверкаЗапроса.Окончание';en = 'WebService.RequestValidation.End'" );
 
 	VALIDATION_MESSAGE = НСтр( "ru = 'проверка данных запроса...';en = 'query data validation...'" );
 	MISSING_DATA_MESSAGE = НСтр( "ru = 'В данных запроса отсутствует %1.';en = '%1 is missing in the request data.'" );

@@ -7,12 +7,12 @@ Procedure Test( Command )
 	
 	ThisObject.ResponseBody = "";
 	
- 	If ( NOT CheckFilling() ) Then
+	If ( NOT CheckFilling() ) Then
 	
 		Return;
-		 		
- 	EndIf;
- 		
+
+	EndIf;
+
 	Try
 
 		ServiceTestResult = TestConnection( ThisObject.ServiceURL );
@@ -72,7 +72,7 @@ Function TestConnection( Val URL )
 	If ( Services = Undefined ) Then
 		
 		Return Result;
-				
+		
 	EndIf;
 	
 	Result.Existed = True;

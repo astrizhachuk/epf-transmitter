@@ -190,7 +190,8 @@
 // @unit-test:fast
 Процедура WebhooksPOST(Фреймворк) Экспорт
 	
-	PROCESSED_REQUEST_MESSAGE = "The request from the GitLab server has been processed.";  // "en" locale for user "site"
+	PROCESSED_REQUEST_MESSAGE = НСтр( "ru = 'Запрос с сервера GitLab обработан.';
+									|en = 'The request from the GitLab server has been processed.'" );	
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -216,8 +217,9 @@
 // @unit-test
 Процедура WebhooksPOST403Forbidden(Фреймворк) Экспорт
 	
-	KEY_NOT_FOUND_MESSAGE = "The Secret Key is not found."; // "en" locale for user "site"
-
+	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
+									|en = 'The Secret Key is not found.'" );
+	
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
@@ -248,7 +250,8 @@
 // @unit-test
 Процедура WebhooksPOST423Locked(Фреймворк) Экспорт
 	
-	LOADING_DISABLED_MESSAGE = "Loading of the files is disabled.";
+	LOADING_DISABLED_MESSAGE = НСтр( "ru = 'Загрузка из внешнего хранилища отключена.';
+									|en = 'Loading of the files is disabled.'" );
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
