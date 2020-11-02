@@ -198,7 +198,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	ЭталонWebHookGitLab = "/home/usr1cv8/test/request-epf-push.json";
 	Текст = Новый ЧтениеТекста(ЭталонWebHookGitLab, КодировкаТекста.UTF8);
@@ -225,7 +225,8 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Ложь);
 
-	URL = "http://transmitter/api/hs/gitlab";
+	
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{}";
 	
@@ -258,7 +259,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Ложь);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{}";
 	
@@ -280,7 +281,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{}";
 	
@@ -310,7 +311,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf3/push";
 	JSON = "{}";
 
@@ -332,7 +333,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push3";
 	JSON = "{}";
 	
@@ -354,7 +355,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{
 	   |  ""object_kind"": ""push"",
@@ -401,7 +402,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{
 		   |  ""object_kind"": ""push"",
@@ -443,7 +444,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{
 		   |  ""object_kind"": ""push"",
@@ -490,7 +491,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{
 		   |  ""object_kind"": ""push"",
@@ -524,7 +525,7 @@
 	Тест_ОбработчикиСобытийСервер.ДобавитьОбработчикСобытий("ЮнитТест1", "блаблаблаюниттест");
 	Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Установить(Истина);
 	
-	URL = "http://transmitter/api/hs/gitlab";
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab";
 	URL = URL + "/webhooks/epf/push";
 	JSON = "{
 		   |  ""object_kind"": ""push"",

@@ -2,8 +2,8 @@
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
 		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 		xmlns:core="http://v8.1c.ru/8.1/data/core" 
-		base="/api" 
-		ib="Srvr=srv;Ref=gitlabServices;usr=сайт;pwd=12345"
+		base="/api/en" 
+		ib="Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345"
 		enable="false" 
 		enableStandardOData="false">
 	<debug enable="true" 
