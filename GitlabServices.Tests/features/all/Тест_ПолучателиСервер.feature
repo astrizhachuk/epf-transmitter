@@ -9,14 +9,14 @@ Feature: GitLabServices.Tests.Тест_ПолучателиСервер
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ПараметрыПолучателя
+Scenario: ConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ПолучателиСервер.ПараметрыПолучателя(Context());' |
+	| 'Тест_ПолучателиСервер.ConnectionParams(Context());' |
 
 @OnServer
-Scenario: ПараметрыПолучателяОтрицательныйТаймаутДоставкиФайла
+Scenario: ConnectionParamsNegativeTimeout
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ПолучателиСервер.ПараметрыПолучателяОтрицательныйТаймаутДоставкиФайла(Context());' |
+	| 'Тест_ПолучателиСервер.ConnectionParamsNegativeTimeout(Context());' |
 
 @OnServer
 Scenario: ПередачаДвоичныхДанныхБезПараметровДоставкиОтсутствуютПараметрыСобытия

@@ -1,22 +1,22 @@
 #Region Public
 
-// ConnectionParams returns connection parameters to file delivery end-point services.
+// ConnectionParams returns connection parameters to file delivery end-point service.
 // 
 // Parameters:
-// Returns::
+// Returns:
 // Structure - description:
-// * Адрес - Строка - адрес веб-сервиса для работы с внешними отчетами и обработками в информационной базе получателе;
-// * Token - Строка - token доступа к сервису получателя;
-// * Таймаут - Число - таймаут соединения с сервисом, секунд (если 0 - таймаут не установлен);
+// * URL - String - end-point service URL;
+// * Token - String - access token to the service;
+// * Timeout - Number - the connection timeout, sec (0 - timeout is not set);
 //
 Function ConnectionParams() Export
 	
 	Var Result;
 	
 	Result = New Structure();
-	Result.Insert( "Адрес", "localhost/receiver/hs/gitlab" );
+	Result.Insert( "URL", "" );
 	Result.Insert( "Token", ServicesSettings.TokenReceiver() );
-	Result.Insert( "Таймаут", ServicesSettings.TimeoutDeliveryFile() );
+	Result.Insert( "Timeout", ServicesSettings.TimeoutDeliveryFile() );
 	
 	Return Result;
 	
@@ -52,7 +52,7 @@ EndFunction
 	Попытка
 		
 		Если ( ТипЗнч(ПараметрыДоставки) <> Тип("Структура")
-				ИЛИ НЕ ПараметрыДоставки.Свойство("Адрес")
+				ИЛИ НЕ ПараметрыДоставки.Свойство("URL")
 				ИЛИ НЕ ПараметрыДоставки.Свойство("Token") ) Тогда
 			
 			ВызватьИсключение MISSING_DELIVERED_MESSAGE;
@@ -65,9 +65,9 @@ EndFunction
 		
 		ПараметрыЗапроса = Новый Структура();
 		ПараметрыЗапроса.Вставить( "Заголовки", Заголовки );
-		ПараметрыЗапроса.Вставить( "Таймаут", ПараметрыДоставки.Таймаут );
+		ПараметрыЗапроса.Вставить( "Таймаут", ПараметрыДоставки.Timeout );
 		
-		Ответ = HTTPConnector.Post( ПараметрыДоставки.Адрес, Данные, ПараметрыЗапроса );
+		Ответ = HTTPConnector.Post( ПараметрыДоставки.URL, Данные, ПараметрыЗапроса );
 		
 		Сообщение = СформироватьСообщение( Ответ, ИмяФайла, ПараметрыДоставки );
 	
@@ -137,7 +137,7 @@ EndFunction
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
 	SERVER_RESPONSE_MESSAGE = НСтр( "ru = '; текст ответа:';en = '; response message:'" ); 
 	
-	Результат = СтрШаблон( DELIVERED_MESSAGE, ПараметрыДоставки.Адрес, ИмяФайла );
+	Результат = СтрШаблон( DELIVERED_MESSAGE, ПараметрыДоставки.URL, ИмяФайла );
 	
 	Если ( HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
 		
