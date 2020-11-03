@@ -65,13 +65,13 @@
   <commonModules>CommonModule.ОбработкаДанных</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
-  <functionalOptions>FunctionalOption.ОбрабатыватьЗапросыВнешнегоХранилища</functionalOptions>
-  <constants>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</constants>
-  <constants>Constant.ИмяФайлаНастроекМаршрутизации</constants>
-  <constants>Constant.GitLabPersonalAccessToken</constants>
-  <constants>Constant.GitLabTimeout</constants>
-  <constants>Constant.ТаймаутДоставкиФайла</constants>
-  <constants>Constant.ReceiverAccessToken</constants>
+  <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
+  <constants>Constant.HandleRequests</constants>
+  <constants>Constant.RoutingFileName</constants>
+  <constants>Constant.TokenGitLab</constants>
+  <constants>Constant.TimeoutGitLab</constants>
+  <constants>Constant.TimeoutDeliveryFile</constants>
+  <constants>Constant.TokenReceiver</constants>
   <commonForms>CommonForm.ServiceSettings</commonForms>
   <commonForms>CommonForm.TestConnections</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>

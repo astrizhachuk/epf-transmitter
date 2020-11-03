@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>Constant.GitLabTimeout</name>
+		<name>Constant.TimeoutGitLab</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -18,7 +18,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.GitLabPersonalAccessToken</name>
+		<name>Constant.TokenGitLab</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -36,28 +36,28 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ИмяФайлаНастроекМаршрутизации</name>
+		<name>Constant.RoutingFileName</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ТаймаутДоставкиФайла</name>
+		<name>Constant.TimeoutDeliveryFile</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ОбрабатыватьЗапросыВнешнегоХранилища</name>
+		<name>Constant.HandleRequests</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ReceiverAccessToken</name>
+		<name>Constant.TokenReceiver</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

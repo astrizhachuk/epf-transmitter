@@ -2,27 +2,27 @@
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
   <commandsVisibility>
     <visibilityFragments>
-      <command>Constant.GitLabPersonalAccessToken.StandardCommand.Open</command>
+      <command>Constant.TokenGitLab.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ОбрабатыватьЗапросыВнешнегоХранилища.StandardCommand.Open</command>
+      <command>Constant.HandleRequests.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ИмяФайлаНастроекМаршрутизации.StandardCommand.Open</command>
+      <command>Constant.RoutingFileName.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.GitLabTimeout.StandardCommand.Open</command>
+      <command>Constant.TimeoutGitLab.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ТаймаутДоставкиФайла.StandardCommand.Open</command>
+      <command>Constant.TimeoutDeliveryFile.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ReceiverAccessToken.StandardCommand.Open</command>
+      <command>Constant.TokenReceiver.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
   </commandsVisibility>

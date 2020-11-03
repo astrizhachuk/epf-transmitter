@@ -7,8 +7,8 @@
 Процедура ПараметрыСоединения(Фреймворк) Экспорт
 	
 	// given
-	Константы.GitLabPersonalAccessToken.Установить("-U2ssrBsM4rmx85HXzZ1");
-	Константы.GitLabTimeout.Установить(5);
+	Константы.TokenGitLab.Установить("-U2ssrBsM4rmx85HXzZ1");
+	Константы.TimeoutGitLab.Установить(5);
 	// when
 	Результат = Gitlab.ПараметрыСоединения("http://www.example.org");
 	// then
@@ -287,9 +287,9 @@
 	URL = "http://mock-server:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 
-	Константы.ИмяФайлаНастроекМаршрутизации.Установить(".ext-epf.json");	
-	Константы.GitLabPersonalAccessToken.Установить(Токен);
-	Константы.GitLabTimeout.Установить(5);
+	Константы.RoutingFileName.Установить(".ext-epf.json");	
+	Константы.TokenGitLab.Установить(Токен);
+	Константы.TimeoutGitLab.Установить(5);
 	
 	ПутьКФайлуRAW1 = "/api/v4/projects/1/repository/files/test1.epf/raw";
 	ПутьКФайлуRAW2 = "/api/v4/projects/1/repository/files/test3.epf/raw";
@@ -441,8 +441,8 @@
 	URL = "http://mock-server:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 
-	Константы.GitLabPersonalAccessToken.Установить(Токен);
-	Константы.GitLabTimeout.Установить(5);
+	Константы.TokenGitLab.Установить(Токен);
+	Константы.TimeoutGitLab.Установить(5);
 	
 	ПутьMR = "/api/v4/projects/1/merge_requests";
 	JSON = "[

@@ -68,12 +68,12 @@ EndProcedure
 	
 	SetPrivilegedMode( True );
 	
-	Constants.ОбрабатыватьЗапросыВнешнегоХранилища.Set( ThisObject.ОбрабатыватьЗапросыВнешнегоХранилища );
-	Constants.GitLabPersonalAccessToken.Set( ThisObject.GitLabPersonalAccessToken );
-	Constants.ИмяФайлаНастроекМаршрутизации.Set( ThisObject.ИмяФайлаНастроекМаршрутизации );
-	Constants.ReceiverAccessToken.Set( ThisObject.ReceiverAccessToken );
-	Constants.GitLabTimeout.Set( ThisObject.GitLabTimeout );
-	Constants.ТаймаутДоставкиФайла.Set( ThisObject.ТаймаутДоставкиФайла );
+	Constants.HandleRequests.Set( ThisObject.HandleRequests );
+	Constants.TokenGitLab.Set( ThisObject.TokenGitLab );
+	Constants.RoutingFileName.Set( ThisObject.RoutingFileName );
+	Constants.TokenReceiver.Set( ThisObject.TokenReceiver );
+	Constants.TimeoutGitLab.Set( ThisObject.TimeoutGitLab );
+	Constants.TimeoutDeliveryFile.Set( ThisObject.TimeoutDeliveryFile );
 	
 	SetPrivilegedMode( False );
 	

@@ -111,7 +111,7 @@
 		
 	КонецЕсли;
 	
-	Если ( НЕ ПолучитьФункциональнуюОпцию("ОбрабатыватьЗапросыВнешнегоХранилища") ) Тогда
+	Если ( НЕ ПолучитьФункциональнуюОпцию("HandleRequests") ) Тогда
 		
 		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("LOCKED") );
 		Ответ.Причина = LOADING_DISABLED_MESSAGE;

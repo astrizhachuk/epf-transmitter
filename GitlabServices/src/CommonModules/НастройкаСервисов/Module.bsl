@@ -5,24 +5,24 @@
 // Параметры:
 // Возвращаемое значение:
 // ФиксированнаяСтруктура - описание:
-// * ОбрабатыватьЗапросыВнешнегоХранилища - Boolean - (see Constants.ОбрабатыватьЗапросыВнешнегоХранилища);
-// * ИмяФайлаНастроекМаршрутизации - String - (see Constants.ИмяФайлаНастроекМаршрутизации);
-// * GitLabPersonalAccessToken - String - (see Constants.GitLabPersonalAccessToken);
-// * GitLabTimeout - Number - (see Constants.GitLabTimeout);
-// * ReceiverAccessToken - String - (see Constants.ReceiverAccessToken);
-// * ТаймаутДоставкиФайла - Number - (see Constants.ТаймаутДоставкиФайла);
+// * IsHandleRequests - Boolean - (see Constants.HandleRequests);
+// * RoutingFileName - String - (see Constants.RoutingFileName);
+// * TokenGitLab - String - (see Constants.TokenGitLab);
+// * TimeoutGitLab - Number - (see Constants.TimeoutGitLab);
+// * TokenReceiver - String - (see Constants.TokenReceiver);
+// * TimeoutDeliveryFile - Number - (see Constants.TimeoutDeliveryFile);
 //
 Функция CurrentSettings() Экспорт
 	
 	Var Результат;
 
 	Результат = Новый Структура();
-	Результат.Вставить( "ОбрабатыватьЗапросыВнешнегоХранилища", ОбрабатыватьЗапросыВнешнегоХранилища() );
-	Результат.Вставить( "ИмяФайлаНастроекМаршрутизации", ИмяФайлаНастроекМаршрутизации() );
-	Результат.Вставить( "GitLabPersonalAccessToken", GitLabPersonalAccessToken() );
-	Результат.Вставить( "GitLabTimeout", GitLabTimeout() );
-	Результат.Вставить( "ReceiverAccessToken", ReceiverAccessToken() );
-	Результат.Вставить( "ТаймаутДоставкиФайла", ТаймаутДоставкиФайла() );
+	Результат.Вставить( "IsHandleRequests", IsHandleRequests() );
+	Результат.Вставить( "RoutingFileName", RoutingFileName() );
+	Результат.Вставить( "TokenGitLab", TokenGitLab() );
+	Результат.Вставить( "TimeoutGitLab", TimeoutGitLab() );
+	Результат.Вставить( "TokenReceiver", TokenReceiver() );
+	Результат.Вставить( "TimeoutDeliveryFile", TimeoutDeliveryFile() );
 	
 	Результат = Новый ФиксированнаяСтруктура( Результат );
 
@@ -45,47 +45,47 @@
 	
 	Результат = Новый Структура();
 	Результат.Вставить( "Адрес", "localhost/receiver/hs/gitlab" );
-	Результат.Вставить( "Token", ReceiverAccessToken() );
-	Результат.Вставить( "Таймаут", ТаймаутДоставкиФайла() );
+	Результат.Вставить( "Token", TokenReceiver() );
+	Результат.Вставить( "Таймаут", TimeoutDeliveryFile() );
 	
 	Возврат Результат;
 	
 КонецФункции
 
-// Получает значение константы с именем файла настроек маршрутизации, расположенном в корне репозитория GitLab.
+// RoutingFileName the constant value with the name of the routing settings file located in the project root.
 //
-// Параметры:
-// Возвращаемое значение:
-// 	Строка - имя файла (макс. 50);
+// Parameters:
+// Returns:
+// 	String - file name (max. 50 chars);
 //
-Функция ИмяФайлаНастроекМаршрутизации() Экспорт
+Function RoutingFileName() Export
 	
-	Возврат Константы.ИмяФайлаНастроекМаршрутизации.Получить();
+	Return Constants.RoutingFileName.Get();
 	
-КонецФункции
+EndFunction
 
-// GitLabPersonalAccessToken returns the constant value from the private token of a GitLab user
+// TokenGitLab returns the constant value from the private token of a GitLab user
 // with access to the GitLab API.
 // 
 // Parameters:
 // Returns:
 // 	String - value of PRIVATE-TOKEN (max. 50 chars);
 // 
-Function GitLabPersonalAccessToken() Export
+Function TokenGitLab() Export
 	
-	Return Constants.GitLabPersonalAccessToken.Get();
+	Return Constants.TokenGitLab.Get();
 	
 EndFunction
 
-// GitLabTimeout returns the constant value with the connection timeout to the GitLab server.
+// TimeoutGitLab returns the constant value with the connection timeout to the GitLab server.
 //
 // Parameters:
 // Returns:
 // 	Number - the connection timeout, sec (0 - timeout is not set);
 //
-Function GitLabTimeout() Export
+Function TimeoutGitLab() Export
 	
-	Return Constants.GitLabTimeout.Get();
+	Return Constants.TimeoutGitLab.Get();
 
 EndFunction
 
@@ -93,40 +93,40 @@ EndFunction
 
 #Region Private
 
-// Получает значение настройки включения/отключения функционала обработки запросов от внешнего хранилища GitLab.
+// IsHandleRequests returns the value of the setting of processing requests from the GitLab repository.
 //
-// Параметры:
-// Возвращаемое значение:
-// 	Булево - Истина - загружать, Ложь - загрузка запрещена;
+// Parameters:
+// Returns:
+// 	Boolean - True - to process requests, otherwise - False;
 //
-Функция ОбрабатыватьЗапросыВнешнегоХранилища()
+Function IsHandleRequests()
 	
-	Возврат Константы.ОбрабатыватьЗапросыВнешнегоХранилища.Получить();
+	Return Constants.HandleRequests.Get();
 
-КонецФункции
+EndFunction
 
-// ReceiverAccessToken returns the constant value used to connect to file delivery end-point services.
+// TokenReceiver returns the constant value used to connect to file delivery end-point services.
 // 
 // Parameters:
 // Returns:
-// 	String - the connection to the receiver token подключения к базе получателю (max. 20 chars);
+// 	String - value of token (max. 20 chars);
 //
-Function ReceiverAccessToken()
+Function TokenReceiver()
 	
-	Return Constants.ReceiverAccessToken.Get();
+	Return Constants.TokenReceiver.Get();
 	
 EndFunction
 
-// Получает значение константы с таймаутом соединения к веб-сервису информационной базы получателя.
+// TimeoutDeliveryFile returns the constant value with the connection timeout to the receiver.
 //
-// Параметры:
-// Возвращаемое значение:
-// 	Число - таймаут соединения, секунд (0 - таймаут не установлен);
+// Parameters:
+// Returns:
+// 	Number - the connection timeout, sec (0 - timeout is not set);
 //
-Функция ТаймаутДоставкиФайла()
+Function TimeoutDeliveryFile()
 	
-	Возврат Константы.ТаймаутДоставкиФайла.Получить();
+	Return Constants.TimeoutDeliveryFile.Get();
 	
-КонецФункции
+EndFunction
 
 #EndRegion

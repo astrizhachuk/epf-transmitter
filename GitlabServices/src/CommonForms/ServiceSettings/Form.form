@@ -32,12 +32,8 @@
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <items xsi:type="form:FormField">
-    <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
+    <name>FormHandleRequests</name>
     <id>1</id>
-    <title>
-      <key>ru</key>
-      <value>Обрабатывать запросы внешнего хранилища</value>
-    </title>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -45,12 +41,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ОбрабатыватьЗапросыВнешнегоХранилища</segments>
+        <segments>HandleRequests</segments>
       </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>ОбрабатыватьЗапросыВнешнегоХранилищаРасширеннаяПодсказка</name>
+      <name>FormHandleRequestsExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -65,7 +61,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ОбрабатыватьЗапросыВнешнегоХранилищаКонтекстноеМеню</name>
+      <name>FormHandleRequestsContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -82,7 +78,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>ИмяФайлаНастроекМаршрутизации</name>
+    <name>FormRoutingFileName</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -91,11 +87,11 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ИмяФайлаНастроекМаршрутизации</segments>
+        <segments>RoutingFileName</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>ИмяФайлаНастроекМаршрутизацииРасширеннаяПодсказка</name>
+      <name>FormRoutingFileNameExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -110,7 +106,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ИмяФайлаНастроекМаршрутизацииКонтекстноеМеню</name>
+      <name>FormRoutingFileNameContextMenu</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -134,10 +130,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНастройкиСервераGitLab</name>
+    <name>GroupSettingsGitLab</name>
     <id>24</id>
     <items xsi:type="form:FormField">
-      <name>FormGitLabPersonalAccessToken</name>
+      <name>FormTokenGitLab</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -146,7 +142,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>GitLabPersonalAccessToken</segments>
+          <segments>TokenGitLab</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -159,7 +155,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormGitLabPersonalAccessTokenExtendedTooltip</name>
+        <name>FormTokenGitLabExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -174,7 +170,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormGitLabPersonalAccessTokenContextMenu</name>
+        <name>FormTokenGitLabContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -198,7 +194,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>FormGitLabTimeout</name>
+      <name>FormTimeoutGitLab</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -207,7 +203,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>GitLabTimeout</segments>
+          <segments>TimeoutGitLab</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -220,7 +216,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormGitLabTimeoutExtendedTooltip</name>
+        <name>FormTimeoutGitLabExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -235,7 +231,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormGitLabTimeoutContextMenu</name>
+        <name>FormTimeoutGitLabContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -267,15 +263,19 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>GitLab</value>
+    </title>
+    <title>
       <key>ru</key>
-      <value>Сервер GitLab</value>
+      <value>GitLab</value>
     </title>
     <toolTip>
       <key>ru</key>
       <value>Группа настройки сервера git lab</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаНастройкиСервераGitLabРасширеннаяПодсказка</name>
+      <name>GroupSettingsGitLabExtendedTooltip</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -301,10 +301,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНастройкиПолучатели</name>
+    <name>GroupSettingsReceiver</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>FormReceiverAccessToken</name>
+      <name>FormTokenReceiver</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -313,7 +313,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ReceiverAccessToken</segments>
+          <segments>TokenReceiver</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -326,7 +326,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormReceiverAccessTokenExtendedTooltip</name>
+        <name>FormTokenReceiverExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -341,7 +341,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormReceiverAccessTokenContextMenu</name>
+        <name>FormTokenReceiverContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -366,7 +366,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ТаймаутДоставкиФайла</name>
+      <name>FormTimeoutDeliveryFile</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -375,7 +375,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаймаутДоставкиФайла</segments>
+          <segments>TimeoutDeliveryFile</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -384,7 +384,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ТаймаутДоставкиФайлаРасширеннаяПодсказка</name>
+        <name>FormTimeoutDeliveryFileExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -399,7 +399,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаймаутДоставкиФайлаКонтекстноеМеню</name>
+        <name>FormTimeoutDeliveryFileContextMenu</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -431,11 +431,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Receivers</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Информационные базы получателей</value>
     </title>
     <extendedTooltip>
-      <name>ГруппаНастройкиПолучателиРасширеннаяПодсказка</name>
+      <name>GroupSettingsReceiverExtendedTooltip</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -573,7 +577,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ОбрабатыватьЗапросыВнешнегоХранилища</name>
+    <name>HandleRequests</name>
+    <title>
+      <key>en</key>
+      <value>Handle external storage requests</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обрабатывать запросы внешнего хранилища</value>
@@ -590,7 +598,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ReceiverAccessToken</name>
+    <name>TokenReceiver</name>
     <title>
       <key>en</key>
       <value>Receiver Access Token</value>
@@ -614,7 +622,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>GitLabPersonalAccessToken</name>
+    <name>TokenGitLab</name>
     <title>
       <key>en</key>
       <value>GitLab Personal Access Token</value>
@@ -639,7 +647,11 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>ИмяФайлаНастроекМаршрутизации</name>
+    <name>RoutingFileName</name>
+    <title>
+      <key>en</key>
+      <value>Routing settings file name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя файла настроек маршрутизации</value>
@@ -658,7 +670,7 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>GitLabTimeout</name>
+    <name>TimeoutGitLab</name>
     <title>
       <key>en</key>
       <value>Connection Timeout, sec</value>
@@ -683,7 +695,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаймаутДоставкиФайла</name>
+    <name>TimeoutDeliveryFile</name>
+    <title>
+      <key>en</key>
+      <value>File delivery timeout, sec</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таймаут доставки файла, сек</value>

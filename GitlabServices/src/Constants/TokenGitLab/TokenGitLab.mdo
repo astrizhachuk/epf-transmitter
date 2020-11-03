@@ -5,7 +5,7 @@
     <valueManagerType typeId="dba82ae9-3607-4c48-a195-d0db3423b430" valueTypeId="02239c2a-c14f-4651-b101-a5e1d27bc5da"/>
     <valueKeyType typeId="dea259f9-10fc-5525-b6ed-05c4f184a170" valueTypeId="4750277b-9590-5260-8fd2-290d3ccd8926"/>
   </producedTypes>
-  <name>GitLabPersonalAccessToken</name>
+  <name>TokenGitLab</name>
   <synonym>
     <key>en</key>
     <value>GitLab Personal Access Token</value>
