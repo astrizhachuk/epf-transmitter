@@ -54,7 +54,7 @@
   <commonModules>CommonModule.Тест_StringsClient</commonModules>
   <commonModules>CommonModule.Тест_StringsServer</commonModules>
   <commonModules>CommonModule.Тест_ПолучателиСервер</commonModules>
-  <commonModules>CommonModule.Тест_НастройкиСервисаСервер</commonModules>
+  <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.Тест_Маршрутизация</commonModules>
   <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <commonModules>CommonModule.Тест_GitlabСервер</commonModules>

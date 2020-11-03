@@ -1,5 +1,27 @@
 #Region Public
 
+// ConnectionParams returns connection parameters to file delivery end-point services.
+// 
+// Parameters:
+// Returns::
+// Structure - description:
+// * Адрес - Строка - адрес веб-сервиса для работы с внешними отчетами и обработками в информационной базе получателе;
+// * Token - Строка - token доступа к сервису получателя;
+// * Таймаут - Число - таймаут соединения с сервисом, секунд (если 0 - таймаут не установлен);
+//
+Function ConnectionParams() Export
+	
+	Var Result;
+	
+	Result = New Structure();
+	Result.Insert( "Адрес", "localhost/receiver/hs/gitlab" );
+	Result.Insert( "Token", ServicesSettings.TokenReceiver() );
+	Result.Insert( "Таймаут", ServicesSettings.TimeoutDeliveryFile() );
+	
+	Return Result;
+	
+EndFunction
+
 // Отправка файла в информационную базу получателя. Адрес подключения определяется из параметра доставки.
 // На конечных точках (базах получателях) должен быть реализован API обновления внешних отчетов и обработок:
 // https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0

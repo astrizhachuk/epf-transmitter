@@ -625,11 +625,11 @@
     <name>TokenGitLab</name>
     <title>
       <key>en</key>
-      <value>GitLab Personal Access Token</value>
+      <value>Personal Access Token</value>
     </title>
     <title>
       <key>ru</key>
-      <value>GitLab Personal Access Token</value>
+      <value>Personal Access Token</value>
     </title>
     <id>4</id>
     <valueType>

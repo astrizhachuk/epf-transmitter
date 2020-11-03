@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="fc5d29db-1c35-4b60-bb3f-e0e9558a5ec1">
-  <name>ServiceSettings</name>
+  <name>ServicesSettings</name>
   <synonym>
     <key>en</key>
-    <value>Service Settings</value>
+    <value>Services Settings</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Настройки сервиса</value>
+    <value>Настройки сервисов</value>
   </synonym>
   <usePurposes>PersonalComputer</usePurposes>
   <usePurposes>MobileDevice</usePurposes>

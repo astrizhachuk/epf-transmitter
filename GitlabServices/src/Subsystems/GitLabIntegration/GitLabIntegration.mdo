@@ -23,7 +23,7 @@
   <content>Constant.TokenGitLab</content>
   <content>Catalog.ОбработчикиСобытий</content>
   <content>CommonPicture.GitLab</content>
-  <content>CommonForm.ServiceSettings</content>
+  <content>CommonForm.ServicesSettings</content>
   <content>Constant.TimeoutGitLab</content>
   <content>Constant.TimeoutDeliveryFile</content>
   <content>Role.GitLabHTTPService</content>

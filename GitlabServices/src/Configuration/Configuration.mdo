@@ -56,7 +56,7 @@
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
-  <commonModules>CommonModule.НастройкаСервисов</commonModules>
+  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияВызовСервера</commonModules>
   <commonModules>CommonModule.Получатели</commonModules>
@@ -72,7 +72,7 @@
   <constants>Constant.TimeoutGitLab</constants>
   <constants>Constant.TimeoutDeliveryFile</constants>
   <constants>Constant.TokenReceiver</constants>
-  <commonForms>CommonForm.ServiceSettings</commonForms>
+  <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.TestConnections</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
   <informationRegisters>InformationRegister.ДанныеЗапросов</informationRegisters>

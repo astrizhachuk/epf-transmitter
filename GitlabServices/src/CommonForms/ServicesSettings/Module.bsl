@@ -5,7 +5,7 @@ Procedure OnCreateAtServer( Cancel, StandardProcessing )
 	
 	Var CurrentSettings;
 	
-	CurrentSettings = НастройкаСервисов.CurrentSettings();
+	CurrentSettings = ServicesSettings.CurrentSettings();
 	FillPropertyValues( ThisObject, CurrentSettings );
 
 EndProcedure

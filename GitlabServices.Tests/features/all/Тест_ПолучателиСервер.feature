@@ -9,6 +9,16 @@ Feature: GitLabServices.Tests.Тест_ПолучателиСервер
 	That I can guarantee the execution of the method
 
 @OnServer
+Scenario: ПараметрыПолучателя
+	And I execute 1C:Enterprise script at server
+	| 'Тест_ПолучателиСервер.ПараметрыПолучателя(Context());' |
+
+@OnServer
+Scenario: ПараметрыПолучателяОтрицательныйТаймаутДоставкиФайла
+	And I execute 1C:Enterprise script at server
+	| 'Тест_ПолучателиСервер.ПараметрыПолучателяОтрицательныйТаймаутДоставкиФайла(Context());' |
+
+@OnServer
 Scenario: ПередачаДвоичныхДанныхБезПараметровДоставкиОтсутствуютПараметрыСобытия
 	And I execute 1C:Enterprise script at server
 	| 'Тест_ПолучателиСервер.ПередачаДвоичныхДанныхБезПараметровДоставкиОтсутствуютПараметрыСобытия(Context());' |
