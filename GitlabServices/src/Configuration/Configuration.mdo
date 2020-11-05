@@ -50,17 +50,17 @@
   <roles>Role.FullRughts</roles>
   <roles>Role.GitLabClient</roles>
   <roles>Role.GitLabHTTPService</roles>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
+  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
+  <commonModules>CommonModule.Receivers</commonModules>
+  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabПовтИсп</commonModules>
   <commonModules>CommonModule.HTTPСервисы</commonModules>
-  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
-  <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
-  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
-  <commonModules>CommonModule.Receivers</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Маршрутизация</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>

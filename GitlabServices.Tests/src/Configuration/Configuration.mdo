@@ -51,8 +51,8 @@
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыСервер</commonModules>
-  <commonModules>CommonModule.Тест_StringsClient</commonModules>
-  <commonModules>CommonModule.Тест_StringsServer</commonModules>
+  <commonModules>CommonModule.TestsStringsClient</commonModules>
+  <commonModules>CommonModule.TestsStringsServer</commonModules>
   <commonModules>CommonModule.TestsReceiversServer</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.Тест_Маршрутизация</commonModules>
