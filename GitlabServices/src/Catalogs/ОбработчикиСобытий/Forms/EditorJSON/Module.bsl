@@ -323,7 +323,7 @@ Procedure AddQueryDataUserSetting( QueryData, Val CommitSHA, Val JSON ) Export
 
 	Stream = GetBinaryDataFromString( JSON, TextEncoding.UTF8 ).OpenStreamForRead();
 	UserSetting = HTTPConnector.JsonВОбъект( Stream );
-	ОбщегоНазначенияВызовСервера.ДополнитьКоллекциюТекстомИзПотока( Stream, "json", UserSetting );
+	CommonUseServerCall.AppendCollectionFromStream( UserSetting, "json", Stream );
 	
 	Commit.Вставить( "user_settings", UserSetting );		
 

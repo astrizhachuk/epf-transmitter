@@ -172,7 +172,7 @@ EndProcedure
 &AtClient
 Procedure SetFilter( Val Collection, Val Key, Val Value )
 	
-	ОбщегоНазначенияКлиентСервер.ДобавитьЭлементКомпоновки( Collection,
+	CommonUseClientServer.AddCompositionItem( Collection,
 															Key,
 															DataCompositionComparisonType.Equal,
 															Value );

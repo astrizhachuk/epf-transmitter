@@ -48,7 +48,7 @@
     <languageCode>en</languageCode>
   </languages>
   <commonModules>CommonModule.Тест_ЛогированиеСервер</commonModules>
-  <commonModules>CommonModule.Тест_ОбщийМодульСервер</commonModules>
+  <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_HTTPСервисыСервер</commonModules>
   <commonModules>CommonModule.Тест_StringsClient</commonModules>
