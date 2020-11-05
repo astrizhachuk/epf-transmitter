@@ -26,13 +26,13 @@ EndFunction
 // for the recipient infobase, see https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0
 // 
 // Parameters:
-// 	FileName - String - the file name used for searching and replacing external reports and processing (UTF-8);
-// 	Binary - BinaryData - binary file body;
-// 	SendParams - Structure - file delivery parameters:
+//	FileName - String - the file name used for searching and replacing external reports and processing (UTF-8);
+//	Binary - BinaryData - binary file body;
+//	SendParams - Structure - file delivery parameters:
 // * URL - String - end-point service URL;
 // * Token - String - access token to the service;
 // * Timeout - Number - the connection timeout, sec (0 - timeout is not set);
-// 	EventParams - Undefined, Structure - description of the event that started sending the file:
+//	EventParams - Undefined, Structure - description of the event that started sending the file:
 // * Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
 // * CheckoutSHA - String - event identifier (commit SHA) for which the file upload is triggered;
 //
@@ -106,7 +106,7 @@ Function StatusCode( Val Response )
 	
 	If ( Response = Undefined ) Then
 			
-		Result = HTTPStatusCodesClientServerCached.FindCodeById("INTERNAL_SERVER_ERROR")
+		Result = HTTPStatusCodesClientServerCached.FindCodeById("INTERNAL_SERVER_ERROR");
 			
 	Else
 			

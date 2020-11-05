@@ -24,8 +24,8 @@
 
 Сценарий: Просмотр фоновых заданий для выбранного запроса
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
@@ -55,8 +55,8 @@
 
 	Выполняем запросы от сервера GitLab еще раз
 
-		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Проверяем появление новых фоновых заданий
@@ -87,7 +87,7 @@
 
 	Выполняем запросы от сервера GitLab еще раз
 
-		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 10
 
 	Обновляем список фоновых и проверяем появление трех новых заданий
@@ -105,7 +105,7 @@
 
 Сценарий: Обновление состояния для выбранного фонового задания
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
@@ -125,7 +125,7 @@
 
 		# На получении файла с mock-server стоит задержка в 2 секунды
 		Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Сразу проверяем появление новых фоновых заданий ожидая появление работающего задания
@@ -153,7 +153,7 @@
 
 Сценарий: Принудительное завершение состояния для выбранного фонового задания
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
@@ -173,7 +173,7 @@
 
 		# На получении файла с mock-server стоит задержка в 3 секунды
 		Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Сразу проверяем появление новых фоновых заданий ожидая появление работающего задания
