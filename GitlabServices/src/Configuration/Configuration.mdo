@@ -59,7 +59,7 @@
   <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ОбщегоНазначенияВызовСервера</commonModules>
-  <commonModules>CommonModule.Получатели</commonModules>
+  <commonModules>CommonModule.Receivers</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Маршрутизация</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>
