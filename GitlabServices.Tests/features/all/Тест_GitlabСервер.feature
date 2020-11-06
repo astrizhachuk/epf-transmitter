@@ -9,9 +9,9 @@ Feature: GitLabServices.Tests.Тест_GitlabСервер
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ПараметрыСоединения
+Scenario: ConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.ПараметрыСоединения(Context());' |
+	| 'Тест_GitlabСервер.ConnectionParams(Context());' |
 
 @OnServer
 Scenario: ПолучитьФайлФэйкURL
@@ -59,9 +59,9 @@ Scenario: ОписаниеФайлов
 	| 'Тест_GitlabСервер.ОписаниеФайлов(Context());' |
 
 @OnServer
-Scenario: ПутьКФайлуRAW
+Scenario: RAWFilePath
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.ПутьКФайлуRAW(Context());' |
+	| 'Тест_GitlabСервер.RAWFilePath(Context());' |
 
 @OnServer
 Scenario: ПереченьОперацийНадФайлами

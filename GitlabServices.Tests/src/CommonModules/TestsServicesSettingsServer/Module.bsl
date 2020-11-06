@@ -5,7 +5,7 @@
 
 	// given		
 	Константы.HandleRequests.Установить(Истина);
-	Константы.RoutingFileName.Установить("ИмяФайла.json");
+	Константы.RoutingFileName.Установить("FileName.json");
 	Константы.TokenGitLab.Установить("TokenGitLab");
 	Константы.TimeoutGitLab.Установить(998);
 	Константы.TokenReceiver.Установить("TokenReceiver");
@@ -16,7 +16,7 @@
 	Фреймворк.ПроверитьТип(Результат, "ФиксированнаяСтруктура");
 	Фреймворк.ПроверитьРавенство(Результат.Количество(), 6);
 	Фреймворк.ПроверитьИстину(Результат.IsHandleRequests);
-	Фреймворк.ПроверитьРавенство(Результат.RoutingFileName, "ИмяФайла.json");
+	Фреймворк.ПроверитьРавенство(Результат.RoutingFileName, "FileName.json");
 	Фреймворк.ПроверитьРавенство(Результат.TokenGitLab, "TokenGitLab");		
 	Фреймворк.ПроверитьРавенство(Результат.TimeoutGitLab, 998);		
 	Фреймворк.ПроверитьРавенство(Результат.TokenReceiver, "TokenReceiver");
@@ -28,11 +28,11 @@
 Процедура RoutingFileName(Фреймворк) Экспорт
 
 	// given		
-	Константы.RoutingFileName.Установить("НовоеИмяФайла.json");
+	Константы.RoutingFileName.Установить("НовоеFileName.json");
 	// when
 	Результат = ServicesSettings.RoutingFileName();
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, "НовоеИмяФайла.json");
+	Фреймворк.ПроверитьРавенство(Результат, "НовоеFileName.json");
 
 КонецПроцедуры
 
