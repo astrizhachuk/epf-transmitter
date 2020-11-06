@@ -1,29 +1,29 @@
 #Region Public
 
-// Преобразует строку из одной кодировки в другую.
+// Encode converts a string from one encoding to another.
 //
-// Параметры:
-// 	Строка - Строка - исходная строка;
-// 	КодировкаИз - Строка - кодировка, из которой необходимо сделать конвертацию;
-// 	КодировкаВ - Строка - кодировка, в которую необходимо сделать конвертацию;
+// Parameters:
+// 	String - String - source string;
+// 	From - String - the encoding from which you want to convert;
+// 	Into - String - the encoding to be converted into;
 //
-// Возвращаемое значение:
-// 	Строка - результирующая строка в новой кодировке;
+// Returns:
+// 	String - result string;
 //
-Функция ПерекодироватьСтроку(Знач Строка, Знач КодировкаИз, Знач КодировкаВ = "UTF-8") Экспорт
+Function Encode (Val String, Val From, Val Into = "UTF-8") Export
 	
-	Var Поток;
-	Var Запись;
-	Var Чтение;
+	Var Stream;
+	Var Writer;
+	Var Reader;
 	
-	Поток = Новый ПотокВПамяти();
-	Запись = Новый ЗаписьДанных(Поток, КодировкаИз);
-	Запись.ЗаписатьСтроку(Строка);
-	Поток.Перейти(0, ПозицияВПотоке.Начало);
-	Чтение = Новый ЧтениеДанных(Поток, КодировкаВ);
+	Stream = New MemoryStream();
+	Writer = New DataWriter( Stream, From );
+	Writer.WriteLine( String );
+	Stream.Seek( 0, PositionInStream.Begin );
+	Reader = New DataReader( Stream, Into );
 
-	Возврат Чтение.ПрочитатьСтроку();
+	Return Reader.ReadLine();
 	
-КонецФункции
+EndFunction
 
 #EndRegion
