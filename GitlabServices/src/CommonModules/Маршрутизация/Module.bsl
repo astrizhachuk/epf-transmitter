@@ -10,7 +10,7 @@
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
@@ -93,15 +93,15 @@
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 // 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
 // 	ПараметрыПроекта - Структура - описание:
-// * Идентификатор - Строка - числовой идентификатор проекта (репозитория);
-// * АдресСервера - Строка - адрес сервера вместе со схемой обращения к серверу;
+// * Id - Строка - числовой идентификатор проекта (репозитория);
+// * URL - Строка - адрес сервера вместе со схемой обращения к серверу;
 //
 Процедура СформироватьОписаниеФайловМаршрутизации( ОписаниеФайлов, Знач ДанныеЗапроса, Знач ПараметрыПроекта ) Экспорт
 	
@@ -118,7 +118,7 @@
 
 		НоваяСтрока = ОписаниеФайлов.Добавить();
 		CommitSHA = Commit.Получить( "id" );
-		RAWFilePath = GitLab.RAWFilePath( ПараметрыПроекта.Идентификатор, URLFilePath, CommitSHA );
+		RAWFilePath = GitLab.RAWFilePath( ПараметрыПроекта.Id, URLFilePath, CommitSHA );
 		НоваяСтрока.RAWFilePath = RAWFilePath;
 		НоваяСтрока.URLFilePath = URLFilePath;
 		НоваяСтрока.Action = "";
@@ -137,7 +137,7 @@
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;

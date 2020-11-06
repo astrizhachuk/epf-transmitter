@@ -63,7 +63,7 @@
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
@@ -99,11 +99,11 @@
 // 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
 //  CheckoutSHA - Строка - сommit SHA, используемый как уникальный идентификатор запроса;
 // Returns:
-// 	ТаблицаЗначений - описание:
+//	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;

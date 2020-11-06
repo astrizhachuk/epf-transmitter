@@ -7,7 +7,7 @@
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
@@ -31,12 +31,12 @@ Function RemoteFilesEmpty() Export
 	
 EndFunction
 
-// PossibleFileActions returns a list of possible actions on files in accordance with the GitLab REST API.
+// FileActions returns a list of possible actions on files in accordance with the GitLab REST API.
 // 
 // Returns:
-// 	Массив - "added", "modified", "removed";
+// 	Array - "added", "modified", "removed";
 //
-Function PossibleFileActions() Export
+Function FileActions() Export
 	
 	Var Result;
 	
@@ -45,7 +45,7 @@ Function PossibleFileActions() Export
 	Result.Add( "modified" );
 	Result.Add( "removed" );
 
-	Возврат Result;
+	Return Result;
 	
 EndFunction
 

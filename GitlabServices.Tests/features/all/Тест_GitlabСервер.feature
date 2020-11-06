@@ -49,14 +49,19 @@ Scenario: ПолучитьФайлыКОтправкеПоДаннымЗапро
 	| 'Тест_GitlabСервер.ПолучитьФайлыКОтправкеПоДаннымЗапроса(Context());' |
 
 @OnServer
-Scenario: GetMergeRequestsByQueryData
+Scenario: ProjectDescription
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.GetMergeRequestsByQueryData(Context());' |
+	| 'Тест_GitlabСервер.ProjectDescription(Context());' |
 
 @OnServer
-Scenario: ОписаниеФайлов
+Scenario: MergeRequests
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.ОписаниеФайлов(Context());' |
+	| 'Тест_GitlabСервер.MergeRequests(Context());' |
+
+@OnServer
+Scenario: RemoteFilesEmpty
+	And I execute 1C:Enterprise script at server
+	| 'Тест_GitlabСервер.RemoteFilesEmpty(Context());' |
 
 @OnServer
 Scenario: RAWFilePath
@@ -64,6 +69,6 @@ Scenario: RAWFilePath
 	| 'Тест_GitlabСервер.RAWFilePath(Context());' |
 
 @OnServer
-Scenario: ПереченьОперацийНадФайлами
+Scenario: FileActions
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.ПереченьОперацийНадФайлами(Context());' |
+	| 'Тест_GitlabСервер.FileActions(Context());' |

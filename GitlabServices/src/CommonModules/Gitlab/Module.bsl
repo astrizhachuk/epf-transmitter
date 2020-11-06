@@ -6,7 +6,7 @@
 // 	URL - String - URL to GitLab server, for example: "http://www.example.org";
 //
 // Returns:
-// Structure - description:
+//	Structure - description:
 // * URL - String - URL to GitLab server;
 // * Token - String - access token to the server from the current settings;
 // * Timeout - Number - the connection timeout from the current settings, sec (0 - timeout is not set);
@@ -27,6 +27,114 @@ Function ConnectionParams( Val URL ) Export
 	
 EndFunction
 
+// RemoteFile returns the file from the GitLab server with its description.
+// 
+// Parameters:
+// 	ConnectionParams - (See GitLab.ConnectionParams)
+// 	RAWFilePath - Строка - закодированный в URL кодировке относительный путь к получаемому файлу, например,
+// 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
+// 	
+// Returns:
+//	Structure - description:
+// * RAWFilePath - Строка - относительный путь к RAW файлу;
+// * FileName - Строка - имя файла в кодировке UTF-8;
+// * BinaryData - BinaryData - данные файла;
+// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
+//
+Function RemoteFile( Val ConnectionParams, Val RAWFilePath ) Export
+
+	Var URL;
+	Var Headers;
+	Var AdditionalParams;
+	Var Response;
+	
+	Var FileName;
+	Var Message;
+	Var ErrorInfo;
+	
+	Var Result;
+	
+	Result = RemoteFileDescription();
+	Result.RAWFilePath = RAWFilePath;
+
+	URL = ConnectionParams.URL + RAWFilePath;
+
+	Try
+	
+		Headers = New Map();
+		Headers.Insert( "PRIVATE-TOKEN", ConnectionParams.Token );
+		
+		AdditionalParams = New Structure();
+		AdditionalParams.Insert( "Заголовки", Headers );
+		AdditionalParams.Insert( "Таймаут", ConnectionParams.Timeout );
+		
+		Response = HTTPConnector.Get( URL, Undefined, AdditionalParams );
+
+		If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
+			
+			Raise HTTPStatusCodesClientServerCached.FindIdByCode( Response.КодСостояния );
+		
+		EndIf;
+		
+		FileName = Response["Заголовки"].Get( "X-Gitlab-File-Name" );
+		
+		If ( FileName = Undefined ) Then
+			
+			Raise NStr( "ru = 'Файл не найден.';en = 'File not found.'" );
+			
+		EndIf;
+
+		If ( NOT ValueIsFilled(Response["Тело"]) ) Then
+			
+			Raise NStr( "ru = 'Пустой файл.';en = 'File is empty.'" );
+			
+		EndIf;
+
+		Result.FileName = FileName;
+		Result.BinaryData = Response["Тело"];
+		
+	Except
+	
+		Message = NStr( "ru = 'Ошибка получения файла: %1';en = 'Error getting file: %1'" );
+		ErrorInfo = URL + Chars.LF + ErrorProcessing.DetailErrorDescription( ErrorInfo() );
+		Result.ErrorInfo = StrTemplate( Message, ErrorInfo );
+		
+	EndTry;
+	
+	Return Result;
+	
+EndFunction
+
+// Получает с сервера GitLab файлы и формирует их описание.
+// 
+// Параметры:
+// 	ConnectionParams - (См. GitLab.ConnectionParams)
+// 	ПутиКФайлам - Массив из Строка - массив закодированных в URL кодировке относительных путей к получаемым файлам,
+//					например, "/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
+// 	
+// Returns:
+// 	Массив из Структура:
+// * RAWFilePath - Строка - относительный путь к RAW файлу;
+// * FileName - Строка - имя файла в кодировке UTF-8;
+// * BinaryData - BinaryData - данные файла;
+// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
+// 
+Function RemoteFiles( Val ПараметрыСоединения, Val ПутиКФайлам ) Export
+	
+	Var Результат;
+
+	Результат = Новый Массив;
+	
+	Для Каждого RAWFilePath Из ПутиКФайлам Цикл
+		
+		Результат.Добавить( RemoteFile(ПараметрыСоединения, RAWFilePath) );
+		
+	КонецЦикла;
+	
+	Возврат Результат;
+
+EndFunction
+
 // RemoteFilesEmpty returns an empty remote files collection.
 // 
 // Returns:
@@ -34,7 +142,7 @@ EndFunction
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
@@ -51,151 +159,45 @@ Function RemoteFilesEmpty() Export
 	
 EndFunction
 
-// Получает с сервера GitLab файл и формирует его описание.
-// 
-// Параметры:
-// 	ConnectionParams - (См. GitLab.ConnectionParams)
-// 	RAWFilePath - Строка - закодированный в URL кодировке относительный путь к получаемому файлу, например,
-// 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
-// 	
-// Returns:
-// 	Структура - описание:
-// * RAWFilePath - Строка - относительный путь к RAW файлу;
-// * FileName - Строка - имя файла в кодировке UTF-8;
-// * BinaryData - BinaryData - данные файла;
-// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
-//
-Функция GetRemoteFile( Знач ПараметрыСоединения, Знач RAWFilePath ) Экспорт
-
-	Var Адрес;
-	Var Заголовки;
-	Var ДополнительныеПараметры;
-	Var FileName;
-	Var Ответ;
-	Var ИнформацияОбОшибке;
-	Var ТекстСообщения;
-	Var Результат;
-	
-	Адрес = ПараметрыСоединения.URL + RAWFilePath;
-	
-	Результат = ОписаниеПолучаемогоФайла();
-	Результат.RAWFilePath = RAWFilePath;
-
-	Попытка
-
-		Заголовки = Новый Соответствие();
-		Заголовки.Вставить( "PRIVATE-TOKEN", ПараметрыСоединения.Token );
-		
-		ДополнительныеПараметры = Новый Структура();
-		ДополнительныеПараметры.Вставить( "Заголовки", Заголовки );
-		ДополнительныеПараметры.Вставить( "Таймаут", ПараметрыСоединения.Timeout );
-		
-		Ответ = HTTPConnector.Get( Адрес, Неопределено, ДополнительныеПараметры );
-
-		Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
-			
-			ВызватьИсключение HTTPStatusCodesClientServerCached.FindIdByCode( Ответ.КодСостояния );
-		
-		КонецЕсли;
-		
-		FileName = Ответ.Заголовки.Получить( "X-Gitlab-File-Name" );
-		
-		Если ( FileName = Неопределено ) Тогда
-			
-			ВызватьИсключение НСтр("ru = 'Файл не найден.';en = 'File not found.'");
-			
-		КонецЕсли;
-
-		Если ( НЕ ЗначениеЗаполнено(Ответ.Тело) ) Тогда
-			
-			ВызватьИсключение НСтр("ru = 'Пустой файл.';en = 'File is empty.'");
-			
-		КонецЕсли;
-
-		Результат.FileName = FileName;
-		Результат.BinaryData = Ответ.Тело;
-		
-	Исключение
-	
-		ТекстСообщения = НСтр( "ru = 'Ошибка получения файла: %1';en = 'Error getting file: %1'" );
-		ИнформацияОбОшибке = Адрес + Символы.ПС + ОбработкаОшибок.ПодробноеПредставлениеОшибки( ИнформацияОбОшибке() );
-		Результат.ErrorInfo = СтрШаблон( ТекстСообщения, ИнформацияОбОшибке );
-		
-	КонецПопытки;
-	
-	Возврат Результат;
-	
-КонецФункции
-
-// Получает с сервера GitLab файлы и формирует их описание.
-// 
-// Параметры:
-// 	ConnectionParams - (См. GitLab.ConnectionParams)
-// 	ПутиКФайлам - Массив из Строка - массив закодированных в URL кодировке относительных путей к получаемым файлам,
-//					например, "/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
-// 	
-// Returns:
-// 	Массив из Структура:
-// * RAWFilePath - Строка - относительный путь к RAW файлу;
-// * FileName - Строка - имя файла в кодировке UTF-8;
-// * BinaryData - BinaryData - данные файла;
-// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
-// 
-Функция GetRemoteFiles( Знач ПараметрыСоединения, Знач ПутиКФайлам ) Экспорт
-	
-	Var Результат;
-
-	Результат = Новый Массив;
-	
-	Для Каждого RAWFilePath Из ПутиКФайлам Цикл
-		
-		Результат.Добавить( GetRemoteFile(ПараметрыСоединения, RAWFilePath) );
-		
-	КонецЦикла;
-	
-	Возврат Результат;
-
-КонецФункции
-
 // Возвращает описание файлов и сами файлы, которые необходимо распределить по информационным базам получателям.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
+// Parameters:
+//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+// 	QueryData - Map - GitLab request body deserialized from JSON;
 //
 // Returns:
-// 	ТаблицаЗначений - описание:
+//	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
-// * BinaryData - BinaryData - file binary data;
+// * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Функция ПолучитьФайлыКОтправкеПоДаннымЗапроса( Знач ОбработчикСобытия, ДанныеЗапроса ) Экспорт
+Function FilesByQueryData( Val Webhook, QueryData ) Export
 	
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	Var ПараметрыПроекта;
 	Var ПараметрыСоединения;
 	Var Результат;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'Core.ПолучениеФайловGitLab.Начало';en = 'Core.ReceivingFilesGitLab.Begin'" );
-	EVENT_MESSAGE = НСтр( "ru = 'Core.ПолучениеФайловGitLab';en = 'Core.ReceivingFilesGitLab'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'Core.ПолучениеФайловGitLab.Окончание';en = 'Core.ReceivingFilesGitLab.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПолучениеФайловGitLab.Начало';en = 'Core.ReceivingFilesGitLab.Begin'" );
+	EVENT_MESSAGE = NStr( "ru = 'Core.ПолучениеФайловGitLab';en = 'Core.ReceivingFilesGitLab'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'Core.ПолучениеФайловGitLab.Окончание';en = 'Core.ReceivingFilesGitLab.End'" );
 	
-	RECEIVING_MESSAGE = НСтр("ru = 'получение файлов с сервера...';en = 'receiving files from the server...'");
+	RECEIVING_MESSAGE = NStr( "ru = 'получение файлов с сервера...';en = 'receiving files from the server...'" );
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия ); 
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, ПараметрыЛогирования );	
+	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook ); 
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, LoggingOptions );	
 
-	ПараметрыПроекта = ОписаниеПроекта( ДанныеЗапроса );
-	Результат = ДействияНадФайламиПоДаннымЗапроса( ДанныеЗапроса, ПараметрыПроекта );
+	ПараметрыПроекта = ProjectDescription( QueryData );
+	Результат = ДействияНадФайламиПоДаннымЗапроса( QueryData, ПараметрыПроекта );
 	Результат = ОписаниеФайловСрезПоследних( Результат );
-	Маршрутизация.СформироватьОписаниеФайловМаршрутизации( Результат, ДанныеЗапроса, ПараметрыПроекта );
+	Маршрутизация.СформироватьОписаниеФайловМаршрутизации( Результат, QueryData, ПараметрыПроекта );
 
-	ПараметрыСоединения = ConnectionParams( ПараметрыПроекта.АдресСервера );
+	ПараметрыСоединения = ConnectionParams( ПараметрыПроекта.URL );
 	
 	ЗаполнитьОтправляемыеДанныеФайлами( Результат, ПараметрыСоединения );	
 
@@ -203,36 +205,71 @@ EndFunction
 		
 		Если ( НЕ ПустаяСтрока(ОписаниеФайла.ErrorInfo) ) Тогда
 			
-			Логирование.Ошибка( EVENT_MESSAGE, ОписаниеФайла.ErrorInfo, ПараметрыЛогирования );
+			Логирование.Ошибка( EVENT_MESSAGE, ОписаниеФайла.ErrorInfo, LoggingOptions );
 			
 		КонецЕсли;
 			
 	КонецЦикла;
 	
-	Логирование.Информация( EVENT_MESSAGE_END, RECEIVING_MESSAGE, ПараметрыЛогирования );	
+	Логирование.Информация( EVENT_MESSAGE_END, RECEIVING_MESSAGE, LoggingOptions );	
 
 	Возврат Результат;	
 	
-КонецФункции
+EndFunction
 
-// Возвращает десериализованный из JSON ответ сервера GitLab с описанием всех Merge Request проекта.
-// Информация о проекте и адресе сервера GitLab определяется из данных запроса.
+// ProjectDescription returns a description of the project from the GitLab request data.
 // 
-// Параметры:
-// 	QueryData - Соответствие - десериализованное из JSON тело запроса;
-// Returns:
-//   Массив, Соответствие, Структура - ответ, десериализованный из JSON. 
+// Parameters:
+//	QueryData - Map - GitLab request body deserialized from JSON;
 //
-Function GetMergeRequestsByQueryData( Val QueryData ) Export
+// Returns:
+// 	Structure - description:
+// * Id - String - project id;
+// * URL - String - URL to GitLab server, for example: "http://www.example.org";
+// 
+Function ProjectDescription( Val QueryData ) Export
 	
-	Var ProjectParams;
+	Var Project;
+	Var URL;
+	Var Delim;
+
+	Var Result;
+	
+	Project = QueryData.Get( "project" );
+	URL = Project.Get( "http_url" );
+	
+	Delim = StrFind( URL, "/", , , 3 ) - 1;
+	
+	If ( Delim > 0 ) Then
+		
+		URL = Left( URL, Delim );
+		
+	EndIf;	
+			
+	Result = New Structure();
+	Result.Insert( "Id", String(Project.Get("id")) );
+	Result.Insert( "URL", URL );	
+
+	Return Result;
+	
+EndFunction
+
+// MergeRequests returns all GitLab Merge Requests deserialized from JSON for one project.
+// 
+// Parameters:
+// 	URL - String - URL to GitLab server, for example: "http://www.example.org";
+// 	Id - String - project id;
+//
+// Returns:
+//   Array, Map, Structure - Merge Requests deserialized from JSON;
+//
+Function MergeRequests( Val URL, Val Id ) Export
+	
 	Var ConnectionParams;
 	Var Headers;
-	Var URL;
 	Var AdditionalParams;
 	
-	ProjectParams = ОписаниеПроекта( QueryData );
-	ConnectionParams = ConnectionParams( ProjectParams.АдресСервера );
+	ConnectionParams = ConnectionParams( URL );
 	
 	Headers = New Map();
 	Headers.Insert( "PRIVATE-TOKEN", ConnectionParams.Token );
@@ -241,7 +278,7 @@ Function GetMergeRequestsByQueryData( Val QueryData ) Export
 	AdditionalParams.Insert( "Заголовки", Headers );
 	AdditionalParams.Insert( "Таймаут", ConnectionParams.Timeout );
 	
-	URL = ConnectionParams.URL + MergeRequestsPath( ProjectParams.Идентификатор );
+	URL = ConnectionParams.URL + MergeRequestsPath( Id );
 
 	Return HTTPConnector.GetJson( URL, Undefined, AdditionalParams );
 	
@@ -261,7 +298,7 @@ EndFunction
 // Returns:
 // 	Строка - перекодированный в URL относительный путь к файлу.
 //
-Функция RAWFilePath( Знач ProjectId, Знач URLFilePath, Знач Commit ) Экспорт
+Function RAWFilePath( Val ProjectId, Val URLFilePath, Val Commit ) Export
 	
 	Var Шаблон;
 	
@@ -270,67 +307,28 @@ EndFunction
 	
 	Возврат СтрШаблон( Шаблон, ProjectId, URLFilePath, Commit );
 	
-КонецФункции
+EndFunction
 
 #EndRegion
 
 #Region Private
 
-// Возвращает описание проекта GitLab по данным запроса.
-// 
-// Параметры:
-// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
-//
-// Returns:
-// 	Структура - Описание:
-// * Идентификатор - Строка - числовой идентификатор проекта (репозитория);
-// * АдресСервера - Строка - адрес сервера вместе со схемой обращения к серверу;
-// 
-Функция ОписаниеПроекта( Знач ДанныеЗапроса )
-	
-	Var ОписаниеПроекта;
-	Var URL;
-	Var НачалоОтносительногоПути;
-	Var АдресСервера;
-	Var Результат;
-	
-	ОписаниеПроекта = ДанныеЗапроса.Получить( "project" );
-
-	URL = ОписаниеПроекта.Получить( "http_url" );
-	НачалоОтносительногоПути = СтрНайти( URL, "/", , , 3 ) - 1;
-	
-	АдресСервера = "";
-	
-	Если ( НачалоОтносительногоПути > 0 ) Тогда
-		
-		АдресСервера = Лев( URL, НачалоОтносительногоПути );
-		
-	КонецЕсли;	
-			
-	Результат = Новый Структура();
-	Результат.Вставить( "Идентификатор", Строка(ОписаниеПроекта.Получить("id")) );
-	Результат.Вставить( "АдресСервера", АдресСервера );	
-
-	Возврат Результат;
-	
-КонецФункции
-
 Function MergeRequestsPath( Val ProjectId )
 	
-	Return StrTemplate( "/api/v4/projects/%1/merge_requests", ProjectId );
+	Return StrTemplate( "/api/v4/projects/%1/merge_requests", String(ProjectId) );
 	
 EndFunction
 
-// PossibleFileActions returns a list of possible actions on files in accordance with the GitLab REST API.
+// FileActions returns a list of possible actions on files in accordance with the GitLab REST API.
 // 
 // Returns:
 // 	Массив - "added", "modified", "removed";
 //
-Функция PossibleFileActions()
+Function FileActions()
 		
-	Возврат GitLabCached.PossibleFileActions();
+	Возврат GitLabCached.FileActions();
 	
-КонецФункции
+EndFunction
 
 // Возвращает результат проверки, что файл является скомпилированным файлом внешнего отчета или обработки.
 // 
@@ -340,13 +338,13 @@ EndFunction
 // Returns:
 // 	Булево - Истина - это скомпилированный файл, иначе - Ложь;
 //
-Функция ЭтоСкомпилированныйФайл( Знач URLFilePath )
+Function ЭтоСкомпилированныйФайл( Val URLFilePath )
 	
 	Возврат ( СтрЗаканчиваетсяНа(URLFilePath, ".epf") ИЛИ СтрЗаканчиваетсяНа(URLFilePath, ".erf") );
 	
-КонецФункции
+EndFunction
 
-Функция ОписаниеФайловСрезПоследних( Знач ОписаниеФайлов, Знач Action = "modified" )
+Function ОписаниеФайловСрезПоследних( Val ОписаниеФайлов, Val Action = "modified" )
 	
 	Var Результат;
 	Var ПараметрыОтбора;
@@ -383,9 +381,9 @@ EndFunction
 
 	Возврат Результат;
 	
-КонецФункции
+EndFunction
 
-Функция ДействияНадФайламиПоДаннымЗапроса( Знач ДанныеЗапроса, Знач ПараметрыПроекта )
+Function ДействияНадФайламиПоДаннымЗапроса( Val ДанныеЗапроса, Val ПараметрыПроекта )
 	
 	Var Commits;
 	Var CommitSHA;
@@ -403,7 +401,7 @@ EndFunction
 		CommitSHA = Commit.Получить( "id" );
 		Date = Commit.Получить( "timestamp" );
 		
-		Для каждого Action Из PossibleFileActions() Цикл
+		Для каждого Action Из FileActions() Цикл
 
 			ПолныеИменаФайлов = Commit.Получить( Action );
 
@@ -416,7 +414,7 @@ EndFunction
 				КонецЕсли;
 
 				НоваяСтрока = Результат.Добавить();
-				RAWFilePath = RAWFilePath( ПараметрыПроекта.Идентификатор, URLFilePath, CommitSHA );
+				RAWFilePath = RAWFilePath( ПараметрыПроекта.Id, URLFilePath, CommitSHA );
 				НоваяСтрока.RAWFilePath = RAWFilePath;
 				НоваяСтрока.URLFilePath = URLFilePath;
 				НоваяСтрока.Action = Action;
@@ -431,16 +429,16 @@ EndFunction
 	
 	Возврат Результат;
 	
-КонецФункции
+EndFunction
 
-Процедура ЗаполнитьОтправляемыеДанныеФайлами( ОтправляемыеДанные, Знач ПараметрыСоединения )
+Процедура ЗаполнитьОтправляемыеДанныеФайлами( ОтправляемыеДанные, Val ПараметрыСоединения )
 
 	Var ПутиКФайлам;
 	Var Файл;
 	Var Файлы;
 
 	ПутиКФайлам = ОтправляемыеДанные.ВыгрузитьКолонку( "RAWFilePath" );
-	Файлы = GetRemoteFiles( ПараметрыСоединения, ПутиКФайлам );
+	Файлы = RemoteFiles( ПараметрыСоединения, ПутиКФайлам );
 	
 	Для каждого ОписаниеФайла Из Файлы Цикл
 			
@@ -451,18 +449,18 @@ EndFunction
 
 КонецПроцедуры
 
-Функция ОписаниеПолучаемогоФайла()
+Function RemoteFileDescription()
 
-	Var Результат;
+	Var Result;
 	
-	Результат = Новый Структура();
-	Результат.Вставить( "RAWFilePath", "" );
-	Результат.Вставить( "FileName", "" );
-	Результат.Вставить( "BinaryData", Неопределено );
-	Результат.Вставить( "ErrorInfo", "" );
+	Result = New Structure();
+	Result.Insert( "RAWFilePath", "" );
+	Result.Insert( "FileName", "" );
+	Result.Insert( "BinaryData", Undefined );
+	Result.Insert( "ErrorInfo", "" );
 	
-	Возврат Результат;
+	Return Result;
 
-КонецФункции
+EndFunction
 
 #EndRegion

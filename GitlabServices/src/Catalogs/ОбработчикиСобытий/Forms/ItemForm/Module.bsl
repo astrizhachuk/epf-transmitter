@@ -242,15 +242,18 @@ EndProcedure
 Function MergeRequestURL( Val RecordKey )
 	
 	Var QueryData;
+	Var ProjectParams;
 	Var MergeRequests;
 	Var MergeCommitSHA;
 	Var Result;
 	
 	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	
+	ProjectParams = GitLab.ProjectDescription( QueryData );
 
 	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
 	// подумать, или зарегать в ишузах 
-	MergeRequests = GitLab.GetMergeRequestsByQueryData( QueryData ); 
+	MergeRequests = GitLab.MergeRequests( ProjectParams.URL, ProjectParams.Id ); 
 
 	Result = "";
 	
