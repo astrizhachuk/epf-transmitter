@@ -54,10 +54,10 @@
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
-  <commonModules>CommonModule.Receivers</commonModules>
-  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabCached</commonModules>
+  <commonModules>CommonModule.Receivers</commonModules>
+  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.HTTPСервисы</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>

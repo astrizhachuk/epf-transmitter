@@ -31,15 +31,15 @@ EndFunction
 // 
 // Parameters:
 // 	ConnectionParams - (See GitLab.ConnectionParams)
-// 	RAWFilePath - Строка - закодированный в URL кодировке относительный путь к получаемому файлу, например,
+// 	RAWFilePath - String - URL-encoded relative URL path to the RAW file, for example
 // 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
 // Returns:
 //	Structure - description:
-// * RAWFilePath - Строка - относительный путь к RAW файлу;
-// * FileName - Строка - имя файла в кодировке UTF-8;
-// * BinaryData - BinaryData - данные файла;
-// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
+// * RAWFilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name (UTF-8);
+// * BinaryData - BinaryData - file data;
+// * ErrorInfo - String - description of an error while processing files;
 //
 Function RemoteFile( Val ConnectionParams, Val RAWFilePath ) Export
 
@@ -100,38 +100,38 @@ Function RemoteFile( Val ConnectionParams, Val RAWFilePath ) Export
 		Result.ErrorInfo = StrTemplate( Message, ErrorInfo );
 		
 	EndTry;
-	
+
 	Return Result;
 	
 EndFunction
 
-// Получает с сервера GitLab файлы и формирует их описание.
-// 
-// Параметры:
-// 	ConnectionParams - (См. GitLab.ConnectionParams)
-// 	ПутиКФайлам - Массив из Строка - массив закодированных в URL кодировке относительных путей к получаемым файлам,
-//					например, "/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
+// RemoteFile returns the files from the GitLab server with its descriptions.
+//
+// Parameters:
+// 	ConnectionParams - (See GitLab.ConnectionParams)
+// 	FilePaths - Array of String - an array of relative URL paths (URL-encoded) to the files, for example
+// 							 "/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
 // Returns:
-// 	Массив из Структура:
-// * RAWFilePath - Строка - относительный путь к RAW файлу;
-// * FileName - Строка - имя файла в кодировке UTF-8;
-// * BinaryData - BinaryData - данные файла;
-// * ErrorInfo - Строка - текст с описанием ошибки получения файла с сервера;
+// 	Array of Structure - description:
+// * RAWFilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name (UTF-8);
+// * BinaryData - BinaryData - file data;
+// * ErrorInfo - String - description of an error while processing files;
 // 
-Function RemoteFiles( Val ПараметрыСоединения, Val ПутиКФайлам ) Export
+Function RemoteFiles( Val ConnectionParams, Val FilePaths ) Export
 	
-	Var Результат;
+	Var Result;
 
-	Результат = Новый Массив;
+	Result = New Array();
 	
-	Для Каждого RAWFilePath Из ПутиКФайлам Цикл
+	For Each RAWFilePath In FilePaths Do
 		
-		Результат.Добавить( RemoteFile(ПараметрыСоединения, RAWFilePath) );
+		Result.Add( RemoteFile(ConnectionParams, RAWFilePath) );
 		
-	КонецЦикла;
+	EndDo;
 	
-	Возврат Результат;
+	Return Result;
 
 EndFunction
 
@@ -333,14 +333,14 @@ EndFunction
 // Возвращает результат проверки, что файл является скомпилированным файлом внешнего отчета или обработки.
 // 
 // Параметры:
-// 	URLFilePath - Строка - относительный путь к файлу в репозитории (вместе с именем файла);
+// 	FilePath - Строка - относительный путь к файлу в репозитории (вместе с именем файла);
 //
 // Returns:
 // 	Булево - Истина - это скомпилированный файл, иначе - Ложь;
 //
-Function ЭтоСкомпилированныйФайл( Val URLFilePath )
+Function ЭтоСкомпилированныйФайл( Val FilePath )
 	
-	Возврат ( СтрЗаканчиваетсяНа(URLFilePath, ".epf") ИЛИ СтрЗаканчиваетсяНа(URLFilePath, ".erf") );
+	Возврат ( СтрЗаканчиваетсяНа(FilePath, ".epf") ИЛИ СтрЗаканчиваетсяНа(FilePath, ".erf") );
 	
 EndFunction
 
