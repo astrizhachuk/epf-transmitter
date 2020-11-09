@@ -31,17 +31,17 @@ EndFunction
 // 
 // Parameters:
 // 	ConnectionParams - (See GitLab.ConnectionParams)
-// 	RAWFilePath - String - URL-encoded relative URL path to the RAW file, for example
+// 	FilePath - String - URL-encoded relative URL path to the RAW file, for example
 // 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
 // Returns:
 //	Structure - description:
-// * RAWFilePath - String - relative URL path to the RAW file;
+// * FilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name (UTF-8);
 // * BinaryData - BinaryData - file data;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Function RemoteFile( Val ConnectionParams, Val RAWFilePath ) Export
+Function RemoteFile( Val ConnectionParams, Val FilePath ) Export
 
 	Var URL;
 	Var Headers;
@@ -55,9 +55,9 @@ Function RemoteFile( Val ConnectionParams, Val RAWFilePath ) Export
 	Var Result;
 	
 	Result = RemoteFileDescription();
-	Result.RAWFilePath = RAWFilePath;
+	Result.RAWFilePath = FilePath;
 
-	URL = ConnectionParams.URL + RAWFilePath;
+	URL = ConnectionParams.URL + FilePath;
 
 	Try
 	
@@ -159,11 +159,15 @@ Function RemoteFilesEmpty() Export
 	
 EndFunction
 
-// Возвращает описание файлов и сами файлы, которые необходимо распределить по информационным базам получателям.
+// RemoteFilesWithDescription returns description of binary data files after parsing commits data
+// from deserialized GitLab request;
 // 
 // Parameters:
 //	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
-// 	QueryData - Map - GitLab request body deserialized from JSON;
+// 	Commits - Map - deserialized commits from the GitLab request;
+// 	Project - Structure - description;
+// * Id - String - project id;
+// * URL - String - URL to GitLab server, for example: "http://www.example.org";
 //
 // Returns:
 //	ValueTable - description:
@@ -176,10 +180,9 @@ EndFunction
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Function FilesByQueryData( Val Webhook, QueryData ) Export
+Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	
 	Var LoggingOptions;
-	Var ПараметрыПроекта;
 	Var ПараметрыСоединения;
 	Var Результат;
 	
@@ -192,12 +195,11 @@ Function FilesByQueryData( Val Webhook, QueryData ) Export
 	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook ); 
 	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, LoggingOptions );	
 
-	ПараметрыПроекта = ProjectDescription( QueryData );
-	Результат = ДействияНадФайламиПоДаннымЗапроса( QueryData, ПараметрыПроекта );
+	Результат = AllFileActions( Commits, Project.Id );
 	Результат = ОписаниеФайловСрезПоследних( Результат );
-	Маршрутизация.СформироватьОписаниеФайловМаршрутизации( Результат, QueryData, ПараметрыПроекта );
+	Маршрутизация.AddRoutingFilesDescription( Результат, Commits, Project.Id );
 
-	ПараметрыСоединения = ConnectionParams( ПараметрыПроекта.URL );
+	ПараметрыСоединения = ConnectionParams( Project.URL );
 	
 	ЗаполнитьОтправляемыеДанныеФайлами( Результат, ПараметрыСоединения );	
 
@@ -313,36 +315,112 @@ EndFunction
 
 #Region Private
 
+Function RemoteFileDescription()
+
+	Var Result;
+	
+	Result = New Structure();
+	Result.Insert( "RAWFilePath", "" );
+	Result.Insert( "FileName", "" );
+	Result.Insert( "BinaryData", Undefined );
+	Result.Insert( "ErrorInfo", "" );
+	
+	Return Result;
+
+EndFunction
+
+// IsCompiledFile returns the result of checking that the file is a compiled external report or processing file.
+// 
+// Parameters:
+// 	FilePath - String - relative path to the file (with the filename);
+//
+// Returns:
+// 	Boolean - True - it's a compiled file, otherwise - False;
+//
+Function IsCompiledFile( Val FilePath )
+	
+	Return ( StrEndsWith(FilePath, ".epf") OR StrEndsWith(FilePath, ".erf") );
+	
+EndFunction
+
+// ListFileActions returns a list of possible actions on files in accordance with the GitLab REST API.
+// 
+// Returns:
+// 	Array - "added", "modified", "removed";
+//
+Function ListFileActions()
+		
+	Return GitLabCached.ListFileActions();
+	
+EndFunction
+
+Procedure FillRemoteFilesByCompiledFiles( RemoteFiles, Val Actions, Val Commit, Val ProjectId )
+	
+	Var CommitSHA;
+	Var ActionDate;
+	Var FilePaths;
+	Var NewRemoteFile;
+	
+	CommitSHA = Commit.Get( "id" );
+	ActionDate = Commit.Get( "timestamp" );
+		
+	For Each Action In Actions Do
+
+		FilePaths = Commit.Get( Action );
+
+		For Each FilePath In FilePaths Do
+			
+			If ( NOT IsCompiledFile(FilePath) ) Then
+				
+				Continue;
+
+			EndIf;
+
+			NewRemoteFile = RemoteFiles.Add();
+			NewRemoteFile.RAWFilePath = RAWFilePath( ProjectId, FilePath, CommitSHA );
+			NewRemoteFile.URLFilePath = FilePath;
+			NewRemoteFile.Action = Action;
+			NewRemoteFile.Date = ActionDate;
+			NewRemoteFile.CommitSHA = CommitSHA;
+
+		EndDo;
+
+	EndDo;
+		
+EndProcedure
+
+Function AllFileActions( Val Commits, Val ProjectId )
+	
+	Var ListFileActions;
+	Var Result;
+	
+	Result = RemoteFilesEmpty();
+	
+	If ( Commits = Undefined ) Then
+		
+		Return Result;
+		
+	EndIf;
+	
+	ListFileActions = ListFileActions();
+	
+	For Each Commit In Commits Do
+
+		FillRemoteFilesByCompiledFiles( Result, ListFileActions, Commit, ProjectId );
+		
+	EndDo;
+	
+	Return Result;
+	
+EndFunction
+
 Function MergeRequestsPath( Val ProjectId )
 	
 	Return StrTemplate( "/api/v4/projects/%1/merge_requests", String(ProjectId) );
 	
 EndFunction
 
-// FileActions returns a list of possible actions on files in accordance with the GitLab REST API.
-// 
-// Returns:
-// 	Массив - "added", "modified", "removed";
-//
-Function FileActions()
-		
-	Возврат GitLabCached.FileActions();
-	
-EndFunction
 
-// Возвращает результат проверки, что файл является скомпилированным файлом внешнего отчета или обработки.
-// 
-// Параметры:
-// 	FilePath - Строка - относительный путь к файлу в репозитории (вместе с именем файла);
-//
-// Returns:
-// 	Булево - Истина - это скомпилированный файл, иначе - Ложь;
-//
-Function ЭтоСкомпилированныйФайл( Val FilePath )
-	
-	Возврат ( СтрЗаканчиваетсяНа(FilePath, ".epf") ИЛИ СтрЗаканчиваетсяНа(FilePath, ".erf") );
-	
-EndFunction
 
 Function ОписаниеФайловСрезПоследних( Val ОписаниеФайлов, Val Action = "modified" )
 	
@@ -383,53 +461,7 @@ Function ОписаниеФайловСрезПоследних( Val Описа�
 	
 EndFunction
 
-Function ДействияНадФайламиПоДаннымЗапроса( Val ДанныеЗапроса, Val ПараметрыПроекта )
-	
-	Var Commits;
-	Var CommitSHA;
-	Var Date;
-	Var ПолныеИменаФайлов;
-	Var RAWFilePath;
-	Var НоваяСтрока;
-	Var Результат;
-	
-	Commits = ДанныеЗапроса.Получить( "commits" );
-	Результат = RemoteFilesEmpty();
-	
-	Для каждого Commit Из Commits Цикл
 
-		CommitSHA = Commit.Получить( "id" );
-		Date = Commit.Получить( "timestamp" );
-		
-		Для каждого Action Из FileActions() Цикл
-
-			ПолныеИменаФайлов = Commit.Получить( Action );
-
-			Для каждого URLFilePath Из ПолныеИменаФайлов Цикл
-				
-				Если ( НЕ ЭтоСкомпилированныйФайл(URLFilePath) ) Тогда
-					
-					Продолжить;
-
-				КонецЕсли;
-
-				НоваяСтрока = Результат.Добавить();
-				RAWFilePath = RAWFilePath( ПараметрыПроекта.Id, URLFilePath, CommitSHA );
-				НоваяСтрока.RAWFilePath = RAWFilePath;
-				НоваяСтрока.URLFilePath = URLFilePath;
-				НоваяСтрока.Action = Action;
-				НоваяСтрока.Date = Date;
-				НоваяСтрока.CommitSHA = CommitSHA;
-
-			КонецЦикла;
-
-		КонецЦикла;
-		
-	КонецЦикла;
-	
-	Возврат Результат;
-	
-EndFunction
 
 Процедура ЗаполнитьОтправляемыеДанныеФайлами( ОтправляемыеДанные, Val ПараметрыСоединения )
 
@@ -449,18 +481,7 @@ EndFunction
 
 КонецПроцедуры
 
-Function RemoteFileDescription()
 
-	Var Result;
-	
-	Result = New Structure();
-	Result.Insert( "RAWFilePath", "" );
-	Result.Insert( "FileName", "" );
-	Result.Insert( "BinaryData", Undefined );
-	Result.Insert( "ErrorInfo", "" );
-	
-	Return Result;
-
-EndFunction
 
 #EndRegion
+

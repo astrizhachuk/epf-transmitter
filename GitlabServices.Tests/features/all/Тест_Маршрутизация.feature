@@ -14,9 +14,9 @@ Scenario: РаспределитьОтправляемыеДанныеПоМар
 	| 'Тест_Маршрутизация.РаспределитьОтправляемыеДанныеПоМаршрутам(Context());' |
 
 @OnServer
-Scenario: СформироватьОписаниеФайловМаршрутизации
+Scenario: AddRoutingFilesDescription
 	And I execute 1C:Enterprise script at server
-	| 'Тест_Маршрутизация.СформироватьОписаниеФайловМаршрутизации(Context());' |
+	| 'Тест_Маршрутизация.AddRoutingFilesDescription(Context());' |
 
 @OnServer
 Scenario: ДополнитьЗапросНастройкамиМаршрутизации

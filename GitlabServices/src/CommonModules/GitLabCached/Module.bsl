@@ -31,12 +31,12 @@ Function RemoteFilesEmpty() Export
 	
 EndFunction
 
-// FileActions returns a list of possible actions on files in accordance with the GitLab REST API.
+// ListFileActions returns a list of possible actions on files in accordance with the GitLab REST API.
 // 
 // Returns:
 // 	Array - "added", "modified", "removed";
 //
-Function FileActions() Export
+Function ListFileActions() Export
 	
 	Var Result;
 	

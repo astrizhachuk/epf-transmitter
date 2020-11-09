@@ -86,10 +86,10 @@
 	
 КонецФункции
 
-// Добавляет описание файлов с настройками маршрутизации в коллекцию файлов для последующего их скачивания.
+// AddRoutingFilesDescription adds a description of files with routing settings for download.
 // 
-// Параметры:
-// 	ОписаниеФайлов - ТаблицаЗначений - описание:
+// Parameters:
+// 	RemoteFiles - ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * URLFilePath - String - relative URL path to the file (with the filename);
@@ -98,36 +98,38 @@
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
-// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
-// 	ПараметрыПроекта - Структура - описание:
-// * Id - Строка - числовой идентификатор проекта (репозитория);
-// * URL - Строка - адрес сервера вместе со схемой обращения к серверу;
+// 	Commits - Map - deserialized commits from the GitLab request;
+//	ProjectId - String - project id from the GitLab request;
 //
-Процедура СформироватьОписаниеФайловМаршрутизации( ОписаниеФайлов, Знач ДанныеЗапроса, Знач ПараметрыПроекта ) Экспорт
+Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) Export
 	
 	Var URLFilePath;
-	Var Commits;
 	Var CommitSHA;
 	Var RAWFilePath;
-	Var НоваяСтрока;
+	Var NewDescription;
+	
+	If ( Commits = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
 
-	Commits = ДанныеЗапроса.Получить( "commits" );	
 	URLFilePath = ServicesSettings.CurrentSettings().RoutingFileName;
 	
-	Для каждого Commit Из Commits Цикл
+	For Each Commit In Commits Do
 
-		НоваяСтрока = ОписаниеФайлов.Добавить();
-		CommitSHA = Commit.Получить( "id" );
-		RAWFilePath = GitLab.RAWFilePath( ПараметрыПроекта.Id, URLFilePath, CommitSHA );
-		НоваяСтрока.RAWFilePath = RAWFilePath;
-		НоваяСтрока.URLFilePath = URLFilePath;
-		НоваяСтрока.Action = "";
-		НоваяСтрока.Date = Commit.Получить( "timestamp" );
-		НоваяСтрока.CommitSHA = CommitSHA;
+		NewDescription = RemoteFiles.Add();
+		CommitSHA = Commit.Get( "id" );
+		RAWFilePath = GitLab.RAWFilePath( ProjectId, URLFilePath, CommitSHA );
+		NewDescription.RAWFilePath = RAWFilePath;
+		NewDescription.URLFilePath = URLFilePath;
+		NewDescription.Action = "";
+		NewDescription.Date = Commit.Get( "timestamp" );
+		NewDescription.CommitSHA = CommitSHA;
 	
-	КонецЦикла;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
 // Добавляет десериализованные из JSON настройки маршрутизации файлов в данные запроса.
 // 

@@ -44,9 +44,9 @@ Scenario: ПолучитьФайлы
 	| 'Тест_GitlabСервер.ПолучитьФайлы(Context());' |
 
 @OnServer
-Scenario: ПолучитьФайлыКОтправкеПоДаннымЗапроса
+Scenario: RemoteFilesWithDescription
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.ПолучитьФайлыКОтправкеПоДаннымЗапроса(Context());' |
+	| 'Тест_GitlabСервер.RemoteFilesWithDescription(Context());' |
 
 @OnServer
 Scenario: ProjectDescription
@@ -69,6 +69,6 @@ Scenario: RAWFilePath
 	| 'Тест_GitlabСервер.RAWFilePath(Context());' |
 
 @OnServer
-Scenario: FileActions
+Scenario: ListFileActions
 	And I execute 1C:Enterprise script at server
-	| 'Тест_GitlabСервер.FileActions(Context());' |
+	| 'Тест_GitlabСервер.ListFileActions(Context());' |
