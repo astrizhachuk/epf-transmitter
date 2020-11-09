@@ -202,7 +202,7 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	ConnectionParams = ConnectionParams( Project.URL );
 	FillRemoteFilesBinaryData( RemoteFiles, ConnectionParams );	
 
-	For Each RemoteFile in RemoteFiles Do
+	For Each RemoteFile In RemoteFiles Do
 		
 		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
@@ -471,7 +471,7 @@ Procedure FillRemoteFilesBinaryData( RemoteFiles, Val ConnectionParams )
 		File = RemoteFiles.Find( RemoteFile.RAWFilePath, "RAWFilePath" );
 		FillPropertyValues( File, RemoteFile );
 
-	Enddo;
+	EndDo;
 
 EndProcedure
 
