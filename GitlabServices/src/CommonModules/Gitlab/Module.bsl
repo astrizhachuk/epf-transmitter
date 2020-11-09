@@ -36,7 +36,7 @@ EndFunction
 // 	
 // Returns:
 //	Structure - description:
-// * FilePath - String - relative URL path to the RAW file;
+// * FilePath - String - relative URL path to the RAW file from parameter FilePath;
 // * FileName - String - file name (UTF-8);
 // * BinaryData - BinaryData - file data;
 // * ErrorInfo - String - description of an error while processing files;
@@ -183,8 +183,8 @@ EndFunction
 Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	
 	Var LoggingOptions;
-	Var ПараметрыСоединения;
-	Var Результат;
+	Var ConnectionParams;
+	Var RemoteFiles;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПолучениеФайловGitLab.Начало';en = 'Core.ReceivingFilesGitLab.Begin'" );
 	EVENT_MESSAGE = NStr( "ru = 'Core.ПолучениеФайловGitLab';en = 'Core.ReceivingFilesGitLab'" );
@@ -195,27 +195,26 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook ); 
 	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, LoggingOptions );	
 
-	Результат = AllFileActions( Commits, Project.Id );
-	Результат = ОписаниеФайловСрезПоследних( Результат );
-	Маршрутизация.AddRoutingFilesDescription( Результат, Commits, Project.Id );
+	RemoteFiles = AllRemoteFilesByActions( Commits, Project.Id );
+	RemoteFiles = RemoteFilesSliceLast( RemoteFiles );
+	Маршрутизация.AddRoutingFilesDescription( RemoteFiles, Commits, Project.Id );
 
-	ПараметрыСоединения = ConnectionParams( Project.URL );
-	
-	ЗаполнитьОтправляемыеДанныеФайлами( Результат, ПараметрыСоединения );	
+	ConnectionParams = ConnectionParams( Project.URL );
+	FillRemoteFilesBinaryData( RemoteFiles, ConnectionParams );	
 
-	Для Каждого ОписаниеФайла Из Результат Цикл
+	For Each RemoteFile in RemoteFiles Do
 		
-		Если ( НЕ ПустаяСтрока(ОписаниеФайла.ErrorInfo) ) Тогда
+		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
-			Логирование.Ошибка( EVENT_MESSAGE, ОписаниеФайла.ErrorInfo, LoggingOptions );
+			Логирование.Ошибка( EVENT_MESSAGE, RemoteFile.ErrorInfo, LoggingOptions );
 			
-		КонецЕсли;
+		EndIf;
 			
-	КонецЦикла;
+	EndDo;
 	
 	Логирование.Информация( EVENT_MESSAGE_END, RECEIVING_MESSAGE, LoggingOptions );	
 
-	Возврат Результат;	
+	Return RemoteFiles;	
 	
 EndFunction
 
@@ -290,24 +289,24 @@ EndFunction
 
 #Region Internal
 
-// Возвращает перекодированный в URL относительный путь к RAW файлу. 
+// RAWFilePath returns the URL-encoded relative path to the RAW file.
 // 
-// Параметры:
-// 	ProjectId - Строка - id проекта;
-// 	URLFilePath - Строка - относительный путь к файлу в репозитории (вместе с именем файла);
-// 	Commit - Строка - сommit SHA;
+// Parameters:
+// 	ProjectId - String - project id;
+// 	FilePath - String - relative path to a file in the remote repository, for example "Path/File 1.epf";
+// 	CommitSHA - String - сommit SHA;
 // 
 // Returns:
-// 	Строка - перекодированный в URL относительный путь к файлу.
+// 	String - URL-encoded relative file path, like "/api/v4/projects/1/repository/files/Path/File 1.epf/raw?ref=123af";
 //
-Function RAWFilePath( Val ProjectId, Val URLFilePath, Val Commit ) Export
+Function RAWFilePath( Val ProjectId, Val FilePath, Val CommitSHA ) Export
 	
-	Var Шаблон;
+	Var Template;
 	
-	Шаблон = "/api/v4/projects/%1/repository/files/%2/raw?ref=%3";
-	URLFilePath = КодироватьСтроку( URLFilePath, СпособКодированияСтроки.КодировкаURL );
+	Template = "/api/v4/projects/%1/repository/files/%2/raw?ref=%3";
+	FilePath = EncodeString( FilePath, StringEncodingMethod.URLEncoding );
 	
-	Возврат СтрШаблон( Шаблон, ProjectId, URLFilePath, Commit );
+	Return StrTemplate( Template, ProjectId, FilePath, CommitSHA );
 	
 EndFunction
 
@@ -354,7 +353,7 @@ Function ListFileActions()
 	
 EndFunction
 
-Procedure FillRemoteFilesByCompiledFiles( RemoteFiles, Val Actions, Val Commit, Val ProjectId )
+Procedure FillRemoteFilesCompiledFiles( RemoteFiles, Val Actions, Val Commit, Val ProjectId )
 	
 	Var CommitSHA;
 	Var ActionDate;
@@ -389,7 +388,7 @@ Procedure FillRemoteFilesByCompiledFiles( RemoteFiles, Val Actions, Val Commit, 
 		
 EndProcedure
 
-Function AllFileActions( Val Commits, Val ProjectId )
+Function AllRemoteFilesByActions( Val Commits, Val ProjectId )
 	
 	Var ListFileActions;
 	Var Result;
@@ -406,7 +405,7 @@ Function AllFileActions( Val Commits, Val ProjectId )
 	
 	For Each Commit In Commits Do
 
-		FillRemoteFilesByCompiledFiles( Result, ListFileActions, Commit, ProjectId );
+		FillRemoteFilesCompiledFiles( Result, ListFileActions, Commit, ProjectId );
 		
 	EndDo;
 	
@@ -420,68 +419,60 @@ Function MergeRequestsPath( Val ProjectId )
 	
 EndFunction
 
-
-
-Function ОписаниеФайловСрезПоследних( Val ОписаниеФайлов, Val Action = "modified" )
+Function RemoteFilesSliceLast( Val RemoteFiles, Val Action = "modified" )
 	
-	Var Результат;
-	Var ПараметрыОтбора;
-	Var НайденныеСтроки;
+	Var FilePaths;
+	Var Filter;
+	Var LastFile;
+	Var Result;
 	
-	Результат = ОписаниеФайлов.СкопироватьКолонки();
-	ПолныеИменаФайлов = CommonUseClientServer.CollapseArray( ОписаниеФайлов.ВыгрузитьКолонку("URLFilePath") );
+	Result = RemoteFiles.CopyColumns();
+	FilePaths = CommonUseClientServer.CollapseArray( RemoteFiles.UnloadColumn("URLFilePath") );
 	
-	Если ( НЕ ЗначениеЗаполнено(ПолныеИменаФайлов) ) Тогда
+	If ( NOT ValueIsFilled(FilePaths) ) Then
 		
-		Возврат Результат;
+		Return Result;
 	
-	КонецЕсли;
+	EndIf;
 	
-	ОписаниеФайлов.Сортировать( "Date Убыв" );
+	RemoteFiles.Sort( "Date Desc" );
 	
-	ПараметрыОтбора = Новый Структура( "URLFilePath, Action" );
-	ПараметрыОтбора.Action = Action;
+	Filter = New Structure( "URLFilePath, Action" );
+	Filter.Action = Action;
 			
-	Для каждого URLFilePath Из ПолныеИменаФайлов Цикл
+	For Each FilePath In FilePaths Цикл
 
-		ПараметрыОтбора.URLFilePath = URLFilePath;
-		НайденныеСтроки = ОписаниеФайлов.НайтиСтроки( ПараметрыОтбора );
+		Filter.URLFilePath = FilePath;
+		LastFile = RemoteFiles.FindRows( Filter );
 
-		Если ( НЕ ЗначениеЗаполнено(НайденныеСтроки) ) Тогда
+		If ( ValueIsFilled(LastFile) ) Then
 
-			Продолжить;
+			FillPropertyValues( Result.Add(), LastFile[0] );
 								
-		КонецЕсли;
+		EndIf;
 		
-		ЗаполнитьЗначенияСвойств( Результат.Добавить(), НайденныеСтроки[0] );
-		
-	КонецЦикла;
+	EndDo;
 
-	Возврат Результат;
+	Return Result;
 	
 EndFunction
 
+Procedure FillRemoteFilesBinaryData( RemoteFiles, Val ConnectionParams )
 
+	Var FilePaths;
+	Var File;
+	Var Files;
 
-Процедура ЗаполнитьОтправляемыеДанныеФайлами( ОтправляемыеДанные, Val ПараметрыСоединения )
-
-	Var ПутиКФайлам;
-	Var Файл;
-	Var Файлы;
-
-	ПутиКФайлам = ОтправляемыеДанные.ВыгрузитьКолонку( "RAWFilePath" );
-	Файлы = RemoteFiles( ПараметрыСоединения, ПутиКФайлам );
+	FilePaths = RemoteFiles.UnloadColumn( "RAWFilePath" );
+	Files = RemoteFiles( ConnectionParams, FilePaths );
 	
-	Для каждого ОписаниеФайла Из Файлы Цикл
+	For Each RemoteFile In Files Do
 			
-		Файл = ОтправляемыеДанные.Найти( ОписаниеФайла.RAWFilePath, "RAWFilePath" );
-		ЗаполнитьЗначенияСвойств( Файл, ОписаниеФайла );
+		File = RemoteFiles.Find( RemoteFile.RAWFilePath, "RAWFilePath" );
+		FillPropertyValues( File, RemoteFile );
 
-	КонецЦикла;
+	Enddo;
 
-КонецПроцедуры
-
-
+EndProcedure
 
 #EndRegion
-

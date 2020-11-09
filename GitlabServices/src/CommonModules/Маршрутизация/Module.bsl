@@ -103,7 +103,7 @@
 //
 Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) Export
 	
-	Var URLFilePath;
+	Var FilePath;
 	Var CommitSHA;
 	Var RAWFilePath;
 	Var NewDescription;
@@ -114,15 +114,15 @@ Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) 
 		
 	EndIf;
 
-	URLFilePath = ServicesSettings.CurrentSettings().RoutingFileName;
+	FilePath = ServicesSettings.CurrentSettings().RoutingFileName;
 	
 	For Each Commit In Commits Do
 
 		NewDescription = RemoteFiles.Add();
 		CommitSHA = Commit.Get( "id" );
-		RAWFilePath = GitLab.RAWFilePath( ProjectId, URLFilePath, CommitSHA );
+		RAWFilePath = GitLab.RAWFilePath( ProjectId, FilePath, CommitSHA );
 		NewDescription.RAWFilePath = RAWFilePath;
-		NewDescription.URLFilePath = URLFilePath;
+		NewDescription.URLFilePath = FilePath;
 		NewDescription.Action = "";
 		NewDescription.Date = Commit.Get( "timestamp" );
 		NewDescription.CommitSHA = CommitSHA;
