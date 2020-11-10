@@ -14,11 +14,6 @@ Scenario: FilesByRoutes
 	| 'Тест_Маршрутизация.FilesByRoutes(Context());' |
 
 @OnServer
-Scenario: AddRoutingFilesDescription
-	And I execute 1C:Enterprise script at server
-	| 'Тест_Маршрутизация.AddRoutingFilesDescription(Context());' |
-
-@OnServer
 Scenario: AppendQueryDataByRoutingSettings
 	And I execute 1C:Enterprise script at server
 	| 'Тест_Маршрутизация.AppendQueryDataByRoutingSettings(Context());' |

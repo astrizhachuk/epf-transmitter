@@ -6,7 +6,7 @@
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * URLFilePath - String - relative URL path to the file (with the filename);
+// * FilePath - String - relative path to the repository file (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -20,7 +20,7 @@ Function RemoteFilesEmpty() Export
 	Result = New ValueTable();
 	Result.Columns.Add( "RAWFilePath", New TypeDescription("String") );
 	Result.Columns.Add( "FileName", New TypeDescription("String") );
-	Result.Columns.Add( "URLFilePath", New TypeDescription("String") );
+	Result.Columns.Add( "FilePath", New TypeDescription("String") );
 	Result.Columns.Add( "BinaryData", New TypeDescription("BinaryData") );
 	Result.Columns.Add( "Action", New TypeDescription("String") );
 	Result.Columns.Add( "Date", New TypeDescription("Date") );

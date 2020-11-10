@@ -141,7 +141,7 @@ EndFunction
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * URLFilePath - String - relative URL path to the file (with the filename);
+// * FilePath - String - relative path to the repository file (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -173,7 +173,7 @@ EndFunction
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * URLFilePath - String - relative URL path to the file (with the filename);
+// * FilePath - String - relative path to the repository file (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -197,7 +197,7 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 
 	RemoteFiles = AllRemoteFilesByActions( Commits, Project.Id );
 	RemoteFiles = RemoteFilesSliceLast( RemoteFiles );
-	Маршрутизация.AddRoutingFilesDescription( RemoteFiles, Commits, Project.Id );
+	Routing.AddRoutingFilesDescription( RemoteFiles, Commits, Project.Id );
 
 	ConnectionParams = ConnectionParams( Project.URL );
 	FillRemoteFilesBinaryData( RemoteFiles, ConnectionParams );	
@@ -377,7 +377,7 @@ Procedure FillRemoteFilesCompiledFiles( RemoteFiles, Val Actions, Val Commit, Va
 
 			NewRemoteFile = RemoteFiles.Add();
 			NewRemoteFile.RAWFilePath = RAWFilePath( ProjectId, FilePath, CommitSHA );
-			NewRemoteFile.URLFilePath = FilePath;
+			NewRemoteFile.FilePath = FilePath;
 			NewRemoteFile.Action = Action;
 			NewRemoteFile.Date = ActionDate;
 			NewRemoteFile.CommitSHA = CommitSHA;
@@ -427,7 +427,7 @@ Function RemoteFilesSliceLast( Val RemoteFiles, Val Action = "modified" )
 	Var Result;
 	
 	Result = RemoteFiles.CopyColumns();
-	FilePaths = CommonUseClientServer.CollapseArray( RemoteFiles.UnloadColumn("URLFilePath") );
+	FilePaths = CommonUseClientServer.CollapseArray( RemoteFiles.UnloadColumn("FilePath") );
 	
 	If ( NOT ValueIsFilled(FilePaths) ) Then
 		
@@ -437,12 +437,12 @@ Function RemoteFilesSliceLast( Val RemoteFiles, Val Action = "modified" )
 	
 	RemoteFiles.Sort( "Date Desc" );
 	
-	Filter = New Structure( "URLFilePath, Action" );
+	Filter = New Structure( "FilePath, Action" );
 	Filter.Action = Action;
 			
 	For Each FilePath In FilePaths Цикл
 
-		Filter.URLFilePath = FilePath;
+		Filter.FilePath = FilePath;
 		LastFile = RemoteFiles.FindRows( Filter );
 
 		If ( ValueIsFilled(LastFile) ) Then

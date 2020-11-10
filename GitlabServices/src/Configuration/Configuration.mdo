@@ -56,13 +56,13 @@
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabCached</commonModules>
-  <commonModules>CommonModule.Receivers</commonModules>
-  <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.HTTPServices</commonModules>
+  <commonModules>CommonModule.Receivers</commonModules>
+  <commonModules>CommonModule.Routing</commonModules>
+  <commonModules>CommonModule.ServicesSettings</commonModules>
+  <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
-  <commonModules>CommonModule.StringsClientServer</commonModules>
-  <commonModules>CommonModule.Маршрутизация</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>

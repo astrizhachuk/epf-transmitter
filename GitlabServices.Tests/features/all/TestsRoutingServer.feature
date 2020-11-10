@@ -3,7 +3,7 @@
 @tree
 @classname=ModuleExceptionPath
 
-Feature: GitLabServices.Tests.Тест_Маршрутизация
+Feature: GitLabServices.Tests.TestsRoutingServer
 	As Developer
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
@@ -11,14 +11,14 @@ Feature: GitLabServices.Tests.Тест_Маршрутизация
 @OnServer
 Scenario: FilesByRoutes
 	And I execute 1C:Enterprise script at server
-	| 'Тест_Маршрутизация.FilesByRoutes(Context());' |
+	| 'TestsRoutingServer.FilesByRoutes(Context());' |
 
 @OnServer
 Scenario: AddRoutingFilesDescription
 	And I execute 1C:Enterprise script at server
-	| 'Тест_Маршрутизация.AddRoutingFilesDescription(Context());' |
+	| 'TestsRoutingServer.AddRoutingFilesDescription(Context());' |
 
 @OnServer
 Scenario: AppendQueryDataByRoutingSettings
 	And I execute 1C:Enterprise script at server
-	| 'Тест_Маршрутизация.AppendQueryDataByRoutingSettings(Context());' |
+	| 'TestsRoutingServer.AppendQueryDataByRoutingSettings(Context());' |

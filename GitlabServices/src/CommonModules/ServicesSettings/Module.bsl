@@ -30,7 +30,7 @@ Function CurrentSettings() Export
 	
 EndFunction
 
-// RoutingFileName the constant value with the name of the routing settings file located in the project root.
+// RoutingFileName the constant value with the name of the Routing settings file located in the project root.
 //
 // Parameters:
 // Returns:

@@ -51,10 +51,10 @@
   <commonModules>CommonModule.TestsGitlabServer</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsReceiversServer</commonModules>
+  <commonModules>CommonModule.TestsRoutingServer</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.TestsStringsClient</commonModules>
   <commonModules>CommonModule.TestsStringsServer</commonModules>
-  <commonModules>CommonModule.Тест_Маршрутизация</commonModules>
   <commonModules>CommonModule.Тест_ЛогированиеСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
