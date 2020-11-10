@@ -9,7 +9,7 @@
 	
 	Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
 	
-	ОписаниеСервиса = HTTPСервисы.ОписаниеСервиса( "gitlab" );
+	ОписаниеСервиса = HTTPServices.ServiceDescriptionByName( "gitlab" );
 	
 	ТелоОтвета = Новый Структура();
 	ТелоОтвета.Вставить( "version", Метаданные.Версия );

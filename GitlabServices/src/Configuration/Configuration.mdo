@@ -58,7 +58,7 @@
   <commonModules>CommonModule.GitLabCached</commonModules>
   <commonModules>CommonModule.Receivers</commonModules>
   <commonModules>CommonModule.ServicesSettings</commonModules>
-  <commonModules>CommonModule.HTTPСервисы</commonModules>
+  <commonModules>CommonModule.HTTPServices</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
   <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>

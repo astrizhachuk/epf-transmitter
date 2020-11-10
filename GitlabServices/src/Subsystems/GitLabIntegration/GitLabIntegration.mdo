@@ -14,7 +14,7 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.GitLab</picture>
   </picture>
-  <content>CommonModule.HTTPСервисы</content>
+  <content>CommonModule.HTTPServices</content>
   <content>Role.GitLabClient</content>
   <content>HTTPService.GitLab</content>
   <content>Constant.HandleRequests</content>

@@ -2,10 +2,10 @@
 #Region Internal
 
 // @unit-test
-Процедура СтруктураОтвета(Фреймворк) Экспорт
+Процедура ResponseTemplate(Фреймворк) Экспорт
 
 	// when
-	Результат = HTTPСервисы.СтруктураОтвета();
+	Результат = HTTPServices.ResponseTemplate();
 	// then
 	Фреймворк.ПроверитьРавенство(Результат.Количество(), 2);
 	Фреймворк.ПроверитьИстину(Результат.Свойство("type"));
@@ -14,28 +14,28 @@
 КонецПроцедуры
 
 //@unit-test
-Процедура ОписаниеНеСуществующегоСервиса(Фреймворк) Экспорт
+Процедура ServiceDescriptionByNameServiceNotExists(Фреймворк) Экспорт
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "фэйк";
 	// when
-	ОписаниеСервиса = HTTPСервисы.ОписаниеСервиса(URL);
+	ОписаниеСервиса = HTTPServices.ServiceDescriptionByName(URL);
 	// then
 	Фреймворк.ПроверитьРавенство(ОписаниеСервиса, Неопределено);
 
 КонецПроцедуры
 
 //@unit-test
-Процедура ОписаниеСуществующегоСервиса(Фреймворк) Экспорт
+Процедура ServiceDescriptionByNameServiceExists(Фреймворк) Экспорт
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "gitlab";
 	// when
-	ОписаниеСервиса = HTTPСервисы.ОписаниеСервиса(URL);
+	ОписаниеСервиса = HTTPServices.ServiceDescriptionByName(URL);
 	// then
-	ОписаниеСервиса = HTTPСервисы.ОписаниеСервиса("gitlab");
+	ОписаниеСервиса = HTTPServices.ServiceDescriptionByName("gitlab");
 	Фреймворк.ПроверитьИстину(ОписаниеСервиса.Свойство("name"));
 	Фреймворк.ПроверитьИстину(ОписаниеСервиса.Свойство("desc"));
 	Фреймворк.ПроверитьИстину(ОписаниеСервиса.Свойство("enabled"));
@@ -53,14 +53,14 @@
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURLBadURL(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURLBadURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "йохохо";
 	// when
 	Попытка
-		HTTPСервисы.ОписаниеСервисаURL(URL);
+		HTTPServices.ServiceDescriptionByURL(URL);
 		ВызватьИсключение НСтр("ru = 'Должна быть ошибка при вызове метода, но это не так.'");
 	Исключение
 		// then
@@ -72,80 +72,80 @@
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURLПустойURL(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURLEmptyURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "";
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Пустой адрес");
 
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURLНеверныйТип(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURLURLBadType(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = Новый Массив;
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Неверный тип");
 
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURLНеверноеИмяСервиса(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURLBadServiceName(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "http://transmitter/api/hs/gitlab";
 	URL = URL + "йохохо";
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Ошибка в имени сервиса");
 
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURLОшибкаПреобразования(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURLDeserializationError(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "http://www.example.com";
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Ошибка преобразования тела ответа в коллекцию");
 
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURL404NotFound(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURL404NotFound(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "http://www.example.com/NotFound";
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Страница не найдена");
 
 КонецПроцедуры
 
 // @unit-test
-Процедура ОписаниеСервисаURL(Фреймворк) Экспорт
+Процедура ServiceDescriptionByURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
 	URL = "http://transmitter/api/hs/gitlab";
 	URL = URL + "/services";
 	// when
-	Результат = HTTPСервисы.ОписаниеСервисаURL(URL);
+	Результат = HTTPServices.ServiceDescriptionByURL(URL);
 	// then
 	Фреймворк.ПроверитьИстину(Результат.Свойство("Response"));
 	Фреймворк.ПроверитьТип(Результат.Response, "Структура", "Веб-сервис не отвечает.");

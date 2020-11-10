@@ -55,7 +55,7 @@ Function TestConnection( Val URL )
 	Var Services;
 	Var IsEnabled;
 	
-	ServiceDescription = HTTPСервисы.ОписаниеСервисаURL( URL );
+	ServiceDescription = HTTPServices.ServiceDescriptionByURL( URL );
 	
 	Result = ServiceTestResult();
 	
