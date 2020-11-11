@@ -21,5 +21,5 @@
 	И значение поля "CommitsRoutingJSON" содержит текст '{"ws":[{"name":"spb","address"'
 	И значение поля "CommitsRoutingJSON" содержит текст ',{"name":"Нет такого файла.epf"}]}'
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
-	И элемент формы с именем "CommitsIsUserSetting" стал равен 'Нет'
+	И элемент формы с именем "CommitsIsCustomSetting" стал равен 'Нет'
 	И элемент с именем "SaveJSON" доступен только для просмотра

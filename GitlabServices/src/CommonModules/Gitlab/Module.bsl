@@ -141,7 +141,7 @@ EndFunction
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the repository file (with the filename);
+// * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -173,7 +173,7 @@ EndFunction
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the repository file (with the filename);
+// * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;

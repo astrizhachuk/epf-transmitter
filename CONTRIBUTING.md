@@ -122,7 +122,7 @@ C:\Windows\System32\drivers\etc\hosts
 > docker-compose up --scale receiver=2 --build receiver
 ```
 
-Пример определения IP адресов баз-получателей (для user_settings.json):
+Пример определения IP адресов баз-получателей (для custom_settings.json):
 
 ```bash
 docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" gitlab-services_receiver_1 gitlab-services_receiver_2

@@ -432,10 +432,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupUserSettings</name>
+    <name>GroupCustomSettings</name>
     <id>29</id>
     <items xsi:type="form:FormField">
-      <name>CommitsIsUserSetting</name>
+      <name>CommitsIsCustomSetting</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -443,15 +443,15 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Элементы.Commits.ТекущиеДанные.IsUserSetting</segments>
+        <segments>Элементы.Commits.ТекущиеДанные.IsCustomSetting</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>CommitsIsUserSettingOnChange</name>
+        <name>CommitsIsCustomSettingOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>CommitsIsUserSettingРасширеннаяПодсказка</name>
+        <name>CommitsIsCustomSettingРасширеннаяПодсказка</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -466,7 +466,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsIsUserSettingКонтекстноеМеню</name>
+        <name>CommitsIsCustomSettingКонтекстноеМеню</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -530,7 +530,7 @@
     </userVisible>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>GroupUserSettingsРасширеннаяПодсказка</name>
+      <name>GroupCustomSettingsРасширеннаяПодсказка</name>
       <id>30</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -632,10 +632,10 @@
       </edit>
     </columns>
     <columns>
-      <name>IsUserSetting</name>
+      <name>IsCustomSetting</name>
       <title>
         <key>en</key>
-        <value>User Setting</value>
+        <value>Custom Setting</value>
       </title>
       <title>
         <key>ru</key>

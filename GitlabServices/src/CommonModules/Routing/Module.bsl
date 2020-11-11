@@ -3,14 +3,14 @@
 // TODO подумать об упрощении
 // TODO подумать о возвращении отправки по доступным маршрутам, если файл не имеет описания в json
 
-// FilesByRoutes returns remote files with delivery URLs.
+// FilesByRoutes returns remote files with delivery end-point service URLs.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
 // 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the repository file (with the filename);
+// * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -21,14 +21,14 @@
 // 	Array of Structure:
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
-// * Routes - Array of String - delivery URLs;
+// * Routes - Array of String - delivery end-point service URLs;
 // * ErrorInfo - String - description of an error while processing files;
 //
 Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 	
-	Var FileRoutes;
+	Var RoutesByCommits;
 	Var FileToSend;
-	Var CommitSHA;
+	Var Routes;
 	Var Result;
 	
 	ROUTING_SETTINGS_MISSING_MESSAGE = NStr( "ru = '%1: отсутствуют настройки маршрутизации.';
@@ -37,7 +37,7 @@ Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 	DELIVERY_ROUTE_MISSING_MESSAGE = NStr( "ru = '%1: не задан маршрут доставки файла.';
 										|en = '%1: file delivery route not specified.'" );
 	
-	FileRoutes = FileRoutes( Commits );
+	RoutesByCommits = RoutesByCommits( Commits );
 	
 	Result = New Array();
 	
@@ -45,41 +45,41 @@ Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 		
 		If ( IsSettingFile(RemoteFile) ) Then
 			
-			Продолжить;
+			Continue;
 			
 		EndIf;
 		
 		FileToSend = FileToSend();
 		
-		ЗаполнитьЗначенияСвойств( FileToSend, RemoteFile );
+		FillPropertyValues( FileToSend, RemoteFile );
 		
-		Если ( НЕ ПустаяСтрока(FileToSend.ErrorInfo) ) Тогда
+		If ( NOT IsBlankString(FileToSend.ErrorInfo) ) Then
 			
-			Result.Добавить(FileToSend);
+			Result.Add( FileToSend );
 			
-			Продолжить;
+			Continue;
 			
-		КонецЕсли;
+		EndIf;
 			
-		CommitSHA = FileRoutes.Получить( RemoteFile.CommitSHA );
+		Routes = RoutesByCommits.Get( RemoteFile.CommitSHA );
 	
-		Если ( CommitSHA = Неопределено ) Тогда
+		If ( Routes = Undefined ) Then
 			
-			FileToSend.ErrorInfo = СтрШаблон( ROUTING_SETTINGS_MISSING_MESSAGE, RemoteFile.CommitSHA );
+			FileToSend.ErrorInfo = StrTemplate( ROUTING_SETTINGS_MISSING_MESSAGE, RemoteFile.CommitSHA );
 
-		Иначе
+		Else
 
-			FileToSend.Routes = CommitSHA.Получить( RemoteFile.FilePath );
+			FileToSend.Routes = Routes.Get( RemoteFile.FilePath );
 			
-			Если ( FileToSend.Routes = Неопределено ) Тогда
+			If ( FileToSend.Routes = Undefined ) Then
 
-				FileToSend.ErrorInfo = СтрШаблон( DELIVERY_ROUTE_MISSING_MESSAGE, RemoteFile.CommitSHA );
+				FileToSend.ErrorInfo = StrTemplate( DELIVERY_ROUTE_MISSING_MESSAGE, RemoteFile.CommitSHA );
 				
-			КонецЕсли;
+			EndIf;
 
-		КонецЕсли;
+		EndIf;
 		
-		Result.Добавить( FileToSend );
+		Result.Add( FileToSend );
 		
 	EndDo;
 	
@@ -87,7 +87,7 @@ Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 	
 EndFunction
 
-// AddRoutingFilesDescription adds a description of files with Routing settings.
+// AddRoutingFilesDescription adds a description of files with routing settings.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
@@ -95,7 +95,7 @@ EndFunction
 // 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the repository file (with the filename);
+// * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -132,14 +132,14 @@ Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) 
 
 EndProcedure
 
-// AppendQueryDataByRoutingSettings adds file Routing settings deserialized from JSON to the request data.
+// AppendQueryDataByRoutingSettings adds file routing settings deserialized from JSON to the request data.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
 // 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the repository file (with the filename);
+// * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
@@ -186,13 +186,13 @@ EndProcedure
 
 #Region Private
 
-// File returns a description of the file to delivery it to the receivers.
+// FileToSend returns a description of the file to delivery it to the receivers.
 //
 // Returns:
 // 	Structure - description:
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
-// * Routes - Array of String - delivery URLs;
+// * Routes - Array of String - delivery end-point service URLs;
 // * ErrorInfo - String - description of an error while processing files;
 //
 Function FileToSend()
@@ -209,21 +209,21 @@ Function FileToSend()
 	
 EndFunction
 
-// FileRoutes returns delivery URLs.
-// Routes are taken from the settings file (see ServicesSettings.RoutingFileName) or from user settings.
-// For user settings, the priority is higher than for settings from the file.
+// RoutesByCommits returns file delivery routes by commits.
+// Routes are taken from the commit's settings file (see ServicesSettings.RoutingFileName) or from custom settings.
+// For custom settings, the priority is higher than for settings from the file.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
 // 	
 // Returns:
-// 	Map - description:
+// 	Map - file routes by commits:
 // 	* Key - String - commit SHA;
-// 	* Value - Map - description;
-// 	** Key - String - relative path to the repository file (with the filename);
-// 	** Value - Array of String - file delivery end-point service URLs;
+// 	* Value - Map - routes;
+// 	** Key - String - relative path to the file in remote repository (with the filename);
+// 	** Value - Array of String - file delivery end-point services URLs;
 //
-Function FileRoutes( Val Commits )
+Function RoutesByCommits( Val Commits )
 
 	Var Settings;
 	Var Result;
@@ -232,7 +232,7 @@ Function FileRoutes( Val Commits )
 	
 	For Each Commit In Commits Do
 		
-		Settings = Commit.Get( "user_settings" );
+		Settings = Commit.Get( "custom_settings" );
 		
 		If ( Settings = Undefined ) Then
 			
@@ -260,15 +260,15 @@ Function IsSettingFile( Val File )
 	
 EndFunction
 
-// EnabledServices returns a list of enabled file delivery services with its URL from the Routing settings.
+// EnabledServices returns a list of enabled file delivery end-point services from the routing settings.
 // 
 // Parameters:
-// 	Settings - Map - deserialized Routing settings;
+// 	Settings - Map - deserialized routing settings;
 // 	  
 // Returns:
 // 	Map - enabled file delivery services:
-//	* Key - Sting - service name;
-//	* Value - Sting - service URL;
+//	* Key - Sting - delivery service name;
+//	* Value - Sting - delivery service URL;
 //
 Function EnabledServices( Val Settings )
 
@@ -322,53 +322,70 @@ Function EnabledServices( Val Settings )
 	
 EndFunction
 
-Функция АдресаДоставкиПоПравиламИсключения( Знач СервисыДоставки, Знач ИсключаемыеСервисы )
+Function GetURLs( Val Services )
 	
-	Var Результат;
+	Var Result;
 	
-	Результат = Новый Массив();
+	Result = New Array();
 	
-	Для Каждого Элемент Из СервисыДоставки Цикл
+	For Each Service In Services Do
 		
-		Если ( ИсключаемыеСервисы = Неопределено ИЛИ ИсключаемыеСервисы.Найти(Элемент.Ключ) = Неопределено ) Тогда
+		Result.Add( Service.Value );
 	
-			Результат.Добавить( Элемент.Значение );
-			
-		КонецЕсли;
-		
-	КонецЦикла;
+	EndDo;	
 	
-	Возврат Результат;
+	Return Result;
 	
-КонецФункции
+EndFunction
 
-// Возвращает адреса доставки файлов по данным настройки маршрутизации.
+Function ExcludedServices( Val Services, Val Excluded )
+	
+	Var Result;
+	
+	Result = New Array();
+	
+	For Each Service In Services Do
+		
+		If ( Excluded = Undefined OR Excluded.Find(Service.Key) = Undefined ) Then
+	
+			Result.Add( Service );
+			
+		EndIf;
+		
+	EndDo;
+	
+	Return Result;
+	
+EndFunction
+
+// Routes returns routes formed according to the settings in the routing file.
 // 
-// Параметры:
-// 	Settings - Соответствие - преобразованные в коллекцию настройки маршрутизации;
+// Parameters:
+//	Settings - Map - deserialized routing settings;
 // 	
 // Returns:
-// 	Соответствие - описание:
-// 	*Ключ - Строка - полное имя файла;
-// 	*Значение - Массив из Строка - перечень адресов доставки файла;
+// 	Map - routes:
+// 	*Key - String - relative path to the repository file (with the filename);
+// 	*Value - Array of String - file delivery end-point services URLs;
 //
 Function Routes( Val Settings )
 	
 	Var EnabledServices;
-	Var FilePath;
 	Var ExcludedServices;
+	Var Files;
+	Var FilePath;
 	Var URLs;
 	Var Result;
 	
 	EnabledServices = EnabledServices( Settings );
 	
-	Routes = Settings.Get( "epf" );
+	Files = Settings.Get( "epf" );
 	
 	Result = New Map();
 	
-	For Each Route In Routes Do
+	For Each File In Files Do
 		
-		FilePath = Route.Get( "name" );
+		FilePath = File.Get( "name" );
 		
 		If ( FilePath = Undefined ) Then
 			
@@ -376,8 +393,9 @@ Function Routes( Val Settings )
 			
 		EndIf;
 		
-		ExcludedServices = Route.Get( "exclude" );
-		URLs = АдресаДоставкиПоПравиламИсключения( EnabledServices, ExcludedServices );
+		ExcludedServices = ExcludedServices( EnabledServices, File.Get( "exclude" ) );
+
+		URLs = GetURLs( ExcludedServices );
 
 		Result.Insert( FilePath, URLs );
 		

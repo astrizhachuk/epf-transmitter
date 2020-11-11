@@ -40,7 +40,7 @@
 	
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
-	И элемент формы с именем "GroupUserSettings" существует и невидим на форме
+	И элемент формы с именем "GroupCustomSettings" существует и невидим на форме
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
 	И значение поля "CommitsQueryJSON" содержит текст "\"checkout_sha\": \"1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
 	И значение поля "CommitsQueryJSON" не содержит текст "\"checkout_sha\": \"2b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
@@ -54,7 +54,7 @@
 
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
-	И элемент формы с именем "GroupUserSettings" существует и невидим на форме
+	И элемент формы с именем "GroupCustomSettings" существует и невидим на форме
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
 	И значение поля "CommitsQueryJSON" содержит текст "\"checkout_sha\": \"2b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
 	И значение поля "CommitsQueryJSON" не содержит текст "\"checkout_sha\": \"1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","

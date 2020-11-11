@@ -26,7 +26,7 @@ EndProcedure
 #Region FormHeaderItemsEventHandlers
 
 &AtClient
-Procedure CommitsIsUserSettingOnChange( Element )
+Procedure CommitsIsCustomSettingOnChange( Element )
 	
 	Var CurrentData;
 	Var DeletedData;
@@ -41,9 +41,9 @@ Procedure CommitsIsUserSettingOnChange( Element )
 		
 	EndIf;
 	
-	If ( CurrentData.IsUserSetting ) Then
+	If ( CurrentData.IsCustomSetting ) Then
 		
-		SetAllowEditJSON( CurrentData.IsUserSetting );
+		SetAllowEditJSON( CurrentData.IsCustomSetting );
 		
 	Else
 		
@@ -70,7 +70,7 @@ Procedure CommitsOnActivateRow( Element )
 		
 	EndIf;
 	
-	SetAllowEditJSON( Element.CurrentData.IsUserSetting );
+	SetAllowEditJSON( Element.CurrentData.IsCustomSetting );
 	
 EndProcedure
 
@@ -96,7 +96,7 @@ Procedure ExecuteSaveJSON( Command )
 
 	StoredData = New Structure( "RecordKey, CurrentData", Parameters.RecordKey, CurrentData );
 	
-	If ( NOT IsUserSettingsExists( Parameters.RecordKey, CurrentData.CommitSHA ) ) Then
+	If ( NOT IsCustomSettingsExists( Parameters.RecordKey, CurrentData.CommitSHA ) ) Then
 		
 		SaveJSON( StoredData );
 		
@@ -104,7 +104,7 @@ Procedure ExecuteSaveJSON( Command )
 		
 		Notify = New NotifyDescription( "DoAfterCloseQuestionSaveJSON", ThisObject, StoredData );
 		QuestionText = NStr( "ru = 'Пользовательская настройка уже существуют, перезаписать?';
-							|en = 'User Settings already exist, overwrite?'" );
+							|en = 'Custom Settings already exist, overwrite?'" );
 		ShowQueryBox( Notify, QuestionText, QuestionDialogMode.YesNo );
 		
 	EndIf;
@@ -143,7 +143,7 @@ Procedure FillFormValues( Val RecordKey )
 	Var QueryData;
 	Var QueryCommits;
 	Var Settings;
-	Var UserSettings;
+	Var CustomSettings;
 	Var NewRaw;
 	
 	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
@@ -168,9 +168,9 @@ Procedure FillFormValues( Val RecordKey )
 			NewRaw = ThisObject.Commits.Add();
 			NewRaw.CommitSHA = Commit.Get( "id" );
 			
-			UserSettings = Commit.Get( "user_settings" );
+			CustomSettings = Commit.Get( "custom_settings" );
 			
-			Settings = ?( UserSettings = Undefined, Commit.Get("settings"),  UserSettings );
+			Settings = ?( CustomSettings = Undefined, Commit.Get("settings"),  CustomSettings );
 			
 			If ( Settings = Undefined ) Then
 
@@ -179,7 +179,7 @@ Procedure FillFormValues( Val RecordKey )
 			EndIf;
 			
 			NewRaw.JSON = Settings.Get( "json" );
-			NewRaw.IsUserSetting = ( UserSettings <> Undefined );
+			NewRaw.IsCustomSetting = ( CustomSettings <> Undefined );
 			
 		EndDo;
 
@@ -193,7 +193,7 @@ Procedure SetFormElementsVisibility()
 	If ( ThisObject.IsQuery ) Then
 		
 		Items.GroupCommits.Visible = False;
-		Items.GroupUserSettings.Visible = False;
+		Items.GroupCustomSettings.Visible = False;
 		Items.CommitsQueryJSON.Visible = True;
 		
 	Else
@@ -248,7 +248,7 @@ Function FindCommitById( Val QueryData, Val CommitSHA )
 EndFunction
 
 &AtServerNoContext
-Procedure DeleteUserSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
+Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	
 	Var QueryData;
 	Var Commit;
@@ -271,7 +271,7 @@ Procedure DeleteUserSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 		
 	EndIf;		
 
-	Commit.Delete( "user_settings" );				
+	Commit.Delete( "custom_settings" );				
 	ОбработчикиСобытий.СохранитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ, QueryData );
 	
 	CurrentSetting = DefaultSetting; 
@@ -287,20 +287,20 @@ Procedure DoAfterCloseQuestionResetSettings( QuestionResult, AdditionalParameter
 	
 	If ( QuestionResult = DialogReturnCode.No ) Then
 		
-		CurrentData.IsUserSetting = True;
+		CurrentData.IsCustomSetting = True;
 		
         Return;
         
 	EndIf;
 
-	DeleteUserSetting( AdditionalParameters.RecordKey, CurrentData.CommitSHA, CurrentData.JSON );
+	DeleteCustomSetting( AdditionalParameters.RecordKey, CurrentData.CommitSHA, CurrentData.JSON );
 	
 	SetAllowEditJSON( False );
 
 EndProcedure
 
 &AtServerNoContext
-Function IsUserSettingsExists( Val RecordKey, Val CommitSHA )
+Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
 
 	Var QueryData;
 	Var Commit;
@@ -308,24 +308,24 @@ Function IsUserSettingsExists( Val RecordKey, Val CommitSHA )
 	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
 	Commit = FindCommitById( QueryData, CommitSHA );
 	
-	Return ( Commit.Get("user_settings") <> Undefined );
+	Return ( Commit.Get("custom_settings") <> Undefined );
 	
 EndFunction
 
 &AtServerNoContext
-Procedure AddQueryDataUserSetting( QueryData, Val CommitSHA, Val JSON ) Export
+Procedure AddQueryDataCustomSetting( QueryData, Val CommitSHA, Val JSON ) Export
 	
 	Var Commit;
-	Var UserSetting;
+	Var CustomSetting;
 	Var Stream;
 	
 	Commit = FindCommitById( QueryData, CommitSHA );
 
 	Stream = GetBinaryDataFromString( JSON, TextEncoding.UTF8 ).OpenStreamForRead();
-	UserSetting = HTTPConnector.JsonВОбъект( Stream );
-	CommonUseServerCall.AppendCollectionFromStream( UserSetting, "json", Stream );
+	CustomSetting = HTTPConnector.JsonВОбъект( Stream );
+	CommonUseServerCall.AppendCollectionFromStream( CustomSetting, "json", Stream );
 	
-	Commit.Вставить( "user_settings", UserSetting );		
+	Commit.Вставить( "custom_settings", CustomSetting );		
 
 EndProcedure
 
@@ -342,7 +342,7 @@ Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 		
 	EndIf;
 	
-	AddQueryDataUserSetting( QueryData, CommitSHA, JSON );
+	AddQueryDataCustomSetting( QueryData, CommitSHA, JSON );
 	
 	ОбработчикиСобытий.СохранитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ, QueryData );	
 
