@@ -18,7 +18,7 @@
 		| 'commit_sha'  |
 		| "CommitSHA"   |
 
-	И значение поля "CommitsRoutingJSON" содержит текст '{"ws":[{"name":"spb","address"'
+	И значение поля "CommitsRoutingJSON" содержит текст '{"ws":[{"name":"spb","url"'
 	И значение поля "CommitsRoutingJSON" содержит текст ',{"name":"Нет такого файла.epf"}]}'
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
 	И элемент формы с именем "CommitsIsCustomSetting" стал равен 'Нет'

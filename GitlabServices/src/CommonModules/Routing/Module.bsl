@@ -1,6 +1,5 @@
 #Region Internal
 
-// TODO подумать об упрощении
 // TODO подумать о возвращении отправки по доступным маршрутам, если файл не имеет описания в json
 
 // FilesByRoutes returns remote files with delivery end-point service URLs.
@@ -306,7 +305,7 @@ Function EnabledServices( Val Settings )
 			
 		EndIf;
 			
-		URL = Service.Get( "address" );
+		URL = Service.Get( "url" );
 		
 		If ( URL = Undefined ) Then
 			

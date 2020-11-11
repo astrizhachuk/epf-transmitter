@@ -152,7 +152,7 @@ Function CreateSendFileResultMessage( Val Response, Val FileName, Val URL )
 	Var DeliveryMessage;
 	Var ResponseBody;
 	
-	DELIVERY_MESSAGE = NStr( "ru = 'адрес доставки: %1; файл: %2';en = 'delivery address: %1; file: %2'" );
+	DELIVERY_MESSAGE = NStr( "ru = 'URL сервиса доставки: %1; файл: %2';en = 'delivery service URL: %1; file: %2'" );
 	ERROR_STATUS_CODE_MESSAGE = NStr( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
 	SERVER_RESPONSE_MESSAGE = NStr( "ru = '; текст ответа:';en = '; response message:'" ); 
 	
