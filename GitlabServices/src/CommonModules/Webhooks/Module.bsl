@@ -1,35 +1,32 @@
 #Region Public
 
-// Поиск обработчика событий по секретному ключу (token).
+// FindByToken returns search result from registered webhooks.
 // 
-// Параметры:
-// 	Token - Строка - секретный ключ (token);
+// Parameters:
+// 	Token - String - secret token;
 // 	
 // Returns:
-// 	СправочникСсылка.ОбработчикиСобытий - найденный элемент справочника "ОбработчикиСобытий" или пустая ссылка;
+// 	CatalogRef.Webhooks - search result from registered webhooks or blank ref;
 //
-Function НайтиПоСекретномуКлючу( Val Token ) Export
+Function FindByToken( Val Token ) Export
 	
-	Var ОбработчикиСобытийПоКлючу;
+	Var Webhook;
 	
-	ОбработчикиСобытийПоКлючу = Справочники.ОбработчикиСобытий.НайтиПоСекретномуКлючу( Token );
-	
-	// Справочник содержит уникальные записи в разрезе секретного ключа.
-	Возврат ?( ЗначениеЗаполнено(ОбработчикиСобытийПоКлючу),
-				ОбработчикиСобытийПоКлючу[0],
-				Справочники.ОбработчикиСобытий.ПустаяСсылка() );
+	Webhook = Catalogs.Webhooks.FindByToken( Token );
+
+	Return ?( ValueIsFilled(Webhook), Webhook[0], Catalogs.Webhooks.EmptyRef() );
 	
 EndFunction
 
-// Загружает в табличную часть объекта данные из журнала регистрации по фильтру.
+// LoadEventsHistory loads data from the event log into the object by filter.
 // 
-// Параметры:
-// 	Object - СправочникОбъект.ОбработчикиСобытий - объект обработчика событий; 
-// 	Destination - Строка - имя табличной части;
-// 	Filter - Структура - фильтр отбора для журнала регистрации (См. ГлобальныйКонтекст.ВыгрузитьЖурналРегистрации);
-// 	RecordsLoaded - Число - (возвращаемый параметр) количество загруженных записей;
+// Parameters:
+// 	Object - CatalogObject.Webhooks - target object; 
+// 	Destination - String - tabular section name;
+// 	Filter - Structure - event log filter (see global context UnloadEventLog);
+// 	RecordsLoaded - Number - (returned) number of loaded records;
 //
-Procedure ЗагрузитьИсториюСобытий( Object, Val Destination, Val Filter, RecordsLoaded ) Export
+Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded ) Export
 	
 	If ( NOT Filter.Property( "Data" ) ) Then
 		
@@ -37,14 +34,14 @@ Procedure ЗагрузитьИсториюСобытий( Object, Val Destinatio
 		
 	EndIf;
 	
-	Справочники.ОбработчикиСобытий.ЗагрузитьИсториюСобытий( Object, Destination, Filter, RecordsLoaded );
+	Catalogs.Webhooks.LoadEventsHistory( Object, Destination, Filter, RecordsLoaded );
 	
 EndProcedure
 
 // SaveQueryData saves the GitLab request data deserialized from JSON to the infobase.
 // 
 // Parameters:
-// 	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+// 	Webhook - CatalogRef.Webhooks - a ref to webhook;
 //  CheckoutSHA - String - event identifier (commit SHA);
 // 	QueryData - Map - request body deserialized from JSON;
 //
@@ -57,7 +54,7 @@ EndProcedure
 // SaveRemoteFiles saves remote files from the GitLab with its descriptions.
 // 
 // Parameters:
-//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//	Webhook - CatalogRef.Webhooks - a ref to webhook;
 //  CheckoutSHA - String - event identifier (commit SHA);
 // 	RemoteFiles - ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
@@ -78,7 +75,7 @@ EndProcedure
 // LoadQueryData loads from the infobase previously saved the GitLab request data deserialized from JSON.
 // 
 // Parameters:
-//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//	Webhook - CatalogRef.Webhooks - a ref to webhook;
 //  CheckoutSHA - String - event identifier (commit SHA);
 //
 // Returns:
@@ -99,7 +96,7 @@ EndFunction
 // LoadRemoteFiles loads from the infobase previously saved remote files with their description.
 // 
 // Parameters:
-//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//	Webhook - CatalogRef.Webhooks - a ref to webhook;
 //  CheckoutSHA - String - event identifier (commit SHA);
 //
 // Returns:

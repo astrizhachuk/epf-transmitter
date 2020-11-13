@@ -168,7 +168,7 @@ Procedure FillBackgroundJobs( Val RecordKey )
 	BackgroundJobsList = ThisObject.FormAttributeToValue( "BackgroundJobs" );
 	BackgroundJobsList.Clear();
 
-	BackgroundJobsByKey = BackgroundJobsByKey( RecordKey.Ключ );
+	BackgroundJobsByKey = BackgroundJobsByKey( RecordKey.CheckoutSHA );
 
 	For Each BackgroundJob In BackgroundJobsByKey Do
 		

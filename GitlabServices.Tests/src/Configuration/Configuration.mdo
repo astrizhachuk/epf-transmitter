@@ -55,8 +55,8 @@
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.TestsStringsClient</commonModules>
   <commonModules>CommonModule.TestsStringsServer</commonModules>
+  <commonModules>CommonModule.TestsWebhooksServer</commonModules>
   <commonModules>CommonModule.Тест_ЛогированиеСервер</commonModules>
-  <commonModules>CommonModule.Тест_ОбработчикиСобытийСервер</commonModules>
   <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

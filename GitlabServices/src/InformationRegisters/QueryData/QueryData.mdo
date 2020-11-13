@@ -84,7 +84,7 @@
       <value>Обработчик события</value>
     </synonym>
     <type>
-      <types>CatalogRef.ОбработчикиСобытий</types>
+      <types>CatalogRef.Webhooks</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
@@ -100,11 +100,11 @@
     <name>CheckoutSHA</name>
     <synonym>
       <key>en</key>
-      <value>Checkout SHA</value>
+      <value>checkout_sha</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Checkout SHA</value>
+      <value>checkout_sha</value>
     </synonym>
     <type>
       <types>String</types>

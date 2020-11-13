@@ -33,7 +33,7 @@ EndFunction
 // * Token - String - access token to the service;
 // * Timeout - Number - the connection timeout, sec (0 - timeout is not set);
 //	EventParams - Undefined, Structure - description of the event that started sending the file:
-// * Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+// * Webhook - CatalogRef.Webhooks - a ref to webhook;
 // * CheckoutSHA - String - event identifier (commit SHA) for which the file upload is triggered;
 //
 Procedure SendFile( Val FileName, Val BinaryData, Val SendParams, EventParams = Undefined ) Export

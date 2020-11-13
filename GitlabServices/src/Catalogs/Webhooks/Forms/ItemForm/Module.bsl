@@ -54,7 +54,7 @@ Procedure LoadEventsHistory( Command )
 
 	Notify = New NotifyDescription("DoAfterLoadEventsHistory", ThisObject);
 
-	OpenForm( "Справочник.ОбработчикиСобытий.Форма.FilterEventsHistory",
+	OpenForm( "Catalog.Webhooks.Form.FilterEventsHistory",
 			 ,
 			 ThisObject,
 			 ,
@@ -154,7 +154,7 @@ Procedure OpenBackgroundJobs( Command )
 	Filter = New Structure();
 	Filter.Insert( "RecordKey", CurrentRow );
 				 
-	OpenForm( "Справочник.ОбработчикиСобытий.Форма.BackgroundJobs",
+	OpenForm( "Catalog.Webhooks.Form.BackgroundJobs",
 			 Filter,
 			 ThisObject,
 			 ,
@@ -197,7 +197,7 @@ Procedure LoadEventsHistoryAtServer( Val Period, RecordsLoaded = 0 )
 	Filter.Insert( "StartDate", Period.StartDate );
 	Filter.Insert( "EndDate", Period.EndDate );
 	
-	ОбработчикиСобытий.ЗагрузитьИсториюСобытий( ObjectData, "EventsHistory", Filter, RecordsLoaded );
+	Webhooks.LoadEventsHistory( ObjectData, "EventsHistory", Filter, RecordsLoaded );
 
 	ThisObject.ValueToFormAttribute( ObjectData, "Object" );
 	
@@ -208,7 +208,7 @@ EndProcedure
 &AtServerNoContext
 Procedure ResendDataAtServer( Val RecordKey )
 	
-	ОбработкаДанных.НачатьЗапускОбработкиДанных( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	ОбработкаДанных.НачатьЗапускОбработкиДанных( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 EndProcedure
 
@@ -227,7 +227,7 @@ Procedure OpenEditorJSON( Val CurrentRow, Val Command )
 	OpenOptions.Insert( "RecordKey", CurrentRow );
 	OpenOptions.Insert( "CommandName", Command.Name );
 
-	OpenForm( "Справочник.ОбработчикиСобытий.Форма.EditorJSON",
+	OpenForm( "Catalog.Webhooks.Form.EditorJSON",
 				OpenOptions,
 				ThisObject,
 				,
@@ -247,7 +247,7 @@ Function MergeRequestURL( Val RecordKey )
 	Var MergeCommitSHA;
 	Var Result;
 	
-	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	ProjectParams = GitLab.ProjectDescription( QueryData );
 

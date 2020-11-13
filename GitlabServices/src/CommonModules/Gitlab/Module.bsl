@@ -163,7 +163,7 @@ EndFunction
 // from deserialized GitLab request;
 // 
 // Parameters:
-//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//	Webhook - CatalogRef.Webhooks - a ref to webhook;
 // 	Commits - Map - deserialized commits from the GitLab request;
 // 	Project - Structure - description;
 // * Id - String - project id;

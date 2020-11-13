@@ -56,7 +56,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.ОбработчикиСобытий</name>
+		<name>Catalog.Webhooks</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

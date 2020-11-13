@@ -146,7 +146,7 @@ Procedure FillFormValues( Val RecordKey )
 	Var CustomSettings;
 	Var NewRaw;
 	
-	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	If ( QueryData = Undefined ) Then
 		
@@ -254,7 +254,7 @@ Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	Var Commit;
 	Var DefaultSetting;
 
-	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	If ( NOT ValueIsFilled(QueryData) ) Then
 		
@@ -272,7 +272,7 @@ Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	EndIf;		
 
 	Commit.Delete( "custom_settings" );				
-	ОбработчикиСобытий.SaveQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ, QueryData );
+	Webhooks.SaveQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA, QueryData );
 	
 	CurrentSetting = DefaultSetting; 
 
@@ -305,7 +305,7 @@ Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
 	Var QueryData;
 	Var Commit;
 	
-	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	Commit = FindCommitById( QueryData, CommitSHA );
 	
 	Return ( Commit.Get("custom_settings") <> Undefined );
@@ -334,7 +334,7 @@ Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
 	Var QueryData;
 	
-	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	If ( QueryData = Undefined ) Then
 		
@@ -344,7 +344,7 @@ Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
 	AddQueryDataCustomSetting( QueryData, CommitSHA, JSON );
 	
-	ОбработчикиСобытий.SaveQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ, QueryData );	
+	Webhooks.SaveQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA, QueryData );	
 
 EndProcedure
 

@@ -216,7 +216,7 @@
         <excludedCommands>Delete</excludedCommands>
         <excludedCommands>ShowMultipleSelection</excludedCommands>
         <items xsi:type="form:FormField">
-          <name>ПолученныеЗапросыКлюч</name>
+          <name>ReceivedRequestsCheckoutSHA</name>
           <id>365</id>
           <title>
             <key>ru</key>
@@ -227,17 +227,11 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ReceivedRequests.Ключ</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ReceivedRequests.Ключ</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ReceivedRequests.CheckoutSHA</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ПолученныеЗапросыКлючРасширеннаяПодсказка</name>
+            <name>ReceivedRequestsCheckoutSHAExtendedTooltip</name>
             <id>367</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -252,7 +246,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолученныеЗапросыКлючКонтекстноеМеню</name>
+            <name>ReceivedRequestsCheckoutSHAContextMenu</name>
             <id>366</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1533,7 +1527,7 @@
     </title>
     <id>1</id>
     <valueType>
-      <types>CatalogObject.ОбработчикиСобытий</types>
+      <types>CatalogObject.Webhooks</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1577,7 +1571,7 @@
 	EventsHistory.UserName,
 	EventsHistory.Comment
 ИЗ
-	Справочник.ОбработчикиСобытий.EventsHistory КАК EventsHistory</queryText>
+	Catalog.Webhooks.EventsHistory КАК EventsHistory</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>

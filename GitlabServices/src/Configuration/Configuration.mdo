@@ -61,8 +61,8 @@
   <commonModules>CommonModule.Routing</commonModules>
   <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>
+  <commonModules>CommonModule.Webhooks</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
-  <commonModules>CommonModule.ОбработчикиСобытий</commonModules>
   <commonModules>CommonModule.ОбработкаДанных</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
@@ -74,7 +74,7 @@
   <constants>Constant.TokenReceiver</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.TestConnections</commonForms>
-  <catalogs>Catalog.ОбработчикиСобытий</catalogs>
+  <catalogs>Catalog.Webhooks</catalogs>
   <informationRegisters>InformationRegister.QueryData</informationRegisters>
   <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
 </mdclass:Configuration>
