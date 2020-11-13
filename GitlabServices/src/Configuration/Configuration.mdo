@@ -75,6 +75,6 @@
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.TestConnections</commonForms>
   <catalogs>Catalog.ОбработчикиСобытий</catalogs>
-  <informationRegisters>InformationRegister.ДанныеЗапросов</informationRegisters>
-  <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>
+  <informationRegisters>InformationRegister.QueryData</informationRegisters>
+  <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
 </mdclass:Configuration>

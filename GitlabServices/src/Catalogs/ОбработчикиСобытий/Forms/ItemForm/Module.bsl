@@ -182,8 +182,8 @@ EndProcedure
 &AtClient
 Procedure УстановитьОтборыСписков( Val Ref )
 	
-	SetFilter( ReceivedRequests.Filter, "ОбработчикСобытия", Ref );
-	SetFilter( ExternalFiles.Filter, "ОбработчикСобытия", Ref );
+	SetFilter( ReceivedRequests.Filter, "Webhook", Ref );
+	SetFilter( ExternalFiles.Filter, "Webhook", Ref );
 	SetFilter( EventsHistory.Filter, "Ссылка", Ref );
 	
 EndProcedure
@@ -247,7 +247,7 @@ Function MergeRequestURL( Val RecordKey )
 	Var MergeCommitSHA;
 	Var Result;
 	
-	QueryData = ОбработчикиСобытий.ЗагрузитьДанныеЗапроса( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
+	QueryData = ОбработчикиСобытий.LoadQueryData( RecordKey.ОбработчикСобытия, RecordKey.Ключ );
 	
 	ProjectParams = GitLab.ProjectDescription( QueryData );
 
@@ -261,7 +261,7 @@ Function MergeRequestURL( Val RecordKey )
 		
 		MergeCommitSHA = MergeRequest.Get( "merge_commit_sha" );
 		
-		If ( MergeCommitSHA = Undefined OR MergeCommitSHA <> RecordKey.Ключ ) Then
+		If ( MergeCommitSHA = Undefined OR MergeCommitSHA <> RecordKey.CheckoutSHA ) Then
 			
 			Continue;
 			

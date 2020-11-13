@@ -247,7 +247,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.ДанныеЗапросов</name>
+		<name>InformationRegister.QueryData</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -262,7 +262,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.ВнешниеФайлы</name>
+		<name>InformationRegister.RemoteFiles</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

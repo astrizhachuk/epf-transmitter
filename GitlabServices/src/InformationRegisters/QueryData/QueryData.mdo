@@ -9,7 +9,11 @@
     <recordType typeId="07450e3c-f3a9-4cc7-95b8-a9092b52e472" valueTypeId="97e659be-de43-4f32-b96d-c8781dabeb0b"/>
     <recordManagerType typeId="dd978bb9-d852-49a1-a422-edbf406b2267" valueTypeId="0cd8f4af-8c8f-463d-a59f-c88b1279d257"/>
   </producedTypes>
-  <name>ДанныеЗапросов</name>
+  <name>QueryData</name>
+  <synonym>
+    <key>en</key>
+    <value>Query Data</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Данные запросов</value>
@@ -51,7 +55,11 @@
   </standardAttributes>
   <dataLockControlMode>Managed</dataLockControlMode>
   <resources uuid="4773d106-7e31-4ba1-8475-b868984cedf4">
-    <name>Данные</name>
+    <name>Data</name>
+    <synonym>
+      <key>en</key>
+      <value>Query Data</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Данные запросов</value>
@@ -66,7 +74,11 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
   <dimensions uuid="c9166ddb-3b90-4103-a795-5b301304f6d4">
-    <name>ОбработчикСобытия</name>
+    <name>Webhook</name>
+    <synonym>
+      <key>en</key>
+      <value>Webhook</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Обработчик события</value>
@@ -81,15 +93,18 @@
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
     <fillFromFillingValue>true</fillFromFillingValue>
-    <fillValue xsi:type="core:UndefinedValue"/>
     <master>true</master>
     <mainFilter>true</mainFilter>
   </dimensions>
   <dimensions uuid="228bede1-2c6c-4420-9c89-db095fa86a11">
-    <name>Ключ</name>
+    <name>CheckoutSHA</name>
+    <synonym>
+      <key>en</key>
+      <value>Checkout SHA</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Ключ</value>
+      <value>Checkout SHA</value>
     </synonym>
     <type>
       <types>String</types>

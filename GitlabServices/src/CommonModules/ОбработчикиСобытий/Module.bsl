@@ -8,7 +8,7 @@
 // Returns:
 // 	СправочникСсылка.ОбработчикиСобытий - найденный элемент справочника "ОбработчикиСобытий" или пустая ссылка;
 //
-Функция НайтиПоСекретномуКлючу( Знач Token ) Экспорт
+Function НайтиПоСекретномуКлючу( Val Token ) Export
 	
 	Var ОбработчикиСобытийПоКлючу;
 	
@@ -19,7 +19,7 @@
 				ОбработчикиСобытийПоКлючу[0],
 				Справочники.ОбработчикиСобытий.ПустаяСсылка() );
 	
-КонецФункции
+EndFunction
 
 // Загружает в табличную часть объекта данные из журнала регистрации по фильтру.
 // 
@@ -29,7 +29,7 @@
 // 	Filter - Структура - фильтр отбора для журнала регистрации (См. ГлобальныйКонтекст.ВыгрузитьЖурналРегистрации);
 // 	RecordsLoaded - Число - (возвращаемый параметр) количество загруженных записей;
 //
-Процедура ЗагрузитьИсториюСобытий( Object, Val Destination, Val Filter, RecordsLoaded ) Экспорт
+Procedure ЗагрузитьИсториюСобытий( Object, Val Destination, Val Filter, RecordsLoaded ) Export
 	
 	If ( NOT Filter.Property( "Data" ) ) Then
 		
@@ -39,65 +39,69 @@
 	
 	Справочники.ОбработчикиСобытий.ЗагрузитьИсториюСобытий( Object, Destination, Filter, RecordsLoaded );
 	
-КонецПроцедуры
+EndProcedure
 
-// Сохраняет десериализованные данные обрабатываемого запроса.
+// SaveQueryData saves the GitLab request data deserialized from JSON to the infobase.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-//  CommitSHA - Строка - сommit SHA, используемый как уникальный идентификатор запроса;
-// 	ДанныеЗапроса - Соответствие - десериализованное из JSON тело запроса;
+// Parameters:
+// 	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//  CheckoutSHA - String - event identifier (commit SHA);
+// 	QueryData - Map - request body deserialized from JSON;
 //
-Процедура СохранитьДанныеЗапроса( Знач ОбработчикСобытия, Знач CommitSHA, Знач ДанныеЗапроса ) Экспорт
+Procedure SaveQueryData( Val Webhook, Val CheckoutSHA, Val QueryData ) Export
 	
-	СохранитьДанные( "ДанныеЗапросов", ОбработчикСобытия, CommitSHA, ДанныеЗапроса );
+	Save( "QueryData", Webhook, CheckoutSHA, QueryData );
 		
-КонецПроцедуры
+EndProcedure
 
-// Сохраняет внешние файлы с их описанием, полученные с сервера GitLab.
+// SaveRemoteFiles saves remote files from the GitLab with its descriptions.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-//  CommitSHA - Строка - сommit SHA, используемый как уникальный идентификатор запроса;
-// 	ОписаниеФайлов - ТаблицаЗначений - описание:
+// Parameters:
+//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//  CheckoutSHA - String - event identifier (commit SHA);
+// 	RemoteFiles - ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * FilePath - String - relative path to the file in remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
-// * CommitSHA - String - сommit SHA;
+// * CheckoutSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Процедура СохранитьВнешниеФайлы( Знач ОбработчикСобытия, Знач CommitSHA, Знач ОписаниеФайлов ) Экспорт
+Procedure SaveRemoteFiles( Val Webhook, Val CheckoutSHA, Val RemoteFiles ) Export
 	
-	СохранитьДанные( "ВнешниеФайлы", ОбработчикСобытия, CommitSHA, ОписаниеФайлов );
+	Save( "RemoteFiles", Webhook, CheckoutSHA, RemoteFiles );
 		
-КонецПроцедуры
+EndProcedure
 
-// Возвращает ранее сохраненные данные запросов.
+// LoadQueryData loads from the infobase previously saved the GitLab request data deserialized from JSON.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-//  CheckoutSHA - Строка - сommit SHA, используемый как уникальный идентификатор запроса;
-// Returns:
-// 	Соответствие - десериализованное из JSON тело запроса;
+// Parameters:
+//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//  CheckoutSHA - String - event identifier (commit SHA);
 //
-Функция ЗагрузитьДанныеЗапроса( Знач ОбработчикСобытия, Знач CheckoutSHA ) Экспорт
+// Returns:
+// 	Map - request body deserialized from JSON;
+//
+Function LoadQueryData( Val Webhook, Val CheckoutSHA ) Export
 	
-	КлючЗаписи = Новый Структура();
-	КлючЗаписи.Вставить( "ОбработчикСобытия", ОбработчикСобытия );
-	КлючЗаписи.Вставить( "Ключ", CheckoutSHA );
+	Var Record;
 	
-	Возврат ЗагрузитьДанные( "ДанныеЗапросов", КлючЗаписи );
+	Record = New Structure();
+	Record.Insert( "Webhook", Webhook );
+	Record.Insert( "CheckoutSHA", CheckoutSHA );
 	
-КонецФункции
+	Return Load( "QueryData", Record );
+	
+EndFunction
 
-// Возвращает ранее сохраненные внешние файлы с их описанием.
+// LoadRemoteFiles loads from the infobase previously saved remote files with their description.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.ОбработчикиСобытий - ссылка на элемент справочника с обработчиками событий;
-//  CheckoutSHA - Строка - сommit SHA, используемый как уникальный идентификатор запроса;
+// Parameters:
+//	Webhook - CatalogRef.ОбработчикиСобытий - a ref to webhook;
+//  CheckoutSHA - String - event identifier (commit SHA);
+//
 // Returns:
 //	ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
@@ -109,71 +113,72 @@
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Функция ЗагрузитьВнешниеФайлы( Знач ОбработчикСобытия, Знач CheckoutSHA ) Экспорт
+Function LoadRemoteFiles( Val Webhook, Val CheckoutSHA ) Export
 	
-	КлючЗаписи = Новый Структура();
-	КлючЗаписи.Вставить( "ОбработчикСобытия", ОбработчикСобытия );
-	КлючЗаписи.Вставить( "Ключ", CheckoutSHA );
+	Var Record;
 	
-	Возврат ЗагрузитьДанные( "ВнешниеФайлы", КлючЗаписи );
+	Record = New Structure();
+	Record.Insert( "Webhook", Webhook );
+	Record.Insert( "CheckoutSHA", CheckoutSHA );
 	
-КонецФункции
+	Return Load( "RemoteFiles", Record );
+	
+EndFunction
 
 #EndRegion
 
 #Region Private
 
-Процедура СохранитьДанные( Знач РегистрСведений, Знач ОбработчикСобытия, Знач Ключ, Знач Данные )
+Procedure Save( Val RegisterName, Val Webhook, Val CheckoutSHA, Val Data )
 	
-	Var ХранилищеЗначения;
-	Var НаборЗаписей;
-	Var ВыбраннаяЗапись;
+	Var RecordSet;
+	Var Record;
 
-	ХранилищеЗначения = Новый ХранилищеЗначения( Данные );
+	Data = New ValueStorage( Data );
 
-	НаборЗаписей = РегистрыСведений[ РегистрСведений ].СоздатьНаборЗаписей();
-	НаборЗаписей.Отбор.ОбработчикСобытия.Установить( ОбработчикСобытия );
-	НаборЗаписей.Отбор.Ключ.Установить( Ключ );
-	НаборЗаписей.Прочитать();
+	RecordSet = InformationRegisters[ RegisterName ].CreateRecordSet();
+	RecordSet.Filter.Webhook.Set( Webhook );
+	RecordSet.Filter.CheckoutSHA.Set( CheckoutSHA );
+	RecordSet.Read();
 
-	ВыбраннаяЗапись = ?( НаборЗаписей.Количество() = 0, НаборЗаписей.Добавить(), НаборЗаписей[0] );		
+	Record = ?( RecordSet.Count() = 0, RecordSet.Add(), RecordSet[0] );		
 	
-	ВыбраннаяЗапись.ОбработчикСобытия = ОбработчикСобытия;
-	ВыбраннаяЗапись.Ключ = Ключ;
-	ВыбраннаяЗапись.Данные = ХранилищеЗначения;
+	Record.Webhook = Webhook;
+	Record.CheckoutSHA = CheckoutSHA;
+	Record.Data = Data;
 	
-	НаборЗаписей.Записать();
+	RecordSet.Write();
 
-КонецПроцедуры
+EndProcedure
 
-Функция ЗагрузитьДанные( Знач РегистрСведений, Знач КлючЗаписи )
+Function Load( Val RegisterName, Val RecordKey )
 	
-	Var Результат;
-	Var МенеджерЗаписи;
+	Var Result;
+	Var RecordManager;
 	
-	Если ( РегистрСведений = "ВнешниеФайлы" ) Тогда
+	If ( RegisterName = "RemoteFiles" ) Then
 		
-		Результат = GitLab.RemoteFilesEmpty();
+		Result = GitLab.RemoteFilesEmpty();
 	
-	Иначе
+	Else
 		
-		Результат = Новый Соответствие();
+		Result = New Map();
 		
-	КонецЕсли;
+	EndIf;
 
-	МенеджерЗаписи = РегистрыСведений[ РегистрСведений ].СоздатьМенеджерЗаписи();
-	ЗаполнитьЗначенияСвойств( МенеджерЗаписи, КлючЗаписи );
+	RecordManager = InformationRegisters[ RegisterName ].CreateRecordManager();
+	FillPropertyValues( RecordManager, RecordKey );
 	
-	МенеджерЗаписи.Прочитать();
+	RecordManager.Read();
 
-	Если МенеджерЗаписи.Выбран() Тогда
+	If RecordManager.Selected() Then
 		
-		Результат = МенеджерЗаписи[ "Данные" ].Получить();
+		Result = RecordManager[ "Data" ].Get();
 		
-	КонецЕсли;
+	EndIf;
 	
-	Возврат Результат;
+	Return Result;
 	
-КонецФункции
+EndFunction
 
 #EndRegion

@@ -9,7 +9,11 @@
     <recordType typeId="43d50559-9c9e-47e6-8a75-a30c75e21fd2" valueTypeId="e9e78427-c07b-486e-bd69-e0003e007fd7"/>
     <recordManagerType typeId="bab6c878-81c1-4c7c-baa4-80e03e56cef8" valueTypeId="eafcede1-4836-45c6-a035-026d05983ebe"/>
   </producedTypes>
-  <name>ВнешниеФайлы</name>
+  <name>RemoteFiles</name>
+  <synonym>
+    <key>en</key>
+    <value>Remote Files</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Внешние файлы</value>
@@ -51,7 +55,11 @@
   </standardAttributes>
   <dataLockControlMode>Managed</dataLockControlMode>
   <resources uuid="5a818e35-5f75-44ac-940d-58f638e1b10d">
-    <name>Данные</name>
+    <name>Data</name>
+    <synonym>
+      <key>en</key>
+      <value>Remote Files</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Внешние файлы</value>
@@ -66,7 +74,11 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
   <dimensions uuid="23fd0284-a34a-47b1-ad27-33c89c29b187">
-    <name>ОбработчикСобытия</name>
+    <name>Webhook</name>
+    <synonym>
+      <key>en</key>
+      <value>Webhook</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Обработчик события</value>
@@ -81,15 +93,18 @@
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
     <fillFromFillingValue>true</fillFromFillingValue>
-    <fillValue xsi:type="core:UndefinedValue"/>
     <master>true</master>
     <mainFilter>true</mainFilter>
   </dimensions>
   <dimensions uuid="09c826ae-6dde-4da1-96e9-0082ef97f3fa">
-    <name>Ключ</name>
+    <name>CheckoutSHA</name>
+    <synonym>
+      <key>en</key>
+      <value>Checkout SHA</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Ключ</value>
+      <value>Checkout SHA</value>
     </synonym>
     <type>
       <types>String</types>

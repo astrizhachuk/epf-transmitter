@@ -39,36 +39,36 @@ Scenario: ЗагрузитьИсториюСобытий
 	| 'Тест_ОбработчикиСобытийСервер.ЗагрузитьИсториюСобытий(Context());' |
 
 @OnServer
-Scenario: СохранитьДанныеЗапросаУспешно
+Scenario: SaveQueryData
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.СохранитьДанныеЗапросаУспешно(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.SaveQueryData(Context());' |
 
 @OnServer
-Scenario: СохранитьДанныеЗапросаЗаписьОшибкаЗаписи
+Scenario: SaveQueryDataWriteError
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.СохранитьДанныеЗапросаЗаписьОшибкаЗаписи(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.SaveQueryDataWriteError(Context());' |
 
 @OnServer
-Scenario: СохранитьВнешниеФайлыЗаписьОшибкаЗаписи
+Scenario: SaveRemoteFilesWriteError
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.СохранитьВнешниеФайлыЗаписьОшибкаЗаписи(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.SaveRemoteFilesWriteError(Context());' |
 
 @OnServer
-Scenario: ЗагрузитьВнешниеФайлы
+Scenario: LoadRemoteFiles
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.ЗагрузитьВнешниеФайлы(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.LoadRemoteFiles(Context());' |
 
 @OnServer
-Scenario: ЗагрузитьВнешниеФайлыОтсутствуютДанные
+Scenario: LoadRemoteFilesNoData
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.ЗагрузитьВнешниеФайлыОтсутствуютДанные(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.LoadRemoteFilesNoData(Context());' |
 
 @OnServer
-Scenario: ЗагрузитьДанныеЗапроса
+Scenario: LoadQueryData
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.ЗагрузитьДанныеЗапроса(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.LoadQueryData(Context());' |
 
 @OnServer
-Scenario: ЗагрузитьДанныеЗапросаОтсутствуютДанные
+Scenario: LoadQueryDataNoData
 	And I execute 1C:Enterprise script at server
-	| 'Тест_ОбработчикиСобытийСервер.ЗагрузитьДанныеЗапросаОтсутствуютДанные(Context());' |
+	| 'Тест_ОбработчикиСобытийСервер.LoadQueryDataNoData(Context());' |

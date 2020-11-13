@@ -1605,7 +1605,7 @@
       <common>true</common>
     </edit>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <mainTable>InformationRegister.ДанныеЗапросов</mainTable>
+      <mainTable>InformationRegister.QueryData</mainTable>
       <dynamicDataRead>true</dynamicDataRead>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -1633,7 +1633,7 @@
       <common>true</common>
     </edit>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <mainTable>InformationRegister.ВнешниеФайлы</mainTable>
+      <mainTable>InformationRegister.RemoteFiles</mainTable>
       <dynamicDataRead>true</dynamicDataRead>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -1781,7 +1781,7 @@
   <commandInterface>
     <navigationPanel>
       <cmiFragmentRecord>
-        <command>InformationRegister.ДанныеЗапросов.StandardCommand.OpenByValue.ОбработчикСобытия</command>
+        <command>InformationRegister.QueryData.StandardCommand.OpenByValue.Webhook</command>
         <commandParameter xsi:type="form:DataPath">
           <segments>Object.Ref</segments>
         </commandParameter>
@@ -1790,7 +1790,7 @@
         <userVisible/>
       </cmiFragmentRecord>
       <cmiFragmentRecord>
-        <command>InformationRegister.ВнешниеФайлы.StandardCommand.OpenByValue.ОбработчикСобытия</command>
+        <command>InformationRegister.RemoteFiles.StandardCommand.OpenByValue.Webhook</command>
         <commandParameter xsi:type="form:DataPath">
           <segments>Object.Ref</segments>
         </commandParameter>
