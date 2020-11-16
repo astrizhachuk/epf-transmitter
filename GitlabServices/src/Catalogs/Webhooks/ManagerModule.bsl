@@ -45,7 +45,7 @@
 //
 Процедура LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded ) Экспорт
 	
-	EVENT_OBJECT = НСтр( "ru = 'Webhooks';en = 'Webhooks'" );
+	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 
 	Если ТипЗнч(Object) <> Тип("СправочникОбъект.Webhooks") Тогда
 		

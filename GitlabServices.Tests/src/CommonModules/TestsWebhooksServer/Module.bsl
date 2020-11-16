@@ -98,7 +98,7 @@
 Процедура LoadEventsHistory(Фреймворк) Экспорт
 	
 	LEVEL_MESSAGE = НСтр("ru = 'Информация';en = 'Information'");
-	EVENT_OBJECT = НСтр( "ru = 'Webhooks';en = 'Webhooks'" );
+	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 	
 	//given
 	УдалитьВсеWebhooks();

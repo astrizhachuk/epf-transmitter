@@ -1,31 +1,31 @@
-#Область ОбработчикиСобытий
+#Region EventHandlers
 
-Процедура ПередЗаписью( Отказ )
+Procedure BeforeWrite( Cancel )
 	
-	Var ОбработчикиСобытийПоКлючу;
+	Var WebhooksByToken;
 	
-	Если ( Отказ ИЛИ ОбменДанными.Загрузка ) Тогда
+	If ( Cancel OR DataExchange.Load ) Then
 		
-		Возврат;
+		Return;
 
-	КонецЕсли;
+	EndIf;
 	
-	ОбработчикиСобытийПоКлючу = Catalogs.Webhooks.FindByToken( ЭтотОбъект.SecretToken );
+	WebhooksByToken = Catalogs.Webhooks.FindByToken( ThisObject.SecretToken );
 	
-	Для Каждого ОбработчикСобытий Из ОбработчикиСобытийПоКлючу Цикл
+	For Each Webhook In WebhooksByToken Do
 		
-		Если ( ОбработчикСобытий = ЭтотОбъект.Ссылка) Тогда
+		If ( Webhook = ThisObject.Ref) Then
 
-			Продолжить;
+			Continue;
 			
-		КонецЕсли;
+		EndIf;
 		
-		Отказ = Истина;
+		Cancel = True;
 		
-		Возврат;
+		Return;
 		
-	КонецЦикла;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
