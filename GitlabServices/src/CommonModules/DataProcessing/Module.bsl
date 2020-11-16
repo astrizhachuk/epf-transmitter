@@ -77,12 +77,12 @@ EndFunction
 
 #Region Internal
 
-Процедура Run( Val ПараметрыСобытия, Val ДанныеЗапроса ) Экспорт
+Procedure Run( Val WebhookParams, Val QueryData ) Export
 	
-	Var ОтправляемыеДанные;
-	Var ПараметрыЛогирования;
+	Var RemoteFiles;
 	Var Commits;
-	Var Сообщение;
+	Var LoggingOptions;
+	Var Message;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ОбработкаДанных.Начало';en = 'Core.DataProcessing.Begin'" );
 	EVENT_MESSAGE_END = NStr( "ru = 'Core.ОбработкаДанных.Окончание';en = 'Core.DataProcessing.End'" );
@@ -90,30 +90,32 @@ EndFunction
 	DATA_PROCESSING_MESSAGE = NStr( "ru = 'обработка данных...';en = 'data processing...'" );
 	NO_DATA_MESSAGE = NStr( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
+	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
 
-	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( DATA_PROCESSING_MESSAGE, ПараметрыСобытия.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, Сообщение, ПараметрыЛогирования );	
+	Message = Логирование.ДополнитьСообщениеПрефиксом( DATA_PROCESSING_MESSAGE, WebhookParams.CheckoutSHA );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, Message, LoggingOptions );	
 	
-	ОтправляемыеДанные = Undefined;
-	ПодготовитьДанные( ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные );
+	RemoteFiles = Undefined;
 	
-	Если ( НЕ ЗначениеЗаполнено(ДанныеЗапроса) ИЛИ НЕ ЗначениеЗаполнено(ОтправляемыеДанные) ) Тогда
+	PrepareData( WebhookParams, QueryData, RemoteFiles );
+	
+	If ( NOT ValueIsFilled(QueryData) OR NOT ValueIsFilled(RemoteFiles) ) Then
 
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( NO_DATA_MESSAGE, ПараметрыСобытия.CheckoutSHA );
-		Логирование.Информация( EVENT_MESSAGE_END, Сообщение, ПараметрыЛогирования );
+		Message = Логирование.ДополнитьСообщениеПрефиксом( NO_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+		Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Commits = ДанныеЗапроса.Получить( "commits" );
-	ОтправляемыеДанные = Routing.FilesByRoutes( ОтправляемыеДанные, Commits );		
-	ОтправитьДанныеПоМаршрутам( ПараметрыСобытия, ОтправляемыеДанные );
+	Commits = QueryData.Get( "commits" );
+	RemoteFiles = Routing.FilesByRoutes( RemoteFiles, Commits );
+			
+	SendFiles( WebhookParams, RemoteFiles );
 
-	Логирование.Информация( EVENT_MESSAGE_END, Сообщение, ПараметрыЛогирования );	
+	Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );	
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
@@ -177,11 +179,11 @@ Procedure FillProcessingData( CheckoutSHA, QueryData, Message, Val DataSource )
 	
 EndProcedure
 
-Процедура ПодготовитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
+Процедура PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
-	Var ПараметрыЛогирования;	
+	Var LoggingOptions;	
 	Var Сообщение;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПодготовкаДанных.Начало';en = 'Core.DataPreparation.Begin'" );
@@ -191,41 +193,41 @@ EndProcedure
 	PREPARING_DATA_MESSAGE = NStr( "ru = 'подготовка данных к отправке.';en = 'preparing data for sending.'" );
 	LOADING_DATA_MESSAGE = NStr( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	
-	ОбработчикСобытия = ПараметрыСобытия.Webhook;
-	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
+	ОбработчикСобытия = WebhookParams.Webhook;
+	CheckoutSHA = WebhookParams.CheckoutSHA;
 
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
 	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, Сообщение, ПараметрыЛогирования );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, Сообщение, LoggingOptions );
 
-	Если ( ДанныеЗапроса <> Неопределено ) Тогда
+	Если ( QueryData <> Неопределено ) Тогда
 		
-		ПараметрыПроекта = GitLab.ProjectDescription( ДанныеЗапроса );
-		Commits = ДанныеЗапроса.Получить( "commits" );
-		ОтправляемыеДанные = GitLab.RemoteFilesWithDescription( ОбработчикСобытия, Commits, ПараметрыПроекта );
-		Routing.AppendQueryDataByRoutingSettings(Commits, ОтправляемыеДанные );
+		ПараметрыПроекта = GitLab.ProjectDescription( QueryData );
+		Commits = QueryData.Получить( "commits" );
+		RemoteFiles = GitLab.RemoteFilesWithDescription( ОбработчикСобытия, Commits, ПараметрыПроекта );
+		Routing.AppendQueryDataByRoutingSettings(Commits, RemoteFiles );
 		
-		СохранитьДанные( ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные );
+		СохранитьДанные( WebhookParams, QueryData, RemoteFiles );
 		
 	Иначе
 		
 		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( LOADING_DATA_MESSAGE, CheckoutSHA );
-		Логирование.Информация( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+		Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
 				
-		ЗагрузитьДанные( ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные );
+		ЗагрузитьДанные( WebhookParams, QueryData, RemoteFiles );
 		
 	КонецЕсли;
 
 	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_END, Сообщение, ПараметрыЛогирования );
+	Логирование.Информация( EVENT_MESSAGE_END, Сообщение, LoggingOptions );
 	
 КонецПроцедуры
 
-Процедура ОтправитьДанныеПоМаршрутам( Val ПараметрыСобытия, Val ОтправляемыеДанные )
+Процедура SendFiles( Val ПараметрыСобытия, Val ОтправляемыеДанные )
 	
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	Var ПараметрыДоставки;
 	Var КлючФоновогоЗадания;
 	Var Сообщение;
@@ -241,7 +243,7 @@ EndProcedure
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
 	ПараметрыДоставки = Receivers.ConnectionParams();
 	
 	ОтправляемыхФайлов = 0;
@@ -253,7 +255,7 @@ EndProcedure
 			
 			Сообщение = Логирование.ДополнитьСообщениеПрефиксом( GET_FILE_ERROR_MESSAGE, CheckoutSHA );
 			Сообщение = Сообщение + Символы.ПС + ОтправляемыйФайл.ErrorInfo;
-			Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+			Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, LoggingOptions );
 			
 			Продолжить;
 			
@@ -271,7 +273,7 @@ EndProcedure
 				
 				Сообщение = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
 				Сообщение = Сообщение + Символы.ПС + KEY_MESSAGE + КлючФоновогоЗадания;
-				Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+				Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, LoggingOptions );
 				
 				Продолжить;
 				
@@ -292,29 +294,29 @@ EndProcedure
 	КонецЦикла;
 	
 	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( FILES_SENT_MESSAGE + ОтправляемыхФайлов, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+	Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
 	
 	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( RUNNING_JOBS_MESSAGE + ЗапущенныхЗаданий, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+	Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
 	
 КонецПроцедуры
 
 Процедура ЛогироватьРезультатОперации( Val ПараметрыСобытия, Val Action, Val Результат = Undefined )
 	
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	Var Сообщение;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core';en = 'Core'" );
 	OPERATION_SUCCEEDED_MESSAGE = NStr( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
 	OPERATION_FAILED_MESSAGE = NStr( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
 	
 	Если ( Результат = Undefined ИЛИ ЗначениеЗаполнено(Результат) ) Тогда
 		
 		Сообщение = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
 		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( Сообщение, ПараметрыСобытия.CheckoutSHA );
-		Логирование.Информация( "Core." + Action, Сообщение, ПараметрыЛогирования );
+		Логирование.Информация( "Core." + Action, Сообщение, LoggingOptions );
 		
 	Иначе
 
@@ -327,7 +329,7 @@ EndProcedure
 			
 		КонецЕсли;
 					
-		Логирование.Предупреждение( EVENT_MESSAGE + "." + Action, Сообщение, ПараметрыЛогирования );
+		Логирование.Предупреждение( EVENT_MESSAGE + "." + Action, Сообщение, LoggingOptions );
 			
 	КонецЕсли;
 		

@@ -27,7 +27,7 @@
 	Var ОбработчикСобытия;
 	Var ДанныеЗапроса;
 	Var Ответ;
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ОбработкаЗапроса.Начало';en = 'WebService.QueryProcessing.Begin'" );
 	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ОбработкаЗапроса.Окончание';en = 'WebService.QueryProcessing.End'" );
@@ -51,11 +51,11 @@
 	ДесериализоватьТелоЗапроса( ОбработчикСобытия, Запрос, Ответ, ДанныеЗапроса );
 	ПроверитьНаличиеОбязательныхДанныхВТелеЗапроса( ОбработчикСобытия, ДанныеЗапроса, Ответ );
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( , Ответ );
+	LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
 	
 	Если ( HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
 
-		Логирование.Информация( EVENT_MESSAGE_END, PROCESSED_REQUEST_MESSAGE, ПараметрыЛогирования );
+		Логирование.Информация( EVENT_MESSAGE_END, PROCESSED_REQUEST_MESSAGE, LoggingOptions );
 		
 		DataProcessing.RunBackgroundJob( ОбработчикСобытия, ДанныеЗапроса );
 		
@@ -70,7 +70,7 @@
 Процедура ПроверитьСекретныйКлюч( Знач Запрос, Ответ, ОбработчикСобытия )
 
 	Var Token;
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
@@ -90,8 +90,8 @@
 		
 		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("FORBIDDEN") );
 		
-		ПараметрыЛогирования = Логирование.ДополнительныеПараметры( , Ответ );
-		Логирование.Предупреждение( EVENT_MESSAGE, KEY_NOT_FOUND_MESSAGE, ПараметрыЛогирования );
+		LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
+		Логирование.Предупреждение( EVENT_MESSAGE, KEY_NOT_FOUND_MESSAGE, LoggingOptions );
 										 
 	КонецЕсли;
 
@@ -99,7 +99,7 @@
 
 Процедура ОпределитьДоступностьФункциональностиЗагрузкиИзВнешнегоРепозитория( Ответ )
 	
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	LOADING_DISABLED_MESSAGE = НСтр( "ru = 'Загрузка из внешнего хранилища отключена.';
@@ -116,8 +116,8 @@
 		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("LOCKED") );
 		Ответ.Причина = LOADING_DISABLED_MESSAGE;
 		
-		ПараметрыЛогирования = Логирование.ДополнительныеПараметры( , Ответ );
-		Логирование.Предупреждение( EVENT_MESSAGE, LOADING_DISABLED_MESSAGE, ПараметрыЛогирования );
+		LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
+		Логирование.Предупреждение( EVENT_MESSAGE, LOADING_DISABLED_MESSAGE, LoggingOptions );
 
 	КонецЕсли;
 
@@ -162,7 +162,7 @@
 
 Процедура ПроверитьЗаголовкиЗапросаWebhooksPOST( Знач ОбработчикСобытия, Знач Запрос, Ответ )
 	
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	ONLY_EPF_MESSAGE = НСтр( "ru = ''Сервис доступен только для внешних отчетов и обработок.';
@@ -176,12 +176,12 @@
 		
 	КонецЕсли;
 
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
 
 	Если ( НЕ ЭтоРепозиторийВнешнихОтчетовИОбработок(Запрос) ) Тогда
 
 		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
-		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_EPF_MESSAGE, ПараметрыЛогирования );
+		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_EPF_MESSAGE, LoggingOptions );
 												 
 		Возврат;
 	
@@ -190,7 +190,7 @@
 	Если ( НЕ ЭтоСобытиеPush(Запрос) ) Тогда
 		
 		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
-		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_PUSH_MESSAGE, ПараметрыЛогирования );
+		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_PUSH_MESSAGE, LoggingOptions );
 												 
 		Возврат;
 	
@@ -211,7 +211,7 @@
 	
 	Var Поток;
 	Var ПараметрыПреобразования;
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
@@ -225,8 +225,8 @@
 		
 	КонецЕсли;
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, UNMARSHALLING_MESSAGE, ПараметрыЛогирования );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, UNMARSHALLING_MESSAGE, LoggingOptions );
 	
 	Попытка
 		
@@ -241,12 +241,12 @@
 		
 		Поток.Закрыть();
 		
-		Логирование.Информация( EVENT_MESSAGE_END, UNMARSHALLING_MESSAGE, ПараметрыЛогирования );
+		Логирование.Информация( EVENT_MESSAGE_END, UNMARSHALLING_MESSAGE, LoggingOptions );
 
 	Исключение
 		
 		Поток.Закрыть();
-		Логирование.Ошибка( EVENT_MESSAGE, ИнформацияОбОшибке().Описание, ПараметрыЛогирования );
+		Логирование.Ошибка( EVENT_MESSAGE, ИнформацияОбОшибке().Описание, LoggingOptions );
 		
 		ВызватьИсключение;
 		
@@ -301,7 +301,7 @@
 Процедура ПроверитьНаличиеОбязательныхДанныхВТелеЗапроса( Знач ОбработчикСобытия, Знач ДанныеЗапроса, Ответ )
 	
 	Var ТекстСообщения;
-	Var ПараметрыЛогирования;
+	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ПроверкаЗапроса.Начало';en = 'WebService.RequestValidation.Begin'" );
 	EVENT_MESSAGE = НСтр( "ru = 'WebService.ПроверкаЗапроса';en = 'WebService.RequestValidation'" );
@@ -316,8 +316,8 @@
 		
 	КонецЕсли;
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, VALIDATION_MESSAGE, ПараметрыЛогирования );
+	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, VALIDATION_MESSAGE, LoggingOptions );
 	
 	Коллекция = ПроверяемыеЭлементы( ДанныеЗапроса );
 	
@@ -328,7 +328,7 @@
 			Ответ = Новый HTTPСервисОтвет(HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST"));
 			
 			ТекстСообщения = СтрШаблон( MISSING_DATA_MESSAGE, Элемент.Ключ );
-			Логирование.Ошибка( EVENT_MESSAGE, ТекстСообщения, ПараметрыЛогирования );
+			Логирование.Ошибка( EVENT_MESSAGE, ТекстСообщения, LoggingOptions );
 			
 			Возврат;		
 			
@@ -336,7 +336,7 @@
 		
 	КонецЦикла;
 	
-	Логирование.Информация( EVENT_MESSAGE_END, VALIDATION_MESSAGE, ПараметрыЛогирования );
+	Логирование.Информация( EVENT_MESSAGE_END, VALIDATION_MESSAGE, LoggingOptions );
 	
 КонецПроцедуры
 
