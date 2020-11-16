@@ -1,120 +1,101 @@
 #Region Public
 
-// Запускает задание по обработке данных, полученных из запроса сервера GitLab, либо запускает задание по ранее
-// сохраненным данным из полученных ранее запросов.
+// RunBackgroundJob prepares and run background job to process "webhooked" or saved GitLab server request.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.Webhooks - ссылка на элемент справочника с обработчиками событий;
-// 	ОбрабатываемыеДанные - Соответствие, Строка - десериализованное из JSON тело запроса или "checkout_sha" ранее
-// 													сохраненного запроса;
+// Parameters:
+//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+// 	DataSource - Map, String - GitLab request body deserialized from JSON or "checkout_sha" of previously saved request;
 //
 // Returns:
-// 	Неопределено, ФоновоеЗадание - созданное ФоновоеЗадание или Неопределено, если были ошибки;
+// 	Undefined, BackgroundJob - created BackgroundJob or Undefined if there were errors;
 //
-Функция НачатьЗапускОбработкиДанных( Знач ОбработчикСобытия, Знач ОбрабатываемыеДанные ) Экспорт
-	
+Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
+
+	Var QueryData;
 	Var CheckoutSHA;
-	Var ПараметрыЗадания;
-	Var ПараметрыЛогирования;
-	Var Сообщение;
-	Var Результат;
+		
+	Var LoggingOptions;
+	Var Message;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
-	CHECKOUT_SHA_MISSING_MESSAGE = НСтр( "ru = 'отсутствует ""checkout_sha"".';
-										|en = '""checkout_sha"" is missing.'" );
-	UNSUPPORTED_FORMAT_MESSAGE = НСтр( "ru = 'неподдерживаемый формат данных.';en = 'unsupported data format.'" );
+	Var BackgroundJobParams;
+	Var BackgroundJob;
 	
-	JOB_WAS_STARTED_MESSAGE = НСтр( "ru = 'фоновое задание уже запущено.';en = 'background job is already running.'" );
-	JOB_RUNNING_ERROR_MESSAGE = НСтр( "ru = 'ошибка запуска задания обработки данных:';
+	EVENT_MESSAGE = NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
+	
+	JOB_WAS_STARTED_MESSAGE = NStr( "ru = 'фоновое задание уже запущено.';en = 'background job is already running.'" );
+	JOB_RUNNING_ERROR_MESSAGE = NStr( "ru = 'ошибка запуска задания обработки данных:';
 										|en = 'an error occurred while starting the job:'" );									
 	
-	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	Message = "";
+	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
 
-	Сообщение = "";
-	Результат = Неопределено;
+	QueryData = Undefined;
+	CheckoutSHA = "";
 	
-	Если ( ТипЗнч(ОбрабатываемыеДанные) = Тип("Строка") ) Тогда
-		
-		CheckoutSHA = ОбрабатываемыеДанные;
-		ДанныеЗапроса = Неопределено;
-	
-	ИначеЕсли ( ТипЗнч(ОбрабатываемыеДанные) = Тип("Соответствие") ) Тогда
-		
-		CheckoutSHA = ОбрабатываемыеДанные.Получить( "checkout_sha" );
-		ДанныеЗапроса = ОбрабатываемыеДанные;
-		
-		Если ( CheckoutSHA = Неопределено ) Тогда
-			
-			Сообщение = CHECKOUT_SHA_MISSING_MESSAGE;
-			
-		КонецЕсли;
+	FillProcessingData( CheckoutSHA, QueryData, Message, DataSource );
 
-	Иначе
-		
-		Сообщение = UNSUPPORTED_FORMAT_MESSAGE;
-		
-	КонецЕсли;
+	BackgroundJob = Undefined;
 	
-	Если ( НЕ ПустаяСтрока(Сообщение) ) Тогда
+	If ( NOT IsBlankString(Message) ) Then
 	
-		Логирование.Ошибка( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+		Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
 		
-		Возврат Результат;
+		Return BackgroundJob;
 	
-	КонецЕсли;
+	EndIf;
 	
-	Если ( ЕстьАктивноеЗадание(CheckoutSHA) ) Тогда
+	If ( IsActiveBackgroundJob(CheckoutSHA) ) Then
 		
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
-		Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+		Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
+		Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
 		
-		Возврат Результат;
+		Return BackgroundJob;
 		
-	КонецЕсли;
+	EndIf;
 	
-	ПараметрыЗадания = Новый Массив();
-	ПараметрыЗадания.Добавить( ПараметрыСобытия( ОбработчикСобытия, CheckoutSHA ) );
-	ПараметрыЗадания.Добавить( ДанныеЗапроса );
+	BackgroundJobParams = New Array();
+	BackgroundJobParams.Add( WebhookParams( Webhook, CheckoutSHA ) );
+	BackgroundJobParams.Add( QueryData );
 
-	Попытка
+	Try
 		
-		Результат = ФоновыеЗадания.Выполнить( "ОбработкаДанных.ОбработатьДанные", ПараметрыЗадания, CheckoutSHA );
+		BackgroundJob = BackgroundJobs.Execute( "DataProcessing.Run", BackgroundJobParams, CheckoutSHA );
 		
-	Исключение
+	Except
 		
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( JOB_RUNNING_ERROR_MESSAGE, CheckoutSHA );
-		Сообщение = Сообщение + Символы.ПС + ОбработкаОшибок.ПодробноеПредставлениеОшибки( ИнформацияОбОшибке() );
-		Логирование.Ошибка( EVENT_MESSAGE, Сообщение, ПараметрыЛогирования );
+		Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_RUNNING_ERROR_MESSAGE, CheckoutSHA );
+		Message = Message + Chars.LF + ErrorProcessing.DetailErrorDescription( ErrorInfo() );
+		Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
 		
-	КонецПопытки;
+	EndTry;
  
-	Возврат Результат;
+	Return BackgroundJob;
 											
-КонецФункции
+EndFunction
 
 #EndRegion
 
 #Region Internal
 
-Процедура ОбработатьДанные( Знач ПараметрыСобытия, Знач ДанныеЗапроса ) Экспорт
+Процедура Run( Val ПараметрыСобытия, Val ДанныеЗапроса ) Экспорт
 	
 	Var ОтправляемыеДанные;
 	Var ПараметрыЛогирования;
 	Var Commits;
 	Var Сообщение;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'Core.ОбработкаДанных.Начало';en = 'Core.DataProcessing.Begin'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'Core.ОбработкаДанных.Окончание';en = 'Core.DataProcessing.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ОбработкаДанных.Начало';en = 'Core.DataProcessing.Begin'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'Core.ОбработкаДанных.Окончание';en = 'Core.DataProcessing.End'" );
 	
-	DATA_PROCESSING_MESSAGE = НСтр( "ru = 'обработка данных...';en = 'data processing...'" );
-	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
+	DATA_PROCESSING_MESSAGE = NStr( "ru = 'обработка данных...';en = 'data processing...'" );
+	NO_DATA_MESSAGE = NStr( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
 	
 	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
 
 	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( DATA_PROCESSING_MESSAGE, ПараметрыСобытия.CheckoutSHA );
 	Логирование.Информация( EVENT_MESSAGE_BEGIN, Сообщение, ПараметрыЛогирования );	
 	
-	ОтправляемыеДанные = Неопределено;
+	ОтправляемыеДанные = Undefined;
 	ПодготовитьДанные( ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные );
 	
 	Если ( НЕ ЗначениеЗаполнено(ДанныеЗапроса) ИЛИ НЕ ЗначениеЗаполнено(ОтправляемыеДанные) ) Тогда
@@ -138,47 +119,77 @@
 
 #Region Private
 
-Функция ПараметрыСобытия( Знач ОбработчикСобытия, Знач CheckoutSHA )
+Function ActiveBackgroundJob( Val Key )
 	
-	Var Результат;
+	Var Filter;
 	
-	Результат = Новый Структура();
-	Результат.Вставить( "Webhook", ОбработчикСобытия );
-	Результат.Вставить( "CheckoutSHA", CheckoutSHA );
-	
-	Возврат Результат;
-	
-КонецФункции
+	Filter = New Structure( "Key, State", Key, BackgroundJobState.Active );
 
-Функция АктивныеЗадания( Знач Ключ )
+	Return BackgroundJobs.GetBackgroundJobs( Filter );
 	
-	Var ПараметрыОтбора;
-	
-	ПараметрыОтбора = Новый Структура( "Ключ, Состояние", Ключ, СостояниеФоновогоЗадания.Активно );
+EndFunction
 
-	Возврат ФоновыеЗадания.ПолучитьФоновыеЗадания( ПараметрыОтбора );
+Function IsActiveBackgroundJob( Val Key )
 	
-КонецФункции
+	Return ValueIsFilled( ActiveBackgroundJob(Key) );
+	
+EndFunction
 
-Функция ЕстьАктивноеЗадание( Знач Ключ )
+Function WebhookParams( Val Webhook, Val CheckoutSHA )
 	
-	Возврат ЗначениеЗаполнено( АктивныеЗадания(Ключ) );
+	Var Result;
 	
-КонецФункции
+	Result = New Structure();
+	Result.Insert( "Webhook", Webhook );
+	Result.Insert( "CheckoutSHA", CheckoutSHA );
+	
+	Return Result;
+	
+EndFunction
 
-Процедура ПодготовитьДанные( Знач ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
+Procedure FillProcessingData( CheckoutSHA, QueryData, Message, Val DataSource )
+	
+	CHECKOUT_SHA_MISSING_MESSAGE = NStr( "ru = 'отсутствует ""checkout_sha"".';
+									|en = '""checkout_sha"" is missing.'" );
+	UNSUPPORTED_FORMAT_MESSAGE = NStr( "ru = 'неподдерживаемый формат данных.';en = 'unsupported data format.'" );
+	
+	If ( TypeOf(DataSource) = Type("String") ) Then
+		
+		CheckoutSHA = DataSource;
+		QueryData = Undefined;
+	
+	ElsIf ( TypeOf(DataSource) = Type("Map") ) Then
+		
+		CheckoutSHA = DataSource.Get( "checkout_sha" );
+		QueryData = DataSource;
+		
+		If ( CheckoutSHA = Undefined ) Then
+			
+			Message = CHECKOUT_SHA_MISSING_MESSAGE;
+			
+		EndIf;
+
+	Else
+		
+		Message = UNSUPPORTED_FORMAT_MESSAGE;
+		
+	EndIf;
+	
+EndProcedure
+
+Процедура ПодготовитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
 
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
 	Var ПараметрыЛогирования;	
 	Var Сообщение;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'Core.ПодготовкаДанных.Начало';en = 'Core.DataPreparation.Begin'" );
-	EVENT_MESSAGE = НСтр( "ru = 'Core.ПодготовкаДанных';en = 'Core.DataPreparation'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'Core.ПодготовкаДанных.Окончание';en = 'Core.DataPreparation.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПодготовкаДанных.Начало';en = 'Core.DataPreparation.Begin'" );
+	EVENT_MESSAGE = NStr( "ru = 'Core.ПодготовкаДанных';en = 'Core.DataPreparation'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'Core.ПодготовкаДанных.Окончание';en = 'Core.DataPreparation.End'" );
 	
-	PREPARING_DATA_MESSAGE = НСтр( "ru = 'подготовка данных к отправке.';en = 'preparing data for sending.'" );
-	LOADING_DATA_MESSAGE = НСтр( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
+	PREPARING_DATA_MESSAGE = NStr( "ru = 'подготовка данных к отправке.';en = 'preparing data for sending.'" );
+	LOADING_DATA_MESSAGE = NStr( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
@@ -210,7 +221,7 @@
 	
 КонецПроцедуры
 
-Процедура ОтправитьДанныеПоМаршрутам( Знач ПараметрыСобытия, Знач ОтправляемыеДанные )
+Процедура ОтправитьДанныеПоМаршрутам( Val ПараметрыСобытия, Val ОтправляемыеДанные )
 	
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
@@ -221,12 +232,12 @@
 	Var ОтправляемыхФайлов;
 	Var ЗапущенныхЗаданий;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
-	GET_FILE_ERROR_MESSAGE = НСтр( "ru = 'ошибка получения файла:';en = 'failed to get the file:'" );
-	JOB_WAS_STARTED_MESSAGE = НСтр( "ru = 'фоновое задание уже запущено.';en = 'background job is already running.'" );
-	KEY_MESSAGE = НСтр( "ru = 'Ключ: ';en = 'Key: '" );
-	FILES_SENT_MESSAGE = НСтр( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
-	RUNNING_JOBS_MESSAGE = НСтр( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
+	EVENT_MESSAGE = NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
+	GET_FILE_ERROR_MESSAGE = NStr( "ru = 'ошибка получения файла:';en = 'failed to get the file:'" );
+	JOB_WAS_STARTED_MESSAGE = NStr( "ru = 'фоновое задание уже запущено.';en = 'background job is already running.'" );
+	KEY_MESSAGE = NStr( "ru = 'Ключ: ';en = 'Key: '" );
+	FILES_SENT_MESSAGE = NStr( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
+	RUNNING_JOBS_MESSAGE = NStr( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
@@ -256,7 +267,7 @@
 			
 			КлючФоновогоЗадания = CheckoutSHA + "|" + Адрес + "|" + ОтправляемыйФайл.FileName;
 				
-			Если ( ЕстьАктивноеЗадание(КлючФоновогоЗадания) ) Тогда
+			Если ( IsActiveBackgroundJob(КлючФоновогоЗадания) ) Тогда
 				
 				Сообщение = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
 				Сообщение = Сообщение + Символы.ПС + KEY_MESSAGE + КлючФоновогоЗадания;
@@ -288,18 +299,18 @@
 	
 КонецПроцедуры
 
-Процедура ЛогироватьРезультатОперации( Знач ПараметрыСобытия, Знач Action, Знач Результат = Неопределено )
+Процедура ЛогироватьРезультатОперации( Val ПараметрыСобытия, Val Action, Val Результат = Undefined )
 	
 	Var ПараметрыЛогирования;
 	Var Сообщение;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'Core';en = 'Core'" );
-	OPERATION_SUCCEEDED_MESSAGE = НСтр( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
-	OPERATION_FAILED_MESSAGE = НСтр( "ru = 'операция не выполнена.';en = 'operation failed.'" );
+	EVENT_MESSAGE = NStr( "ru = 'Core';en = 'Core'" );
+	OPERATION_SUCCEEDED_MESSAGE = NStr( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
+	OPERATION_FAILED_MESSAGE = NStr( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	
 	ПараметрыЛогирования = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
 	
-	Если ( Результат = Неопределено ИЛИ ЗначениеЗаполнено(Результат) ) Тогда
+	Если ( Результат = Undefined ИЛИ ЗначениеЗаполнено(Результат) ) Тогда
 		
 		Сообщение = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
 		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( Сообщение, ПараметрыСобытия.CheckoutSHA );
@@ -322,13 +333,13 @@
 		
 КонецПроцедуры
 
-Процедура ЗагрузитьДанные( Знач ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
+Процедура ЗагрузитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
 	
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
 	
-	LOAD_QUERY_MESSAGE = НСтр( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
-	LOAD_FILES_MESSAGE = НСтр( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
+	LOAD_QUERY_MESSAGE = NStr( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
+	LOAD_FILES_MESSAGE = NStr( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
@@ -341,18 +352,18 @@
 	
 КонецПроцедуры
 
-Процедура СохранитьДанныеЗапроса( Знач ПараметрыСобытия, Знач ДанныеЗапроса )
+Процедура СохранитьДанныеЗапроса( Val ПараметрыСобытия, Val ДанныеЗапроса )
 	
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
 	Var ИнформацияОбОшибке;
 	
-	SAVE_QUERY_MESSAGE = НСтр( "ru = 'СохранениеЗапросаВБазуДанных';en = 'SaveRequestToDatabase'" );
+	SAVE_QUERY_MESSAGE = NStr( "ru = 'СохранениеЗапросаВБазуДанных';en = 'SaveRequestToDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
 	
-	ИнформацияОбОшибке = Неопределено;
+	ИнформацияОбОшибке = Undefined;
 	
 	Попытка
 		
@@ -368,18 +379,18 @@
 	
 КонецПроцедуры
 
-Процедура СохранитьВнешниеФайлы( Знач ПараметрыСобытия, Знач ОтправляемыеДанные )
+Процедура СохранитьВнешниеФайлы( Val ПараметрыСобытия, Val ОтправляемыеДанные )
 	
 	Var ОбработчикСобытия;
 	Var CheckoutSHA;
 	Var ИнформацияОбОшибке;
 	
-	SAVE_FILES_MESSAGE = НСтр( "ru = 'СохранениеВнешнихФайловВБазуДанных';en = 'SaveFilesToDatabase'" );
+	SAVE_FILES_MESSAGE = NStr( "ru = 'СохранениеВнешнихФайловВБазуДанных';en = 'SaveFilesToDatabase'" );
 	
 	ОбработчикСобытия = ПараметрыСобытия.Webhook;
 	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
 	
-	ИнформацияОбОшибке = Неопределено;
+	ИнформацияОбОшибке = Undefined;
 	
 	Попытка
 		
@@ -395,7 +406,7 @@
 	
 КонецПроцедуры
 
-Процедура СохранитьДанные( Знач ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
+Процедура СохранитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
 
 	СохранитьДанныеЗапроса( ПараметрыСобытия, ДанныеЗапроса );
 	СохранитьВнешниеФайлы( ПараметрыСобытия, ОтправляемыеДанные );

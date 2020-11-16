@@ -54,6 +54,7 @@
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
+  <commonModules>CommonModule.DataProcessing</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabCached</commonModules>
   <commonModules>CommonModule.HTTPServices</commonModules>
@@ -63,7 +64,6 @@
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Webhooks</commonModules>
   <commonModules>CommonModule.Логирование</commonModules>
-  <commonModules>CommonModule.ОбработкаДанных</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
   <constants>Constant.HandleRequests</constants>

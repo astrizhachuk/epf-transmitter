@@ -48,6 +48,7 @@
     <languageCode>en</languageCode>
   </languages>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
+  <commonModules>CommonModule.TestsDataProcessing</commonModules>
   <commonModules>CommonModule.TestsGitlabServer</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsReceiversServer</commonModules>
@@ -57,6 +58,5 @@
   <commonModules>CommonModule.TestsStringsServer</commonModules>
   <commonModules>CommonModule.TestsWebhooksServer</commonModules>
   <commonModules>CommonModule.Тест_ЛогированиеСервер</commonModules>
-  <commonModules>CommonModule.Тест_ОбработкаДанных</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

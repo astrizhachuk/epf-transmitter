@@ -208,7 +208,7 @@ EndProcedure
 &AtServerNoContext
 Procedure ResendDataAtServer( Val RecordKey )
 	
-	ОбработкаДанных.НачатьЗапускОбработкиДанных( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	DataProcessing.RunBackgroundJob( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 EndProcedure
 
