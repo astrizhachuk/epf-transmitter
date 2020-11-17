@@ -1,39 +1,36 @@
 #Region Public
 
-// Поиск элементов справочника по секретному ключу (token), не помеченные на удаление.
-//
-// Параметры:
-// 	Token - Строка - секретный ключ (token);
-//
+// FindByToken returns search result from registered and not marked for deletion webhooks.
+// 
+// Parameters:
+// 	Token - String - secret token;
+// 	
 // Returns:
-// 	Массив из СправочникСсылка.Webhooks - найденные элементы справочника (пустой массив, если не найдено); 
+// 	Array of CatalogRef.Webhooks - search result from registered and not marked for deletion webhooks or empty array;
 //
-Функция FindByToken( Знач Token ) Экспорт
+Function FindByToken( Val Token ) Export
 	
-	Var Запрос;
-	Var Результат;
+	Var Query;
 	
-	Результат = Новый Массив();
-	
-	Если ( ТипЗнч(Token) <> Тип("Строка") ИЛИ ПустаяСтрока(Token) ) Тогда
+	If ( TypeOf(Token) <> Type("String") OR IsBlankString(Token) ) Then
 		
-		Возврат Результат;
+		Return New Array();
 		
-	КонецЕсли;
+	EndIf;
 	
-	Запрос = Новый Запрос();
-	Запрос.УстановитьПараметр( "SecretToken", Token );
-	Запрос.Текст = 	"ВЫБРАТЬ
-	               	|	Webhooks.Ссылка КАК Ссылка
-	               	|ИЗ
-	               	|	Catalog.Webhooks КАК Webhooks
-	               	|ГДЕ
-	               	|	НЕ Webhooks.ПометкаУдаления
-	               	|	И Webhooks.SecretToken = &SecretToken";
+	Query = New Query();
+	Query.SetParameter( "SecretToken", Token );
+	Query.Text = 	"SELECT
+	               	|	Webhooks.Ссылка AS Ref
+	               	|FROM
+	               	|	Catalog.Webhooks AS Webhooks
+	               	|WHERE
+	               	|	NOT Webhooks.DeletionMark
+	               	|	AND Webhooks.SecretToken = &SecretToken";
 	
-	Возврат Запрос.Выполнить().Выгрузить().ВыгрузитьКолонку( "Ссылка" );
+	Return Query.Execute().Unload().UnloadColumn( "Ссылка" );
 	
-КонецФункции
+EndFunction
 
 // Загружает в табличную часть объекта данные из журнала регистрации по фильтру.
 // 
