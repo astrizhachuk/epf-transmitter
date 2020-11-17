@@ -28,7 +28,7 @@ Function FindByToken( Val Token ) Export
 	               	|	NOT Webhooks.DeletionMark
 	               	|	AND Webhooks.SecretToken = &SecretToken";
 	
-	Return Query.Execute().Unload().UnloadColumn( "Ссылка" );
+	Return Query.Execute().Unload().UnloadColumn( "Ref" );
 	
 EndFunction
 
