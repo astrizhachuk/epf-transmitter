@@ -203,7 +203,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура AppendQueryDataByRoutingSettings(Фреймворк) Экспорт
+Процедура ExtendQueryDataWithRoutingSettings(Фреймворк) Экспорт
 
 	// given
 	Константы.RoutingFileName.Установить(".ext-epf.json");	
@@ -257,7 +257,7 @@
 	НоваяСтрока.ErrorInfo = "тут какая-то ошибка";
 
 	// when
-	Routing.AppendQueryDataByRoutingSettings(ДанныеЗапроса.Получить("commits"), ДанныеДляОтправки);
+	Routing.ExtendQueryDataWithRoutingSettings(ДанныеЗапроса.Получить("commits"), ДанныеДляОтправки);
 
 	// then
 	Фреймворк.ПроверитьРавенство(ДанныеЗапроса.Количество(), 2);

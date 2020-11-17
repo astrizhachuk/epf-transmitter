@@ -131,7 +131,7 @@ Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) 
 
 EndProcedure
 
-// AppendQueryDataByRoutingSettings adds file routing settings deserialized from JSON to the request data.
+// ExtendQueryDataWithRoutingSettings adds file routing settings deserialized from JSON to the request data.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
@@ -145,7 +145,7 @@ EndProcedure
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - String - description of an error while processing files;
 //
-Procedure AppendQueryDataByRoutingSettings( Commits, Val RemoteFiles ) Export
+Procedure ExtendQueryDataWithRoutingSettings( Commits, Val RemoteFiles ) Export
 	
 	Var FilePath;
 	Var Filter;

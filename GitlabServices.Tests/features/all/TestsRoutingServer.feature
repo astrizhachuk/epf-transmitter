@@ -19,6 +19,6 @@ Scenario: AddRoutingFilesDescription
 	| 'TestsRoutingServer.AddRoutingFilesDescription(Context());' |
 
 @OnServer
-Scenario: AppendQueryDataByRoutingSettings
+Scenario: ExtendQueryDataWithRoutingSettings
 	And I execute 1C:Enterprise script at server
-	| 'TestsRoutingServer.AppendQueryDataByRoutingSettings(Context());' |
+	| 'TestsRoutingServer.ExtendQueryDataWithRoutingSettings(Context());' |

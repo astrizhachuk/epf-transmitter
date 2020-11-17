@@ -28,7 +28,7 @@ EndFunction
 // Parameters:
 //	FileName - String - the file name used for searching and replacing external reports and processing (UTF-8);
 //	BinaryData - BinaryData - binary file body;
-//	SendParams - Structure - file delivery parameters:
+//	ConnectionParams - Structure - file delivery parameters:
 // * URL - String - end-point service URL;
 // * Token - String - access token to the service;
 // * Timeout - Number - the connection timeout, sec (0 - timeout is not set);
@@ -36,7 +36,7 @@ EndFunction
 // * Webhook - CatalogRef.Webhooks - a ref to webhook;
 // * CheckoutSHA - String - event identifier (commit SHA) for which the file upload is triggered;
 //
-Procedure SendFile( Val FileName, Val BinaryData, Val SendParams, EventParams = Undefined ) Export
+Procedure SendFile( Val FileName, Val BinaryData, Val ConnectionParams, EventParams = Undefined ) Export
 
 	Var Headers;
 	Var RequestParams;
@@ -47,19 +47,19 @@ Procedure SendFile( Val FileName, Val BinaryData, Val SendParams, EventParams = 
 
 	Try
 		
-		CheckSendFileParams( SendParams ); 
+		CheckConnectionParams( ConnectionParams ); 
 		
 		Headers = New Map();
-		Headers.Insert( "Token", SendParams.Token );
+		Headers.Insert( "Token", ConnectionParams.Token );
 		Headers.Insert( "Name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
 		
 		RequestParams = New Structure();
 		RequestParams.Insert( "Заголовки", Headers );
-		RequestParams.Insert( "Таймаут", SendParams.Timeout );
+		RequestParams.Insert( "Таймаут", ConnectionParams.Timeout );
 		
-		Response = HTTPConnector.Post( SendParams.URL, BinaryData, RequestParams );
+		Response = HTTPConnector.Post( ConnectionParams.URL, BinaryData, RequestParams );
 		
-		Message = CreateSendFileResultMessage( Response, FileName, SendParams.URL );
+		Message = CreateSendFileResultMessage( Response, FileName, ConnectionParams.URL );
 	
 		If ( НЕ HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 			
@@ -85,7 +85,7 @@ EndProcedure
 
 #Region Private
 
-Procedure CheckSendFileParams( Val SendFileParams )
+Procedure CheckConnectionParams( Val SendFileParams )
 	
 	MISSING_DELIVERED_MESSAGE = NStr( "ru = 'Отсутствуют параметры доставки файлов.';
 									|en = 'File delivery options are missing.'" );

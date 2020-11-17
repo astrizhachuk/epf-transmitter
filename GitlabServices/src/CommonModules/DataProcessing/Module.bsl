@@ -179,12 +179,12 @@ Procedure FillProcessingData( CheckoutSHA, QueryData, Message, Val DataSource )
 	
 EndProcedure
 
-Процедура PrepareData( Val WebhookParams, QueryData, RemoteFiles )
+Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 
-	Var ОбработчикСобытия;
-	Var CheckoutSHA;
+	Var ProjectParams;
+	Var Commits;
 	Var LoggingOptions;	
-	Var Сообщение;
+	Var Message;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПодготовкаДанных.Начало';en = 'Core.DataPreparation.Begin'" );
 	EVENT_MESSAGE = NStr( "ru = 'Core.ПодготовкаДанных';en = 'Core.DataPreparation'" );
@@ -193,46 +193,44 @@ EndProcedure
 	PREPARING_DATA_MESSAGE = NStr( "ru = 'подготовка данных к отправке.';en = 'preparing data for sending.'" );
 	LOADING_DATA_MESSAGE = NStr( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	
-	ОбработчикСобытия = WebhookParams.Webhook;
-	CheckoutSHA = WebhookParams.CheckoutSHA;
+	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
+	Message = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, Message, LoggingOptions );
 
-	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
-	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, Сообщение, LoggingOptions );
-
-	Если ( QueryData <> Неопределено ) Тогда
+	If ( QueryData <> Undefined ) Then
 		
-		ПараметрыПроекта = GitLab.ProjectDescription( QueryData );
-		Commits = QueryData.Получить( "commits" );
-		RemoteFiles = GitLab.RemoteFilesWithDescription( ОбработчикСобытия, Commits, ПараметрыПроекта );
-		Routing.AppendQueryDataByRoutingSettings(Commits, RemoteFiles );
+		ProjectParams = GitLab.ProjectDescription( QueryData );
+		Commits = QueryData.Get( "commits" );
+		RemoteFiles = GitLab.RemoteFilesWithDescription( WebhookParams.Webhook, Commits, ProjectParams );
+		Routing.ExtendQueryDataWithRoutingSettings( Commits, RemoteFiles );
 		
-		СохранитьДанные( WebhookParams, QueryData, RemoteFiles );
+		SaveData( WebhookParams, QueryData, RemoteFiles );
 		
-	Иначе
+	Else
 		
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( LOADING_DATA_MESSAGE, CheckoutSHA );
-		Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
+		Message = Логирование.ДополнитьСообщениеПрефиксом( LOADING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+		Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
 				
-		ЗагрузитьДанные( WebhookParams, QueryData, RemoteFiles );
+		LoadData( WebhookParams, QueryData, RemoteFiles );
 		
-	КонецЕсли;
+	EndIf;
 
-	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_END, Сообщение, LoggingOptions );
+	Message = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+	Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );
 	
-КонецПроцедуры
+EndProcedure
 
-Процедура SendFiles( Val ПараметрыСобытия, Val ОтправляемыеДанные )
+Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	
-	Var ОбработчикСобытия;
-	Var CheckoutSHA;
+	Var SendParams;
+	Var JobParams;
+	
+	Var FilesCounter;
+	Var JobsCounter;
+	Var JobKey;
+	
 	Var LoggingOptions;
-	Var ПараметрыДоставки;
-	Var КлючФоновогоЗадания;
-	Var Сообщение;
-	Var ОтправляемыхФайлов;
-	Var ЗапущенныхЗаданий;
+	Var Message;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
 	GET_FILE_ERROR_MESSAGE = NStr( "ru = 'ошибка получения файла:';en = 'failed to get the file:'" );
@@ -241,178 +239,160 @@ EndProcedure
 	FILES_SENT_MESSAGE = NStr( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
 	RUNNING_JOBS_MESSAGE = NStr( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
 	
-	ОбработчикСобытия = ПараметрыСобытия.Webhook;
-	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
-	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
-	ПараметрыДоставки = Receivers.ConnectionParams();
+	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
+	SendParams = Receivers.ConnectionParams();
 	
-	ОтправляемыхФайлов = 0;
-	ЗапущенныхЗаданий = 0; 
+	FilesCounter = 0;
+	JobsCounter = 0; 
 	
-	Для каждого ОтправляемыйФайл Из ОтправляемыеДанные Цикл
+	For Each RemoteFile In RemoteFiles Do
 		
-		Если ( НЕ ПустаяСтрока(ОтправляемыйФайл.ErrorInfo) ) Тогда
+		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
-			Сообщение = Логирование.ДополнитьСообщениеПрефиксом( GET_FILE_ERROR_MESSAGE, CheckoutSHA );
-			Сообщение = Сообщение + Символы.ПС + ОтправляемыйФайл.ErrorInfo;
-			Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, LoggingOptions );
+			Message = Логирование.ДополнитьСообщениеПрефиксом( GET_FILE_ERROR_MESSAGE, WebhookParams.CheckoutSHA );
+			Message = Message + Chars.LF + RemoteFile.ErrorInfo;
+			Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
 			
-			Продолжить;
+			Continue;
 			
-		КонецЕсли;
+		EndIf;
 
-		ОтправляемыхФайлов = ОтправляемыхФайлов + 1;
+		FilesCounter = FilesCounter + 1;
 		
-		Для Каждого Адрес Из ОтправляемыйФайл.Routes Цикл
+		For Each URL In RemoteFile.Routes Do
 			
-			ПараметрыДоставки.URL = Адрес;
+			SendParams.URL = URL;
 			
-			КлючФоновогоЗадания = CheckoutSHA + "|" + Адрес + "|" + ОтправляемыйФайл.FileName;
+			JobKey = WebhookParams.CheckoutSHA + "|" + URL + "|" + RemoteFile.FileName;
 				
-			Если ( IsActiveBackgroundJob(КлючФоновогоЗадания) ) Тогда
+			If ( IsActiveBackgroundJob(JobKey) ) Then
 				
-				Сообщение = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
-				Сообщение = Сообщение + Символы.ПС + KEY_MESSAGE + КлючФоновогоЗадания;
-				Логирование.Предупреждение( EVENT_MESSAGE, Сообщение, LoggingOptions );
+				Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, WebhookParams.CheckoutSHA );
+				Message = Message + Chars.LF + KEY_MESSAGE + JobKey;
+				Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
 				
-				Продолжить;
+				Continue;
 				
-			КонецЕсли;
+			EndIf;
 			
-			ПараметрыЗадания = Новый Массив();
-			ПараметрыЗадания.Добавить( ОтправляемыйФайл.FileName );
-			ПараметрыЗадания.Добавить( ОтправляемыйФайл.BinaryData );
-			ПараметрыЗадания.Добавить( ПараметрыДоставки );
-			ПараметрыЗадания.Добавить( ПараметрыСобытия );
+			JobParams = New Array();
+			JobParams.Add( RemoteFile.FileName );
+			JobParams.Add( RemoteFile.BinaryData );
+			JobParams.Add( SendParams );
+			JobParams.Add( WebhookParams );
 			
-			ФоновыеЗадания.Выполнить( "Receivers.SendFile", ПараметрыЗадания, КлючФоновогоЗадания, CheckoutSHA );
+			BackgroundJobs.Execute( "Receivers.SendFile", JobParams, JobKey, WebhookParams.CheckoutSHA );
 															
-			ЗапущенныхЗаданий = ЗапущенныхЗаданий + 1;
+			JobsCounter = JobsCounter + 1;
 				
-		КонецЦикла;
+		EndDo;
 		
-	КонецЦикла;
+	EndDo;
 	
-	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( FILES_SENT_MESSAGE + ОтправляемыхФайлов, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
+	Message = Логирование.ДополнитьСообщениеПрефиксом( FILES_SENT_MESSAGE + FilesCounter, WebhookParams.CheckoutSHA );
+	Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
 	
-	Сообщение = Логирование.ДополнитьСообщениеПрефиксом( RUNNING_JOBS_MESSAGE + ЗапущенныхЗаданий, CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Сообщение, LoggingOptions );
+	Message = Логирование.ДополнитьСообщениеПрефиксом( RUNNING_JOBS_MESSAGE + JobsCounter, WebhookParams.CheckoutSHA );
+	Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
 	
-КонецПроцедуры
+EndProcedure
 
-Процедура ЛогироватьРезультатОперации( Val ПараметрыСобытия, Val Action, Val Результат = Undefined )
+Procedure LogAction( Val WebhookParams, Val Action, Val Result = Undefined )
 	
 	Var LoggingOptions;
-	Var Сообщение;
+	Var Message;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core';en = 'Core'" );
 	OPERATION_SUCCEEDED_MESSAGE = NStr( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
 	OPERATION_FAILED_MESSAGE = NStr( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( ПараметрыСобытия.Webhook );
+	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
 	
-	Если ( Результат = Undefined ИЛИ ЗначениеЗаполнено(Результат) ) Тогда
+	If ( Result = Undefined OR ValueIsFilled(Result) ) Then
 		
-		Сообщение = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( Сообщение, ПараметрыСобытия.CheckoutSHA );
-		Логирование.Информация( "Core." + Action, Сообщение, LoggingOptions );
+		Message = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
+		Message = Логирование.ДополнитьСообщениеПрефиксом( Message, WebhookParams.CheckoutSHA );
+		Логирование.Информация( "Core." + Action, Message, LoggingOptions );
 		
-	Иначе
+	Else
 
-		Сообщение = "[" + Action + "]: " + OPERATION_FAILED_MESSAGE;		
-		Сообщение = Логирование.ДополнитьСообщениеПрефиксом( Сообщение, ПараметрыСобытия.CheckoutSHA );
+		Message = "[" + Action + "]: " + OPERATION_FAILED_MESSAGE;		
+		Message = Логирование.ДополнитьСообщениеПрефиксом( Message, WebhookParams.CheckoutSHA );
 		
-		Если ( ТипЗнч(Результат) = Тип("ИнформацияОбОшибке") ) Тогда
+		If ( TypeOf(Result) = Type("ErrorInfo") ) Then
 			
-			Сообщение = Сообщение + Символы.ПС + ОбработкаОшибок.ПодробноеПредставлениеОшибки( Результат );
+			Message = Message + Chars.LF + ErrorProcessing.DetailErrorDescription( Result );
 			
-		КонецЕсли;
+		EndIf;
 					
-		Логирование.Предупреждение( EVENT_MESSAGE + "." + Action, Сообщение, LoggingOptions );
+		Логирование.Предупреждение( EVENT_MESSAGE + "." + Action, Message, LoggingOptions );
 			
-	КонецЕсли;
+	EndIf;
 		
-КонецПроцедуры
+EndProcedure
 
-Процедура ЗагрузитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
-	
-	Var ОбработчикСобытия;
-	Var CheckoutSHA;
-	
+Procedure LoadData( Val WebhookParams, QueryData, RemoteFiles )
+
 	LOAD_QUERY_MESSAGE = NStr( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
 	LOAD_FILES_MESSAGE = NStr( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 	
-	ОбработчикСобытия = ПараметрыСобытия.Webhook;
-	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
+	QueryData = Webhooks.LoadQueryData( WebhookParams.Webhook, WebhookParams.CheckoutSHA );
+	LogAction( WebhookParams, LOAD_QUERY_MESSAGE, QueryData );
 
-	ДанныеЗапроса = Webhooks.LoadQueryData( ОбработчикСобытия, CheckoutSHA );
-	ЛогироватьРезультатОперации( ПараметрыСобытия, LOAD_QUERY_MESSAGE, ДанныеЗапроса );
-
-	ОтправляемыеДанные = Webhooks.LoadRemoteFiles( ОбработчикСобытия, CheckoutSHA );
-	ЛогироватьРезультатОперации( ПараметрыСобытия, LOAD_FILES_MESSAGE, ОтправляемыеДанные );
+	RemoteFiles = Webhooks.LoadRemoteFiles( WebhookParams.Webhook, WebhookParams.CheckoutSHA );
+	LogAction( WebhookParams, LOAD_FILES_MESSAGE, RemoteFiles );
 	
-КонецПроцедуры
+EndProcedure
 
-Процедура СохранитьДанныеЗапроса( Val ПараметрыСобытия, Val ДанныеЗапроса )
+Procedure SaveQueryData( Val WebhookParams, Val QueryData )
 	
-	Var ОбработчикСобытия;
-	Var CheckoutSHA;
-	Var ИнформацияОбОшибке;
+	Var ErrorInfo;
 	
 	SAVE_QUERY_MESSAGE = NStr( "ru = 'СохранениеЗапросаВБазуДанных';en = 'SaveRequestToDatabase'" );
 	
-	ОбработчикСобытия = ПараметрыСобытия.Webhook;
-	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
+	ErrorInfo = Undefined;
 	
-	ИнформацияОбОшибке = Undefined;
-	
-	Попытка
+	Try
 		
-		Webhooks.SaveQueryData( ОбработчикСобытия, CheckoutSHA, ДанныеЗапроса );
+		Webhooks.SaveQueryData( WebhookParams.Webhook, WebhookParams.CheckoutSHA, QueryData );
 		
-	Исключение
+	Except
 		
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
+		ErrorInfo = ErrorInfo();
 
-	КонецПопытки;
+	EndTry;
 	
-	ЛогироватьРезультатОперации( ПараметрыСобытия, SAVE_QUERY_MESSAGE, ИнформацияОбОшибке );
+	LogAction( WebhookParams, SAVE_QUERY_MESSAGE, ErrorInfo );
 	
-КонецПроцедуры
+EndProcedure
 
-Процедура СохранитьВнешниеФайлы( Val ПараметрыСобытия, Val ОтправляемыеДанные )
+Процедура SaveRemoteFiles( Val WebhookParams, Val ОтправляемыеДанные )
 	
-	Var ОбработчикСобытия;
-	Var CheckoutSHA;
-	Var ИнформацияОбОшибке;
+	Var ErrorInfo;
 	
 	SAVE_FILES_MESSAGE = NStr( "ru = 'СохранениеВнешнихФайловВБазуДанных';en = 'SaveFilesToDatabase'" );
 	
-	ОбработчикСобытия = ПараметрыСобытия.Webhook;
-	CheckoutSHA = ПараметрыСобытия.CheckoutSHA;
+	ErrorInfo = Undefined;
 	
-	ИнформацияОбОшибке = Undefined;
-	
-	Попытка
+	Try
 		
-		Webhooks.SaveRemoteFiles( ОбработчикСобытия, CheckoutSHA, ОтправляемыеДанные );
+		Webhooks.SaveRemoteFiles( WebhookParams.Webhook, WebhookParams.CheckoutSHA, ОтправляемыеДанные );
 		
-	Исключение
+	Except
 		
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
+		ErrorInfo = ErrorInfo();
 
-	КонецПопытки;
+	EndTry;
 	
-	ЛогироватьРезультатОперации( ПараметрыСобытия, SAVE_FILES_MESSAGE, ИнформацияОбОшибке );
+	LogAction( WebhookParams, SAVE_FILES_MESSAGE, ErrorInfo );
 	
 КонецПроцедуры
 
-Процедура СохранитьДанные( Val ПараметрыСобытия, ДанныеЗапроса, ОтправляемыеДанные )
+Procedure SaveData( Val WebhookParams, QueryData, RemoteFiles )
 
-	СохранитьДанныеЗапроса( ПараметрыСобытия, ДанныеЗапроса );
-	СохранитьВнешниеФайлы( ПараметрыСобытия, ОтправляемыеДанные );
+	SaveQueryData( WebhookParams, QueryData );
+	SaveRemoteFiles( WebhookParams, RemoteFiles );
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
