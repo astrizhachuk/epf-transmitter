@@ -32,131 +32,136 @@ Function FindByToken( Val Token ) Export
 	
 EndFunction
 
-// Загружает в табличную часть объекта данные из журнала регистрации по фильтру.
+// LoadEventsHistory loads data from the event log into the object by filter.
 // 
-// Параметры:
-// 	Object - СправочникОбъект.Webhooks - объект обработчика событий; 
-// 	Destination - Строка - имя табличной части;
-// 	Filter - Структура - фильтр отбора для журнала регистрации (См. ГлобальныйКонтекст.ВыгрузитьЖурналРегистрации);
-// 	RecordsLoaded - Число - (возвращаемый параметр) количество загруженных записей;
+// Parameters:
+// 	Object - CatalogObject.Webhooks - target object; 
+// 	Destination - String - tabular section name;
+// 	Filter - Structure - event log filter (see global context UnloadEventLog);
+// 	RecordsLoaded - Number - (returned) number of loaded records;
 //
-Процедура LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded ) Экспорт
+Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded ) Export
 	
-	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
-
-	Если ТипЗнч(Object) <> Тип("СправочникОбъект.Webhooks") Тогда
-		
-		Возврат;
-		
-	КонецЕсли;	
-
-	Object[Destination].Очистить();
-
-	ДанныеЖурналаРегистрации = Новый ТаблицаЗначений();
-	ВыгрузитьЖурналРегистрации( ДанныеЖурналаРегистрации, Filter );
+	Var EventLog;
+	Var Event;
+	Var NewHistoryRecord;
 	
-	Для каждого ЗаписьЖурналаРегистрации Из ДанныеЖурналаРегистрации Цикл
-		
-		ОписаниеСобытия = ОписаниеСобытияПоЗаписиЖурналаРегистрации( ЗаписьЖурналаРегистрации );
-		
-		Если ( ОписаниеСобытия.ObjectName <> EVENT_OBJECT ) Тогда
-			
-			Продолжить;
-			
-		КонецЕсли;
+	EVENT_OBJECT = NStr( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 
-		НоваяЗаписьИстории = Object[Destination].Добавить();
-		ЗаполнитьЗначенияСвойств(НоваяЗаписьИстории, ЗаписьЖурналаРегистрации);
-		ЗаполнитьЗначенияСвойств(НоваяЗаписьИстории, ОписаниеСобытия);
+	If ( TypeOf(Object) <> Type("CatalogObject.Webhooks") ) Then
+		
+		Return;
+		
+	EndIf;	
+
+	Object[Destination].Clear();
+
+	EventLog = New ValueTable();
+	
+	UnloadEventLog( EventLog, Filter );
+	
+	For Each Record In EventLog Do
+		
+		Event = Event( Record );
+		
+		If ( Event.ObjectName <> EVENT_OBJECT ) Then
+			
+			Continue;
+			
+		EndIf;
+
+		NewHistoryRecord = Object[Destination].Add();
+		
+		FillPropertyValues( NewHistoryRecord, Record );
+		FillPropertyValues( NewHistoryRecord, Event );
  		
 		RecordsLoaded = RecordsLoaded + 1;
 
-	КонецЦикла;
+	EndDo;
 	
-	Object.Записать();
+	Object.Write();
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region Private
 
-// Возвращает структурированное описание события по данным записи журнала регистрации.
-// Описание строится по данным колонки "Event" таблицы значений, полученной выгрузкой через
-// ГлобальныйКонтекст.ВыгрузитьЖурналРегистрации.
-// Формат строки события: "ИмяОбъекта.Операция.Действие1.Действие2...ДействиеN[.КодОшибки]".  
+// Event returns a structured description of log entry event (see global context UnloadEventLog, column "Event").
+// Event string format: "ObjectName.Action.Operation1.Operation2...OperationN[.HTTPStatusCode]".  
 // 
-// Параметры:
-// 	ЗаписьЖурналаРегистрации - СтрокаТаблицыЗначений - строка таблицы значений выгрузки из журнала регистрации;
+// Parameters:
+// 	Record - ValueTableRow - log event record;
 //
 // Returns:
-// 	Структура - описание:
-// * Event - Строка - полный текст события записи журнала регистрации;
-// * ObjectName - Строка - абстракция, к которой привязывается событие, для отделения его от глобального контекста;
-// * Action - Строка - операция, к которой привязывается событие;
-// * EventPresentation - Строка - представление события в формате: "Действие1.Действие2...ДействиеN";
-// * HTTPStatusCode - Число - код состояния HTTP или 0, если кода нет; 
+// 	Structure - log event:
+// * Event - String - event string from log record (as is);
+// * ObjectName - String - first element from the event string;
+// * Action - String - action (second element from the event string);
+// * EventPresentation - String - presentation of the event in the format: "Operation1.Operation2...OperationN";
+// * HTTPStatusCode - Number - HTTP status code or 0, if code undefined; 
 //
-Функция ОписаниеСобытияПоЗаписиЖурналаРегистрации( Знач ЗаписьЖурналаРегистрации )
+Function Event( Val Record )
 	
-	Var ЭлементыСобытия;
-	Var Результат;
+	Var EventElements;
+	Var Result;
 
-	MIN_WORD_COUNT = 3;
+	WORD_COUNT_MIN = 3;
 	
-	Результат = Новый Структура();
-	Результат.Вставить( "Event", ЗаписьЖурналаРегистрации.Event );
-	Результат.Вставить( "ObjectName", "" );
-	Результат.Вставить( "Action", "" );
-	Результат.Вставить( "EventPresentation", "" );
-	Результат.Вставить( "HTTPStatusCode", 0 );
-	ЭлементыСобытия = СтрРазделить( ЗаписьЖурналаРегистрации.Event, "." );
+	Result = New Structure();
+	Result.Insert( "Event", Record.Event );
+	Result.Insert( "ObjectName", "" );
+	Result.Insert( "Action", "" );
+	Result.Insert( "EventPresentation", "" );
+	Result.Insert( "HTTPStatusCode", 0 );
 	
-	Если ЭлементыСобытия.Количество() < MIN_WORD_COUNT Тогда
+	EventElements = StrSplit( Record.Event, "." );
+	
+	If ( EventElements.Count() < WORD_COUNT_MIN ) Then
 		
-		Возврат Результат;
+		Return Result;
 							
-	КонецЕсли;
+	EndIf;
 
-	Результат.ObjectName = ЭлементыСобытия[ 0 ];
-	Результат.Action = ЭлементыСобытия[ 1 ];
-	Результат.HTTPStatusCode = КодСостоянияHTTP( ЭлементыСобытия );
-	Результат.EventPresentation = ПредставлениеСобытия( ЭлементыСобытия, Результат.HTTPStatusCode );
+	Result.ObjectName = EventElements[ 0 ];
+	Result.Action = EventElements[ 1 ];
+	Result.HTTPStatusCode = HTTPStatusCode( EventElements );
+	Result.EventPresentation = EventPresentation( EventElements, Result.HTTPStatusCode );
 	
-	Возврат Результат;
+	Return Result;
 	
-КонецФункции
+EndFunction
 
-Функция КодСостоянияHTTP( Знач ЭлементыСобытия )
+Function HTTPStatusCode( Val EventElements )
 
-	Var ОписаниеТипа;
-	Var ПоследнийЭлемент;
+	Var TypeDescription;
+	Var LastElement;
 	
-	ПоследнийЭлемент = ЭлементыСобытия[ ЭлементыСобытия.ВГраница() ];
-	ОписаниеТипа = Новый ОписаниеТипов( "Число" );
+	LastElement = EventElements[ EventElements.UBound() ];
+	TypeDescription = New TypeDescription( "Number" );
 	
-	Возврат ОписаниеТипа.ПривестиЗначение( ПоследнийЭлемент );
+	Return TypeDescription.AdjustValue( LastElement );
 	
-КонецФункции
+EndFunction
 
-Функция ПредставлениеСобытия( Знач ЭлементыСобытия, Знач КодСостоянияHTTP )
+Function EventPresentation( Val EventElements, Val HTTPStatusCode )
 
-	Var ИндексПоследнегоЭлемента;
-	Var Индекс;
+	Var UBoundIndex;
+	Var UBoundPresentation;
 	
-	ИндексПоследнегоЭлемента = ЭлементыСобытия.ВГраница();
-	ГраницаПредставленияСобытия = ?( КодСостоянияHTTP = 0, ИндексПоследнегоЭлемента, ИндексПоследнегоЭлемента - 1 );
+	UBoundIndex = EventElements.UBound();
+	UBoundPresentation = ?( HTTPStatusCode = 0, UBoundIndex, UBoundIndex - 1 );
 
-	ПредставлениеСобытия = Новый Массив;
+	Presentation = New Array();
 	
-	Для Индекс = 2 По ГраницаПредставленияСобытия Цикл
+	For Index = 2 To UBoundPresentation Do
 		
-		ПредставлениеСобытия.Добавить( ЭлементыСобытия[Индекс] );
+		Presentation.Add( EventElements[Index] );
 		
-	КонецЦикла;
+	EndDo;
 	
-	Возврат СтрСоединить( ПредставлениеСобытия, "." );
+	Return StrConcat( Presentation, "." );
 	
-КонецФункции
+EndFunction
 
 #EndRegion
