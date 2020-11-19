@@ -10,5 +10,5 @@
     <value>Логирование</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
-  <content>CommonModule.Логирование</content>
+  <content>CommonModule.Logging</content>
 </mdclass:Subsystem>

@@ -28,7 +28,6 @@ Function WebhooksPOST( Request )
 	Var Webhook;
 	Var QueryData;
 	Var Response;
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.ОбработкаЗапроса.Начало';en = 'WebService.QueryProcessing.Begin'" );
 	EVENT_MESSAGE_END = NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';en = 'WebService.QueryProcessing.End'" );
@@ -41,7 +40,7 @@ Function WebhooksPOST( Request )
 	
 	Response = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
 	
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVED_REQUEST_MESSAGE );
+	Logging.Info( EVENT_MESSAGE_BEGIN, RECEIVED_REQUEST_MESSAGE );
 	
 	Webhook = Undefined;
 	CheckToken( Webhook, Request, Response );
@@ -52,11 +51,9 @@ Function WebhooksPOST( Request )
 	DeserializeRequestBody( Webhook, Request, Response, QueryData );
 	CheckRequiredFields( Webhook, QueryData, Response );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
-	
 	If ( HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 
-		Логирование.Информация( EVENT_MESSAGE_END, PROCESSED_REQUEST_MESSAGE, LoggingOptions );
+		Logging.Info( EVENT_MESSAGE_END, PROCESSED_REQUEST_MESSAGE, , Response );
 		
 		DataProcessing.RunBackgroundJob( Webhook, QueryData );
 		
@@ -71,7 +68,6 @@ EndFunction
 Procedure CheckToken( Webhook, Val Request, Response )
 
 	Var Token;
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	KEY_NOT_FOUND_MESSAGE = NStr( "ru = 'Секретный ключ не найден.';en = 'The Secret Key is not found.'" );
@@ -89,16 +85,13 @@ Procedure CheckToken( Webhook, Val Request, Response )
 		
 		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("FORBIDDEN") );
 		
-		LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
-		Логирование.Предупреждение( EVENT_MESSAGE, KEY_NOT_FOUND_MESSAGE, LoggingOptions );
+		Logging.Warn( EVENT_MESSAGE, KEY_NOT_FOUND_MESSAGE, , Response );
 										 
 	EndIf;
 
 EndProcedure
 
 Procedure CheckHandleRequestsEnabled( Response )
-	
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	LOADING_DISABLED_MESSAGE = NStr( "ru = 'Загрузка из внешнего хранилища отключена.';
@@ -115,8 +108,7 @@ Procedure CheckHandleRequestsEnabled( Response )
 		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("LOCKED") );
 		Response.Reason = LOADING_DISABLED_MESSAGE;
 		
-		LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
-		Логирование.Предупреждение( EVENT_MESSAGE, LOADING_DISABLED_MESSAGE, LoggingOptions );
+		Logging.Warn( EVENT_MESSAGE, LOADING_DISABLED_MESSAGE, , Response );
 
 	EndIf;
 
@@ -161,8 +153,6 @@ EndFunction
 
 Procedure CheckRequestHeaders( Val Webhook, Val Request, Response )
 	
-	Var LoggingOptions;
-	
 	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
 	ONLY_EPF_MESSAGE = NStr( "ru = ''Сервис доступен только для внешних отчетов и обработок.';
 									|en = 'The service is available only for external reports and processing.'" );
@@ -175,12 +165,10 @@ Procedure CheckRequestHeaders( Val Webhook, Val Request, Response )
 		
 	EndIf;
 
-	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
-
 	If ( NOT IsRepositoryEPF(Request) ) Then
 
 		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
-		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_EPF_MESSAGE, LoggingOptions );
+		Logging.Warn( EVENT_MESSAGE, ONLY_EPF_MESSAGE, Webhook );
 												 
 		Return;
 		
@@ -189,7 +177,7 @@ Procedure CheckRequestHeaders( Val Webhook, Val Request, Response )
 	If ( NOT IsPushHook(Request) ) Then
 		
 		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
-		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_PUSH_MESSAGE, LoggingOptions );
+		Logging.Warn( EVENT_MESSAGE, ONLY_PUSH_MESSAGE, Webhook );
 												 
 		Return;
 	
@@ -210,7 +198,6 @@ Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryD
 	
 	Var Stream;
 	Var ConversionParams;
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
 	EVENT_MESSAGE = NStr( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
@@ -223,9 +210,8 @@ Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryD
 		Return;
 		
 	EndIf;
-	
-	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, DESERIALIZATION_MESSAGE, LoggingOptions );
+
+	Logging.Info( EVENT_MESSAGE_BEGIN, DESERIALIZATION_MESSAGE, Webhook );
 	
 	Try
 		
@@ -240,12 +226,12 @@ Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryD
 		
 		Stream.Close();
 		
-		Логирование.Информация( EVENT_MESSAGE_END, DESERIALIZATION_MESSAGE, LoggingOptions );
+		Logging.Info( EVENT_MESSAGE_END, DESERIALIZATION_MESSAGE, Webhook );
 
 	Except
 		
 		Stream.Close();
-		Логирование.Ошибка( EVENT_MESSAGE, ErrorInfo().Description, LoggingOptions );
+		Logging.Error( EVENT_MESSAGE, ErrorInfo().Description, Webhook );
 		
 		Raise;
 		
@@ -302,7 +288,6 @@ Procedure CheckRequiredFields( Val Webhook, Val QueryData, Response )
 	
 	Var RequiredFields;
 	Var Message;
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.ПроверкаЗапроса.Начало';en = 'WebService.RequestValidation.Begin'" );
 	EVENT_MESSAGE = NStr( "ru = 'WebService.ПроверкаЗапроса';en = 'WebService.RequestValidation'" );
@@ -316,9 +301,8 @@ Procedure CheckRequiredFields( Val Webhook, Val QueryData, Response )
 		Return;
 		
 	EndIf;
-	
-	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, VALIDATION_MESSAGE, LoggingOptions );
+
+	Logging.Info( EVENT_MESSAGE_BEGIN, VALIDATION_MESSAGE, Webhook );
 	
 	RequiredFields = RequiredFields( QueryData );
 	
@@ -329,7 +313,7 @@ Procedure CheckRequiredFields( Val Webhook, Val QueryData, Response )
 			Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
 			
 			Message = StrTemplate( MISSING_DATA_MESSAGE, Field.Key );
-			Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
+			Logging.Error( EVENT_MESSAGE, Message, Webhook );
 			
 			Return;		
 			
@@ -337,7 +321,7 @@ Procedure CheckRequiredFields( Val Webhook, Val QueryData, Response )
 		
 	EndDo;
 	
-	Логирование.Информация( EVENT_MESSAGE_END, VALIDATION_MESSAGE, LoggingOptions );
+	Logging.Info( EVENT_MESSAGE_END, VALIDATION_MESSAGE, Webhook );
 	
 EndProcedure
 

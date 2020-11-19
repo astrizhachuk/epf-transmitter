@@ -13,12 +13,11 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 
 	Var QueryData;
 	Var CheckoutSHA;
-		
-	Var LoggingOptions;
-	Var Message;
-	
+
 	Var BackgroundJobParams;
 	Var BackgroundJob;
+
+	Var Message;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
 	
@@ -27,8 +26,7 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 										|en = 'an error occurred while starting the job:'" );									
 	
 	Message = "";
-	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
-
+	
 	QueryData = Undefined;
 	CheckoutSHA = "";
 	
@@ -38,7 +36,7 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 	
 	If ( NOT IsBlankString(Message) ) Then
 	
-		Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
+		Logging.Error( EVENT_MESSAGE, Message, Webhook );
 		
 		Return BackgroundJob;
 	
@@ -46,8 +44,8 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 	
 	If ( IsActiveBackgroundJob(CheckoutSHA) ) Then
 		
-		Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
-		Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
+		Message = Logging.AddPrefix( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
+		Logging.Warn( EVENT_MESSAGE, Message, Webhook );
 		
 		Return BackgroundJob;
 		
@@ -63,9 +61,9 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 		
 	Except
 		
-		Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_RUNNING_ERROR_MESSAGE, CheckoutSHA );
+		Message = Logging.AddPrefix( JOB_RUNNING_ERROR_MESSAGE, CheckoutSHA );
 		Message = Message + Chars.LF + ErrorProcessing.DetailErrorDescription( ErrorInfo() );
-		Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
+		Logging.Error( EVENT_MESSAGE, Message, Webhook );
 		
 	EndTry;
  
@@ -81,7 +79,6 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 	
 	Var RemoteFiles;
 	Var Commits;
-	Var LoggingOptions;
 	Var Message;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ОбработкаДанных.Начало';en = 'Core.DataProcessing.Begin'" );
@@ -90,10 +87,8 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 	DATA_PROCESSING_MESSAGE = NStr( "ru = 'обработка данных...';en = 'data processing...'" );
 	NO_DATA_MESSAGE = NStr( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
-
-	Message = Логирование.ДополнитьСообщениеПрефиксом( DATA_PROCESSING_MESSAGE, WebhookParams.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, Message, LoggingOptions );	
+	Message = Logging.AddPrefix( DATA_PROCESSING_MESSAGE, WebhookParams.CheckoutSHA );
+	Logging.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.Webhook );
 	
 	RemoteFiles = Undefined;
 	
@@ -101,8 +96,8 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 	
 	If ( NOT ValueIsFilled(QueryData) OR NOT ValueIsFilled(RemoteFiles) ) Then
 
-		Message = Логирование.ДополнитьСообщениеПрефиксом( NO_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-		Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );
+		Message = Logging.AddPrefix( NO_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+		Logging.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
 		
 		Return;
 		
@@ -113,7 +108,7 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 			
 	SendFiles( WebhookParams, RemoteFiles );
 
-	Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );	
+	Logging.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
 	
 EndProcedure
 
@@ -183,7 +178,6 @@ Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 
 	Var ProjectParams;
 	Var Commits;
-	Var LoggingOptions;	
 	Var Message;
 	
 	EVENT_MESSAGE_BEGIN = NStr( "ru = 'Core.ПодготовкаДанных.Начало';en = 'Core.DataPreparation.Begin'" );
@@ -193,9 +187,8 @@ Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 	PREPARING_DATA_MESSAGE = NStr( "ru = 'подготовка данных к отправке.';en = 'preparing data for sending.'" );
 	LOADING_DATA_MESSAGE = NStr( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
-	Message = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, Message, LoggingOptions );
+	Message = Logging.AddPrefix( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+	Logging.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.Webhook );
 
 	If ( QueryData <> Undefined ) Then
 		
@@ -208,15 +201,15 @@ Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 		
 	Else
 		
-		Message = Логирование.ДополнитьСообщениеПрефиксом( LOADING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-		Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
+		Message = Logging.AddPrefix( LOADING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+		Logging.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
 				
 		LoadData( WebhookParams, QueryData, RemoteFiles );
 		
 	EndIf;
 
-	Message = Логирование.ДополнитьСообщениеПрефиксом( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE_END, Message, LoggingOptions );
+	Message = Logging.AddPrefix( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
+	Logging.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
 	
 EndProcedure
 
@@ -228,8 +221,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	Var FilesCounter;
 	Var JobsCounter;
 	Var JobKey;
-	
-	Var LoggingOptions;
+
 	Var Message;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" );
@@ -239,7 +231,6 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	FILES_SENT_MESSAGE = NStr( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
 	RUNNING_JOBS_MESSAGE = NStr( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
 	SendParams = Receivers.ConnectionParams();
 	
 	FilesCounter = 0;
@@ -249,9 +240,9 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 		
 		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
-			Message = Логирование.ДополнитьСообщениеПрефиксом( GET_FILE_ERROR_MESSAGE, WebhookParams.CheckoutSHA );
+			Message = Logging.AddPrefix( GET_FILE_ERROR_MESSAGE, WebhookParams.CheckoutSHA );
 			Message = Message + Chars.LF + RemoteFile.ErrorInfo;
-			Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
+			Logging.Warn( EVENT_MESSAGE, Message, WebhookParams.Webhook );
 			
 			Continue;
 			
@@ -267,9 +258,9 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 				
 			If ( IsActiveBackgroundJob(JobKey) ) Then
 				
-				Message = Логирование.ДополнитьСообщениеПрефиксом( JOB_WAS_STARTED_MESSAGE, WebhookParams.CheckoutSHA );
+				Message = Logging.AddPrefix( JOB_WAS_STARTED_MESSAGE, WebhookParams.CheckoutSHA );
 				Message = Message + Chars.LF + KEY_MESSAGE + JobKey;
-				Логирование.Предупреждение( EVENT_MESSAGE, Message, LoggingOptions );
+				Logging.Warn( EVENT_MESSAGE, Message, WebhookParams.Webhook );
 				
 				Continue;
 				
@@ -289,35 +280,32 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 		
 	EndDo;
 	
-	Message = Логирование.ДополнитьСообщениеПрефиксом( FILES_SENT_MESSAGE + FilesCounter, WebhookParams.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
+	Message = Logging.AddPrefix( FILES_SENT_MESSAGE + FilesCounter, WebhookParams.CheckoutSHA );
+	Logging.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
 	
-	Message = Логирование.ДополнитьСообщениеПрефиксом( RUNNING_JOBS_MESSAGE + JobsCounter, WebhookParams.CheckoutSHA );
-	Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
+	Message = Logging.AddPrefix( RUNNING_JOBS_MESSAGE + JobsCounter, WebhookParams.CheckoutSHA );
+	Logging.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
 	
 EndProcedure
 
 Procedure LogAction( Val WebhookParams, Val Action, Val Result = Undefined )
 	
-	Var LoggingOptions;
 	Var Message;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core';en = 'Core'" );
 	OPERATION_SUCCEEDED_MESSAGE = NStr( "ru = 'операция выполнена успешно.';en = 'the operation was successful.'" );
 	OPERATION_FAILED_MESSAGE = NStr( "ru = 'операция не выполнена.';en = 'operation failed.'" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( WebhookParams.Webhook );
-	
 	If ( Result = Undefined OR ValueIsFilled(Result) ) Then
 		
 		Message = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
-		Message = Логирование.ДополнитьСообщениеПрефиксом( Message, WebhookParams.CheckoutSHA );
-		Логирование.Информация( "Core." + Action, Message, LoggingOptions );
+		Message = Logging.AddPrefix( Message, WebhookParams.CheckoutSHA );
+		Logging.Info( "Core." + Action, Message, WebhookParams.Webhook );
 		
 	Else
 
 		Message = "[" + Action + "]: " + OPERATION_FAILED_MESSAGE;		
-		Message = Логирование.ДополнитьСообщениеПрефиксом( Message, WebhookParams.CheckoutSHA );
+		Message = Logging.AddPrefix( Message, WebhookParams.CheckoutSHA );
 		
 		If ( TypeOf(Result) = Type("ErrorInfo") ) Then
 			
@@ -325,7 +313,7 @@ Procedure LogAction( Val WebhookParams, Val Action, Val Result = Undefined )
 			
 		EndIf;
 					
-		Логирование.Предупреждение( EVENT_MESSAGE + "." + Action, Message, LoggingOptions );
+		Logging.Warn( EVENT_MESSAGE + "." + Action, Message, WebhookParams.Webhook );
 			
 	EndIf;
 		

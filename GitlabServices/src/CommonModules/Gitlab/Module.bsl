@@ -182,7 +182,6 @@ EndFunction
 //
 Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	
-	Var LoggingOptions;
 	Var ConnectionParams;
 	Var RemoteFiles;
 	
@@ -192,8 +191,7 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	
 	RECEIVING_MESSAGE = NStr( "ru = 'получение файлов с сервера...';en = 'receiving files from the server...'" );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook ); 
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, LoggingOptions );	
+	Logging.Info( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, Webhook );
 
 	RemoteFiles = AllRemoteFilesByActions( Commits, Project.Id );
 	RemoteFiles = RemoteFilesSliceLast( RemoteFiles );
@@ -206,13 +204,13 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 		
 		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
-			Логирование.Ошибка( EVENT_MESSAGE, RemoteFile.ErrorInfo, LoggingOptions );
+			Logging.Error( EVENT_MESSAGE, RemoteFile.ErrorInfo, Webhook );
 			
 		EndIf;
 			
 	EndDo;
 	
-	Логирование.Информация( EVENT_MESSAGE_END, RECEIVING_MESSAGE, LoggingOptions );	
+	Logging.Info( EVENT_MESSAGE_END, RECEIVING_MESSAGE, Webhook );
 
 	Return RemoteFiles;	
 	

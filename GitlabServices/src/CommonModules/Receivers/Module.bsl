@@ -121,29 +121,29 @@ EndFunction
 Procedure LoggingSendFileResult( Message, Val EventParams, Val StatusCode )
 	
 	Var NewResponse;
-	Var LoggingOptions;
 	
 	EVENT_MESSAGE = NStr( "ru = 'Core.ОтправкаДанныхПолучателю';en = 'Core.SendingFileReceiver'" );
 	
-	LoggingOptions = Undefined;
-	
+	Webhook = Undefined;
+	NewResponse = Undefined;
+
 	If ( EventParams <> Undefined ) Then
 		
+		Webhook = EventParams.Webhook;
 		NewResponse = New HTTPServiceResponse( StatusCode );
-		LoggingOptions = Логирование.ДополнительныеПараметры( EventParams.Webhook, NewResponse );
-		Message = Логирование.ДополнитьСообщениеПрефиксом( Message, EventParams.CheckoutSHA );
+		Message = Logging.AddPrefix( Message, EventParams.CheckoutSHA );
+			
+	EndIf;
+
+	If ( HTTPStatusCodesClientServerCached.isOk(StatusCode) ) Then
+		
+		Logging.Info( EVENT_MESSAGE, Message, Webhook, NewResponse );
+
+	Else
+		
+		Logging.Error( EVENT_MESSAGE, Message, Webhook, NewResponse );
 		
 	EndIf;
-	
-	Если ( HTTPStatusCodesClientServerCached.isOk(StatusCode) ) Тогда
-		
-		Логирование.Информация( EVENT_MESSAGE, Message, LoggingOptions );
-
-	Иначе
-		
-		Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
-		
-	КонецЕсли;
 	
 EndProcedure
 
