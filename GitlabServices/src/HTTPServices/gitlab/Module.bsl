@@ -1,343 +1,344 @@
 #Region Private
 
-#Область HTTPМетоды
+#Область Methods
 
-Функция ServicesGET( Запрос )
+Function ServicesGET( Request )
 	
-	Var ОписаниеСервиса;
-	Var Ответ;
+	Var Service;
+	Var Body;
+	Var Response;
 	
-	Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
+	Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
 	
-	ОписаниеСервиса = HTTPServices.ServiceDescriptionByName( "gitlab" );
+	Service = HTTPServices.ServiceDescriptionByName( "gitlab" );
 	
-	ТелоОтвета = Новый Структура();
-	ТелоОтвета.Вставить( "version", Метаданные.Версия );
-	ТелоОтвета.Вставить( "services", ОписаниеСервиса );
+	Body = New Structure();
+	Body.Insert( "version", Metadata.Version );
+	Body.Insert( "services", Service );
 	
-	Ответ.Заголовки.Вставить( "Content-Type", "application/json" );
-	Ответ.УстановитьТелоИзСтроки( HTTPConnector.ОбъектВJson(ТелоОтвета) );
+	Response.Headers.Insert( "Content-Type", "application/json" );
+	Response.SetBodyFromString( HTTPConnector.ОбъектВJson(Body) );
 	
-	Возврат Ответ;
+	Return Response;
 	
-КонецФункции
+EndFunction
 
-Функция WebhooksPOST( Запрос )
+Function WebhooksPOST( Request )
 	
-	Var ОбработчикСобытия;
-	Var ДанныеЗапроса;
-	Var Ответ;
+	Var Webhook;
+	Var QueryData;
+	Var Response;
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ОбработкаЗапроса.Начало';en = 'WebService.QueryProcessing.Begin'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ОбработкаЗапроса.Окончание';en = 'WebService.QueryProcessing.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.ОбработкаЗапроса.Начало';en = 'WebService.QueryProcessing.Begin'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';en = 'WebService.QueryProcessing.End'" );
 	
-	RECEIVED_REQUEST_MESSAGE = НСтр( "ru = 'Получен запрос с сервера GitLab.';
+	RECEIVED_REQUEST_MESSAGE = NStr( "ru = 'Получен запрос с сервера GitLab.';
 									|en = 'Received a request from the GitLab server.'" );
 	
-	PROCESSED_REQUEST_MESSAGE = НСтр( "ru = 'Запрос с сервера GitLab обработан.';
+	PROCESSED_REQUEST_MESSAGE = NStr( "ru = 'Запрос с сервера GitLab обработан.';
 									|en = 'The request from the GitLab server has been processed.'" );
 	
-	Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
+	Response = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
 	
 	Логирование.Информация( EVENT_MESSAGE_BEGIN, RECEIVED_REQUEST_MESSAGE );
 	
-	ОбработчикСобытия = Неопределено;
-	ПроверитьСекретныйКлюч( Запрос, Ответ, ОбработчикСобытия );
-	ОпределитьДоступностьФункциональностиЗагрузкиИзВнешнегоРепозитория( Ответ );
-	ПроверитьЗаголовкиЗапросаWebhooksPOST( ОбработчикСобытия, Запрос, Ответ );
+	Webhook = Undefined;
+	CheckToken( Webhook, Request, Response );
+	CheckHandleRequestsEnabled( Response );
+	CheckRequestHeaders( Webhook, Request, Response );
 
-	ДанныеЗапроса = Неопределено;
-	ДесериализоватьТелоЗапроса( ОбработчикСобытия, Запрос, Ответ, ДанныеЗапроса );
-	ПроверитьНаличиеОбязательныхДанныхВТелеЗапроса( ОбработчикСобытия, ДанныеЗапроса, Ответ );
+	QueryData = Undefined;
+	DeserializeRequestBody( Webhook, Request, Response, QueryData );
+	CheckRequiredFields( Webhook, QueryData, Response );
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
+	LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
 	
-	Если ( HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 
 		Логирование.Информация( EVENT_MESSAGE_END, PROCESSED_REQUEST_MESSAGE, LoggingOptions );
 		
-		DataProcessing.RunBackgroundJob( ОбработчикСобытия, ДанныеЗапроса );
+		DataProcessing.RunBackgroundJob( Webhook, QueryData );
 		
-	КонецЕсли;
+	EndIf;
 
-	Возврат Ответ;
+	Return Response;
 	
-КонецФункции
+EndFunction
 
 #EndRegion
 
-Процедура ПроверитьСекретныйКлюч( Знач Запрос, Ответ, ОбработчикСобытия )
+Procedure CheckToken( Webhook, Val Request, Response )
 
 	Var Token;
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
-	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
-									|en = 'The Secret Key is not found.'" );
-
+	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
+	KEY_NOT_FOUND_MESSAGE = NStr( "ru = 'Секретный ключ не найден.';en = 'The Secret Key is not found.'" );
 	
-	Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Token = Запрос.Заголовки.Получить( "X-Gitlab-Token" );
-	ОбработчикСобытия = Webhooks.FindByToken( Token );
+	Token = Request.Headers.Get( "X-Gitlab-Token" );
+	Webhook = Webhooks.FindByToken( Token );
 
-	Если ( НЕ ЗначениеЗаполнено(ОбработчикСобытия) ) Тогда
+	If ( NOT ValueIsFilled(Webhook) ) Then
 		
-		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("FORBIDDEN") );
+		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("FORBIDDEN") );
 		
-		LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
+		LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
 		Логирование.Предупреждение( EVENT_MESSAGE, KEY_NOT_FOUND_MESSAGE, LoggingOptions );
 										 
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ОпределитьДоступностьФункциональностиЗагрузкиИзВнешнегоРепозитория( Ответ )
+Procedure CheckHandleRequestsEnabled( Response )
 	
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
-	LOADING_DISABLED_MESSAGE = НСтр( "ru = 'Загрузка из внешнего хранилища отключена.';
+	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
+	LOADING_DISABLED_MESSAGE = NStr( "ru = 'Загрузка из внешнего хранилища отключена.';
 									|en = 'Loading of the files is disabled.'" );
 	
-	Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Если ( НЕ ПолучитьФункциональнуюОпцию("HandleRequests") ) Тогда
+	If ( NOT GetFunctionalOption("HandleRequests") ) Then
 		
-		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("LOCKED") );
-		Ответ.Причина = LOADING_DISABLED_MESSAGE;
+		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("LOCKED") );
+		Response.Reason = LOADING_DISABLED_MESSAGE;
 		
-		LoggingOptions = Логирование.ДополнительныеПараметры( , Ответ );
+		LoggingOptions = Логирование.ДополнительныеПараметры( , Response );
 		Логирование.Предупреждение( EVENT_MESSAGE, LOADING_DISABLED_MESSAGE, LoggingOptions );
 
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-// Проверяет что запрос пришел от репозитория для хранения внешних отчетов и обработок.
+// IsRepositoryEPF checks that the request belongs to a repository with external reports and processing.
 // 
-// Параметры:
-// 	Запрос - Запрос - HTTP-запрос;
+// Parameters:
+// 	Request - HTTPServiceRequest - HTTP-request from the GitLab;
 //
 // Returns:
-// 	Булево - Истина, если это репозиторий для внешних отчетов и обработок, иначе - Ложь.
+// 	Boolean - True - this is a repository for external reports and processing, otherwise - False.
 //
-Функция ЭтоРепозиторийВнешнихОтчетовИОбработок( Знач Запрос )
+Function IsRepositoryEPF( Val Request )
 	
-	Var ТипВнешнегоХранилища;
+	Var RepositoryType;
 	
-	ТипВнешнегоХранилища = Запрос.ПараметрыURL.Получить( "ТипВнешнегоХранилища" );
-	Возврат ( ТипВнешнегоХранилища <> Неопределено И ТипВнешнегоХранилища = "epf" );
+	RepositoryType = Request.URLParameters.Get( "RepositoryType" );
+	Return ( RepositoryType <> Undefined AND RepositoryType = "epf" );
 	
-КонецФункции
+EndFunction
 
-// Проверяет является ли запрос событием "Push Hook" и end-point выбран push.
+// IsPushHook checks if request is a "Push Hook" event.
 // 
-// Параметры:
-// 	Запрос - HTTPСервисЗапрос - HTTP-запрос;
+// Parameters:
+// 	Request - HTTPServiceRequest - HTTP-request from the GitLab;
 //
 // Returns:
-// 	Булево - Истина - запрос является Push Hook, иначе - Ложь.
+// 	Boolean - True - this is a Push Hook, otherwise - False.
 //
-Функция ЭтоСобытиеPush( Знач Запрос )
+Function IsPushHook( Val Request )
 	
-	Var Событие;
-	Var ИмяМетода;
+	Var Event;
+	Var MethodName;
 	
-	Событие = Запрос.Заголовки.Получить( "X-Gitlab-Event" );
-	ИмяМетода = Запрос.ПараметрыURL.Получить( "ИмяМетода" );
+	Event = Request.Headers.Get( "X-Gitlab-Event" );
+	MethodName = Request.URLParameters.Get( "MethodName" );
 	
-	Возврат ( ЗначениеЗаполнено(Событие) И (Событие = "Push Hook") И (ИмяМетода = "push") );
+	Return ( ValueIsFilled(Event) AND (Event = "Push Hook") AND (MethodName = "push") );
 	
-КонецФункции
+EndFunction
 
-Процедура ПроверитьЗаголовкиЗапросаWebhooksPOST( Знач ОбработчикСобытия, Знач Запрос, Ответ )
+Procedure CheckRequestHeaders( Val Webhook, Val Request, Response )
 	
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE = НСтр( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
-	ONLY_EPF_MESSAGE = НСтр( "ru = ''Сервис доступен только для внешних отчетов и обработок.';
+	EVENT_MESSAGE = NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" );
+	ONLY_EPF_MESSAGE = NStr( "ru = ''Сервис доступен только для внешних отчетов и обработок.';
 									|en = 'The service is available only for external reports and processing.'" );
-	ONLY_PUSH_MESSAGE = НСтр( "ru = 'Сервис обрабатывает только события ""Push Hook"".';
+	ONLY_PUSH_MESSAGE = NStr( "ru = 'Сервис обрабатывает только события ""Push Hook"".';
 									|en = 'Service only handles events ""Push Hook"".'" );
 	
-	Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 
-	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
 
-	Если ( НЕ ЭтоРепозиторийВнешнихОтчетовИОбработок(Запрос) ) Тогда
+	If ( NOT IsRepositoryEPF(Request) ) Then
 
-		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
+		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
 		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_EPF_MESSAGE, LoggingOptions );
 												 
-		Возврат;
-	
-	КонецЕсли;
-	
-	Если ( НЕ ЭтоСобытиеPush(Запрос) ) Тогда
+		Return;
 		
-		Ответ = Новый HTTPСервисОтвет( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
+	EndIf;
+	
+	If ( NOT IsPushHook(Request) ) Then
+		
+		Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
 		Логирование.Предупреждение( EVENT_MESSAGE, ONLY_PUSH_MESSAGE, LoggingOptions );
 												 
-		Возврат;
+		Return;
 	
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-// Десериализует тело HTTP запроса из формата JSON.
+// DeserializeRequestBody deserializes the GitLab request body from JSON format.
+// The original text of the request body is added to the structure with the "json" key.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.Webhooks - ссылка на элемент справочника с обработчиками событий;
-// 	Запрос - HTTPСервисЗапрос - HTTP-запрос;
-// 	Ответ - HTTPСервисОтвет - HTTP-ответ;
-// 	ДанныеЗапроса - Соответствие - (исходящий параметр) десериализованное из JSON тело запроса;
-// 									исходный текст тела запроса добавляется в структуру с ключом "json".
+// Parameters:
+// 	Webhook - CatalogRef.Webhooks - a ref to webhook;
+// 	Request - HTTPServiceRequest - HTTP-request;
+// 	Response - HTTPServiceResponse - HTTP-response;
+// 	QueryData - Map - (returned) GitLab request body deserialized from JSON;
 //
-Процедура ДесериализоватьТелоЗапроса( Знач ОбработчикСобытия, Знач Запрос, Знач Ответ, ДанныеЗапроса = Неопределено )
+Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryData = Undefined )
 	
-	Var Поток;
-	Var ПараметрыПреобразования;
+	Var Stream;
+	Var ConversionParams;
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
-	EVENT_MESSAGE = НСтр( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.Десериализация.Окончание';en = 'WebService.Unmarshalling.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
+	EVENT_MESSAGE = NStr( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'WebService.Десериализация.Окончание';en = 'WebService.Unmarshalling.End'" );
 	
-	UNMARSHALLING_MESSAGE = НСтр( "ru = 'десериализация запроса...';en = 'unmarshalling from a request...'" );
+	DESERIALIZATION_MESSAGE = NStr( "ru = 'десериализация запроса...';en = 'unmarshalling from a request...'" );
 	
-	Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
-	Логирование.Информация( EVENT_MESSAGE_BEGIN, UNMARSHALLING_MESSAGE, LoggingOptions );
+	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
+	Логирование.Информация( EVENT_MESSAGE_BEGIN, DESERIALIZATION_MESSAGE, LoggingOptions );
 	
-	Попытка
+	Try
 		
-		Поток = Запрос.ПолучитьТелоКакПоток();
+		Stream = Request.GetBodyAsStream();
 		
-		ПараметрыПреобразования = Новый Структура();
-		ПараметрыПреобразования.Вставить( "ПрочитатьВСоответствие", Истина );
-		ПараметрыПреобразования.Вставить( "ИменаСвойствСоЗначениямиДата", "timestamp" );
+		ConversionParams = New Structure();
+		ConversionParams.Insert( "ReadToMap", True );
+		ConversionParams.Insert( "PropertiesWithDateValuesNames", "timestamp" );
 		
-		ДанныеЗапроса = HTTPConnector.JsonВОбъект( Поток, , ПараметрыПреобразования );
-		CommonUseServerCall.AppendCollectionFromStream( ДанныеЗапроса, "json", Поток );
+		QueryData = HTTPConnector.JsonВОбъект( Stream, , ConversionParams );
+		CommonUseServerCall.AppendCollectionFromStream( QueryData, "json", Stream );
 		
-		Поток.Закрыть();
+		Stream.Close();
 		
-		Логирование.Информация( EVENT_MESSAGE_END, UNMARSHALLING_MESSAGE, LoggingOptions );
+		Логирование.Информация( EVENT_MESSAGE_END, DESERIALIZATION_MESSAGE, LoggingOptions );
 
-	Исключение
+	Except
 		
-		Поток.Закрыть();
-		Логирование.Ошибка( EVENT_MESSAGE, ИнформацияОбОшибке().Описание, LoggingOptions );
+		Stream.Close();
+		Логирование.Ошибка( EVENT_MESSAGE, ErrorInfo().Description, LoggingOptions );
 		
-		ВызватьИсключение;
+		Raise;
 		
-	КонецПопытки;
+	EndTry;
 	
-КонецПроцедуры
+EndProcedure
 
-Функция ПроверяемыеЭлементы( Знач ДанныеЗапроса )
+Function RequiredFields( Val QueryData )
 	
-	Var Проект;
-	Var Коммиты;
-	Var Результат;
+	Var Project;
+	Var Commits;
+	Var Result;
 	
-	Результат = Новый Соответствие();
-	Результат.Вставить( "тело запроса" , ДанныеЗапроса ); //TODO что за шляпа "тело запроса", непонятно, может root?		
-	Результат.Вставить( "checkout_sha" , ДанныеЗапроса.Получить("checkout_sha") );
+	Result = New Map();
+	Result.Insert( "тело запроса" , QueryData ); //TODO что за шляпа "тело запроса", непонятно, может root?		
+	Result.Insert( "checkout_sha" , QueryData.Get("checkout_sha") );
 	
-	Проект = ДанныеЗапроса.Получить("project");
-	Результат.Вставить( "project" , Проект );
+	Project = QueryData.Get( "project" );
+	Result.Вставить( "project", Project );
 	
-	Если ( Проект <> Неопределено ) Тогда
+	If ( Project <> Undefined ) Then
 		
-		Результат.Вставить( "project/web_url" , Проект.Получить("web_url") );
-		Результат.Вставить( "project/id" , Проект.Получить("id") );
+		Result.Insert( "project/web_url" , Project.Get("web_url") );
+		Result.Insert( "project/id" , Project.Get("id") );
 		
-	КонецЕсли;
+	EndIf;
 	
-	Коммиты = ДанныеЗапроса.Получить("commits");
-	Результат.Вставить( "commits" , Коммиты );
+	Commits = QueryData.Get( "commits" );
 	
-	Если ( Коммиты <> Неопределено ) Тогда
+	Result.Insert( "commits" , Commits );
+	
+	If ( Commits <> Undefined ) Then
 		
-		Для Индекс = 0 По Коммиты.ВГраница() Цикл
+		For Index = 0 To Commits.UBound() Do
 			
-			Результат.Вставить( "commits[" + Строка(Индекс) + "]/id", Коммиты[Индекс].Получить("id") );
+			Result.Insert( "commits[" + String(Index) + "]/id", Commits[Index].Get("id") );
 			
-		КонецЦикла;
+		EndDo;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Возврат Результат;
+	Return Result;
 	
-КонецФункции
+EndFunction
 
-// Проверяет сериализованные данные тела запроса на наличие обязательных данных.
+// CheckRequiredFields checks the deserialized request body for required data.
 // 
-// Параметры:
-// 	ОбработчикСобытия - СправочникСсылка.Webhooks - ссылка на элемент справочника с обработчиками событий;
-// 	ДанныеЗапроса - Соответствие - сериализованные данные HTTP-запроса;
-// 	Ответ - HTTPСервисОтвет - HTTP-ответ;
+// Parameters:
+// 	Webhook - CatalogRef.Webhooks - a ref to webhook;
+// 	QueryData - Map - GitLab request body deserialized from JSON;
+// 	Response - HTTPServiceResponse - HTTP-response;
 //
-Процедура ПроверитьНаличиеОбязательныхДанныхВТелеЗапроса( Знач ОбработчикСобытия, Знач ДанныеЗапроса, Ответ )
+Procedure CheckRequiredFields( Val Webhook, Val QueryData, Response )
 	
-	Var ТекстСообщения;
+	Var RequiredFields;
+	Var Message;
 	Var LoggingOptions;
 	
-	EVENT_MESSAGE_BEGIN = НСтр( "ru = 'WebService.ПроверкаЗапроса.Начало';en = 'WebService.RequestValidation.Begin'" );
-	EVENT_MESSAGE = НСтр( "ru = 'WebService.ПроверкаЗапроса';en = 'WebService.RequestValidation'" );
-	EVENT_MESSAGE_END = НСтр( "ru = 'WebService.ПроверкаЗапроса.Окончание';en = 'WebService.RequestValidation.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.ПроверкаЗапроса.Начало';en = 'WebService.RequestValidation.Begin'" );
+	EVENT_MESSAGE = NStr( "ru = 'WebService.ПроверкаЗапроса';en = 'WebService.RequestValidation'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'WebService.ПроверкаЗапроса.Окончание';en = 'WebService.RequestValidation.End'" );
 
-	VALIDATION_MESSAGE = НСтр( "ru = 'проверка данных запроса...';en = 'query data validation...'" );
-	MISSING_DATA_MESSAGE = НСтр( "ru = 'В данных запроса отсутствует %1.';en = '%1 is missing in the request data.'" );
+	VALIDATION_MESSAGE = NStr( "ru = 'проверка данных запроса...';en = 'query data validation...'" );
+	MISSING_DATA_MESSAGE = NStr( "ru = 'В данных запроса отсутствует %1.';en = '%1 is missing in the request data.'" );
 	
-	Если ( НЕ HTTPStatusCodesClientServerCached.isOk(Ответ.КодСостояния) ) Тогда
+	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
-		Возврат;
+		Return;
 		
-	КонецЕсли;
+	EndIf;
 	
-	LoggingOptions = Логирование.ДополнительныеПараметры( ОбработчикСобытия );
+	LoggingOptions = Логирование.ДополнительныеПараметры( Webhook );
 	Логирование.Информация( EVENT_MESSAGE_BEGIN, VALIDATION_MESSAGE, LoggingOptions );
 	
-	Коллекция = ПроверяемыеЭлементы( ДанныеЗапроса );
+	RequiredFields = RequiredFields( QueryData );
 	
-	Для Каждого Элемент Из Коллекция Цикл
+	For Each Field In RequiredFields Do
 		
-		Если ( Элемент.Значение = Неопределено ) Тогда
+		If ( Field.Value = Undefined ) Then
 			
-			Ответ = Новый HTTPСервисОтвет(HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST"));
+			Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("BAD_REQUEST") );
 			
-			ТекстСообщения = СтрШаблон( MISSING_DATA_MESSAGE, Элемент.Ключ );
-			Логирование.Ошибка( EVENT_MESSAGE, ТекстСообщения, LoggingOptions );
+			Message = StrTemplate( MISSING_DATA_MESSAGE, Field.Key );
+			Логирование.Ошибка( EVENT_MESSAGE, Message, LoggingOptions );
 			
-			Возврат;		
+			Return;		
 			
-		КонецЕсли;		
+		EndIf;		
 		
-	КонецЦикла;
+	EndDo;
 	
 	Логирование.Информация( EVENT_MESSAGE_END, VALIDATION_MESSAGE, LoggingOptions );
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion

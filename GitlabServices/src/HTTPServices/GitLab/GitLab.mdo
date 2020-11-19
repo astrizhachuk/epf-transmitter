@@ -20,7 +20,7 @@
       <value>Webhooks</value>
     </synonym>
     <comment>Обработка webhooks GitLab</comment>
-    <template>/webhooks/{ТипВнешнегоХранилища}/{ИмяМетода}</template>
+    <template>/webhooks/{RepositoryType}/{MethodName}</template>
     <methods uuid="dac1c217-fb98-4ec1-9b24-e99a308236de">
       <name>POST</name>
       <synonym>
