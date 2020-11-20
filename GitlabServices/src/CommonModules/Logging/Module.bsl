@@ -1,76 +1,73 @@
 #Region Public
 
-// Логирует информационное Event. Если в дополнительных данных передать HTTPResponse или HTTPСервисОтвет, то в Event
-// логируемого сообдения будет добавлен код события, а в случае HTTPСервисОтвет данный объект будет дозаполнен данными
-// логируемого сообщения (для кода 200).  
+// Info adds an information event to the log. When an HTTPResponse or HTTPServiceResponse is passed to a procedure,
+// an HTTP status code will be appended to the logged message event. For HTTPServiceResponse, this object will be
+// augmented with logged message data for HTTP status codes that support this capability.
 // 
-// Параметры:
-// 	Event - Строка - логируемое Event в формате "ГруппаСобытий.Event.Дополнительно";
-// 	Message - Строка - текст сообщения;
-// 	ДополнительныеДанные - Структура - описание:
-//   * Объект - ЛюбаяСсылка - ссылка на объект, метаданные которого необходимо добавить в журнал регистрации;
-//   * HTTPResponse - HTTPResponse, HTTPСервисОтвет - HTTP-ответ сервера или веб-сервиса;
+// Parameters:
+// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Message - String - message text;
+//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
-Procedure Info( Val Event, Val Message, Object = Undefined, HTTPResponse = Undefined ) Export
+Procedure Info( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
 	
 	Var LoggingOptions;
 	
-	LoggingOptions = LoggingOptions( Object, HTTPResponse );
+	LoggingOptions = LoggingOptions( Object, Response );
 	AddResponseBody( LoggingOptions, EventLogLevel.Information, Message);
 	Write( Event, EventLogLevel.Information, Message, LoggingOptions);
 
 EndProcedure
 
-// Логирует Warn. Если в дополнительных данных передать HTTPResponse или HTTPСервисОтвет, то в событие
-// логируемого сообдения будет добавлен код события, а в случае HTTPСервисОтвет данный объект будет дозаполнен данными
-// логируемого сообщения (для кода 200).
+// Warn adds an warning event to the log. When an HTTPResponse or HTTPServiceResponse is passed to a procedure,
+// an HTTP status code will be appended to the logged message event. For HTTPServiceResponse, this object will be
+// augmented with logged message data for HTTP status codes that support this capability.
 // 
-// Параметры:
-// 	Событие - Строка - логируемое событие в формате "ГруппаСобытий.Событие.Дополнительно";
-// 	Сообщение - Строка - текст сообщения;
-// 	ДополнительныеДанные - Структура - описание:
-//   * Объект - ЛюбаяСсылка - ссылка на объект, метаданные которого необходимо добавить в журнал регистрации;
-//   * HTTPResponse - HTTPResponse, HTTPСервисОтвет - HTTP-ответ сервера или веб-сервиса;
+// Parameters:
+// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Message - String - message text;
+//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
-Procedure Warn( Val Event, Val Message, Object = Undefined, HTTPResponse = Undefined ) Export
+Procedure Warn( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
 
 	Var LoggingOptions;
 
-	LoggingOptions = LoggingOptions( Object, HTTPResponse );
+	LoggingOptions = LoggingOptions( Object, Response );
 	AddResponseBody( LoggingOptions, EventLogLevel.Warning, Message );
 	Write( Event, EventLogLevel.Warning, Message, LoggingOptions );
 
 EndProcedure
 
-// Логирует ошибку. Если в дополнительных данных передать HTTPResponse или HTTPСервисОтвет, то в событие
-// логируемого сообдения будет добавлен код события, а в случае HTTPСервисОтвет данный объект будет дозаполнен данными
-// логируемого сообщения (для кода 200).
+// Error adds an error event to the log. When an HTTPResponse or HTTPServiceResponse is passed to a procedure,
+// an HTTP status code will be appended to the logged message event. For HTTPServiceResponse, this object will be
+// augmented with logged message data for HTTP status codes that support this capability.
 // 
-// Параметры:
-// 	Событие - Строка - логируемое событие в формате "ГруппаСобытий.Событие.Дополнительно";
-// 	Сообщение - Строка - текст сообщения;
-// 	ДополнительныеДанные - Структура - описание:
-//   * Объект - ЛюбаяСсылка - ссылка на объект, метаданные которого необходимо добавить в журнал регистрации;
-//   * HTTPResponse - HTTPResponse, HTTPСервисОтвет - HTTP-ответ сервера или веб-сервиса;
+// Parameters:
+// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Message - String - message text;
+//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
-Procedure Error( Val Event, Val Message, Object = Undefined, HTTPResponse = Undefined ) Export
+Procedure Error( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
 
 	Var LoggingOptions;
 	
-	LoggingOptions = LoggingOptions( Object, HTTPResponse );
+	LoggingOptions = LoggingOptions( Object, Response );
 	AddResponseBody( LoggingOptions, EventLogLevel.Error, Message );
 	Write( Event, EventLogLevel.Error, Message, LoggingOptions );
 
 EndProcedure
 
-// Возвращает дополненный текст сообщения префиксом в формате: "[ Prefix ]: Message"
+// AddPrefixReturns the amended text of the message with a prefix in the format: "[Prefix]: Message".
 // 
-// Параметры:
-// 	Message - строка - текст сообщения;
-// 	Prefix - Строка - Prefix;
+// Parameters:
+// 	Message - String - message text;
+// 	Prefix - String - prefix;
 // 	
 // Returns:
-// 	Строка - текст сообщения с префиксом;
+// 	String - message text with a prefix;
 //
 Function AddPrefix( Message, Val Prefix ) Export
 
