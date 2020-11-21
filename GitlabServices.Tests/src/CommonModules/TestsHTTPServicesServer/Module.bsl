@@ -2,7 +2,7 @@
 #Region Internal
 
 // @unit-test
-Процедура ResponseTemplate(Фреймворк) Экспорт
+Procedure ResponseTemplate(Фреймворк) Экспорт
 
 	// when
 	Результат = HTTPServices.ResponseTemplate();
@@ -11,10 +11,10 @@
 	Фреймворк.ПроверитьИстину(Результат.Свойство("type"));
 	Фреймворк.ПроверитьИстину(Результат.Свойство("message"));
 	
-КонецПроцедуры
+EndProcedure
 
 //@unit-test
-Процедура ServiceDescriptionByNameServiceNotExists(Фреймворк) Экспорт
+Procedure ServiceDescriptionByNameServiceNotExists(Фреймворк) Экспорт
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -24,10 +24,10 @@
 	// then
 	Фреймворк.ПроверитьРавенство(ОписаниеСервиса, Неопределено);
 
-КонецПроцедуры
+EndProcedure
 
 //@unit-test
-Процедура ServiceDescriptionByNameServiceExists(Фреймворк) Экспорт
+Procedure ServiceDescriptionByNameServiceExists(Фреймворк) Экспорт
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -50,10 +50,10 @@
 	Фреймворк.ПроверитьИстину(ОписаниеСервиса.templates[0].methods[0].Свойство("desc"));
 	Фреймворк.ПроверитьИстину(ОписаниеСервиса.templates[0].methods[0].Свойство("method"));
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURLBadURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLBadURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -69,10 +69,10 @@
 		 							"Couldn't resolve host name");
 	КонецПопытки;		
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURLEmptyURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLEmptyURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -82,10 +82,10 @@
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Пустой адрес");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURLURLBadType(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLURLBadType(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -95,10 +95,10 @@
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Неверный тип");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURLBadServiceName(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLBadServiceName(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -109,10 +109,10 @@
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Ошибка в имени сервиса");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURLDeserializationError(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLDeserializationError(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -122,10 +122,10 @@
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Ошибка преобразования тела ответа в коллекцию");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURL404NotFound(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURL404NotFound(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -135,10 +135,10 @@
 	//then
 	Фреймворк.ПроверитьТип(Результат, "Неопределено", "Страница не найдена");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура ServiceDescriptionByURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURL(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -163,10 +163,10 @@
 	Фреймворк.ПроверитьВхождение(Результат.JSON, """methods""");
 	Фреймворк.ПроверитьВхождение(Результат.JSON, """method""");	
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test:fast
-Процедура ServicesGET(Фреймворк) Экспорт
+Procedure ServicesGET(Фреймворк) Экспорт
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -185,10 +185,10 @@
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, """methods""");
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, """method""");	
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test:fast
-Процедура WebhooksPOST(Фреймворк) Экспорт
+Procedure WebhooksPOST(Фреймворк) Экспорт
 	
 	PROCESSED_REQUEST_MESSAGE = НСтр( "ru = 'Запрос с сервера GitLab обработан.';
 									|en = 'The request from the GitLab server has been processed.'" );	
@@ -212,10 +212,10 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, PROCESSED_REQUEST_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST403Forbidden(Фреймворк) Экспорт
+Procedure WebhooksPOST403Forbidden(Фреймворк) Экспорт
 	
 	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
 									|en = 'The Secret Key is not found.'" );
@@ -246,10 +246,10 @@
 	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, KEY_NOT_FOUND_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST423Locked(Фреймворк) Экспорт
+Procedure WebhooksPOST423Locked(Фреймворк) Экспорт
 	
 	LOADING_DISABLED_MESSAGE = НСтр( "ru = 'Загрузка из внешнего хранилища отключена.';
 									|en = 'Loading of the files is disabled.'" );
@@ -271,10 +271,10 @@
 	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, LOADING_DISABLED_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -301,10 +301,10 @@
 	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 Push Hook2");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -323,10 +323,10 @@
 	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 BadURLEpf");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestBadURLPush(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestBadURLPush(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -345,10 +345,10 @@
 	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 BadURLPush");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -392,10 +392,10 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 checkout_sha");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestProject(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestProject(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -434,10 +434,10 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 project");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -481,10 +481,10 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 project/web_url");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestCommits(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCommits(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -515,10 +515,10 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 commits");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
-Процедура WebhooksPOST400BadRequestCommitsId(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCommitsId(Фреймворк) Экспорт
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -562,7 +562,7 @@
 	ТелоОтвета = TestsCommonUseServer.КакТекст(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьИстину(ПустаяСтрока(ТелоОтвета), "400 commits/id");
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
@@ -583,10 +583,10 @@
 КонецФункции
 
 
-Процедура УдалитьВсеОбработчикиСобытий()
+Procedure УдалитьВсеОбработчикиСобытий()
 	
 	TestsCommonUseServer.СправочникиУдалитьВсеДанные("Webhooks");
 
-КонецПроцедуры
+EndProcedure
 
 #EndRegion

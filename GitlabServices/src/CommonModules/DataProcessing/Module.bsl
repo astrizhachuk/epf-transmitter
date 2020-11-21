@@ -354,7 +354,7 @@ Procedure SaveQueryData( Val WebhookParams, Val QueryData )
 	
 EndProcedure
 
-Процедура SaveRemoteFiles( Val WebhookParams, Val ОтправляемыеДанные )
+Procedure SaveRemoteFiles( Val WebhookParams, Val ОтправляемыеДанные )
 	
 	Var ErrorInfo;
 	
@@ -374,7 +374,7 @@ EndProcedure
 	
 	LogAction( WebhookParams, SAVE_FILES_MESSAGE, ErrorInfo );
 	
-КонецПроцедуры
+EndProcedure
 
 Procedure SaveData( Val WebhookParams, QueryData, RemoteFiles )
 

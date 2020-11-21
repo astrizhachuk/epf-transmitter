@@ -9,6 +9,6 @@ Feature: GitLabServices.Tests.TestsLoggingServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ТолькоСобытиеОшибка
+Scenario: InfoEventWithObjectAndHTTPResponse200
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.ТолькоСобытиеОшибка(Context());' |
+	| 'TestsLoggingServer.InfoEventWithObjectAndHTTPResponse200(Context());' |

@@ -64,7 +64,7 @@ EndProcedure
 КонецФункции
 
 &AtServer
-Процедура WriteAtServer()
+Procedure WriteAtServer()
 	
 	SetPrivilegedMode( True );
 	
@@ -77,6 +77,6 @@ EndProcedure
 	
 	SetPrivilegedMode( False );
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion

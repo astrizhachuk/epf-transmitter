@@ -9,66 +9,41 @@ Feature: GitLabServices.Tests.TestsLoggingServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ТолькоСобытиеИнформация
+Scenario: InfoOnlyEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.ТолькоСобытиеИнформация(Context());' |
+	| 'TestsLoggingServer.InfoOnlyEvent(Context());' |
 
 @OnServer
-Scenario: ТолькоСобытиеПредупреждение
+Scenario: WarnOnlyEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.ТолькоСобытиеПредупреждение(Context());' |
+	| 'TestsLoggingServer.WarnOnlyEvent(Context());' |
 
 @OnServer
-Scenario: ТолькоСобытиеОшибка
+Scenario: ErrorOnlyEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.ТолькоСобытиеОшибка(Context());' |
+	| 'TestsLoggingServer.ErrorOnlyEvent(Context());' |
 
 @OnServer
-Scenario: СобытиеИнформацияСОбъектом
+Scenario: InfoEventWithObject
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеИнформацияСОбъектом(Context());' |
+	| 'TestsLoggingServer.InfoEventWithObject(Context());' |
 
 @OnServer
-Scenario: СобытиеПредупреждениеСОбъектом
+Scenario: WarnEventWithObject
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеПредупреждениеСОбъектом(Context());' |
+	| 'TestsLoggingServer.WarnEventWithObject(Context());' |
 
 @OnServer
-Scenario: СобытиеОшибкаСОбъектом
+Scenario: ErrorEventWithObject
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеОшибкаСОбъектом(Context());' |
+	| 'TestsLoggingServer.ErrorEventWithObject(Context());' |
 
 @OnServer
-Scenario: СобытиеИнформацияСОбъектомИHTTPСервисОтвет200
+Scenario: InfoEventWithObjectAndHTTPResponse200
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеИнформацияСОбъектомИHTTPСервисОтвет200(Context());' |
+	| 'TestsLoggingServer.InfoEventWithObjectAndHTTPResponse200(Context());' |
 
 @OnServer
-Scenario: СобытиеПредупреждениеСОбъектомИHTTPСервисОтвет200
+Scenario: орк
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеПредупреждениеСОбъектомИHTTPСервисОтвет200(Context());' |
-
-@OnServer
-Scenario: СобытиеОшибкаСОбъектомИHTTPСервисОтвет200
-	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеОшибкаСОбъектомИHTTPСервисОтвет200(Context());' |
-
-@OnServer
-Scenario: СобытиеИнформацияСОбъектомИHTTPСервисОтвет400
-	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеИнформацияСОбъектомИHTTPСервисОтвет400(Context());' |
-
-@OnServer
-Scenario: СобытиеПредупреждениеСОбъектомИHTTPСервисОтвет400
-	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеПредупреждениеСОбъектомИHTTPСервисОтвет400(Context());' |
-
-@OnServer
-Scenario: СобытиеОшибкаСОбъектомИHTTPСервисОтвет400
-	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.СобытиеОшибкаСОбъектомИHTTPСервисОтвет400(Context());' |
-
-@OnServer
-Scenario: ДополнитьСообщениеПрефиксом
-	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.ДополнитьСообщениеПрефиксом(Context());' |
+	| 'TestsLoggingServer.орк(Context());' |

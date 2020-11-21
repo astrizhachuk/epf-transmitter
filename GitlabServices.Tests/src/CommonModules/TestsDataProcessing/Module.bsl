@@ -3,7 +3,7 @@
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessing(Фреймворк) Экспорт
+Procedure BeginDataProcessing(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	GET_FILE_ERROR_MESSAGE = НСтр( "ru = 'ошибка получения файла:';en = 'failed to get the file:'" );
@@ -117,12 +117,12 @@
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииПредупреждение[0].Comment, "[ 0123456789abcdef ]: " + GET_FILE_ERROR_MESSAGE);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииПредупреждение[0].Comment, "тут какая-то ошибка");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingManualStart(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStart(Фреймворк) Экспорт
 	
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -132,12 +132,12 @@
 	// then
 	Фреймворк.ПроверитьТип(Результат, "ФоновоеЗадание");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequest(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequest(Фреймворк) Экспорт
 	
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -149,12 +149,12 @@
 	// then
 	Фреймворк.ПроверитьТип(Результат, "ФоновоеЗадание");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestWithoutCheckoutSHA(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestWithoutCheckoutSHA(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	CHECKOUT_SHA_MISSING_MESSAGE = НСтр("ru = 'отсутствует ""checkout_sha"".';en = '""checkout_sha"" is missing.'");
@@ -171,12 +171,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, CHECKOUT_SHA_MISSING_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestErrorDataType(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestErrorDataType(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	UNSUPPORTED_FORMAT_MESSAGE = НСтр("ru = 'неподдерживаемый формат данных.';en = 'unsupported data format.'");
@@ -193,12 +193,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, UNSUPPORTED_FORMAT_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestIsActiveBackgroundJob(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestIsActiveBackgroundJob(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	JOB_WAS_STARTED_MESSAGE = НСтр("ru = 'фоновое задание уже запущено.';en = 'background job is already running.'");	
@@ -215,12 +215,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + JOB_WAS_STARTED_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestErrorStartBackgroundLob(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestErrorStartBackgroundLob(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	JOB_RUNNING_ERROR_MESSAGE = НСтр("ru = 'ошибка запуска задания обработки данных:';en = 'an error occurred while starting the job:'");	
@@ -239,12 +239,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + JOB_RUNNING_ERROR_MESSAGE);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test:dev
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestWithoutData(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestWithoutData(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных.Окончание';en = 'Webhooks.Core.DataProcessing.End'");
 	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
@@ -261,12 +261,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + NO_DATA_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingHandleRequestQueryDataEmpty(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestQueryDataEmpty(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных.Окончание';en = 'Webhooks.Core.DataProcessing.End'");
 	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
@@ -293,12 +293,12 @@
 	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + NO_DATA_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingManualStartWithoutSavedData(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartWithoutSavedData(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.';en = 'Webhooks.Core.'");
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
@@ -333,12 +333,12 @@
 	Фреймворк.ПроверитьВхождение(ЖРЗагрузкаВнешнихФайлов[0].Comment, "[ 0123456789abcdef ]: [" + LOAD_FILES_MESSAGE + "]: " + OPERATION_FAILED_MESSAGE);
 	Фреймворк.ПроверитьВхождение(ЖРОбработкаДанных[0].Comment, "[ 0123456789abcdef ]: " + NO_DATA_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingManualStartWithSavedData(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartWithSavedData(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.';en = 'Webhooks.Core.'");
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
@@ -429,12 +429,12 @@
 	Фреймворк.ПроверитьВхождение(ЖРОбработкаДанных[1].Comment, "[ 0123456789abcdef ]: " + RUNNING_JOBS_MESSAGE + "1");
 	Фреймворк.ПроверитьВхождение(ЖРОбработкаДанныхОкончание[0].Comment, "[ 0123456789abcdef ]: " + DATA_PROCESSING_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Процедура BeginDataProcessingManualStartFileSendingBackgroundJob(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartFileSendingBackgroundJob(Фреймворк) Экспорт
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	
@@ -545,23 +545,23 @@
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииПредупреждение[0].Comment, KEY_MESSAGE + "0123456789abcdef|http://mock-server:1080/receiver3|test2.epf");
 	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииПредупреждение[1].Comment, KEY_MESSAGE + "0123456789abcdef|http://mock-server:1080/receiver1|test2.epf");
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region Private
 
-Процедура УдалитьВсеОбработчикиСобытий()
+Procedure УдалитьВсеОбработчикиСобытий()
 	
 	TestsCommonUseServer.СправочникиУдалитьВсеДанные("Webhooks");
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ОчиститьРегистрыСведений()
+Procedure ОчиститьРегистрыСведений()
 	
 	TestsCommonUseServer.РегистрыСведенийУдалитьВсеДанные("QueryData,RemoteFiles");
 
-КонецПроцедуры
+EndProcedure
 
 Функция ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
 	

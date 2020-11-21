@@ -4,7 +4,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура FilesByRoutes(Фреймворк) Экспорт
+Procedure FilesByRoutes(Фреймворк) Экспорт
 	
 	ROUTING_SETTINGS_MISSING_MESSAGE = НСтр( "ru = 'отсутствуют настройки маршрутизации.';
 										|en = 'there are no routing settings.'" );
@@ -130,13 +130,13 @@
 	Фреймворк.ПроверитьРавенство(GetStringFromBinaryData(Результат[4].BinaryData), "{some_json_6}");
 	Фреймворк.ПроверитьВхождение(Результат[4].ErrorInfo, DELIVERY_ROUTE_MISSING_MESSAGE);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура AddRoutingFilesDescription(Фреймворк) Экспорт
+Procedure AddRoutingFilesDescription(Фреймворк) Экспорт
 	
 	// given
 	Константы.RoutingFileName.Установить(".ext-epf.json");	
@@ -197,13 +197,13 @@
 	Фреймворк.ПроверитьЛожь(ЗначениеЗаполнено(ОписаниеФайлов[1].BinaryData));
 	Фреймворк.ПроверитьРавенство(ОписаниеФайлов[1].ErrorInfo, "");
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура ExtendQueryDataWithRoutingSettings(Фреймворк) Экспорт
+Procedure ExtendQueryDataWithRoutingSettings(Фреймворк) Экспорт
 
 	// given
 	Константы.RoutingFileName.Установить(".ext-epf.json");	
@@ -265,6 +265,6 @@
 	Фреймворк.ПроверитьРавенство(ДанныеЗапроса.Получить("commits")[0].Получить("settings").Получить("json"), "{""name2"":""result2""}");
 	Фреймворк.ПроверитьРавенство(ДанныеЗапроса.Получить("commits")[1].Получить("settings"), Неопределено);
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion

@@ -4,7 +4,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура ConnectionParams(Фреймворк) Экспорт
+Procedure ConnectionParams(Фреймворк) Экспорт
 	
 	// given
 	Константы.TokenGitLab.Установить("-U2ssrBsM4rmx85HXzZ1");
@@ -17,13 +17,13 @@
 	Фреймворк.ПроверитьРавенство(Результат.Token, "-U2ssrBsM4rmx85HXzZ1");
 	Фреймворк.ПроверитьРавенство(Результат.Timeout, 5);
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFileBadURL(Фреймворк) Экспорт
+Procedure RemoteFileBadURL(Фреймворк) Экспорт
 	
 	// given
 	ПараметрыСоединения = Новый Структура();
@@ -40,13 +40,13 @@
 	Фреймворк.ПроверитьНеРавенство(Результат.ErrorInfo, Неопределено);
 	Фреймворк.ПроверитьВхождение(Результат.ErrorInfo, "Couldn't resolve host name");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFile404NotFound(Фреймворк) Экспорт
+Procedure RemoteFile404NotFound(Фреймворк) Экспорт
 
 	// given
 	URL = "http://mock-server:1080";
@@ -80,13 +80,13 @@
 	Фреймворк.ПроверитьНеРавенство(Результат.ErrorInfo, Неопределено);
 	Фреймворк.ПроверитьВхождение(Результат.ErrorInfo, HTTPStatusCodesClientServerCached.FindIdByCode(404));
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFile401Unauthorized(Фреймворк) Экспорт
+Procedure RemoteFile401Unauthorized(Фреймворк) Экспорт
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -117,13 +117,13 @@
 	Фреймворк.ПроверитьНеРавенство(Результат.ErrorInfo, Неопределено);
 	Фреймворк.ПроверитьВхождение(Результат.ErrorInfo, HTTPStatusCodesClientServerCached.FindIdByCode(401));
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFileEmpty(Фреймворк) Экспорт
+Procedure RemoteFileEmpty(Фреймворк) Экспорт
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -161,13 +161,13 @@
 	Фреймворк.ПроверитьНеРавенство(Результат.ErrorInfo, Неопределено);
 	Фреймворк.ПроверитьВхождение(Результат.ErrorInfo, НСтр("ru = 'Пустой файл.'"));
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFile200Ok(Фреймворк) Экспорт
+Procedure RemoteFile200Ok(Фреймворк) Экспорт
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -212,13 +212,13 @@
 	Фреймворк.ПроверитьТип(Результат.BinaryData, "BinaryData");
 	Фреймворк.ПроверитьРавенство(Результат.ErrorInfo, "");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFiles(Фреймворк) Экспорт
+Procedure RemoteFiles(Фреймворк) Экспорт
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -275,13 +275,13 @@
 	Фреймворк.ПроверитьРавенство(Результат[1].ErrorInfo, "");
 	Фреймворк.ПроверитьВхождение(Результат[2].ErrorInfo, "NOT_FOUND");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFilesWithDescription(Фреймворк) Экспорт
+Procedure RemoteFilesWithDescription(Фреймворк) Экспорт
 
 	// given
 	URL = "http://mock-server:1080";
@@ -434,13 +434,13 @@
 	Фреймворк.ПроверитьРавенство(Результат[4].FilePath, ".ext-epf.json");
 	Фреймворк.ПроверитьРавенство(Результат[5].FilePath, ".ext-epf.json");
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура ProjectDescription(Фреймворк) Экспорт
+Procedure ProjectDescription(Фреймворк) Экспорт
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -482,13 +482,13 @@
 	Фреймворк.ПроверитьРавенство(Результат.Id, "1");
 	Фреймворк.ПроверитьРавенство(Результат.URL, URL);
 	
-КонецПроцедуры	
+EndProcedure	
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура MergeRequests(Фреймворк) Экспорт
+Procedure MergeRequests(Фреймворк) Экспорт
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -543,13 +543,13 @@
 	Фреймворк.ПроверитьРавенство(Результат[0].Get("project_id"), 1);
 	Фреймворк.ПроверитьРавенство(Результат[0].Get("web_url"), "http://gitlab/root/external-epf/-/merge_requests/4");
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RemoteFilesEmpty(Фреймворк) Экспорт
+Procedure RemoteFilesEmpty(Фреймворк) Экспорт
 
 	// given	
 	// when
@@ -564,13 +564,13 @@
 	Фреймворк.ПроверитьРавенство(Результат.Колонки.CommitSHA.Имя, "CommitSHA");
 	Фреймворк.ПроверитьРавенство(Результат.Колонки.ErrorInfo.Имя, "ErrorInfo");
 
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура RAWFilePath(Фреймворк) Экспорт
+Procedure RAWFilePath(Фреймворк) Экспорт
 	
 	// given
 	Эталон = "/api/v4/projects/1/repository/files/%D0%B0%2F%D0%B1%2F%D0%B2/raw?ref=0123456789";
@@ -579,13 +579,13 @@
 	//then
 	Фреймворк.ПроверитьРавенство(Результат, Эталон);
 	
-КонецПроцедуры
+EndProcedure
 
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Процедура ListFileActions(Фреймворк) Экспорт
+Procedure ListFileActions(Фреймворк) Экспорт
 
 	// when	
 	Результат = GitlabCached.ListFileActions();
@@ -594,6 +594,6 @@
 	Фреймворк.ПроверитьРавенство(Результат[1], "modified");
 	Фреймворк.ПроверитьРавенство(Результат[2], "removed");
 	
-КонецПроцедуры
+EndProcedure
 
 #EndRegion

@@ -120,7 +120,7 @@ Procedure OpenMergeRequestRemote( Command )
 
 	MergeRequestURL = MergeRequestURL( CurrentRow );
 	
-	If ( NOT IsBlankstring(MergeRequestURL) ) Then
+	If ( NOT IsBlankString(MergeRequestURL) ) Then
 		
 		#If WebClient Then
 			
