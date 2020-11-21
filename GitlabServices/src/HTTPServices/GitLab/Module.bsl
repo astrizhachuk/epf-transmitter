@@ -199,11 +199,11 @@ Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryD
 	Var Stream;
 	Var ConversionParams;
 	
-	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Unmarshalling.Begin'" );
-	EVENT_MESSAGE = NStr( "ru = 'WebService.Десериализация';en = 'WebService.Unmarshalling'" );
-	EVENT_MESSAGE_END = NStr( "ru = 'WebService.Десериализация.Окончание';en = 'WebService.Unmarshalling.End'" );
+	EVENT_MESSAGE_BEGIN = NStr( "ru = 'WebService.Десериализация.Начало';en = 'WebService.Deserialization.Begin'" );
+	EVENT_MESSAGE = NStr( "ru = 'WebService.Десериализация';en = 'WebService.Deserialization'" );
+	EVENT_MESSAGE_END = NStr( "ru = 'WebService.Десериализация.Окончание';en = 'WebService.Deserialization.End'" );
 	
-	DESERIALIZATION_MESSAGE = NStr( "ru = 'десериализация запроса...';en = 'unmarshalling from a request...'" );
+	DESERIALIZATION_MESSAGE = NStr( "ru = 'десериализация запроса...';en = 'deserialization from a request...'" );
 	
 	If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
 		
