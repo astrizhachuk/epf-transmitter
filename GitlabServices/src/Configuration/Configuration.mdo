@@ -16,12 +16,17 @@
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <defaultRoles>Role.FullRights</defaultRoles>
-  <version>0.1.6</version>
+  <vendor>Alexander Strizhachuk</vendor>
+  <version>1.0.0</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
   </requiredMobileApplicationPermissions>
   <defaultLanguage>Language.English</defaultLanguage>
+  <copyright>
+    <key>ru</key>
+    <value>Copyright © Alexander Strizhachuk</value>
+  </copyright>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
