@@ -3,7 +3,7 @@
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessing(Фреймворк) Экспорт
+Procedure BeginDataProcessing(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	GET_FILE_ERROR_MESSAGE = НСтр( "ru = 'ошибка получения файла:';en = 'failed to get the file:'" );
@@ -122,7 +122,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingManualStart(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStart(Фреймворк) Export
 	
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -137,7 +137,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequest(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequest(Фреймворк) Export
 	
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -154,7 +154,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestWithoutCheckoutSHA(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestWithoutCheckoutSHA(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	CHECKOUT_SHA_MISSING_MESSAGE = НСтр("ru = 'отсутствует ""checkout_sha"".';en = '""checkout_sha"" is missing.'");
@@ -176,7 +176,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestErrorDataType(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestErrorDataType(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	UNSUPPORTED_FORMAT_MESSAGE = НСтр("ru = 'неподдерживаемый формат данных.';en = 'unsupported data format.'");
@@ -198,7 +198,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestIsActiveBackgroundJob(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestIsActiveBackgroundJob(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	JOB_WAS_STARTED_MESSAGE = НСтр("ru = 'фоновое задание уже запущено.';en = 'background job is already running.'");	
@@ -220,7 +220,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestErrorStartBackgroundLob(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestErrorStartBackgroundLob(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	JOB_RUNNING_ERROR_MESSAGE = НСтр("ru = 'ошибка запуска задания обработки данных:';en = 'an error occurred while starting the job:'");	
@@ -244,7 +244,7 @@ EndProcedure
 // @unit-test:dev
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestWithoutData(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestWithoutData(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных.Окончание';en = 'Webhooks.Core.DataProcessing.End'");
 	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
@@ -266,7 +266,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingHandleRequestQueryDataEmpty(Фреймворк) Экспорт
+Procedure BeginDataProcessingHandleRequestQueryDataEmpty(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных.Окончание';en = 'Webhooks.Core.DataProcessing.End'");
 	NO_DATA_MESSAGE = НСтр( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
@@ -298,7 +298,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingManualStartWithoutSavedData(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartWithoutSavedData(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.';en = 'Webhooks.Core.'");
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
@@ -338,7 +338,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingManualStartWithSavedData(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartWithSavedData(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.';en = 'Webhooks.Core.'");
 	DATA_PREPARATION_MESSAGE = НСтр( "ru = 'ПодготовкаДанных';en = 'DataPreparation'" );
@@ -434,7 +434,7 @@ EndProcedure
 // @unit-test
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-Procedure BeginDataProcessingManualStartFileSendingBackgroundJob(Фреймворк) Экспорт
+Procedure BeginDataProcessingManualStartFileSendingBackgroundJob(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОбработкаДанных';en = 'Webhooks.Core.DataProcessing'");
 	
@@ -563,16 +563,16 @@ Procedure ОчиститьРегистрыСведений()
 
 EndProcedure
 
-Функция ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
+Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
 	
 	Возврат TestsCommonUseServer.ОтборЖурналаРегистрации(Событие, Уровень);
 	
-КонецФункции
+EndFunction
 
-Функция СобытияЖурналаРегистрации(Отбор, Секунд = 2)
+Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
 	
 	Возврат TestsCommonUseServer.СобытияЖурналаРегистрации(Отбор, Секунд);
 	
-КонецФункции
+EndFunction
 
 #EndRegion

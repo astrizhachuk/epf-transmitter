@@ -4,7 +4,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FilesByRoutes(Фреймворк) Экспорт
+Procedure FilesByRoutes(Фреймворк) Export
 	
 	ROUTING_SETTINGS_MISSING_MESSAGE = НСтр( "ru = 'отсутствуют настройки маршрутизации.';
 										|en = 'there are no routing settings.'" );
@@ -136,7 +136,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure AddRoutingFilesDescription(Фреймворк) Экспорт
+Procedure AddRoutingFilesDescription(Фреймворк) Export
 	
 	// given
 	Константы.RoutingFileName.Установить(".ext-epf.json");	
@@ -203,7 +203,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure ExtendQueryDataWithRoutingSettings(Фреймворк) Экспорт
+Procedure ExtendQueryDataWithRoutingSettings(Фреймворк) Export
 
 	// given
 	Константы.RoutingFileName.Установить(".ext-epf.json");	

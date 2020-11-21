@@ -2,7 +2,7 @@
 #Region Internal
 
 // @unit-test
-Procedure ResponseTemplate(Фреймворк) Экспорт
+Procedure ResponseTemplate(Фреймворк) Export
 
 	// when
 	Результат = HTTPServices.ResponseTemplate();
@@ -14,7 +14,7 @@ Procedure ResponseTemplate(Фреймворк) Экспорт
 EndProcedure
 
 //@unit-test
-Procedure ServiceDescriptionByNameServiceNotExists(Фреймворк) Экспорт
+Procedure ServiceDescriptionByNameServiceNotExists(Фреймворк) Export
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -27,7 +27,7 @@ Procedure ServiceDescriptionByNameServiceNotExists(Фреймворк) Эксп�
 EndProcedure
 
 //@unit-test
-Procedure ServiceDescriptionByNameServiceExists(Фреймворк) Экспорт
+Procedure ServiceDescriptionByNameServiceExists(Фреймворк) Export
 
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -53,7 +53,7 @@ Procedure ServiceDescriptionByNameServiceExists(Фреймворк) Экспор
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURLBadURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLBadURL(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -72,7 +72,7 @@ Procedure ServiceDescriptionByURLBadURL(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURLEmptyURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLEmptyURL(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -85,7 +85,7 @@ Procedure ServiceDescriptionByURLEmptyURL(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURLURLBadType(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLURLBadType(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -98,7 +98,7 @@ Procedure ServiceDescriptionByURLURLBadType(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURLBadServiceName(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLBadServiceName(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -112,7 +112,7 @@ Procedure ServiceDescriptionByURLBadServiceName(Фреймворк) Экспор
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURLDeserializationError(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURLDeserializationError(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -125,7 +125,7 @@ Procedure ServiceDescriptionByURLDeserializationError(Фреймворк) Экс
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURL404NotFound(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURL404NotFound(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -138,7 +138,7 @@ Procedure ServiceDescriptionByURL404NotFound(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure ServiceDescriptionByURL(Фреймворк) Экспорт
+Procedure ServiceDescriptionByURL(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -166,7 +166,7 @@ Procedure ServiceDescriptionByURL(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test:fast
-Procedure ServicesGET(Фреймворк) Экспорт
+Procedure ServicesGET(Фреймворк) Export
 	
 	// given
 	Константы.HandleRequests.Установить(Истина);
@@ -188,7 +188,7 @@ Procedure ServicesGET(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test:fast
-Procedure WebhooksPOST(Фреймворк) Экспорт
+Procedure WebhooksPOST(Фреймворк) Export
 	
 	PROCESSED_REQUEST_MESSAGE = НСтр( "ru = 'Запрос с сервера GitLab обработан.';
 									|en = 'The request from the GitLab server has been processed.'" );	
@@ -215,7 +215,7 @@ Procedure WebhooksPOST(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST403Forbidden(Фреймворк) Экспорт
+Procedure WebhooksPOST403Forbidden(Фреймворк) Export
 	
 	KEY_NOT_FOUND_MESSAGE = НСтр( "ru = 'Секретный ключ не найден.';
 									|en = 'The Secret Key is not found.'" );
@@ -249,7 +249,7 @@ Procedure WebhooksPOST403Forbidden(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST423Locked(Фреймворк) Экспорт
+Procedure WebhooksPOST423Locked(Фреймворк) Export
 	
 	LOADING_DISABLED_MESSAGE = НСтр( "ru = 'Загрузка из внешнего хранилища отключена.';
 									|en = 'Loading of the files is disabled.'" );
@@ -274,7 +274,7 @@ Procedure WebhooksPOST423Locked(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -304,7 +304,7 @@ Procedure WebhooksPOST400BadRequestXGitlabEvent(Фреймворк) Экспор
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -326,7 +326,7 @@ Procedure WebhooksPOST400BadRequestBadURLEpf(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestBadURLPush(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestBadURLPush(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -348,7 +348,7 @@ Procedure WebhooksPOST400BadRequestBadURLPush(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -395,7 +395,7 @@ Procedure WebhooksPOST400BadRequestCheckoutSHA(Фреймворк) Экспор�
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestProject(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestProject(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -437,7 +437,7 @@ Procedure WebhooksPOST400BadRequestProject(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -484,7 +484,7 @@ Procedure WebhooksPOST400BadRequestProjectWebURL(Фреймворк) Экспо�
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestCommits(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCommits(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -518,7 +518,7 @@ Procedure WebhooksPOST400BadRequestCommits(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure WebhooksPOST400BadRequestCommitsId(Фреймворк) Экспорт
+Procedure WebhooksPOST400BadRequestCommitsId(Фреймворк) Export
 
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -568,7 +568,7 @@ EndProcedure
 
 #Region Private
 
-Функция ДополнительныеПараметрыУспешногоЗапроса()
+Function ДополнительныеПараметрыУспешногоЗапроса()
 	
 	Заголовки = Новый Соответствие;
 	Заголовки.Вставить("Content-Type", "application/json");
@@ -580,7 +580,7 @@ EndProcedure
 	
 	Возврат Дополнительно;
 	 
-КонецФункции
+EndFunction
 
 
 Procedure УдалитьВсеОбработчикиСобытий()

@@ -4,7 +4,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FindByTokenEmptyRefIfNumber(Фреймворк) Экспорт
+Procedure FindByTokenEmptyRefIfNumber(Фреймворк) Export
 
 	// given
 	УдалитьВсеWebhooks();
@@ -19,7 +19,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FindByTokenEmptyRefIfBlankRef(Фреймворк) Экспорт
+Procedure FindByTokenEmptyRefIfBlankRef(Фреймворк) Export
 
 	// given
 	УдалитьВсеWebhooks();
@@ -34,7 +34,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FindByTokenEmptyRefIfUndefined(Фреймворк) Экспорт
+Procedure FindByTokenEmptyRefIfUndefined(Фреймворк) Export
 
 	// given
 	УдалитьВсеWebhooks();
@@ -49,7 +49,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FindByTokenEmptyRefIfNotFound(Фреймворк) Экспорт
+Procedure FindByTokenEmptyRefIfNotFound(Фреймворк) Export
 
 	// given
 	УдалитьВсеWebhooks();
@@ -64,7 +64,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure FindByToken(Фреймворк) Экспорт
+Procedure FindByToken(Фреймворк) Export
 	
 	// given
 	СекретныйКлюч = "ЮнитТест";
@@ -95,7 +95,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure LoadEventsHistory(Фреймворк) Экспорт
+Procedure LoadEventsHistory(Фреймворк) Export
 	
 	LEVEL_MESSAGE = НСтр("ru = 'Информация';en = 'Information'");
 	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
@@ -133,7 +133,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SaveQueryData(Фреймворк) Экспорт
+Procedure SaveQueryData(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -157,7 +157,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SaveQueryDataWriteError(Фреймворк) Экспорт
+Procedure SaveQueryDataWriteError(Фреймворк) Export
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
@@ -181,7 +181,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SaveRemoteFiles(Фреймворк) Экспорт
+Procedure SaveRemoteFiles(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -205,7 +205,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SaveRemoteFilesWriteError(Фреймворк) Экспорт
+Procedure SaveRemoteFilesWriteError(Фреймворк) Export
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
@@ -230,7 +230,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure LoadRemoteFiles(Фреймворк) Экспорт
+Procedure LoadRemoteFiles(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -261,7 +261,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure LoadRemoteFilesNoData(Фреймворк) Экспорт
+Procedure LoadRemoteFilesNoData(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -280,7 +280,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure LoadQueryData(Фреймворк) Экспорт
+Procedure LoadQueryData(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -310,7 +310,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure LoadQueryDataNoData(Фреймворк) Экспорт
+Procedure LoadQueryDataNoData(Фреймворк) Export
 	
 	// given
 	УдалитьВсеWebhooks();
@@ -329,7 +329,7 @@ EndProcedure
 
 #Region Private
 
-Функция ДобавитьОбработчикСобытий(Знач Наименование = "", Знач СекретныйКлюч = "") Экспорт
+Function ДобавитьОбработчикСобытий(Знач Наименование = "", Знач СекретныйКлюч = "") Export
 	
 		ОбработчикСобытия = Catalogs.Webhooks.СоздатьЭлемент();
 		ОбработчикСобытия.Наименование = Наименование;
@@ -338,7 +338,7 @@ EndProcedure
 		
 		Возврат ОбработчикСобытия;
 	
-КонецФункции
+EndFunction
 
 Procedure УдалитьВсеWebhooks()
 	
@@ -352,16 +352,16 @@ Procedure ОчиститьРегистрыСведений()
 
 EndProcedure
 
-Функция ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
+Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
 	
 	Возврат TestsCommonUseServer.ОтборЖурналаРегистрации(Событие, Уровень);
 	
-КонецФункции
+EndFunction
 
-Функция СобытияЖурналаРегистрации(Отбор, Секунд = 2)
+Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
 	
 	Возврат TestsCommonUseServer.СобытияЖурналаРегистрации(Отбор, Секунд);
 	
-КонецФункции
+EndFunction
 	
 #EndRegion

@@ -1,7 +1,7 @@
 #Region Internal
 
 // @unit-test
-Procedure ПерекодироватьСтроку(Фреймворк) Экспорт
+Procedure ПерекодироватьСтроку(Фреймворк) Export
 	
 	// given
 	Эталон_UTF8 = "тестовая строка";

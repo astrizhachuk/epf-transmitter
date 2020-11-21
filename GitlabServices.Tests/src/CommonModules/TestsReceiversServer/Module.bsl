@@ -1,7 +1,7 @@
 #Region Internal
 
 // @unit-test
-Procedure ConnectionParams(Фреймворк) Экспорт
+Procedure ConnectionParams(Фреймворк) Export
 
 	// given
 	Константы.TokenReceiver.Установить("998");
@@ -17,7 +17,7 @@ Procedure ConnectionParams(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure ConnectionParamsNegativeTimeout(Фреймворк) Экспорт
+Procedure ConnectionParamsNegativeTimeout(Фреймворк) Export
 
 	// given
 	Константы.TokenReceiver.Установить("998");
@@ -38,7 +38,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileWithoutSendParamsAndWithoutEventParams(Фреймворк) Экспорт
+Procedure SendFileWithoutSendParamsAndWithoutEventParams(Фреймворк) Export
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
@@ -69,7 +69,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileWithoutSendParamsAndEventParamsExists(Фреймворк) Экспорт
+Procedure SendFileWithoutSendParamsAndEventParamsExists(Фреймворк) Export
 	
 	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
 	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
@@ -107,7 +107,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileError403ForbiddenWithoutEventParams(Фреймворк) Экспорт
+Procedure SendFileError403ForbiddenWithoutEventParams(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
@@ -150,7 +150,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Экспорт
+Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_403 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.403';en = 'Webhooks.Core.SendingFileReceiver.403'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
@@ -201,7 +201,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFile200OkWithoutEventParams(Фреймворк) Экспорт
+Procedure SendFile200OkWithoutEventParams(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
@@ -237,7 +237,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFile200OkEventParamsExists(Фреймворк) Экспорт
+Procedure SendFile200OkEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
@@ -279,7 +279,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileWithoutSendParamsBackgroundJob(Фреймворк) Экспорт
+Procedure SendFileWithoutSendParamsBackgroundJob(Фреймворк) Export
 	
 	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
@@ -319,7 +319,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймворк) Экспорт
+Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
@@ -368,7 +368,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймворк) Экспорт
+Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
@@ -448,16 +448,16 @@ Procedure УдалитьВсеОбработчикиСобытий()
 
 EndProcedure
 
-Функция ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
+Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
 	
 	Возврат TestsCommonUseServer.ОтборЖурналаРегистрации(Событие, Уровень);
 	
-КонецФункции
+EndFunction
 
-Функция СобытияЖурналаРегистрации(Отбор, Секунд = 2)
+Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
 	
 	Возврат TestsCommonUseServer.СобытияЖурналаРегистрации(Отбор, Секунд);
 	
-КонецФункции
+EndFunction
 
 #EndRegion

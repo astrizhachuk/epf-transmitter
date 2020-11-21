@@ -1,7 +1,7 @@
 #Region Internal
 
 // @unit-test
-Procedure CurrentSettings(Фреймворк) Экспорт
+Procedure CurrentSettings(Фреймворк) Export
 
 	// given		
 	Константы.HandleRequests.Установить(Истина);
@@ -25,7 +25,7 @@ Procedure CurrentSettings(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure RoutingFileName(Фреймворк) Экспорт
+Procedure RoutingFileName(Фреймворк) Export
 
 	// given		
 	Константы.RoutingFileName.Установить("НовоеFileName.json");
@@ -37,7 +37,7 @@ Procedure RoutingFileName(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure TokenGitLab(Фреймворк) Экспорт
+Procedure TokenGitLab(Фреймворк) Export
 
 	// given		
 	Константы.TokenGitLab.Установить("NewTokenGitLab");
@@ -49,7 +49,7 @@ Procedure TokenGitLab(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure TimeoutGitLab(Фреймворк) Экспорт
+Procedure TimeoutGitLab(Фреймворк) Export
 
 	// given		
 	Константы.TimeoutGitLab.Установить(5);
@@ -61,7 +61,7 @@ Procedure TimeoutGitLab(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure TimeoutDeliveryFile(Фреймворк) Экспорт
+Procedure TimeoutDeliveryFile(Фреймворк) Export
 
 	// given		
 	Константы.TimeoutDeliveryFile.Установить(9);
@@ -73,7 +73,7 @@ Procedure TimeoutDeliveryFile(Фреймворк) Экспорт
 EndProcedure
 
 // @unit-test
-Procedure TokenReceiver(Фреймворк) Экспорт
+Procedure TokenReceiver(Фреймворк) Export
 
 	// given		
 	Константы.TokenReceiver.Установить("NewTokenReceiver");

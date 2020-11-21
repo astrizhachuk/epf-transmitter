@@ -4,7 +4,7 @@
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure ConnectionParams(Фреймворк) Экспорт
+Procedure ConnectionParams(Фреймворк) Export
 	
 	// given
 	Константы.TokenGitLab.Установить("-U2ssrBsM4rmx85HXzZ1");
@@ -23,7 +23,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFileBadURL(Фреймворк) Экспорт
+Procedure RemoteFileBadURL(Фреймворк) Export
 	
 	// given
 	ПараметрыСоединения = Новый Структура();
@@ -46,7 +46,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFile404NotFound(Фреймворк) Экспорт
+Procedure RemoteFile404NotFound(Фреймворк) Export
 
 	// given
 	URL = "http://mock-server:1080";
@@ -86,7 +86,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFile401Unauthorized(Фреймворк) Экспорт
+Procedure RemoteFile401Unauthorized(Фреймворк) Export
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -123,7 +123,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFileEmpty(Фреймворк) Экспорт
+Procedure RemoteFileEmpty(Фреймворк) Export
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -167,7 +167,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFile200Ok(Фреймворк) Экспорт
+Procedure RemoteFile200Ok(Фреймворк) Export
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -218,7 +218,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFiles(Фреймворк) Экспорт
+Procedure RemoteFiles(Фреймворк) Export
 	
 	// given	
 	URL = "http://mock-server:1080";
@@ -281,7 +281,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFilesWithDescription(Фреймворк) Экспорт
+Procedure RemoteFilesWithDescription(Фреймворк) Export
 
 	// given
 	URL = "http://mock-server:1080";
@@ -440,7 +440,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure ProjectDescription(Фреймворк) Экспорт
+Procedure ProjectDescription(Фреймворк) Export
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -488,7 +488,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure MergeRequests(Фреймворк) Экспорт
+Procedure MergeRequests(Фреймворк) Export
 	
 	// given
 	URL = "http://mock-server:1080";
@@ -549,7 +549,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RemoteFilesEmpty(Фреймворк) Экспорт
+Procedure RemoteFilesEmpty(Фреймворк) Export
 
 	// given	
 	// when
@@ -570,7 +570,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure RAWFilePath(Фреймворк) Экспорт
+Procedure RAWFilePath(Фреймворк) Export
 	
 	// given
 	Эталон = "/api/v4/projects/1/repository/files/%D0%B0%2F%D0%B1%2F%D0%B2/raw?ref=0123456789";
@@ -585,7 +585,7 @@ EndProcedure
 // Параметры:
 // 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
 //
-Procedure ListFileActions(Фреймворк) Экспорт
+Procedure ListFileActions(Фреймворк) Export
 
 	// when	
 	Результат = GitlabCached.ListFileActions();

@@ -44,7 +44,7 @@ EndProcedure
 #Region Private
 
 &AtClient
-Функция WriteDataForm()
+Function WriteDataForm()
 	
 	Var Result;
 
@@ -61,7 +61,7 @@ EndProcedure
 	
 	Return Result;
 	
-КонецФункции
+EndFunction
 
 &AtServer
 Procedure WriteAtServer()

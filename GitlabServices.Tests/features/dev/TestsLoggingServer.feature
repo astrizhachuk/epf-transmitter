@@ -9,6 +9,11 @@ Feature: GitLabServices.Tests.TestsLoggingServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: InfoEventWithObjectAndHTTPResponse200
+Scenario: InfoEventWithObjectAndHTTPResponseWithBody403
 	And I execute 1C:Enterprise script at server
-	| 'TestsLoggingServer.InfoEventWithObjectAndHTTPResponse200(Context());' |
+	| 'TestsLoggingServer.InfoEventWithObjectAndHTTPResponseWithBody403(Context());' |
+
+@OnServer
+Scenario: InfoEventWithObjectAndHTTPResponseWithBody423
+	And I execute 1C:Enterprise script at server
+	| 'TestsLoggingServer.InfoEventWithObjectAndHTTPResponseWithBody423(Context());' |

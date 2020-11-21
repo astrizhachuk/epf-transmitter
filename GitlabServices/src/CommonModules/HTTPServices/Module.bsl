@@ -1,6 +1,6 @@
 #Region Public
 
-// ServiceDescriptionByName returns a deserializated description of a web service by service name (see the REST API).
+// ServiceDescriptionByName returns a deserialized description of a web service by service name (see the REST API).
 // 
 // Parameters:
 // 	Name - String - service metadata name;
