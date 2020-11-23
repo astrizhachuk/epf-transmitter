@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:FunctionalOption xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="582b2f2e-96df-4822-862b-b3913e891cb9">
+  <name>HandleRequests</name>
+  <synonym>
+    <key>ru</key>
+    <value>Обрабатывать запросы внешнего хранилища</value>
+  </synonym>
+  <location>Constant.HandleRequests</location>
+  <privilegedGetMode>true</privilegedGetMode>
+</mdclass:FunctionalOption>

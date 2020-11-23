@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0f493aac-a55c-4297-b77f-b63ab42dc37e">
+  <producedTypes>
+    <selectionType typeId="91cbd3f1-8b76-4002-88b6-cce364444fd6" valueTypeId="ebc89424-77c9-4ee3-af3d-896bff5a4b2c"/>
+    <listType typeId="7173c5a9-9104-4f88-b607-93bfb2720518" valueTypeId="422945e1-b9e4-41d7-99eb-c585760c96ee"/>
+    <managerType typeId="b6d6e3b6-e149-4375-ab04-fc76ee3ca9a5" valueTypeId="a56e9fe1-f9f1-485a-a9b4-021ba2bdc939"/>
+    <recordSetType typeId="96ba7a66-b1f3-45a0-9bdd-d2218304917f" valueTypeId="c7392b3e-983d-471f-8a75-3deb6750d363"/>
+    <recordKeyType typeId="be2d17cc-1807-45fd-a940-a2ed9bdf8f05" valueTypeId="3eeda988-728b-455e-8313-5fe38515ddd4"/>
+    <recordType typeId="07450e3c-f3a9-4cc7-95b8-a9092b52e472" valueTypeId="97e659be-de43-4f32-b96d-c8781dabeb0b"/>
+    <recordManagerType typeId="dd978bb9-d852-49a1-a422-edbf406b2267" valueTypeId="0cd8f4af-8c8f-463d-a59f-c88b1279d257"/>
+  </producedTypes>
+  <name>QueryData</name>
+  <synonym>
+    <key>en</key>
+    <value>Query Data</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Данные запросов</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <standardAttributes>
+    <dataHistory>Use</dataHistory>
+    <name>Active</name>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <standardAttributes>
+    <dataHistory>Use</dataHistory>
+    <name>LineNumber</name>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <standardAttributes>
+    <dataHistory>Use</dataHistory>
+    <name>Recorder</name>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <standardAttributes>
+    <dataHistory>Use</dataHistory>
+    <name>Period</name>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+    <fullTextSearch>Use</fullTextSearch>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </standardAttributes>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <resources uuid="4773d106-7e31-4ba1-8475-b868984cedf4">
+    <name>Data</name>
+    <synonym>
+      <key>en</key>
+      <value>Query Data</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Данные запросов</value>
+    </synonym>
+    <type>
+      <types>ValueStorage</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <dimensions uuid="c9166ddb-3b90-4103-a795-5b301304f6d4">
+    <name>Webhook</name>
+    <synonym>
+      <key>en</key>
+      <value>Webhook</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Обработчик события</value>
+    </synonym>
+    <type>
+      <types>CatalogRef.Webhooks</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillFromFillingValue>true</fillFromFillingValue>
+    <master>true</master>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="228bede1-2c6c-4420-9c89-db095fa86a11">
+    <name>CheckoutSHA</name>
+    <synonym>
+      <key>en</key>
+      <value>checkout_sha</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>checkout_sha</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>40</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:StringValue">
+      <value></value>
+    </fillValue>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+</mdclass:InformationRegister>

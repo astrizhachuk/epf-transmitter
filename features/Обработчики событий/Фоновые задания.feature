@@ -13,9 +13,9 @@
 	И Я очищаю MockServer
 	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-routing.json"
 	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-epf-push.json"
-	И я удаляю все элементы Справочника "ОбработчикиСобытий"
-	И я удаляю все записи РегистрСведений "ДанныеЗапросов"
-	И я удаляю все записи РегистрСведений "ВнешниеФайлы"
+	И я удаляю все элементы Справочника "Webhooks"
+	И я удаляю все записи РегистрСведений "QueryData"
+	И я удаляю все записи РегистрСведений "RemoteFiles"
 	И я закрыл все окна клиентского приложения
 	И Я настраиваю сервис работы с GitLab для функционального тестирования
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики событий'
@@ -24,16 +24,16 @@
 
 Сценарий: Просмотр фоновых заданий для выбранного запроса
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
 
-		Когда в таблице "Список" я перехожу к строке:
-			| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
-			| 'Тест обработки запроса'  | '000000001' | 'gita'                          |
-		И в таблице "Список" я выбираю текущую строку
+		Когда в таблице "List" я перехожу к строке:
+			| 'Наименование'            | 'Код'       | 'Секретный ключ' |
+			| 'Тест обработки запроса'  | '000000001' | 'gita'           |
+		И в таблице "List" я выбираю текущую строку
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
 		И в таблице "ReceivedRequests" количество строк "равно" 2
 
@@ -55,8 +55,8 @@
 
 	Выполняем запросы от сервера GitLab еще раз
 
-		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Проверяем появление новых фоновых заданий
@@ -87,14 +87,13 @@
 
 	Выполняем запросы от сервера GitLab еще раз
 
-		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 10
 
-	Обновляем список фоновых и проверяем появление трех новых заданий
+	Обновляем список фоновых и проверяем появление двух новых заданий
 		
 		Когда я нажимаю на кнопку с именем 'RefreshBackgroundJobs'
 		И в таблице "BackgroundJobs" я перехожу к первой строке
-		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И я запоминаю выделенные строки таблицы "BackgroundJobs" как "BackgroundJobsCurrent"
@@ -105,15 +104,15 @@
 
 Сценарий: Обновление состояния для выбранного фонового задания
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
 
-		Когда в таблице "Список" я перехожу к строке:
-			| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
-			| 'Тест обработки запроса'  | '000000001' | 'gita'                          |
-		И в таблице "Список" я выбираю текущую строку
+		Когда в таблице "List" я перехожу к строке:
+			| 'Наименование'            | 'Код'       | 'Секретный ключ' |
+			| 'Тест обработки запроса'  | '000000001' | 'gita'           |
+		И в таблице "List" я выбираю текущую строку
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
 
 	Открываем список фоновых заданий
@@ -125,7 +124,7 @@
 
 		# На получении файла с mock-server стоит задержка в 2 секунды
 		Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Сразу проверяем появление новых фоновых заданий ожидая появление работающего задания
@@ -133,35 +132,35 @@
 		Когда я нажимаю на кнопку с именем 'RefreshBackgroundJobs'
 		Тогда таблица "BackgroundJobs" содержит строки:
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 
 	Обновляем состояние задания после ожидания
 
 		Когда Пауза 5
 		И в таблице "BackgroundJobs" я перехожу к строке
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 		И я нажимаю на кнопку с именем 'RefreshSelectedBackgroundJob'
 		И в таблице "BackgroundJobs" поле "Состояние" имеет значение "Задание выполнено"
 
 		И в таблице "BackgroundJobs" я перехожу к строке
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 		И я нажимаю на кнопку с именем 'RefreshSelectedBackgroundJob'
 		И в таблице "BackgroundJobs" поле "Состояние" имеет значение "Задание выполнено"
 
 Сценарий: Принудительное завершение состояния для выбранного фонового задания
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Выбираем тестируемый обработчик событий
 
-		Когда в таблице "Список" я перехожу к строке:
-			| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
-			| 'Тест обработки запроса'  | '000000001' | 'gita'                          |
-		И в таблице "Список" я выбираю текущую строку
+		Когда в таблице "List" я перехожу к строке:
+			| 'Наименование'            | 'Код'       | 'Секретный ключ' |
+			| 'Тест обработки запроса'  | '000000001' | 'gita'           |
+		И в таблице "List" я выбираю текущую строку
 		Тогда открылось окно 'Тест обработки запроса (Обработчики событий)'
 
 	Открываем список фоновых заданий
@@ -173,7 +172,7 @@
 
 		# На получении файла с mock-server стоит задержка в 3 секунды
 		Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
-		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
+		И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 1
 
 	Сразу проверяем появление новых фоновых заданий ожидая появление работающего задания
@@ -181,14 +180,14 @@
 		Когда я нажимаю на кнопку с именем 'RefreshBackgroundJobs'
 		Тогда таблица "BackgroundJobs" содержит строки:
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 
 	Принудительно завершаем задание
 
 		И в таблице "BackgroundJobs" я перехожу к строке
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'Получатели.ОтправитьФайл'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/receiver1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 		И я нажимаю на кнопку с именем 'KillSelectedBackgroundJob'
 		И в таблице "BackgroundJobs" поле "Состояние" имеет значение "Задание отменено пользователем"
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="57e5339b-6529-4949-9624-a873242e8283">
+  <name>TestsReceiversServer</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получатели сервер</value>
+  </synonym>
+  <server>true</server>
+  <serverCall>true</serverCall>
+</mdclass:CommonModule>

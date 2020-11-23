@@ -13,9 +13,9 @@
 	И Я очищаю MockServer
 	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-routing.json"
 	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-epf-push.json"
-	И я удаляю все элементы Справочника "ОбработчикиСобытий"
-	И я удаляю все записи РегистрСведений "ДанныеЗапросов"
-	И я удаляю все записи РегистрСведений "ВнешниеФайлы"
+	И я удаляю все элементы Справочника "Webhooks"
+	И я удаляю все записи РегистрСведений "QueryData"
+	И я удаляю все записи РегистрСведений "RemoteFiles"
 	И я закрыл все окна клиентского приложения
 	И Я настраиваю сервис работы с GitLab для функционального тестирования
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики событий'
@@ -24,14 +24,14 @@
 
 Сценарий: Я проверяю сохраненный запрос в редакторе JSON
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 2
 
-	Когда в таблице "Список" я перехожу к строке:
-		| 'Наименование'            | 'Код'       | 'Секретный ключ (Secret Token)' |
-		| 'Тест обработки запроса'  | '000000001' | 'gita'                          |
-	И в таблице "Список" я выбираю текущую строку
+	Когда в таблице "List" я перехожу к строке:
+		| 'Наименование'            | 'Код'       | 'Секретный ключ' |
+		| 'Тест обработки запроса'  | '000000001' | 'gita'           |
+	И в таблице "List" я выбираю текущую строку
 
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha'                             |
@@ -40,7 +40,7 @@
 	
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
-	И элемент формы с именем "GroupUserSettings" существует и невидим на форме
+	И элемент формы с именем "GroupCustomSettings" существует и невидим на форме
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
 	И значение поля "CommitsQueryJSON" содержит текст "\"checkout_sha\": \"1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
 	И значение поля "CommitsQueryJSON" не содержит текст "\"checkout_sha\": \"2b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
@@ -54,7 +54,7 @@
 
 	Тогда открылось окно 'Запрос'
 	И элемент формы с именем "GroupCommits" существует и невидим на форме
-	И элемент формы с именем "GroupUserSettings" существует и невидим на форме
+	И элемент формы с именем "GroupCustomSettings" существует и невидим на форме
 	И элемент с именем "CommitsQueryJSON" доступен только для просмотра
 	И значение поля "CommitsQueryJSON" содержит текст "\"checkout_sha\": \"2b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","
 	И значение поля "CommitsQueryJSON" не содержит текст "\"checkout_sha\": \"1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\","

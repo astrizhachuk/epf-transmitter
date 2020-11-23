@@ -16,7 +16,7 @@ tags:
   - name: default
     description: Общие методы
   - name: webhooks
-    description: Обработка вебхук
+    description: Обработка webhooks
 paths:
   /services:
     get:
@@ -80,7 +80,7 @@ paths:
                 $ref: '#/components/schemas/response'
               example:
                 type: "warning"
-                message: "Отключен функционал загрузки из внешнего хранилища."
+                message: "Загрузка из внешнего хранилища отключена."
       security:
       - api_key: []
 components:
