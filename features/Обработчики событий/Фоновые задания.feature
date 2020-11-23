@@ -90,11 +90,10 @@
 		Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 		И Пауза 10
 
-	Обновляем список фоновых и проверяем появление трех новых заданий
+	Обновляем список фоновых и проверяем появление двух новых заданий
 		
 		Когда я нажимаю на кнопку с именем 'RefreshBackgroundJobs'
 		И в таблице "BackgroundJobs" я перехожу к первой строке
-		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И в таблице "BackgroundJobs" я перехожу к следующей строке
 		И я запоминаю выделенные строки таблицы "BackgroundJobs" как "BackgroundJobsCurrent"
