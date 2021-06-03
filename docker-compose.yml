@@ -62,12 +62,12 @@ services:
       - "1540-1541:1540-1541"
       - "1550:1550" # для режима отладки
       - "1560-1591:1560-1591"
-    entrypoint: ["/opt/1C/v8.3/x86_64/ragent", "-debug", "-http"] # entrypoint только для отладки, иначе - удалить
+    entrypoint: ["/opt/1cv8/current/ragent", "-debug", "-http"] # entrypoint только для отладки, иначе - удалить
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
-      - ./tools/conf.cfg:/opt/1C/v8.3/x86_64/conf/conf.cfg
+      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./tools/conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test:/home/usr1cv8/test # чтобы не передавать данные с клиента на сервер в самом тесте
     networks:
       - back_net
@@ -87,8 +87,8 @@ services:
     volumes:
       - client_data:/home/usr1cv8/.1cv8
       - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
-      - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
-      - ./tools/conf.cfg:/opt/1C/v8.3/x86_64/conf/conf.cfg
+      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./tools/conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test/empty.dt:/home/usr1cv8/empty.dt
     networks:
       - back_net
@@ -114,10 +114,10 @@ services:
     depends_on:
       - srv
     command: >
-      bash -c "/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;'
-      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/en/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
-      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api/en -dir /var/www/api/en -descriptor /tmp/web/api/en/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
-      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api/ru -dir /var/www/api/ru -descriptor /tmp/web/api/ru/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=сайт;pwd=12345'
+      bash -c "/opt/1cv8/current/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;'
+      && /opt/1cv8/current/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/en/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
+      && /opt/1cv8/current/webinst -apache24 -wsdir api/en -dir /var/www/api/en -descriptor /tmp/web/api/en/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=site;pwd=12345'
+      && /opt/1cv8/current/webinst -apache24 -wsdir api/ru -dir /var/www/api/ru -descriptor /tmp/web/api/ru/default.vrd -connstr 'Srvr=srv;Ref=gitlabServices;usr=сайт;pwd=12345'
       && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api /var/www/api/ru
       && /usr/sbin/apache2ctl -DFOREGROUND"
     volumes:
@@ -136,8 +136,8 @@ services:
         - DOCKER_USERNAME
         - ONEC_VERSION
     command: >
-      bash -c "/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'File=/home/usr1cv8/db'
-      && /opt/1C/v8.3/x86_64/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/default.vrd -connstr 'File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab'
+      bash -c "/opt/1cv8/current/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /tmp/web/client/default.vrd -connstr 'File=/home/usr1cv8/db'
+      && /opt/1cv8/current/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /tmp/web/api/default.vrd -connstr 'File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab'
       && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api /home/usr1cv8/db
       && /usr/sbin/apache2ctl -DFOREGROUND"
     ports:
@@ -145,7 +145,7 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini
+      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
       - ./test/receiver/web:/tmp/web
     networks:
       - back_net
