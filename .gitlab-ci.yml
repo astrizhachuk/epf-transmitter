@@ -1,3 +1,6 @@
+stages:
+  - sonarqube
+
 .job_image: &job_image
   image:
     name: ${CI_REGISTRY}/devops/sonar-scanner-cli:latest
@@ -5,28 +8,38 @@
   tags:
     - docker
 
-push:
-  stage: test
-  <<: *job_image
-  script: sonar-scanner
-      -D"sonar.host.url=${SONAR_SERVER}"
-      -D"sonar.projectVersion=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)"
-      -D"sonar.login=${SONAR_LOGIN}"
-      -D"sonar.branch.name=${CI_COMMIT_REF_NAME}"
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "master"'
-      when: always
-
 merge_request:
-  stage: test
+  stage: sonarqube
   <<: *job_image
-  script: sonar-scanner
-    -D"sonar.host.url=${SONAR_SERVER}"
-    -D"sonar.projectVersion=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)"
-    -D"sonar.login=${SONAR_LOGIN}"
-    -D"sonar.pullrequest.key=${CI_MERGE_REQUEST_IID}"
-    -D"sonar.pullrequest.branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
-    -D"sonar.pullrequest.base=${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - keytool -cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias $SSL_SERVER -file "$SONAR_SSL_CERTIFICATE"
+    - export PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)
+    - export SONAR_SCANNER_OPTS="-Xmx4g"
+    - sonar-scanner
+      -D"sonar.host.url=${SONAR_SERVER}"
+      -D"sonar.projectVersion=${PROJECT_VERSION}"
+      -D"sonar.login=${SONAR_LOGIN}"
+      -D"sonar.pullrequest.key=${CI_MERGE_REQUEST_IID}"
+      -D"sonar.pullrequest.branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+      -D"sonar.pullrequest.base=${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+
+push:
+  stage: sonarqube
+  <<: *job_image
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - keytool -cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias $SSL_SERVER -file "$SONAR_SSL_CERTIFICATE"
+    - export PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" GitlabServices/src/Configuration/Configuration.mdo)
+    - export SONAR_SCANNER_OPTS="-Xmx4g"
+    - sonar-scanner
+      -D"sonar.host.url=${SONAR_SERVER}"
+      -D"sonar.projectVersion=${PROJECT_VERSION}"
+      -D"sonar.branch.name=master"
+      -D"sonar.login=${SONAR_LOGIN}"
+  rules:
+    - if: '$CI_COMMIT_TAG != null'
