@@ -1,0 +1,20 @@
+{
+    "full-rights": "FullRights",
+    "users": [
+        {
+            "name": "Администратор",
+            "roles": [
+                "FullRights",
+                "GitLabClient"
+            ]
+        },
+        {
+            "name": "$WS_USER",
+            "roles": [
+                "GitLabHTTPService"
+            ],
+            "password": "$WS_PASSWORD",
+            "lang": "en"
+        }
+    ]
+}

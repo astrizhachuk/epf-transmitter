@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<point xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
-		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-		xmlns:core="http://v8.1c.ru/8.1/data/core" 
-		base="/client" 
-		ib="Srvr=&quot;srv&quot;;Ref=&quot;gitlabServices&quot;;" 
-		enable="true" 
+<point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:core="http://v8.1c.ru/8.1/data/core"
+		base="/client"
+		ib="Srvr=srv;Ref=gitlabServices;"
+		enable="true"
 		enableStandardOData="true">
-	<debug enable="true" 
-			protocol="http" 
+	<debug enable="true"
+			protocol="http"
 			url="http://srv:1550"/>
-	<ws enable="true" 
-			pointEnableCommon="true" 
+	<ws enable="true"
+			pointEnableCommon="true"
 			publishExtensionsByDefault="true">
 	</ws>
-	<httpServices publishByDefault="true" 
+	<httpServices publishByDefault="true"
 			publishExtensionsByDefault="true">
-		<service name="gitlab" 
-				rootUrl="gitlab" 
-				enable="true" 
-				reuseSessions="autouse" 
-				sessionMaxAge="20" 
-				poolSize="10" 
+		<service name="gitlab"
+				rootUrl="gitlab"
+				enable="true"
+				reuseSessions="autouse"
+				sessionMaxAge="20"
+				poolSize="10"
 				poolTimeout="5"/>
 	</httpServices>
 </point>

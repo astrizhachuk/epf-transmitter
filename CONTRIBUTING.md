@@ -60,7 +60,7 @@
 >
 >DOCKER_USERNAME - учетная запись на [Docker Hub](https://hub.docker.com) или в корпоративном registry
 >
-Настроить подключение к серверу лицензий в файле [nethasp.ini](./tools/nethasp.ini)
+Настроить подключение к серверу лицензий в файле [nethasp.ini](./nethasp.ini)
 
 Настроить в системном hosts resolve имен сервисов из файла [docker-compose.yml](./docker-compose.yml).
 
@@ -184,7 +184,7 @@ docker-compose exec gitlab /restore.sh
     --env-file=.env.docker \
     --network=gitlab-services_back_net \
     -v gitlab-services_client_data:/home/usr1cv8/.1cv8 \
-    -v $PWD/tools/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini \
+    -v $PWD/nethasp.ini:/opt/1C/v8.3/x86_64/conf/nethasp.ini \
     -v $PWD/tools/VAParams.json:/home/usr1cv8/VAParams.json \
     -v $PWD/:/home/usr1cv8/project \
     ${DOCKER_USERNAME}/client-vnc-va:${ONEC_VERSION}

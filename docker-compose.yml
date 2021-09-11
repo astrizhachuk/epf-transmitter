@@ -66,8 +66,8 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
-      - ./tools/conf.cfg:/opt/1cv8/current/conf/conf.cfg
+      - ./nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test:/home/usr1cv8/test # чтобы не передавать данные с клиента на сервер в самом тесте
     networks:
       - back_net
@@ -87,8 +87,8 @@ services:
     volumes:
       - client_data:/home/usr1cv8/.1cv8
       - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
-      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
-      - ./tools/conf.cfg:/opt/1cv8/current/conf/conf.cfg
+      - ./nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test/empty.dt:/home/usr1cv8/empty.dt
     networks:
       - back_net
@@ -145,7 +145,7 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./tools/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
       - ./test/receiver/web:/tmp/web
     networks:
       - back_net

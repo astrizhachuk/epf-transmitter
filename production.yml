@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+
+  srv:
+    image: $CI_REGISTRY/devops/onec-docker/server:$ONEC_VERSION
+    hostname: srv
+    depends_on:
+      - db
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+      - .conf:/opt/1cv8/current/conf
+    networks:
+      - back_net
+
+  ws:
+    image: $CI_REGISTRY/devops/onec-docker/ws:$ONEC_VERSION
+    depends_on:
+      - srv
+    ports:
+      - "8090:80"
+    command: bash -c
+      "/opt/1cv8/current/webinst -apache24
+        -wsdir client
+        -dir /var/www/client
+        -descriptor /tmp/web/client/default.vrd
+        -connstr 'Srvr=srv;Ref=gitlabServices;'
+      && /opt/1cv8/current/webinst -apache24
+        -wsdir api
+        -dir /var/www/api
+        -descriptor /tmp/web/api/en/default.vrd
+        -connstr 'Srvr=srv;Ref=gitlabServices;usr=$WS_USER;pwd=$WS_PASSWORD'
+      && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api
+      && /usr/sbin/apache2ctl -DFOREGROUND"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+      - ./web:/tmp/web
+    networks:
+      - back_net
+
+  db:
+    image: strizhhh/postgresql-pro-1c:9.6
+    volumes:
+      - db_data:/var/lib/postgresql
+    networks:
+      - back_net
+    
+volumes:
+  srv_data:
+  srv_log:
+  db_data:
+
+networks:
+  back_net:
