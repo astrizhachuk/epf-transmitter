@@ -10,7 +10,6 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - .conf:/opt/1cv8/current/conf
     networks:
       - back_net
 

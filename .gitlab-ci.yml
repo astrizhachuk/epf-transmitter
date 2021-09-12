@@ -37,24 +37,13 @@ stages:
   tags:
     - udocker02
 
-conf:
-  stage: .pre
-  script:
-    - mkdir .conf
-    - echo -e "$DEPLOY_ONEC_CONFIG" > .conf/conf.cfg
-    - echo -e "$DEPLOY_NETHASP" > .conf/nethasp.ini
-  cache:
-    key: "conf-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - .conf
-    policy: push
-  tags:
-    - udocker02
-
 srv up:
   extends: .runner
   stage: prepare
   script:
+    - docker-compose -f "production.yml" -p $PROJECT_NAME create srv
+    - docker cp $DEPLOY_NETHASP ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/nethasp.ini
+    - docker cp $DEPLOY_ONEC_CONFIG ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/conf.cfg
     - docker-compose -f "production.yml" -p $PROJECT_NAME up -d srv
   rules:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
@@ -131,7 +120,7 @@ create db:
     # ibcmd infobase create
     # --import=/build/xml
     - docker-compose -f "production.yml" -p $PROJECT_NAME
-      run --rm --entrypoint="" -v $CI_PROJECT_DIR:/build
+      run --rm --entrypoint=""
       srv
         /opt/1cv8/current/ibcmd infobase create
           --db-server=db
@@ -233,20 +222,16 @@ update:
   script:
     - touch $CI_PROJECT_DIR/load.log
     - docker run
-      --rm --network=gitlab-services_back_net
+      --rm --network=${PROJECT_NAME}_back_net
       -v $CI_PROJECT_DIR:/build
-      -v $CI_PROJECT_DIR/.conf:/opt/1cv8/current/conf
+      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
       $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
       bash -c "/opt/1cv8/current/1cv8 DESIGNER /IBConnectionString \"Srvr=srv;Ref=$IB_NAME;\"
         $PARAMS_ADMIN_USER
         /LoadConfigFromFiles /build/xml -Format Hierarchical /UpdateDBCfg
         /DisableStartupMessages /DisableStartupDialogs /out /build/load.log"
     - sudo chown -R $USER $CI_PROJECT_DIR/load.log
-  cache:
-    key: "conf-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - .conf
-    policy: pull
   artifacts:
     name: "log-$CI_COMMIT_SHORT_SHA"
     paths:
@@ -269,9 +254,10 @@ init db:
   script:
     - docker run
       --rm
-      --network=gitlab-services_back_net
+      --network=${PROJECT_NAME}_back_net
       -v $CI_PROJECT_DIR:/build
-      -v $CI_PROJECT_DIR/.conf:/opt/1cv8/current/conf
+      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
       -e WS_USER=$WS_USER
       -e WS_PASSWORD=$WS_PASSWORD
       $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
@@ -279,14 +265,10 @@ init db:
         /Execute /build/tools/init-db.epf
         /C\"file=/build/tools/users.json\""
   cache:
-    - key: "init-$CI_COMMIT_SHORT_SHA"
-      paths:
-        - tools/init-db.epf
-      policy: pull
-    - key: "conf-$CI_COMMIT_SHORT_SHA"
-      paths:
-        - .conf
-      policy: pull
+    key: "init-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - tools/init-db.epf
+    policy: pull
   rules:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
