@@ -32,9 +32,9 @@
 
 ## Архитектура решения
 
-* Описание API [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services/1.0.0) или [тут](./api-gitlab-services.yaml).
+* Описание API [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services/1.0.0) или [тут](./api/gitlab-services.yml).
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
-* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0) или [тут](./api-receiver.yaml). Пример реализации сервиса для базы-приемника - [gitlab-services-receiver](https://github.com/astrizhachuk/gitlab-services-receiver)
+* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0) или [тут](./api/receiver.yml). Пример реализации сервиса для базы-приемника - [gitlab-services-receiver](https://github.com/astrizhachuk/gitlab-services-receiver)
 * Платформа transmitter 1С не ниже 8.3.17.1549;
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)

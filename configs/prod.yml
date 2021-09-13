@@ -23,19 +23,20 @@ services:
       "/opt/1cv8/current/webinst -apache24
         -wsdir client
         -dir /var/www/client
-        -descriptor /tmp/web/client/default.vrd
+        -descriptor /var/www/client.vrd
         -connstr 'Srvr=srv;Ref=gitlabServices;'
       && /opt/1cv8/current/webinst -apache24
         -wsdir api
         -dir /var/www/api
-        -descriptor /tmp/web/api/en/default.vrd
+        -descriptor /var/www/api.vrd
         -connstr 'Srvr=srv;Ref=gitlabServices;usr=$WS_USER;pwd=$WS_PASSWORD'
       && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api
       && /usr/sbin/apache2ctl -DFOREGROUND"
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./web:/tmp/web
+      - ../web/client.vrd:/var/www/client.vrd
+      - ../web/api.vrd:/var/www/api.vrd
     networks:
       - back_net
 

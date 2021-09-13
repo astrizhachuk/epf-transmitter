@@ -2,7 +2,7 @@
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:core="http://v8.1c.ru/8.1/data/core"
-		base="/api/en"
+		base="/api"
 		ib="Srvr=srv;Ref=gitlabServices;"
 		enable="false"
 		enableStandardOData="false">

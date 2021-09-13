@@ -1,7 +1,12 @@
+default:
+  tags:
+    - udocker02
+
 variables:
   #CI_DEBUG_TRACE: "true"
   FLAG_NEW_INSTANCE: "false"
   FLAG_USE_ONLY_IBCMD: "false"
+  DEPLOY_CONFIG: "configs/prod.yml"
 
   PROJECT_NAME: $CI_PROJECT_NAME
   EDT_PROJECT_DIR: "GitlabServices"
@@ -31,25 +36,22 @@ stages:
   - test
   - up
 
-.runner:
-  before_script:
+docker login:
+  stage: .pre
+  script:
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-  tags:
-    - udocker02
 
 srv up:
-  extends: .runner
   stage: prepare
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME create srv
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME create srv
     - docker cp $DEPLOY_NETHASP ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/nethasp.ini
     - docker cp $DEPLOY_ONEC_CONFIG ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/conf.cfg
-    - docker-compose -f "production.yml" -p $PROJECT_NAME up -d srv
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME up -d srv
   rules:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
 export xml:
-  extends: .runner
   stage: prepare
   script:
     - docker run
@@ -76,7 +78,6 @@ export xml:
     - if: $CI_COMMIT_TAG
 
 download tools:
-  extends: .runner
   stage: prepare
   script:
       - docker run
@@ -93,33 +94,13 @@ download tools:
   rules:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
-# compile epf:
-#   extends: .runner
-#   stage: prepare
-#   script:
-#     - docker run
-#       --rm
-#       -v $CI_PROJECT_DIR:/build
-#       -v $CI_PROJECT_DIR/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
-#       $CI_REGISTRY/devops/onec-docker/oscript-1.6.0:$ONEC_VERSION
-#       bash -c "oscript build/tools/onescript/Compile.os /build/tools/users/"
-#     - sudo chown -R $USER $CI_PROJECT_DIR/tools/users
-#   cache:
-#     key: "epf-$CI_COMMIT_SHORT_SHA"
-#     paths:
-#       - tools/users
-#     policy: push
-#   rules:
-#     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
-
 create db:
-  extends: .runner
   stage: create
   script:
     # Почему то не работают флаги --apply --force для принудительного обновления
     # ibcmd infobase create
     # --import=/build/xml
-    - docker-compose -f "production.yml" -p $PROJECT_NAME
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
       run --rm --entrypoint=""
       srv
         /opt/1cv8/current/ibcmd infobase create
@@ -132,10 +113,9 @@ create db:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
 register ib:
-  extends: .runner
   stage: register
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
       exec -T
       srv
         bash -c "/opt/1cv8/current/ras cluster --daemon &&
@@ -156,10 +136,9 @@ register ib:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
 import config:
-  extends: .runner
   stage: import
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
       run --rm --entrypoint="" -v $CI_PROJECT_DIR:/build
       srv
         /opt/1cv8/current/ibcmd infobase config import
@@ -177,11 +156,10 @@ import config:
     - if: '$CI_COMMIT_TAG && $FLAG_USE_ONLY_IBCMD == "true"'
 
 dump:
-  extends: .runner
   stage: dump
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME stop ws
-    - docker-compose -f "production.yml" -p $PROJECT_NAME
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME stop ws
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
       run
         --rm
         --entrypoint=""
@@ -201,10 +179,9 @@ dump:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "false"'
 
 apply config:
-  extends: .runner
   stage: apply
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
       run --rm --entrypoint=""
       srv
         /opt/1cv8/current/ibcmd infobase config apply
@@ -217,7 +194,6 @@ apply config:
     - if: '$CI_COMMIT_TAG && $FLAG_USE_ONLY_IBCMD == "true"'
 
 update:
-  extends: .runner
   stage: update
   script:
     - touch $CI_PROJECT_DIR/load.log
@@ -249,7 +225,6 @@ update:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
 init db:
-  extends: .runner
   stage: init
   script:
     - docker run
@@ -273,10 +248,9 @@ init db:
     - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
 
 ws up:
-  extends: .runner
   stage: up
   script:
-    - docker-compose -f "production.yml" -p $PROJECT_NAME up -d ws
+    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME up -d ws
   rules:
     - if: $CI_COMMIT_TAG
 

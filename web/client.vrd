@@ -2,13 +2,10 @@
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:core="http://v8.1c.ru/8.1/data/core"
-		base="/api/ru"
+		base="/client"
 		ib="Srvr=srv;Ref=gitlabServices;"
-		enable="false"
-		enableStandardOData="false">
-	<debug enable="true"
-			protocol="http"
-			url="http://srv:1550"/>
+		enable="true"
+		enableStandardOData="true">
 	<ws enable="true"
 			pointEnableCommon="true"
 			publishExtensionsByDefault="true">
@@ -18,7 +15,7 @@
 		<service name="gitlab"
 				rootUrl="gitlab"
 				enable="true"
-				reuseSessions="dontuse"
+				reuseSessions="autouse"
 				sessionMaxAge="20"
 				poolSize="10"
 				poolTimeout="5"/>

@@ -120,7 +120,7 @@ Procedure SendFileError403ForbiddenWithoutEventParams(Фреймворк) Export
 	URL = "http://mock-server:1080";
 	
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""403""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
 	Мок = Неопределено;
 
 	FileName = "ВнешняяОбработка1.epf";
@@ -167,7 +167,7 @@ Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Export
 	URL = "http://mock-server:1080";
 	
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""403""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
 	Мок = Неопределено;
 
 	FileName = "ВнешняяОбработка1.epf";
@@ -213,7 +213,7 @@ Procedure SendFile200OkWithoutEventParams(Фреймворк) Export
 	
 	URL = "http://mock-server:1080";
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""200""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
 
 	FileName = "ВнешняяОбработка1.epf";
@@ -251,7 +251,7 @@ Procedure SendFile200OkEventParamsExists(Фреймворк) Export
 	
 	URL = "http://mock-server:1080";
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""200""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
 
 	FileName = "ВнешняяОбработка1.epf";
@@ -333,7 +333,7 @@ Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймвор
 	
 	URL = "http://mock-server:1080";
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""200""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
 	
 	ПараметрыДоставки = Новый Структура;
@@ -386,7 +386,7 @@ Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймв�
 	
 	URL = "http://mock-server:1080";
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yaml", """update"": ""200""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;	
 	
 	ПараметрыДоставки = Новый Структура;
