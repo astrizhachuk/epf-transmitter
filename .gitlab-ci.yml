@@ -25,6 +25,7 @@ workflow:
     - if: $CI_MERGE_REQUEST_IID
 
 stages:
+  - login
   - prepare
   - create
   - register
@@ -36,8 +37,15 @@ stages:
   - test
   - up
 
+include:
+  - project: 'devops/gitlab-ci'
+    file: '/.sonarqube-ci.yml'
+
+.get_project_version: &get_project_version
+  - export PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" $EDT_PROJECT_DIR/src/Configuration/Configuration.mdo)
+
 docker login:
-  stage: .pre
+  stage: login
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
 
@@ -251,49 +259,5 @@ ws up:
   stage: up
   script:
     - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME up -d ws
-  rules:
-    - if: $CI_COMMIT_TAG
-
-.sonarqube:
-  stage: test
-  variables:
-    GIT_DEPTH: 0
-  image:
-    name: $CI_REGISTRY/devops/sonar-scanner-cli:latest
-    entrypoint: [""]
-  tags:
-    - 1c
-
-.cacerts: &cacerts
-  - keytool -cacerts -storepass changeit -noprompt -trustcacerts -importcert
-      -alias ${SONAR_SSL_SERVER}
-      -file "${SONAR_SSL_CERTIFICATE}"
-
-sonarqube_on_merge_request:
-  extends: .sonarqube
-  script:
-    - *cacerts
-    - export PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" $EDT_PROJECT_DIR/src/Configuration/Configuration.mdo)
-    - export SONAR_SCANNER_OPTS="-Xmx4g"
-    - sonar-scanner
-      -D"sonar.host.url=$SONAR_SERVER"
-      -D"sonar.projectVersion=$PROJECT_VERSION"
-      -D"sonar.login=$SONAR_LOGIN"
-      -D"sonar.pullrequest.key=$CI_MERGE_REQUEST_IID"
-      -D"sonar.pullrequest.branch=$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
-      -D"sonar.pullrequest.base=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-
-sonarqube_on_tag:
-  extends: .sonarqube
-  script:
-    - *cacerts
-    - export SONAR_SCANNER_OPTS="-Xmx4g"
-    - sonar-scanner
-      -D"sonar.host.url=$SONAR_SERVER"
-      -D"sonar.projectVersion=$CI_COMMIT_TAG"
-      -D"sonar.branch.name=$CI_DEFAULT_BRANCH"
-      -D"sonar.login=$SONAR_LOGIN"
   rules:
     - if: $CI_COMMIT_TAG
