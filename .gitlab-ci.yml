@@ -4,13 +4,21 @@ default:
 
 variables:
   #CI_DEBUG_TRACE: "true"
-  FLAG_NEW_INSTANCE: "false"
+  CHECK_NEW_INSTANCE: "true"
   FLAG_USE_ONLY_IBCMD: "false"
-  DEPLOY_CONFIG: "configs/prod.yml"
+  
+  DEPLOY_CONFIG: "configs/production.yml"
+  DEPLOY_NAME: $CI_PROJECT_NAME-production
+  DEPLOY_NETWORK: "back_net"
+  DEPLOY_PORT: "8090"
 
-  PROJECT_NAME: $CI_PROJECT_NAME
+  REVIEW_PORT: "8091"
+
   EDT_PROJECT_DIR: "GitlabServices"
+
+  IB_SERVER: "srv"
   IB_NAME: "gitlabServices"
+  DB_SERVER: "db"
   DB_NAME: "gitlabServices"
 
   BACKUP_PATH: "/var/backups"
@@ -20,43 +28,100 @@ variables:
 
 workflow:
   rules:
-    - if: $CI_COMMIT_TAG && $FLAG_NEW_INSTANCE
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
     - if: $CI_MERGE_REQUEST_IID
 
 stages:
-  - login
-  - prepare
-  - create
-  - register
-  - import
+  - build
+  - test
+  - srv
+  - db
   - dump
+  - import
   - apply
   - update
   - init
-  - test
-  - up
+  - ws
 
 include:
   - project: 'devops/gitlab-ci'
-    file: '/.sonarqube-ci.yml'
+    file:
+      - '/.sonarqube-ci.yml'
+      - '/.ibcmd-ci.yml'
+
+.start_services: &start_services
+  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME up --no-start
+  - docker cp $DEPLOY_NETHASP ${DEPLOY_NAME}_${IB_SERVER}_1:/opt/1cv8/current/conf/nethasp.ini
+  - docker cp $DEPLOY_ONEC_CONFIG ${DEPLOY_NAME}_${IB_SERVER}_1:/opt/1cv8/current/conf/conf.cfg
+  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME start
+
+.get_deploy_env: &get_deploy_env
+  - TAG_REGEX="^review-"
+  - if [[ $CI_COMMIT_TAG =~ $TAG_REGEX ]];
+    then
+      DEPLOY_NAME=$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG;
+      DEPLOY_PORT=$REVIEW_PORT;
+    fi
+
+.rac_register_ib: &rac_register_ib
+  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
+    exec -T
+    $IB_SERVER bash -c "/opt/1cv8/current/ras cluster --daemon &&
+      sleep 10s &&
+      /opt/1cv8/current/rac cluster list $IB_SERVER &&
+      /opt/1cv8/current/rac infobase
+        --cluster=\$(/opt/1cv8/current/rac cluster list $IB_SERVER | grep cluster | awk '{print \$3}')
+      create
+        --name=$IB_NAME
+        --dbms=PostgreSQL
+        --db-server=$DB_SERVER
+        --db-name=$DB_NAME
+        --locale=ru
+        --db-user=postgres
+        --license-distribution=allow
+      $IB_SERVER"
+
+.update_ib: &update_ib
+  - docker run
+    --rm
+    --network=${DEPLOY_NAME}_${DEPLOY_NETWORK}
+    -v $CI_PROJECT_DIR:/build
+    -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+    -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
+    $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
+    bash -c "/opt/1cv8/current/1cv8 DESIGNER
+      /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
+      $PARAMS_ADMIN_USER
+      /LoadConfigFromFiles /build/xml -Format Hierarchical
+      /UpdateDBCfg
+      /DisableStartupMessages /DisableStartupDialogs
+      /out /build/load.log"
+
+.init_ib: &init_ib
+  - docker run
+    --rm
+    --network=${DEPLOY_NAME}_${DEPLOY_NETWORK}
+    -v $CI_PROJECT_DIR:/build
+    -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+    -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
+    -e WS_USER=$WS_USER
+    -e WS_PASSWORD=$WS_PASSWORD
+    $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
+    bash -c "/opt/1cv8/current/1cv8 ENTERPRISE
+      /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
+      $PARAMS_ADMIN_USER
+      /Execute /build/tools/init-db.epf
+      /C\"file=/build/tools/users.json\""
 
 docker login:
-  stage: login
+  stage: .pre
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-
-srv up:
-  stage: prepare
-  script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME create srv
-    - docker cp $DEPLOY_NETHASP ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/nethasp.ini
-    - docker cp $DEPLOY_ONEC_CONFIG ${PROJECT_NAME}_srv_1:/opt/1cv8/current/conf/conf.cfg
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME up -d srv
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 export xml:
-  stage: prepare
+  stage: build
   script:
     - docker run
       --rm
@@ -68,149 +133,129 @@ export xml:
         --configuration-files /build/xml"
     - sudo chown -R $USER $CI_PROJECT_DIR/xml #говорят, в api 1.41+ докер есть лучшее решение, чем chown
     - sudo chown -R $USER $CI_PROJECT_DIR/$EDT_PROJECT_DIR/.settings
-  cache:
-    key: "xml-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - xml
-    policy: push
   artifacts:
     name: "xml-$CI_COMMIT_SHORT_SHA"
     paths:
       - xml
     expire_in: 7 hours
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 download tools:
-  stage: prepare
+  stage: build
   script:
-      - docker run
-        --rm
-        -u $USER
-        -v $CI_PROJECT_DIR:/build
-        curlimages/curl:latest
-        -Lv -o /build/tools/init-db.epf $INIT_DB_PATH/$INIT_DB_VERSION/InitDB.epf
+    - docker run
+      --rm
+      -u $USER
+      -v $CI_PROJECT_DIR:/build
+      curlimages/curl:latest
+      -Lv -o /build/tools/init-db.epf $INIT_DB_PATH/$INIT_DB_VERSION/InitDB.epf
   cache:
     key: "init-$CI_COMMIT_SHORT_SHA"
     paths:
       - tools/init-db.epf
     policy: push
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+srv up:
+  stage: srv
+  environment:
+    name: production
+    url: http://std-udocker02.stdp.ru:$DEPLOY_PORT/api/hs/gitlab/services
+    on_stop: stop_production
+  script:
+    - if [[ $CHECK_NEW_INSTANCE == "true" ]]; then
+        if [[ ! -n $(docker volume ls -f name=$DEPLOY_NAME --format "{{.Name}}") ]]; then
+          FLAG_NEW_INSTANCE="true";
+          PARAMS_ADMIN_USER="";
+        else
+          FLAG_NEW_INSTANCE="false";
+          PARAMS_ADMIN_USER="/NАдминистратор";
+        fi
+      else
+        FLAG_NEW_INSTANCE="false";
+        PARAMS_ADMIN_USER="/NАдминистратор";     
+      fi
+    - echo "FLAG_NEW_INSTANCE=$FLAG_NEW_INSTANCE" >> deploy.env
+    - echo "PARAMS_ADMIN_USER=$PARAMS_ADMIN_USER" >> deploy.env
+    - *start_services
+  artifacts:
+    reports:
+      dotenv: deploy.env
+  dependencies: []
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
+
+review srv up:
+  stage: srv
+  variables:
+    DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    DEPLOY_PORT: $REVIEW_PORT
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: http://std-udocker02.stdp.ru:$DEPLOY_PORT/api/hs/gitlab/services
+    on_stop: stop_review
+  script:
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME down -v
+    - *start_services
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^review-/
 
 create db:
-  stage: create
+  stage: db
   script:
-    # Почему то не работают флаги --apply --force для принудительного обновления
-    # ibcmd infobase create
-    # --import=/build/xml
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
-      run --rm --entrypoint=""
-      srv
-        /opt/1cv8/current/ibcmd infobase create
-          --db-server=db
-          --dbms=postgresql
-          --db-name=$DB_NAME
-          --db-user=postgres
-          --create-database
+    - *get_deploy_env
+    - !reference [.ibcmd_create_ib, script]
+  dependencies: []
+  allow_failure: true
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+      when: delayed
+      start_in: 5 seconds
 
 register ib:
-  stage: register
+  stage: db
   script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
-      exec -T
-      srv
-        bash -c "/opt/1cv8/current/ras cluster --daemon &&
-          sleep 10s &&
-          /opt/1cv8/current/rac cluster list srv &&
-          /opt/1cv8/current/rac infobase
-          --cluster=\$(/opt/1cv8/current/rac cluster list srv | grep cluster | awk '{print \$3}')
-          create
-            --name=$IB_NAME
-            --dbms=PostgreSQL
-            --db-server=db
-            --db-name=$DB_NAME
-            --locale=ru
-            --db-user=postgres
-            --license-distribution=allow
-          srv"
+    - *get_deploy_env
+    - *rac_register_ib
+  needs: ["create db"]
+  allow_failure: true
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
-
-import config:
-  stage: import
-  script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
-      run --rm --entrypoint="" -v $CI_PROJECT_DIR:/build
-      srv
-        /opt/1cv8/current/ibcmd infobase config import
-          --db-server=db
-          --dbms=postgresql
-          --db-name=$DB_NAME
-          --db-user=postgres
-          /build/xml
-  cache:
-    key: "xml-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - xml
-    policy: pull
-  rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_USE_ONLY_IBCMD == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 dump:
   stage: dump
   script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME stop ws
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
-      run
-        --rm
-        --entrypoint=""
-        -v $BACKUP_PATH:/backup
-        srv
-          /opt/1cv8/current/ibcmd infobase dump
-            --db-server=db
-            --dbms=postgresql
-            --db-name=$DB_NAME
-            --db-user=postgres
-          /backup/$PROJECT_NAME-$CI_COMMIT_TAG-"`date +"%Y-%m-%d-%H-%M-%S"`".dt
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME stop ws
+    - !reference [.ibcmd_dump_ib, script]
+  dependencies: []
   rules:
-    - if: $CI_MERGE_REQUEST_IID
-      when: never
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
-      when: never
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "false"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
+
+import config:
+  stage: import
+  script:
+    - *get_deploy_env
+    - !reference [.ibcmd_config_import, script]
+  rules:
+    - if: ($CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/) && $FLAG_USE_ONLY_IBCMD == "true"
 
 apply config:
   stage: apply
   script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME
-      run --rm --entrypoint=""
-      srv
-        /opt/1cv8/current/ibcmd infobase config apply
-          --db-server=db
-          --dbms=postgresql
-          --db-name=$DB_NAME
-          --db-user=postgres
-          --force
+    - *get_deploy_env
+    - !reference [.ibcmd_config_apply, script]
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_USE_ONLY_IBCMD == "true"'
+    - if: ($CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/) && $FLAG_USE_ONLY_IBCMD == "true"
 
 update:
   stage: update
+  environment:
+    name: production
   script:
     - touch $CI_PROJECT_DIR/load.log
-    - docker run
-      --rm --network=${PROJECT_NAME}_back_net
-      -v $CI_PROJECT_DIR:/build
-      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
-      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
-      $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
-      bash -c "/opt/1cv8/current/1cv8 DESIGNER /IBConnectionString \"Srvr=srv;Ref=$IB_NAME;\"
-        $PARAMS_ADMIN_USER
-        /LoadConfigFromFiles /build/xml -Format Hierarchical /UpdateDBCfg
-        /DisableStartupMessages /DisableStartupDialogs /out /build/load.log"
+    - *update_ib
     - sudo chown -R $USER $CI_PROJECT_DIR/load.log
   artifacts:
     name: "log-$CI_COMMIT_SHORT_SHA"
@@ -219,56 +264,117 @@ update:
     expire_in: 7 day
     when: on_failure
   rules:
-    - if: $CI_MERGE_REQUEST_IID
-      when: never
     - if: '$FLAG_USE_ONLY_IBCMD == "true"'
       when: never
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "false"'
-      variables:
-        PARAMS_ADMIN_USER: "/NАдминистратор"
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
+
+review update:
+  stage: update
+  variables:
+    DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    DEPLOY_PORT: $REVIEW_PORT
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+  script:
+    - touch $CI_PROJECT_DIR/load.log
+    - *update_ib
+    - sudo chown -R $USER $CI_PROJECT_DIR/load.log
+  artifacts:
+    name: "log-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - load.log
+    expire_in: 7 day
+    when: on_failure
+  dependencies: ["export xml"]
+  rules:
+    - if: '$FLAG_USE_ONLY_IBCMD == "true"'
+      when: never
+    - if: $CI_COMMIT_TAG =~ /^review-/
 
 init db:
   stage: init
+  environment:
+    name: production
   script:
-    - docker run
-      --rm
-      --network=${PROJECT_NAME}_back_net
-      -v $CI_PROJECT_DIR:/build
-      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
-      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
-      -e WS_USER=$WS_USER
-      -e WS_PASSWORD=$WS_PASSWORD
-      $CI_REGISTRY/devops/onec-docker/client-vnc:$ONEC_VERSION
-      bash -c "/opt/1cv8/current/1cv8 ENTERPRISE /IBConnectionString \"Srvr=srv;Ref=$IB_NAME;\"
-        /Execute /build/tools/init-db.epf
-        /C\"file=/build/tools/users.json\""
+    - if [[ $FLAG_NEW_INSTANCE == "false" ]]; then
+        exit 0;
+      fi
+    - *init_ib
   cache:
     key: "init-$CI_COMMIT_SHORT_SHA"
     paths:
       - tools/init-db.epf
     policy: pull
   rules:
-    - if: '$CI_COMMIT_TAG && $FLAG_NEW_INSTANCE == "true"'
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
 
-ws up:
-  stage: up
+review init db:
+  stage: init
+  variables:
+    DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    DEPLOY_PORT: $REVIEW_PORT
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
   script:
-    - docker-compose -f $DEPLOY_CONFIG -p $PROJECT_NAME up -d ws
+    - *init_ib
+  cache:
+    key: "init-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - tools/init-db.epf
+    policy: pull
+  dependencies: []
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_TAG =~ /^review-/
+
+ws:
+  stage: ws
+  script:
+    - *get_deploy_env
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME restart ws
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+stop_production:
+  stage: .post
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME stop
+  environment:
+    name: production
+    action: stop
+  needs: ["srv up"]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
+      when: manual
+
+stop_review:
+  stage: .post
+  variables:
+    GIT_STRATEGY: none
+    DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    DEPLOY_PORT: $REVIEW_PORT
+  script:
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME down -v
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+  needs: ["review srv up"]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^review-/
+      when: manual
 
 sonarqube on merge request:
   extends: .sonarqube
   script:
-    - export PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" $EDT_PROJECT_DIR/src/Configuration/Configuration.mdo)
+    - PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" $EDT_PROJECT_DIR/src/Configuration/Configuration.mdo)
     - !reference [.on_merge_request, script]
   rules:
-      - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_MERGE_REQUEST_IID
 
 sonarqube on tag:
   extends:
     - .sonarqube
     - .on_tag
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
