@@ -11,7 +11,7 @@ services:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
     networks:
-      - back_net
+      - backend
 
   ws:
     image: $CI_REGISTRY/devops/onec-docker/ws:$ONEC_VERSION
@@ -35,17 +35,17 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ../web/client.vrd:/var/www/client.vrd
-      - ../web/api.vrd:/var/www/api.vrd
+      - ./web/client.vrd:/var/www/client.vrd
+      - ./web/api.vrd:/var/www/api.vrd
     networks:
-      - back_net
+      - backend
 
   db:
     image: strizhhh/postgresql-pro-1c:9.6
     volumes:
       - db_data:/var/lib/postgresql
     networks:
-      - back_net
+      - backend
     
 volumes:
   srv_data:
@@ -53,4 +53,5 @@ volumes:
   db_data:
 
 networks:
-  back_net:
+  backend:
+    name: $DEPLOY_NETWORK
