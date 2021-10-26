@@ -20,11 +20,14 @@ services:
       - back_net
 
   gitlab:
-    image: gitlab/gitlab-ee:13.1.4-ee.0
+    image: gitlab/gitlab-ee:14.4.0-ee.0
     container_name: gitlab
     hostname: gitlab
+    # ports:
+    #   - "80:80"
     environment:
-      GITLAB_POST_RECONFIGURE_SCRIPT: "chmod +x /restore.sh"
+      GITLAB_POST_RECONFIGURE_SCRIPT: "chmod +x /restore.sh /backup.sh"
+      #usr=root;pwd=administrator
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://gitlab'
         gitlab_rails['initial_root_password'] = "administrator"
@@ -32,8 +35,9 @@ services:
       - gitlab_conf:/etc/gitlab
       - gitlab_logs:/var/log/gitlab
       - gitlab_data:/var/opt/gitlab
-      - ./test/gitlab:/tmp/gitlab
+      - ./test/gitlab:/backups
       - ./tools/gitlab/restore.sh:/restore.sh
+      - ./tools/gitlab/backup.sh:/backup.sh
     networks:
       - back_net
 
