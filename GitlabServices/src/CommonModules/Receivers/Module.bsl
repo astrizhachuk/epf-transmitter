@@ -15,7 +15,7 @@ Function ConnectionParams() Export
 	
 	Result = New Structure();
 	Result.Insert( "URL", "" );
-	Result.Insert( "Token", ServicesSettings.Tokenendpoint() );
+	Result.Insert( "Token", ServicesSettings.TokenReceiver() );
 	Result.Insert( "Timeout", ServicesSettings.TimeoutDeliveryFile() );
 	
 	Return Result;

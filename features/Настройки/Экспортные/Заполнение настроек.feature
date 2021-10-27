@@ -19,5 +19,5 @@
 	И в поле с именем "FormTokenGitLab" я ввожу текст "-U2ssrBsM4rmx85HXzZ1"
 	И в поле с именем 'FormRoutingFileName' я ввожу текст ".ext-epf.json"
 	И в поле с именем "FormTimeoutGitLab" я ввожу текст '5'
-	И в поле с именем 'FormTokenendpoint' я ввожу текст "12345678901234567890"
+	И в поле с именем 'FormTokenReceiver' я ввожу текст "12345678901234567890"
 	И в поле с именем "FormTimeoutDeliveryFile" я ввожу текст '5'
