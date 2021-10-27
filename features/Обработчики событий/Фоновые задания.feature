@@ -180,14 +180,14 @@
 		Когда я нажимаю на кнопку с именем 'RefreshBackgroundJobs'
 		Тогда таблица "BackgroundJobs" содержит строки:
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'endpoints.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
-			| ''                    | 'endpoints.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint3\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 
 	Принудительно завершаем задание
 
 		И в таблице "BackgroundJobs" я перехожу к строке
 			| 'Конец'               | 'Имя метода'                       | 'Ключ'                                                                                                 | 'Состояние'                    |
-			| ''                    | 'endpoints.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
+			| ''                    | 'Receivers.SendFile'         | '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f\|http://mock-server:1080/endpoint1\|Внешняя Обработка 1.epf' | 'Задание выполняется'          |
 		И я нажимаю на кнопку с именем 'KillSelectedBackgroundJob'
 		И в таблице "BackgroundJobs" поле "Состояние" имеет значение "Задание отменено пользователем"
 

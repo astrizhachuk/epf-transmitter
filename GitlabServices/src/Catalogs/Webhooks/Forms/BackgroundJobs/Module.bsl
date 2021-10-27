@@ -146,7 +146,7 @@ Function BackgroundJobsByKey( Val Key )
 	Filter = New Structure( "MethodName, Key", "ОбработкаДанных.ОбработатьДанные", Key );
 	Result = ФоновыеЗадания.GetBackgroundJobs( Filter );
 	
-	Filter = New Structure( "MethodName, Description", "endpoints.SendFile", Key );
+	Filter = New Structure( "MethodName, Description", "Receivers.SendFile", Key );
 	BackgroundJobsFindByName = ФоновыеЗадания.GetBackgroundJobs( Filter );
 	
 	For Each Value In BackgroundJobsFindByName Do
