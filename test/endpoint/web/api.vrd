@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 		xmlns:core="http://v8.1c.ru/8.1/data/core" 
 		base="/api" 
-		ib="File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab"
+		ib="File=/home/usr1cv8/db"
 		enable="false" 
 		enableStandardOData="false">
 	<ws enable="true" 

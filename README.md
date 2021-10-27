@@ -36,7 +36,7 @@
 
 * Описание api [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services/1.0.0) или [тут](./api/gitlab-services.yml).
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
-* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0) или [тут](./api/receiver.yml). Пример реализации сервиса для базы-приемника - [gitlab-services-receiver](https://github.com/astrizhachuk/gitlab-services-receiver)
+* На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [тут](https://app.swaggerhub.com/apis/astrizhachuk/epf-endpoint/2.3.0) или [тут](./api/epf-endpoint.yml). Пример реализации сервиса для базы-приемника - [epf-endpoint](https://github.com/astrizhachuk/epf-endpoint)
 * Платформа 1С для сервиса не ниже 8.3.17.1549;
 
 ![Архитектура решения](./doc/images/GitLab-1C-Services.jpg)
@@ -50,8 +50,8 @@ return 200
 GitLab <- "1C:Transmitter:BackgroundJobs" ++ : request files
 return 200
 "1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
-"1C:Transmitter:BackgroundJobs" -> "1C:Receiver" : file
-"1C:Transmitter:BackgroundJobs" <- "1C:Receiver" : status
+"1C:Transmitter:BackgroundJobs" -> "1C:Endpoint" : file
+"1C:Transmitter:BackgroundJobs" <- "1C:Endpoint" : status
 return
 return
 @enduml

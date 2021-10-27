@@ -15,14 +15,14 @@ Function ConnectionParams() Export
 	
 	Result = New Structure();
 	Result.Insert( "URL", "" );
-	Result.Insert( "Token", ServicesSettings.TokenReceiver() );
+	Result.Insert( "Token", ServicesSettings.Tokenendpoint() );
 	Result.Insert( "Timeout", ServicesSettings.TimeoutDeliveryFile() );
 	
 	Return Result;
 	
 EndFunction
 
-// SendFile send the file to the receiver infobase. The file delivery endpoint service must implement the API
+// SendFile send the file to the endpoint infobase. The file delivery endpoint service must implement the API
 // for the recipient infobase, see https://app.swaggerhub.com/apis-docs/astrizhachuk/gitlab-services-receiver/1.0.0
 // 
 // Parameters:

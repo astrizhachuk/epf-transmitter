@@ -23,15 +23,15 @@
 
 Сценарий: Я проверяю что запрос с сервера GitLab перехвачен и обработан
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
+	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 
 	Проверка получения файла получателями
 
 		И Пауза 5
-		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
-		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
+		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
+		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint3""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
 
 Сценарий: Я проверяю что данные запроса и полученные внешние файлы сохранились в информационной базе
 
@@ -99,7 +99,7 @@
 
 Сценарий: Я проверяю что повторно отправленный запрос (вручную) был обработан
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
+	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
@@ -117,12 +117,12 @@
 	Проверка получения файла получателями
 
 		И Пауза 5
-		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
-		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
+		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint1""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
+		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
 
 Сценарий: Я проверяю что повторно отправленный запрос (вручную) был обработан c изменением маршрутизации
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-receivers.json"
+	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
@@ -141,7 +141,7 @@
 	
 	Исключаем "spb" в маршрутах для "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
 
-		И в поле 'CommitsRoutingJSON' я ввожу текст '{\"ws\":[{\"name\":\"spb\",\"url\":\"http://mock-server:1080/receiver1\",\"enabled\":true},{\"name\":\"msk\",\"url\":\"http://mock-server:1080/receiver2\",\"enabled\":false},{\"name\":\"szfo\",\"url\":\"http://mock-server:1080/receiver3\",\"enabled\":true}],\"epf\":[{\"name\":\"Каталог 1/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"Каталог 2/test2.epf\"},{\"name\":\"Каталог с отчетами и обработками/Внешняя Обработка 1.epf\",\"exclude\":[\"spb\"]},{\"name\":\"Нет такого файла.epf\"}]}'
+		И в поле 'CommitsRoutingJSON' я ввожу текст '{\"ws\":[{\"name\":\"spb\",\"url\":\"http://mock-server:1080/endpoint1\",\"enabled\":true},{\"name\":\"msk\",\"url\":\"http://mock-server:1080/endpoint2\",\"enabled\":false},{\"name\":\"szfo\",\"url\":\"http://mock-server:1080/endpoint3\",\"enabled\":true}],\"epf\":[{\"name\":\"Каталог 1/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"Каталог 2/test2.epf\"},{\"name\":\"Каталог с отчетами и обработками/Внешняя Обработка 1.epf\",\"exclude\":[\"spb\"]},{\"name\":\"Нет такого файла.epf\"}]}'
 		И я нажимаю на кнопку 'Сохранить JSON'
 		И Я закрываю окно 'Настройка маршрутизации'
 
@@ -153,5 +153,5 @@
 	Проверка получения файла получателями
 
 		И Пауза 5
-		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
-		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/receiver3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'
+		Тогда Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint1""}, ""times"": { ""atLeast"": 1, ""atMost"": 1 }}'
+		И Я проверяю запрос для '{""httpRequest"": {""path"": ""/endpoint3""}, ""times"": { ""atLeast"": 2, ""atMost"": 2 }}'

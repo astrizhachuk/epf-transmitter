@@ -11,7 +11,7 @@ services:
       - "./tools/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
       - "./tools/nginx/gitlab-http.conf:/etc/nginx/conf.d/gitlab-http.conf:ro"
       - "./tools/nginx/transmitter-http.conf:/etc/nginx/conf.d/transmitter-http.conf:ro"
-      - "./tools/nginx/receiver-http.conf:/etc/nginx/conf.d/receiver-http.conf:ro"
+      - "./tools/nginx/endpoint-http.conf:/etc/nginx/conf.d/endpoint-http.conf:ro"
       - "./tools/nginx/mock-server-http.conf:/etc/nginx/conf.d/mock-server-http.conf:ro"
     ports:
       - "80:80"
@@ -46,7 +46,7 @@ services:
     container_name: mock-server
     command: -logLevel DEBUG -serverPort 1080
     volumes:
-      - ./api/receiver.yml:/tmp/receiver.yml
+      - ./api/epf-endpoint.yml:/tmp/epf-endpoint.yml
     networks:
       - back_net
 
@@ -76,6 +76,15 @@ services:
     networks:
       - back_net
 
+  db:
+    image: strizhhh/postgresql-pro-1c:9.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    networks:
+      - back_net
+
   client:
     image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
     build:
@@ -94,15 +103,6 @@ services:
       - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
       - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test/empty.dt:/home/usr1cv8/empty.dt
-    networks:
-      - back_net
-
-  db:
-    image: strizhhh/postgresql-pro-1c:9.6
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql
     networks:
       - back_net
 
@@ -132,27 +132,20 @@ services:
     networks:
       - back_net
     
-  receiver:
-    image: ${DOCKER_USERNAME}/receiver:${ONEC_VERSION}
+  endpoint:
+    image: ${DOCKER_USERNAME}/endpoint:${ONEC_VERSION}
     build:
       context: .
-      dockerfile: ./test/receiver/Dockerfile
+      dockerfile: ./test/endpoint/Dockerfile
       args:
         - DOCKER_USERNAME
         - ONEC_VERSION
-    command: >
-      bash -c "/opt/1cv8/current/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /var/www/client.vrd -connstr 'File=/home/usr1cv8/db'
-      && /opt/1cv8/current/webinst -apache24 -wsdir api -dir /var/www/api -descriptor /var/www/api.vrd -connstr 'File=/home/usr1cv8/db;usr=gitlab;pwd=gitlab'
-      && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api /home/usr1cv8/db
-      && /usr/sbin/apache2ctl -DFOREGROUND"
     ports:
       - "8081-8082:80"
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
       - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
-      - ./test/receiver/web/client.vrd:/var/www/client.vrd
-      - ./test/receiver/web/api.vrd:/var/www/api.vrd
     networks:
       - back_net
 

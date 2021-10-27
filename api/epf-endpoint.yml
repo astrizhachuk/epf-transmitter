@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  title: Внешние обработки (endpoint)
+  description: Управление внешними отчетами и обработками через HTTP сервис (REST).
+  contact:
+    email: a.strizhachuk@yandex.ru
+  version: 2.3.0
+servers:
+  - url: http://localhost/test/hs
+    description: develop
+security:
+  - basic_auth: []
+paths:
+  /infobase:
+    get:
+      summary: Сведения об информационной базе
+      operationId: infobase
+      responses:
+        '200':
+          description: Текущие сведения
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  config_version:
+                    type: string
+                  connection_string:
+                    type: string
+              examples:
+                info:
+                  summary: Текущие сведения
+                  value:
+                    config_version: 1.0.0
+                    connection_string: File="/1c/db/epf-endpoint";
+  /epf/status:
+    get:
+      tags:
+        - epf
+      summary: Текущий статус функционала загрузки файлов
+      description: Показывает текущий статус функционала загрузки файлов внешних обработок
+      operationId: status
+      responses:
+        '200':
+          description: Текущий статус загрузки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+              examples:
+                enabled:
+                  summary: Включено
+                  value:
+                    message: загрузка файлов включена
+                disabled:
+                  summary: Отключено
+                  value:
+                    message: загрузка файлов отключена
+  /epf/{guid}:
+    get:
+      tags:
+        - epf
+      summary: Найти внешнюю обработку по GUID
+      description: >-
+        Найти и вывести информацию о месте хранения файлов внешней обработки по
+        его GUID
+      operationId: findByGuid
+      parameters:
+        - name: guid
+          in: path
+          description: >-
+            GUID элемента, в котором хранится файл внешней обработки с его
+            описанием
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Результат успешного поиска
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/details'
+        '404':
+          description: Не найдено
+          content: {}
+        '500':
+          description: Ошибка сервера
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                bad GUID:
+                  summary: Плохой GUID
+                  value: >-
+                    {HTTPСервис.ExternalDataProcessors.Модуль(10)}: Ошибка при
+                    вызове конструктора (УникальныйИдентификатор)
+  /epf/findByFilename:
+    get:
+      tags:
+        - epf
+      summary: Найти внешние обработки по имени файла
+      description: >-
+        Найти и отобразить все места хранения файла внешних обработок по его
+        полному имени
+      operationId: findByFilename
+      parameters:
+        - name: query
+          in: query
+          description: Полное имя файла (с расширением) для поиска
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Результат успешного поиска
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/file_attribute'
+                    - $ref: '#/components/schemas/file_table'
+        '400':
+          description: Ошибочный запрос
+          content: {}
+        '404':
+          description: Не найдено
+          content: {}
+  /epf/switch:
+    post:
+      tags:
+        - epf
+      summary: Управление загрузкой файлов
+      description: Управление функционалом загрузки файлов внешних обработок
+      operationId: switch
+      parameters:
+        - name: value
+          in: header
+          description: on - включить, off - отключить
+          required: true
+          schema:
+            type: string
+            enum:
+              - 'on'
+              - 'off'
+      requestBody:
+        content: {}
+        required: false
+      responses:
+        '200':
+          description: Результат операции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+              examples:
+                enabled:
+                  summary: Включено
+                  value:
+                    message: загрузка файлов включена
+                disabled:
+                  summary: Отключено
+                  value:
+                    message: загрузка файлов отключена
+        '400':
+          description: Ошибочный запрос
+          content: {}
+  /epf/uploadFile:
+    post:
+      tags:
+        - epf
+      summary: Загрузить внешнюю обработку
+      operationId: uploadFile
+      parameters:
+        - name: name
+          in: header
+          description: Полное имя файла (с расширением)
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Внешний отчет или обработка в двоичном формате
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        '200':
+          description: Результат загрузки файла
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uploaded:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/file_attribute'
+                        - $ref: '#/components/schemas/file_table'
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: >-
+                            {Справочник.ВнешниеОбработки.МодульМенеджера(109)}:
+                            Индекс находится за границами массива
+                        error:
+                          oneOf:
+                            - $ref: '#/components/schemas/file_attribute'
+                            - $ref: '#/components/schemas/file_table'
+        '400':
+          description: Ошибочный запрос
+          content: {}
+        '404':
+          description: Не найдено куда загружать
+          content: {}
+        '423':
+          description: Функционал отключен
+          content: {}
+components:
+  schemas:
+    message:
+      type: object
+      properties:
+        message:
+          type: string
+    details:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        filename:
+          type: string
+          example: ЭтоОбработка1.epf
+        comment:
+          type: string
+          example: 'Размер: такой-то... для ЭтоОбработка1.epf'
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/file_table'
+    file_attribute:
+      properties:
+        guid:
+          type: string
+          format: uuid
+        filename:
+          type: string
+          example: ЭтоОбработка2.epf
+        comment:
+          type: string
+          example: 'Размер: такой-то... для ЭтоОбработка2.epf'
+    file_table:
+      properties:
+        guid:
+          type: string
+          format: uuid
+        table:
+          type: string
+          example: Принадлежность
+        line:
+          type: integer
+          example: 1
+        filename:
+          type: string
+          example: ЭтоОбработка2.epf
+        comment:
+          type: string
+          example: 'Размер: такой-то... для ЭтоОбработка2.epf'
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic

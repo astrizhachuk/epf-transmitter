@@ -49,8 +49,8 @@ DOCKER_USERNAME - учетная запись на [Docker Hub](https://hub.dock
 # mock-server - mock-сервер (требуется для установки заглушек веб-сервисов);
 # gitlab - сервер gitlab (требуется для интеграционных тестов);
 # transmitter - веб-сервер для API и веб-клиента сервиса gitlab;
-# receiver:[port] - веб-сервера для API тестовых баз (получателей)
-127.0.0.1 localhost mock-server gitlab transmitter receiver
+# endpoint:[port] - веб-сервера получателей внешних обработок;
+127.0.0.1 localhost mock-server gitlab transmitter endpoint
 172.28.189.202 srv  #ult 172.28.189.202 - ip docker-демона
 ```
 
@@ -90,24 +90,6 @@ C:\Windows\System32\drivers\etc\hosts
 > docker-compose stop
 ```
 
-Запуск нескольких тестовых баз-получателей (масштабированием) с веб-сервером, веб-клиентом и инициализацией базы из эталона:
-
-```bash
-# api для база_1 - receiver:8081/api/hs/gitlab/version
-# client для база_1 - receiver:8081/client
-# api для база_2 - receiver:8082/api/hs/gitlab/version
-# client для база_2 - receiver:8082/client
-# и т.д.
-
-> docker-compose up --scale receiver=2 --build receiver
-```
-
-Пример определения IP адресов баз-получателей (для custom_settings.json):
-
-```bash
-docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" gitlab-services_receiver_1 gitlab-services_receiver_2
-```
-
 ```Runtime``` копирование файла в контейнер с толстым клиентом:
 
 ```bash
@@ -141,6 +123,26 @@ docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER 
 ```
 
 > Помни! EDT может блокировать монопольный доступ к базе (запущен агент), что препятствует загрузке dt-файла. Перед загрузкой dt-файлов необходимо удалять блокирующие процессы на клиенте (либо закрывать EDT).
+
+#### Endpoint
+
+Запуск нескольких получающих внешние обработки информационных баз с веб-сервером, веб-клиентом и инициализацией этих баз из эталона:
+
+```bash
+# api для база_1 - endpoint:8081/api/hs/infobase
+# client для база_1 - endpoint:8081/client
+# api для база_2 - endpoint:8082/api/hs/infobase
+# client для база_2 - endpoint:8082/client
+# и т.д.
+
+> docker-compose up --scale endpoint=2 --build endpoint
+```
+
+Пример определения IP адресов сервера с тестовой информационной базой (для custom_settings.json):
+
+```bash
+docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" gitlab-services_endpoint_1 gitlab-services_endpoint_2
+```
 
 #### GitLab
 
