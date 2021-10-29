@@ -3,9 +3,12 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:core="http://v8.1c.ru/8.1/data/core"
 		base="/api"
-		ib="Srvr=srv;Ref=gitlabServices;"
+		ib="Srvr=srv;Ref=transmitter"
 		enable="false"
 		enableStandardOData="false">
+	<debug enable="true"
+			protocol="http"
+			url="http://srv:1550"/>
 	<ws enable="true"
 			pointEnableCommon="true"
 			publishExtensionsByDefault="true">

@@ -1,10 +1,11 @@
 ARG DOCKER_USERNAME
 ARG ONEC_VERSION
 
-FROM ${DOCKER_USERNAME}/ws:${ONEC_VERSION}
+FROM $DOCKER_USERNAME/ws:$ONEC_VERSION
 
-COPY ./test/endpoint/data.dt /tmp/data.dt
-COPY ./test/endpoint/web /var/www
+COPY ./test/endpoint.dt /tmp/data.dt
+
+COPY ./web/endpoint /var/www
 
 RUN /opt/1cv8/current/ibcmd infobase --db-path=/home/usr1cv8/db create --create-database --restore=/tmp/data.dt
 

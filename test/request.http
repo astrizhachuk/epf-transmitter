@@ -1,0 +1,2 @@
+GET http://transmitter/api/hs/gitlab/services
+#Authorization: Basic site:12345
