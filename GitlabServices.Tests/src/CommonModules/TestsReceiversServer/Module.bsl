@@ -111,13 +111,13 @@ Procedure SendFileError403ForbiddenWithoutEventParams(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 
 	// given
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
@@ -154,8 +154,8 @@ Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_403 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.403';en = 'Webhooks.Core.SendingFileReceiver.403'");
 	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
 
 	// given
@@ -164,7 +164,7 @@ Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Export
 	
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_403, "Ошибка");
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
@@ -204,14 +204,14 @@ EndProcedure
 Procedure SendFile200OkWithoutEventParams(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 
 	
 	// given
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
@@ -240,8 +240,8 @@ EndProcedure
 Procedure SendFile200OkEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
 	// given
 	УдалитьВсеОбработчикиСобытий();
@@ -249,7 +249,7 @@ Procedure SendFile200OkEventParamsExists(Фреймворк) Export
 	
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
@@ -322,8 +322,8 @@ EndProcedure
 Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймворк) Export
 	
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
 	//given
 	УдалитьВсеОбработчикиСобытий();
@@ -331,7 +331,7 @@ Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймвор
 	
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;
@@ -373,8 +373,8 @@ Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймв�
 	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
 	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
 	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mock-server:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mock-server:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
+							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
 	
 	// given
 	// three files: two good, one bad
@@ -384,7 +384,7 @@ Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймв�
 	ОтборЖурналаРегистрацииИнформация = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
 	ОтборЖурналаРегистрацииОшибка = ОтборЖурналаРегистрации(EVENT_MESSAGE_500, "Ошибка");
 	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
 	Мок = Неопределено;	

@@ -12,7 +12,7 @@ services:
       - ./tools/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
       - "80:80"
-      - "1090:1080" # для доступа к mock-server (не обязательно)
+      - "1090:1080" # для доступа к mockserver (не обязательно)
     networks:
       - back_net
 
@@ -20,8 +20,8 @@ services:
     image: gitlab/gitlab-ee:14.4.0-ee.0
     container_name: gitlab
     hostname: gitlab
-    # ports:
-    #   - "80:80"
+    ports:
+      - "9000:80"
     environment:
       GITLAB_POST_RECONFIGURE_SCRIPT: "chmod +x /restore.sh /backup.sh"
       #usr=root;pwd=administrator
@@ -38,9 +38,9 @@ services:
     networks:
       - back_net
 
-  mock-server:
+  mockserver:
     image: mockserver/mockserver:mockserver-5.11.2
-    container_name: mock-server
+    container_name: mockserver
     command: -logLevel DEBUG -serverPort 1080
     volumes:
       - ./api/endpoint.yml:/tmp/endpoint.yml
@@ -87,20 +87,7 @@ services:
     networks:
       - back_net
 
-  # client:
-  #   image: ${DOCKER_USERNAME}/client-vnc:${ONEC_VERSION}
-  #   ports:
-  #     - "5900:5900"
-  #   volumes:
-  #     - client_data:/home/usr1cv8/.1cv8
-  #     - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
-  #     - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
-  #     - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
-  #     - ./test/transmitter.dt:/home/usr1cv8/transmitter.dt
-  #   networks:
-  #     - back_net
-
-  transmitter:
+  init:
     image: ${DOCKER_USERNAME}/transmitter:${ONEC_VERSION}
     build:
       context: .
@@ -113,13 +100,27 @@ services:
         - WS_PASSWORD
     depends_on:
       - ras
-    ports:
-      - "80:80"
     # && /opt/1cv8/current/ibcmd infobase config load --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres /tmp/config.cf
     command: >
       bash -c "/opt/1cv8/current/ibcmd infobase create --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres --create-database --restore=/tmp/data.dt
       && /opt/1cv8/current/rac infobase --cluster=$$(/opt/1cv8/current/rac cluster list ras | grep cluster | awk '{print $$3}') create --name=transmitter --dbms=PostgreSQL --db-server=db --db-name=transmitter --locale=ru --db-user=postgres --license-distribution=allow ras
       && /usr/sbin/apache2ctl -DFOREGROUND"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+    networks:
+      - back_net
+
+  transmitter:
+    image: ${DOCKER_USERNAME}/transmitter:${ONEC_VERSION}
+    environment:
+        - WS_USER_EN=site
+        - WS_USER_RU=сайт
+        - WS_PASSWORD
+    depends_on:
+      - srv
+    ports:
+      - "80:80"
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
@@ -147,7 +148,6 @@ volumes:
   srv_data:
   srv_log:
   db_data:
-  client_data:
   nginx_log:
   gitlab_conf:
   gitlab_logs:

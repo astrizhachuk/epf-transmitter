@@ -7,7 +7,7 @@
 Procedure МокСерверДоступен(Фреймворк) Export
 	
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
 	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """version"": ""200""");
 	Мок = Неопределено;

@@ -49,7 +49,7 @@ EndProcedure
 Procedure RemoteFile404NotFound(Фреймворк) Export
 
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 
 	ПараметрыСоединения = Новый Структура();
 	ПараметрыСоединения.Вставить( "URL", URL );
@@ -89,7 +89,7 @@ EndProcedure
 Procedure RemoteFile401Unauthorized(Фреймворк) Export
 	
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	ФэйкGitLabUserPrivateToken = "1234567890";
 	
 	ПараметрыСоединения = Новый Структура();
@@ -126,7 +126,7 @@ EndProcedure
 Procedure RemoteFileEmpty(Фреймворк) Export
 	
 	// given	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 	Commit = "commit";
 	RAWFilePath = "/path/raw";
@@ -170,7 +170,7 @@ EndProcedure
 Procedure RemoteFile200Ok(Фреймворк) Export
 	
 	// given	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 	
 	ПараметрыСоединения = Новый Структура();
@@ -221,7 +221,7 @@ EndProcedure
 Procedure RemoteFiles(Фреймворк) Export
 	
 	// given	
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 	
 	CommitSHA = "commit";
@@ -284,7 +284,7 @@ EndProcedure
 Procedure RemoteFilesWithDescription(Фреймворк) Export
 
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 
 	Константы.RoutingFileName.Установить(".ext-epf.json");	
@@ -443,7 +443,7 @@ EndProcedure
 Procedure ProjectDescription(Фреймворк) Export
 	
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	
 	JSON = "{
 			|  ""project"": {
@@ -491,7 +491,7 @@ EndProcedure
 Procedure MergeRequests(Фреймворк) Export
 	
 	// given
-	URL = "http://mock-server:1080";
+	URL = "http://mockserver:1080";
 	Токен = "-U2ssrBsM4rmx85HXzZ1";
 
 	Константы.TokenGitLab.Установить(Токен);
@@ -535,7 +535,7 @@ Procedure MergeRequests(Фреймворк) Export
 	Мок = Неопределено;
 	
 	// when
-	Результат = Gitlab.MergeRequests( "http://mock-server:1080", 1 );
+	Результат = Gitlab.MergeRequests( "http://mockserver:1080", 1 );
 	
 	// then
 	Фреймворк.ПроверитьРавенство(Результат.Количество(), 4);

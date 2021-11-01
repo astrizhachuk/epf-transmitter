@@ -141,7 +141,7 @@
 	
 	Исключаем "spb" в маршрутах для "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
 
-		И в поле 'CommitsRoutingJSON' я ввожу текст '{\"ws\":[{\"name\":\"spb\",\"url\":\"http://mock-server:1080/endpoint1\",\"enabled\":true},{\"name\":\"msk\",\"url\":\"http://mock-server:1080/endpoint2\",\"enabled\":false},{\"name\":\"szfo\",\"url\":\"http://mock-server:1080/endpoint3\",\"enabled\":true}],\"epf\":[{\"name\":\"Каталог 1/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"Каталог 2/test2.epf\"},{\"name\":\"Каталог с отчетами и обработками/Внешняя Обработка 1.epf\",\"exclude\":[\"spb\"]},{\"name\":\"Нет такого файла.epf\"}]}'
+		И в поле 'CommitsRoutingJSON' я ввожу текст '{\"ws\":[{\"name\":\"spb\",\"url\":\"http://mockserver:1080/endpoint1\",\"enabled\":true},{\"name\":\"msk\",\"url\":\"http://mockserver:1080/endpoint2\",\"enabled\":false},{\"name\":\"szfo\",\"url\":\"http://mockserver:1080/endpoint3\",\"enabled\":true}],\"epf\":[{\"name\":\"Каталог 1/test1.epf\",\"exclude\":[\"spb\",\"msk\"]},{\"name\":\"Каталог 2/test2.epf\"},{\"name\":\"Каталог с отчетами и обработками/Внешняя Обработка 1.epf\",\"exclude\":[\"spb\"]},{\"name\":\"Нет такого файла.epf\"}]}'
 		И я нажимаю на кнопку 'Сохранить JSON'
 		И Я закрываю окно 'Настройка маршрутизации'
 
