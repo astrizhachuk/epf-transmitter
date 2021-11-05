@@ -24,12 +24,12 @@ services:
         -wsdir client
         -dir /var/www/client
         -descriptor /var/www/client.vrd
-        -connstr 'Srvr=srv;Ref=gitlabServices;'
+        -connstr 'Srvr=srv;Ref=transmitter;'
       && /opt/1cv8/current/webinst -apache24
         -wsdir api
         -dir /var/www/api
         -descriptor /var/www/api.vrd
-        -connstr 'Srvr=srv;Ref=gitlabServices;usr=$WS_USER;pwd=$WS_PASSWORD'
+        -connstr 'Srvr=srv;Ref=transmitter;usr=$WS_USER;pwd=$WS_PASSWORD'
       && chown -R usr1cv8:grp1cv8 /var/www/client /var/www/api
       && /usr/sbin/apache2ctl -DFOREGROUND"
     volumes:

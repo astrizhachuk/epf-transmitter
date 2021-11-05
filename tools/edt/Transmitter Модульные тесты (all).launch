@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="ru.capralow.dt.unit.launcher.plugin.ui.UnitTestLaunch">
+    <intAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_DEBUG_SERVER_PORT" value="-1"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_PROJECT_NAME" value="Transmitter"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_RUNTIME_INSTALLATION" value="com._1c.g5.v8.dt.platform.services.core.resolvableInstallations.environments:com._1c.g5.v8.dt.platform.services.core.runtimeType.EnterprisePlatform=8.3.17"/>
+    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_USE_LOCAL_DEBUG_SERVER" value="AUTO"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.debug.core.INFOBASE_USE_DEFAULT" value="true"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_ASSOCIATE_AFTER_DEPLOY" value="true"/>
+    <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CALL_DELAY" value="100"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CLIENT_AUTO_SELECT" value="false"/>
+    <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CLIENT_TYPE" value="com._1c.g5.v8.dt.platform.services.core.componentTypes.ThinClient"/>
+    <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DATA_RECEIVING_DELAY" value="15"/>
+    <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DATA_SENDING_DELAY" value="45"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DEPLOY_BEFORE_LAUNCH" value="true"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DEPLOY_FULL_CONFIGURATION" value="false"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DO_NOT_CLEAR_LOG" value="false"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DO_NOT_DISPLAY_WARNINGS" value="true"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_EMULATE_DELAY" value="false"/>
+    <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_INTERFACE_LANGUAGE" value="ru"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_OS_INFOBASE_ACCESS" value="false"/>
+    <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_USER_NAME" value="Администратор"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_USER_USE_INFOBASE_ACCESS" value="false"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_NEED_INFOBASE_PUBLICATION" value="false"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SHOW_ALL_FUNCTIONS" value="true"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SHOW_PERFORMANCE" value="true"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SLOW_CONNECTION" value="false"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/Transmitter"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="IBM866"/>
+    <stringAttribute key="process_factory_id" value="com._1c.g5.v8.dt.debug.core.RunimeProcessFactory"/>
+    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTENSION_PROJECT_TO_TEST" value="Transmitter.Tests"/>
+    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_DUMP_PATH" value="C:/w/1c/edt/epf-transmitter/.metadata/.plugins/ru.capralow.dt.framework.va.exec/Transmitter Модульные тесты (all)/framework.epf"/>
+    <stringAttribute key="ru.capralow.dt.launching.core.ATTR_EXTERNAL_OBJECT_STARTUP_OPTIONS" value="StartFeaturePlayer;DisableUserSettingsLoader;VBParams=C:/w/1c/edt/epf-transmitter/.metadata/.plugins/ru.capralow.dt.framework.va.exec/Transmitter Модульные тесты (all)/params.json"/>
+    <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_EXTENSION_TESTS" value="true"/>
+    <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_MODULE_TESTS" value="false"/>
+    <booleanAttribute key="ru.capralow.dt.launching.core.ATTR_RUN_TAG_TESTS" value="false"/>
+</launchConfiguration>

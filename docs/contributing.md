@@ -6,7 +6,7 @@
 
 * Платформа 1С не ниже 8.3.17.1549;
 
-* Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) не ниже 0.4.0 - в расширении конфигурации EDT, см. [./GitlabServices.Tests](./GitlabServices.Tests);
+* Модульные тесты через [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) не ниже 0.4.0 - в расширении конфигурации EDT, см. [./Transmitter.Tests](./Transmitter.Tests);
 
 * [MockServer](https://www.mock-server.com/#what-is-mockserver);
 
@@ -98,27 +98,27 @@ docker cp ./test/empty.dt gitlab-services_client_1:/tmp/empty.dt
 ```Runtime``` удаление всех данных (в т. ч. пользователей) в информационной базе через пакетный режим запуска:
 
 ```bash
-docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\gitlabServices' /N'Администратор' /EraseData /DisableStartupDialogs"
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\transmitter' /N'Администратор' /EraseData /DisableStartupDialogs"
 ```
 
 ```Runtime``` загрузка в ранее очищенную базу dt-файла эталонной тестовой базы через пакетный режим запуска:
 
 ```bash
 # вариант для загрузки dt-файла, переданного в контейнер при его создании
-docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\gitlabServices' /RestoreIB /home/usr1cv8/empty.dt /DisableStartupDialogs"
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\transmitter' /RestoreIB /home/usr1cv8/empty.dt /DisableStartupDialogs"
 
 # вариант для загрузки dt-файла, ранее переданного в runtime
-docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\gitlabServices' /RestoreIB /tmp/empty.dt /DisableStartupDialogs"
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\transmitter' /RestoreIB /tmp/empty.dt /DisableStartupDialogs"
 ```
 
 ```Runtime``` загрузка в "испорченную" базу dt-файла эталонной тестовой базы через пакетный режим запуска:
 
 ```bash
 # вариант для загрузки dt-файла, переданного в контейнер при его создании
-docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\gitlabServices' /N'Администратор' /RestoreIB /home/usr1cv8/empty.dt /DisableStartupDialogs"
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\transmitter' /N'Администратор' /RestoreIB /home/usr1cv8/empty.dt /DisableStartupDialogs"
 
 # вариант для загрузки dt-файла, ранее переданного в runtime
-docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\gitlabServices' /N'Администратор' /RestoreIB /tmp/empty.dt /DisableStartupDialogs"
+docker exec gitlab-services_client_1 bash -c "/opt/1C/v8.3/x86_64/1cv8 DESIGNER /S 'srv\transmitter' /N'Администратор' /RestoreIB /tmp/empty.dt /DisableStartupDialogs"
 ```
 
 > Помни! EDT может блокировать монопольный доступ к базе (запущен агент), что препятствует загрузке dt-файла. Перед загрузкой dt-файлов необходимо удалять блокирующие процессы на клиенте (либо закрывать EDT).

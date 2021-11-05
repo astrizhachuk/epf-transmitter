@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Configuration xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="e58500c3-1b03-4f15-81d7-eed489357c2a">
+  <name>Transmitter</name>
+  <synonym>
+    <key>en</key>
+    <value>epf-transmitter</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>epf-transmitter</value>
+  </synonym>
+  <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="2eb7d482-1b4a-4bd3-8bbe-ae34a536ce1b"/>
+  <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="c062b91a-21e7-4d3a-874b-190c5438edb2"/>
+  <containedObjects classId="e3687481-0a87-462c-a166-9f34594f9bba" objectId="a3ae9eb6-7331-4f72-8b95-baec066103f5"/>
+  <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="49f5a3ac-9183-492a-987c-da298b216074"/>
+  <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="3c22c9b9-2aec-4b3d-ad7a-0f240ffba04f"/>
+  <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="e5040620-326b-4a0c-a178-7f930b26ffab"/>
+  <containedObjects classId="fb282519-d103-4dd3-bc12-cb271d631dfc" objectId="80d90865-bb94-44b4-960b-949742890198"/>
+  <configurationExtensionCompatibilityMode>8.3.17</configurationExtensionCompatibilityMode>
+  <defaultRunMode>ManagedApplication</defaultRunMode>
+  <usePurposes>PersonalComputer</usePurposes>
+  <defaultRoles>Role.FullRights</defaultRoles>
+  <vendor>Alexander Strizhachuk</vendor>
+  <version>1.0.0</version>
+  <requiredMobileApplicationPermissions>
+    <permission>AllowOSBackup</permission>
+    <use>true</use>
+  </requiredMobileApplicationPermissions>
+  <defaultLanguage>Language.English</defaultLanguage>
+  <copyright>
+    <key>ru</key>
+    <value>Copyright © Alexander Strizhachuk</value>
+  </copyright>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
+  <modalityUseMode>DontUse</modalityUseMode>
+  <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
+  <compatibilityMode>8.3.17</compatibilityMode>
+  <languages uuid="c6c2ae86-2d14-4c59-8acb-8919a72352b1">
+    <name>Русский</name>
+    <synonym>
+      <key>ru</key>
+      <value>Русский</value>
+    </synonym>
+    <languageCode>ru</languageCode>
+  </languages>
+  <languages uuid="07eec7ed-7daf-411c-a1bb-3464325c0ee6">
+    <name>English</name>
+    <synonym>
+      <key>ru</key>
+      <value>English</value>
+    </synonym>
+    <languageCode>en</languageCode>
+  </languages>
+  <subsystems>Subsystem.GitLabIntegration</subsystems>
+  <subsystems>Subsystem.Logging</subsystems>
+  <subsystems>Subsystem.ExternalDependencies</subsystems>
+  <commonPictures>CommonPicture.GitLab</commonPictures>
+  <roles>Role.FullRights</roles>
+  <roles>Role.GitLabClient</roles>
+  <roles>Role.GitLabHTTPService</roles>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
+  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
+  <commonModules>CommonModule.CommonUseClientServer</commonModules>
+  <commonModules>CommonModule.CommonUseServerCall</commonModules>
+  <commonModules>CommonModule.DataProcessing</commonModules>
+  <commonModules>CommonModule.GitLab</commonModules>
+  <commonModules>CommonModule.GitLabCached</commonModules>
+  <commonModules>CommonModule.HTTPServices</commonModules>
+  <commonModules>CommonModule.Logging</commonModules>
+  <commonModules>CommonModule.Receivers</commonModules>
+  <commonModules>CommonModule.Routing</commonModules>
+  <commonModules>CommonModule.ServicesSettings</commonModules>
+  <commonModules>CommonModule.StringsClientServer</commonModules>
+  <commonModules>CommonModule.Webhooks</commonModules>
+  <httpServices>HTTPService.GitLab</httpServices>
+  <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
+  <constants>Constant.HandleRequests</constants>
+  <constants>Constant.RoutingFileName</constants>
+  <constants>Constant.TokenGitLab</constants>
+  <constants>Constant.TimeoutGitLab</constants>
+  <constants>Constant.TimeoutDeliveryFile</constants>
+  <constants>Constant.TokenReceiver</constants>
+  <commonForms>CommonForm.ServicesSettings</commonForms>
+  <commonForms>CommonForm.TestConnections</commonForms>
+  <catalogs>Catalog.Webhooks</catalogs>
+  <informationRegisters>InformationRegister.QueryData</informationRegisters>
+  <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
+</mdclass:Configuration>

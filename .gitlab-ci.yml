@@ -31,13 +31,13 @@ variables:
   DEPLOY_PORT: "8090"
   REVIEW_PORT: "8091"
 
-  EDT_PROJECT_DIR: "GitlabServices" # EDT src
+  EDT_PROJECT_DIR: "Transmitter" # EDT src
 
   # docker-compose services (1C and DB)
   IB_SERVER: "srv"
-  IB_NAME: "gitlabServices"
+  IB_NAME: "transmitter"
   DB_SERVER: "db"
-  DB_NAME: "gitlabServices"
+  DB_NAME: "transmitter"
 
   BACKUP_PATH: "/var/backups" # backup before update
 

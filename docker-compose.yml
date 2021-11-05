@@ -48,7 +48,7 @@ services:
       - back_net
 
   srv:
-    image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
+    image: $DOCKER_USERNAME/server:$ONEC_VERSION
     hostname: srv
     depends_on:
       - db
@@ -67,7 +67,7 @@ services:
       - back_net
 
   ras:
-    image: ${DOCKER_USERNAME}/server:${ONEC_VERSION}
+    image: $DOCKER_USERNAME/server:$ONEC_VERSION
     depends_on:
       - srv
     entrypoint: /opt/1C/v8.3/x86_64/ras
@@ -88,7 +88,7 @@ services:
       - back_net
 
   init:
-    image: ${DOCKER_USERNAME}/transmitter:${ONEC_VERSION}
+    image: $DOCKER_USERNAME/transmitter:$ONEC_VERSION
     build:
       context: .
       dockerfile: ./docker/transmitter.Dockerfile
@@ -112,7 +112,7 @@ services:
       - back_net
 
   transmitter:
-    image: ${DOCKER_USERNAME}/transmitter:${ONEC_VERSION}
+    image: $DOCKER_USERNAME/transmitter:$ONEC_VERSION
     environment:
         - WS_USER_EN=site
         - WS_USER_RU=сайт
@@ -128,7 +128,7 @@ services:
       - back_net
     
   endpoint:
-    image: ${DOCKER_USERNAME}/endpoint:${ONEC_VERSION}
+    image: $DOCKER_USERNAME/endpoint:$ONEC_VERSION
     build:
       context: .
       dockerfile: ./docker/endpoint.Dockerfile
