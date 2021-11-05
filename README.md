@@ -4,8 +4,8 @@
 
 # Описание
 
-[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=gitlab-services&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=gitlab-services)
-[![Maintainability Rating](https://sonar.openbsl.ru/api/project_badges/measure?project=gitlab-services&metric=sqale_rating)](https://sonar.openbsl.ru/dashboard?id=gitlab-services)
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=epf-transmitter&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=epf-transmitter)
+[![Maintainability Rating](https://sonar.openbsl.ru/api/project_badges/measure?project=epf-transmitter&metric=sqale_rating)](https://sonar.openbsl.ru/dashboard?id=epf-transmitter)
 
 [Процесс разработки](./docs/contributing.md)
 
