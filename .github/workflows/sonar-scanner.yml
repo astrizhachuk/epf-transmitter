@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   SonarScanner:
-    if: github.repository == 'astrizhachuk/gitlab-services'
+    if: github.repository == 'astrizhachuk/epf-transmitter'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
