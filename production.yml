@@ -35,8 +35,8 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ./web/client.vrd:/var/www/client.vrd
-      - ./web/api.vrd:/var/www/api.vrd
+      - ./web/transmitter/client.vrd:/var/www/client.vrd
+      - ./web/transmitter/api.vrd:/var/www/api.vrd
     networks:
       - backend
 
