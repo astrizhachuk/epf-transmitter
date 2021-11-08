@@ -6,7 +6,8 @@
             "roles": [
                 "FullRights",
                 "GitLabClient"
-            ]
+            ],
+            "lang": "ru"
         },
         {
             "name": "$WS_USER",
@@ -14,7 +15,7 @@
                 "GitLabHTTPService"
             ],
             "password": "$WS_PASSWORD",
-            "lang": "en"
+            "lang": "ru"
         }
     ]
 }
