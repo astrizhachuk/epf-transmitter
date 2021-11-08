@@ -69,7 +69,7 @@ C:\Windows\System32\drivers\etc\hosts
 ##### Инициализация информационной базы для разработки сервиса
 
 ```bash
-> docker-compose up init --build
+> docker-compose up init --build -d
 > docker-compose rm init ras -fs
 ```
 
@@ -78,7 +78,7 @@ C:\Windows\System32\drivers\etc\hosts
 ##### Запуск разрабатываемого сервиса
 
 ```bash
-> docker-compose up transmitter
+> docker-compose up transmitter -d
 ```
 
 ##### Остановка разрабатываемого сервиса
