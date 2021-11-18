@@ -21,7 +21,7 @@
   <usePurposes>PersonalComputer</usePurposes>
   <defaultRoles>Role.FullRights</defaultRoles>
   <vendor>Alexander Strizhachuk</vendor>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
@@ -58,31 +58,34 @@
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>
-  <roles>Role.GitLabHTTPService</roles>
-  <commonModules>CommonModule.HTTPConnector</commonModules>
-  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
+  <roles>Role.GitLabAPI</roles>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
   <commonModules>CommonModule.DataProcessing</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabCached</commonModules>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.HTTPServices</commonModules>
+  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
   <commonModules>CommonModule.Logging</commonModules>
   <commonModules>CommonModule.Receivers</commonModules>
   <commonModules>CommonModule.Routing</commonModules>
   <commonModules>CommonModule.ServicesSettings</commonModules>
+  <commonModules>CommonModule.ServicesSettingsClientCerver</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Webhooks</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
+  <httpServices>HTTPService.Version</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
-  <constants>Constant.HandleRequests</constants>
+  <constants>Constant.DeliveryFileTimeout</constants>
+  <constants>Constant.ExternalStorageToken</constants>
+  <constants>Constant.ExternalStorageTimeout</constants>
+  <constants>Constant.IsHandleRequests</constants>
+  <constants>Constant.ReceiverUserName</constants>
+  <constants>Constant.ReceiverUserPassword</constants>
   <constants>Constant.RoutingFileName</constants>
-  <constants>Constant.TokenGitLab</constants>
-  <constants>Constant.TimeoutGitLab</constants>
-  <constants>Constant.TimeoutDeliveryFile</constants>
-  <constants>Constant.TokenReceiver</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
-  <commonForms>CommonForm.TestConnections</commonForms>
+  <commonForms>CommonForm.CheckingServiceStatus</commonForms>
   <catalogs>Catalog.Webhooks</catalogs>
   <informationRegisters>InformationRegister.QueryData</informationRegisters>
   <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>

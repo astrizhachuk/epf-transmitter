@@ -1,440 +1,278 @@
-#Region Internal
+#Region Public
 
 // @unit-test
-Procedure ConnectionParams(Фреймворк) Export
-
-	// given
-	Константы.TokenReceiver.Установить("998");
-	Константы.TimeoutDeliveryFile.Установить(999);
-	// when
-	Результат = Receivers.ConnectionParams();
-	// then
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 3);
-	Фреймворк.ПроверитьРавенство(Результат.URL, "");
-	Фреймворк.ПроверитьРавенство(Результат.Token, "998");
-	Фреймворк.ПроверитьРавенство(Результат.Timeout, 999);		
-
-EndProcedure
-
-// @unit-test
-Procedure ConnectionParamsNegativeTimeout(Фреймворк) Export
-
-	// given
-	Константы.TokenReceiver.Установить("998");
-	Константы.TimeoutDeliveryFile.Установить(999);
-	// when
-	Результат = Receivers.ConnectionParams();
-	// then
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 3);
-	Фреймворк.ПроверитьРавенство(Результат.URL, "");
-	Фреймворк.ПроверитьРавенство(Результат.Token, "998");
-	Константы.TimeoutDeliveryFile.Установить(-5);
-	Результат = Receivers.ConnectionParams();
-	Фреймворк.ПроверитьРавенство(Результат.Timeout, 0);
-
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFileWithoutSendParamsAndWithoutEventParams(Фреймворк) Export
+Procedure GetConnectionParams(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Constants.ReceiverUserName.Set("UserName" + Right(TIME, 10));
+	Constants.ReceiverUserPassword.Set("UserPassword" + Right(TIME, 10));
+	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
+	// when
+	Result = Receivers.GetConnectionParams();
+	// then
+	Framework.AssertEqual(Result.Количество(), 4);
+	Framework.AssertEqual(Result.URL, "");
+	Framework.AssertEqual(Result.User, "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Result.Password, "UserPassword" + Right(TIME, 10));	
+	Framework.AssertEqual(Result.Timeout, Number(Right(TIME, 4)));
 	
-	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
-	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SendFileErrorWithoutEndpointAndEvent(Framework) Export
 	
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;
+	MISSING_ENDPOINT_MESSAGE = NStr("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
+
 	// when
-	Попытка
-		Receivers.SendFile(FileName, Данные, ПараметрыДоставки);
-		ВызватьИсключение RAISE_MESSAGE;
-	Исключение
-		// then
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, MISSING_DELIVERY_MESSAGE);
+	Try
+		Result = Receivers.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure());
+		Framework.AddError("Method Executed");
+	Except
+	// then
+		ErrorInfo = ErrorInfo();
+		Framework.AssertStringContains(ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+	EndTry;
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SendFileErrorWithoutEndpoint(Framework) Export
+
+	// given
+	WebhookCleanUp();
+	
+	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
+	
+	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, "0123456789abcdef");
+	
+	// when
+	Try
+		Result = Receivers.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Event);
+		Framework.AddError("Method Executed");
+	Except
+	// then
+		ErrorInfo = ErrorInfo();
+		Framework.AssertStringContains(ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
 	КонецПопытки;
 	
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, MISSING_DELIVERY_MESSAGE);	
-	
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFileWithoutSendParamsAndEventParamsExists(Фреймворк) Export
-	
-	RAISE_MESSAGE = НСтр("ru = 'Должно быть вызвано исключение.';en = 'Should raise an error.'");
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
-	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	
+Procedure SendFile4xxError(Framework) Export
+
 	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
+	WebhookCleanUp();
 	
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_500, "Ошибка");
+	URL = "http://mockserver:1080";
+	User = "User1";
+	Password = "Password1";
+	FileName = "Файл.epf";
+	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
+	Data = "data";
+	StatusCode = 403;
+	ResponseBody = "{""key"":""value""}";
+
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
+
+	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
-	
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;
+	CheckoutSHA = "0123456789abcdef";		
+	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
+
 	// when
-	Попытка
-		Receivers.SendFile(FileName, Данные, ПараметрыДоставки, ПараметрыСобытия);
-		ВызватьИсключение RAISE_MESSAGE;
-	Исключение
-		// then
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, MISSING_DELIVERY_MESSAGE);
-	КонецПопытки;
-	
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + MISSING_DELIVERY_MESSAGE));
-	
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure SendFileError403ForbiddenWithoutEventParams(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
-	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
-
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	
-	URL = "http://mockserver:1080";
-	
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
-	Мок = Неопределено;
-
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-
-	// when	
-	Попытка
-		Receivers.SendFile(FileName, Данные, ПараметрыДоставки);
-	Исключение
-		// then
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, DELIVERED_MESSAGE);
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, ERROR_STATUS_CODE_MESSAGE + "403");
-	КонецПопытки;
-	
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, ERROR_STATUS_CODE_MESSAGE + "403");	
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрации[0].Comment, DELIVERED_MESSAGE));
+	Try
+		Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
+		Framework.AddError("Method Executed");
+	Except
+	// then
+		ErrorInfo = ErrorInfo();
+		Framework.AssertStringContains(ErrorInfo.Description, CheckoutSHA);
+		Framework.AssertStringContains(ErrorInfo.Description, NStr("ru = 'Ошибка';en = 'Error'"));
+		Framework.AssertStringContains(ErrorInfo.Description, StatusCode);
+	EndTry;
 	
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFileError403ForbiddenEventParamsExists(Фреймворк) Export
-	
-	EVENT_MESSAGE_403 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.403';en = 'Webhooks.Core.SendingFileReceiver.403'");
-	ERROR_STATUS_CODE_MESSAGE = НСтр( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
-	
+Procedure SendFile200OkWithoutEventLogging(Framework) Export
 
-	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
-	
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_403, "Ошибка");
-	
+	// given	
 	URL = "http://mockserver:1080";
-	
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""403""");
-	Мок = Неопределено;
+	User = "User1";
+	Password = "Password1";
+	FileName = "Файл.epf";
+	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
+	Data = "data";
+	StatusCode = 200;
+	ResponseBody = "{""key"":""value""}";
 
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
 
-	// when	
-	Попытка
-		Receivers.SendFile(FileName, Данные, ПараметрыДоставки, ПараметрыСобытия);
-	Исключение
-		// then
-		ИнформацияОбОшибке = ИнформацияОбОшибке();
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, DELIVERED_MESSAGE);
-		Фреймворк.ПроверитьВхождение(ИнформацияОбОшибке.Описание, ERROR_STATUS_CODE_MESSAGE + "403");
-	КонецПопытки;
-	
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, ERROR_STATUS_CODE_MESSAGE + "403");	
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + DELIVERED_MESSAGE));
-	
-EndProcedure
+	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure SendFile200OkWithoutEventParams(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю';en = 'Webhooks.Core.SendingFileReceiver'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
-
-	
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	
-	URL = "http://mockserver:1080";
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
-	Мок = Неопределено;
-
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;	
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-	
 	// when
-	Receivers.SendFile(FileName, Данные, ПараметрыДоставки);
+	Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint);
 	
 	// then
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрации[0].Comment, DELIVERED_MESSAGE));
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, """message"" : ""Любое сообщение...""");
-	
+	Framework.AssertStringContains(Result, URL);
+	Framework.AssertStringContains(Result, FileName);
+	Framework.AssertStringContains(Result, ResponseBody);
+
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFile200OkEventParamsExists(Фреймворк) Export
-	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+Procedure SendFile200OkWithEventLogging(Framework) Export
 	
 	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
-	
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
+	WebhookCleanUp();
 	
 	URL = "http://mockserver:1080";
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
-	Мок = Неопределено;
+	User = "User1";
+	Password = "Password1";
+	FileName = "Файл.epf";
+	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
+	Data = "data";
+	StatusCode = 200;
+	ResponseBody = "{""key"":""value""}";
 
-	FileName = "ВнешняяОбработка1.epf";
-	Данные = GetBinaryDataFromString("Тест");
-	ПараметрыДоставки = Новый Структура;	
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
-	
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
+
+	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
+
+	CheckoutSHA = "0123456789abcdef";		
+	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
+
 	// when
-	Receivers.SendFile(FileName, Данные, ПараметрыДоставки, ПараметрыСобытия);
+	Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
 	
 	// then
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + DELIVERED_MESSAGE);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, """message"" : ""Любое сообщение...""");
+	Framework.AssertStringContains(Result, CheckoutSHA);
+	Framework.AssertStringContains(Result, URL);
+	Framework.AssertStringContains(Result, FileName);
+	Framework.AssertStringContains(Result, ResponseBody);
 	
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFileWithoutSendParamsBackgroundJob(Фреймворк) Export
-	
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
-	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	
+Procedure SendFileBackgroundJobError(Framework) Export
+
 	//given
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
+	WebhookCleanUp();
 	
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_500, "Ошибка");
+	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	
-	ПараметрыДоставки = Новый Структура;
+	FileName = "Файл.epf";
+	Data = "data";
 	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
+	Endpoint = New Structure();
+	CheckoutSHA = "0123456789abcdef";		
+	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
 	
-	ПараметрыЗадания = Новый Массив;
-	ПараметрыЗадания.Добавить("ВнешняяОбработка1.epf");
-	ПараметрыЗадания.Добавить(GetBinaryDataFromString("Тест"));
-	ПараметрыЗадания.Добавить(ПараметрыДоставки);
-	ПараметрыЗадания.Добавить(ПараметрыСобытия);
+	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
 	
 	// when
-	ЗаданиеОтправкаФайла = ФоновыеЗадания.Выполнить("Receivers.SendFile", ПараметрыЗадания);
+	Job = BackgroundJobs.Execute("Receivers.SendFile", JobParams);
+	Result = Job.WaitForExecutionCompletion();
 
 	// then
-	Результат = ЗаданиеОтправкаФайла.ОжидатьЗавершенияВыполнения();
-	Фреймворк.ПроверитьРавенство(Результат.Состояние, СостояниеФоновогоЗадания.ЗавершеноАварийно);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(Результат.ИнформацияОбОшибке.Описание, "[ 0123456789abcdef ]: " + MISSING_DELIVERY_MESSAGE));
-	
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + MISSING_DELIVERY_MESSAGE));
+	Framework.AssertEqual(Result.State, BackgroundJobState.Failed);
+	Framework.AssertStringContains(Result.ErrorInfo.Description, CheckoutSHA);
+	Framework.AssertStringContains(Result.ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
 
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure SendFileBackgroundJobSingleFile200OkEventParamsExists(Фреймворк) Export
-	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
-	
-	//given
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
-	
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
-	
-	URL = "http://mockserver:1080";
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
-	Мок = Неопределено;
-	
-	ПараметрыДоставки = Новый Структура;
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
-	
-	ПараметрыЗадания = Новый Массив;
-	ПараметрыЗадания.Добавить("ВнешняяОбработка1.epf");
-	ПараметрыЗадания.Добавить(GetBinaryDataFromString("Тест"));
-	ПараметрыЗадания.Добавить(ПараметрыДоставки);
-	ПараметрыЗадания.Добавить(ПараметрыСобытия);	
-		
-	// when
-	ЗаданиеОтправкаФайла = ФоновыеЗадания.Выполнить("Receivers.SendFile",	ПараметрыЗадания);
-		
-	// then
-	Результат = ЗаданиеОтправкаФайла.ОжидатьЗавершенияВыполнения();
-	Фреймворк.ПроверитьРавенство(Результат.Состояние, СостояниеФоновогоЗадания.Завершено);
-
-	ЖурналРегистрации = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, "[ 0123456789abcdef ]: " + DELIVERED_MESSAGE);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрации[0].Comment, """message"" : ""Любое сообщение...""");
-		
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Фреймворк) Export
-	
-	EVENT_MESSAGE_200 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.200';en = 'Webhooks.Core.SendingFileReceiver.200'");
-	EVENT_MESSAGE_500 = НСтр("ru = 'ОбработчикиСобытий.Core.ОтправкаДанныхПолучателю.500';en = 'Webhooks.Core.SendingFileReceiver.500'");
-	MISSING_DELIVERY_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	DELIVERED_MESSAGE = НСтр( "ru = 'URL сервиса доставки: http://mockserver:1080/update; файл: ВнешняяОбработка1.epf; текст ответа:';
-							|en = 'delivery service URL: http://mockserver:1080/update; file: ВнешняяОбработка1.epf; response message:'" );
+Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 	
 	// given
+	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
+	
+	WebhookCleanUp();
+	
+	URL = "http://mockserver:1080";
+	User = "User1";
+	Password = "Password1";
+	FileName = "Файл.epf";
+	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
+	Data = "data";
+	StatusCode = 200;
+	ResponseBody = "{""key"":""value""}";
+
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
+
+	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
+
+	Webhook = TestsWebhooksServer.AddWebhook("Test", "Token");
+	CheckoutSHA = "0123456789abcdef";		
+	Event = NewEvent(Webhook.Ref, CheckoutSHA);
+	
+	EventLogFilter = EventLogFilterByData(Webhook.Ref);
+
+	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
+	
+	// when
 	// three files: two good, one bad
-	УдалитьВсеОбработчикиСобытий();
-	ОбработчикСобытия = TestsWebhooksServer.ДобавитьОбработчикСобытий("ЮнитТест1", "Webhook");
-	
-	ОтборЖурналаРегистрацииИнформация = ОтборЖурналаРегистрации(EVENT_MESSAGE_200);
-	ОтборЖурналаРегистрацииОшибка = ОтборЖурналаРегистрации(EVENT_MESSAGE_500, "Ошибка");
-	
-	URL = "http://mockserver:1080";
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """update"": ""200""");
-	Мок = Неопределено;	
-	
-	ПараметрыДоставки = Новый Структура;
-	ПараметрыДоставки.Вставить("URL", URL + "/update");
-	ПараметрыДоставки.Вставить("Token", "12345678901234567890");
-	ПараметрыДоставки.Вставить("Timeout", 5);
-	
-	ПараметрыСобытия = Новый Структура();
-	ПараметрыСобытия.Вставить( "Webhook", ОбработчикСобытия.Ссылка );
-	ПараметрыСобытия.Вставить( "CheckoutSHA", "0123456789abcdef" );
-	
-	ПараметрыЗадания = Новый Массив;
-	ПараметрыЗадания.Добавить("ВнешняяОбработка1.epf");
-	ПараметрыЗадания.Добавить(GetBinaryDataFromString("Тест"));
-	ПараметрыЗадания.Добавить(ПараметрыДоставки);
-	ПараметрыЗадания.Добавить(ПараметрыСобытия);	
-
-	// when
-	МассивФоновыхЗаданий = Новый Массив;
-	Для Индекс = 1 По 3 Цикл
-		Если Индекс = 2 Тогда
-			ПараметрыЗадания[2] = Новый Структура;
-		Иначе
-			ПараметрыЗадания[2] = ПараметрыДоставки;
-		КонецЕсли;
+	Result = New Array();
+	For Index = 1 To 3 Do
+		If Index = 2 Then
+			JobParams[2] = New Structure();
+		Else
+			JobParams[2] = Endpoint;
+		EndIf;
 		
-		ЗаданиеОтправкаФайла = ФоновыеЗадания.Выполнить("Receivers.SendFile",
-											ПараметрыЗадания,
-											"Индекс" + Индекс,
-											"Test.Receivers.SendFile." + Индекс);
-		МассивФоновыхЗаданий.Добавить(ЗаданиеОтправкаФайла.ОжидатьЗавершенияВыполнения(10));
-	КонецЦикла;
+		Job = BackgroundJobs.Execute("Receivers.SendFile",
+										JobParams,
+										"Index" + Index,
+										"Test.Receivers.SendFile." + Index);
+		Result.Добавить(Job.ОжидатьЗавершенияВыполнения(10));
+	EndDo;
+	Pause(3);
+	EventLog = GetEventLog(EventLogFilter);
 
 	// then
-	Фреймворк.ПроверитьРавенство(МассивФоновыхЗаданий[0].Состояние, СостояниеФоновогоЗадания.Завершено);
-	Фреймворк.ПроверитьРавенство(МассивФоновыхЗаданий[1].Состояние, СостояниеФоновогоЗадания.ЗавершеноАварийно);
-	Фреймворк.ПроверитьРавенство(МассивФоновыхЗаданий[2].Состояние, СостояниеФоновогоЗадания.Завершено);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(МассивФоновыхЗаданий[1].ИнформацияОбОшибке.Описание, "[ 0123456789abcdef ]: " + MISSING_DELIVERY_MESSAGE));
+	Framework.AssertEqual(Result[0].State, BackgroundJobState.Completed);
+	Framework.AssertEqual(Result[1].State, BackgroundJobState.Failed);
+	Framework.AssertEqual(Result[2].State, BackgroundJobState.Completed);
 	
-	ЖурналРегистрацииИнформация = СобытияЖурналаРегистрации(ОтборЖурналаРегистрацииИнформация);
-	Фреймворк.ПроверитьРавенство(ЖурналРегистрацииИнформация.Количество(), 2);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииИнформация[0].Comment, "[ 0123456789abcdef ]: " + DELIVERED_MESSAGE);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииИнформация[0].Comment, """message"" : ""Любое сообщение...""");
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииИнформация[1].Comment, "[ 0123456789abcdef ]: "  + DELIVERED_MESSAGE);
-	Фреймворк.ПроверитьВхождение(ЖурналРегистрацииИнформация[1].Comment, """message"" : ""Любое сообщение...""");	
+	Framework.AssertStringContains(Result[1].ErrorInfo.Description, CheckoutSHA);
+	Framework.AssertStringContains(Result[1].ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+
+	Framework.AssertEqual(EventLog.Count(), 2);
+	Framework.AssertStringContains(EventLog[0].Comment, CheckoutSHA);
+	Framework.AssertStringContains(EventLog[0].Comment, URL);
+	Framework.AssertStringContains(EventLog[0].Comment, FileName);
+	Framework.AssertStringContains(EventLog[0].Comment, ResponseBody);
 	
-	ЖурналРегистрацииОшибка = СобытияЖурналаРегистрации(ОтборЖурналаРегистрацииОшибка);
-	Фреймворк.ПроверитьИстину(СтрНачинаетсяС(ЖурналРегистрацииОшибка[0].Comment, "[ 0123456789abcdef ]: " + MISSING_DELIVERY_MESSAGE));
+	Framework.AssertStringContains(EventLog[1].Comment, CheckoutSHA);
+	Framework.AssertStringContains(EventLog[1].Comment, URL);
+	Framework.AssertStringContains(EventLog[1].Comment, FileName);
+	Framework.AssertStringContains(EventLog[1].Comment, ResponseBody);
 
 EndProcedure
 
@@ -442,22 +280,94 @@ EndProcedure
 
 #Region Private
 
-Procedure УдалитьВсеОбработчикиСобытий()
+Procedure Pause(Val Period)
 	
-	TestsCommonUseServer.СправочникиУдалитьВсеДанные("Webhooks");
+	UtilsServer.Pause(Period);
+	
+EndProcedure
+
+Procedure WebhookCleanUp()
+	
+	UtilsServer.CatalogCleanUp("Webhooks");
 
 EndProcedure
 
-Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
+#Region EventLog
+
+Function EventLogFilterByData(Data, Level = "Information")
 	
-	Возврат TestsCommonUseServer.ОтборЖурналаРегистрации(Событие, Уровень);
+	Return UtilsServer.EventLogFilterByData(Data, Level);
 	
 EndFunction
 
-Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
+Function GetEventLog(Val Filter)
 	
-	Возврат TestsCommonUseServer.СобытияЖурналаРегистрации(Отбор, Секунд);
+	Return UtilsServer.GetEventLog(Filter);
 	
 EndFunction
+
+#EndRegion
+
+#Region Data
+
+Function NewEndpoint(Val URL, Val User, Val Password)
+	
+	Result = New Structure();	
+	Result.Insert("URL", URL);
+	Result.Insert("User", User);
+	Result.Insert("Password", Password);
+	Result.Insert("Timeout", 5);
+	
+	Return Result;
+	
+EndFunction
+
+Function NewEvent(Val Ref, Val CheckoutSHA)
+	
+	Result = New Structure();
+	Result.Insert( "Webhook", Ref );
+	Result.Insert( "CheckoutSHA", CheckoutSHA );
+	
+	Return Result;
+	
+EndFunction
+
+Function NewJobParams(Val FileName, Val Data, Val Endpoint, Val Event)
+
+	Result = New Array();
+	Result.Add(FileName);
+	Result.Add(GetBinaryDataFromString(Data));
+	Result.Add(Endpoint);
+	Result.Add(Event);
+	
+	Return Result;
+	
+EndFunction
+
+Procedure SetMockUploadFile(Val URL, Val User, Val Password, Val FileName, Val Data, Val StatusCode, Val ResponseBody)
+	
+	Base64 = GetBase64StringFromBinaryData(GetBinaryDataFromString(User + ":" + Password));
+	
+	Mock = DataProcessors.MockServerClient.Create();
+	Mock.Server(URL, , True)
+		.Когда(
+			Mock.Request()
+				.WithMethod("POST")
+				.WithPath("/epf/uploadFile")
+				.Headers()
+					.WithHeader("Authorization", "Basic " + Base64)
+					.WithHeader("Name", FileName)
+				.WithBody(Data)
+		)
+	    .Respond(
+	        Mock.Response()
+	        	.WithStatusCode(StatusCode)
+	        	.WithBody(ResponseBody)
+	    );
+    Mock = Undefined;
+    
+EndProcedure
+
+#EndRegion
 
 #EndRegion

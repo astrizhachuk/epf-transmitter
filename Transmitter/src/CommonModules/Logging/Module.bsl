@@ -128,11 +128,10 @@ Procedure AddResponseBody( LoggingOptions, Val Level, Val Message )
 
 		HTTPResponse.Headers.Insert( "Content-Type", "application/json" );
 		
-		Body = HTTPServices.ResponseTemplate();
-		Body.message = Message;
-		Body.type = LogLevelMap().Get( String(Level) );
+		Body = HTTPServices.CreateMessage(Message);
+		//Body.type = LogLevelMap().Get( String(Level) );
 
-		HTTPResponse.SetBodyFromString( HTTPConnector.ОбъектВJson(Body) );
+		HTTPResponse.SetBodyFromString( HTTPConnector.ObjectToJson(Body) );
 
 	EndIf;
 	

@@ -9,6 +9,11 @@ Feature: Transmitter.Tests.TestsCommonUseServer
 	That I can guarantee the execution of the method
 
 @OnServer
+Scenario: GetVersion
+	And I execute 1C:Enterprise script at server
+	| 'TestsCommonUseServer.GetVersion(Context());' |
+
+@OnServer
 Scenario: МокСерверДоступен
 	And I execute 1C:Enterprise script at server
 	| 'TestsCommonUseServer.МокСерверДоступен(Context());' |

@@ -1,5 +1,32 @@
 #Region Public
 
+// GetStatusMessage returns the current status of the request handler as a message object.
+// 
+// Returns:
+// 	Structure - message object:
+// * message - String - text message;
+//
+Function GetStatusMessage() Export
+	
+	Var Result;
+	
+	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
+	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
+	
+	If ( ServicesSettings.IsHandleRequests() ) Then
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
+		
+	Else
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_DISABLED );
+		
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
+
 // ConnectionParams returns the connection parameters to the GitLab server.
 // 
 // Parameters:
@@ -20,8 +47,8 @@ Function ConnectionParams( Val URL ) Export
 	
 	Result = New Structure();
 	Result.Insert( "URL", URL );
-	Result.Insert( "Token", CurrentSettings.TokenGitLab );
-	Result.Insert( "Timeout", CurrentSettings.TimeoutGitLab );
+	Result.Insert( "Token", CurrentSettings.ExternalStorageToken );
+	Result.Insert( "Timeout", CurrentSettings.ExternalStorageTimeout );
 	
 	Return Result;
 	
@@ -70,9 +97,9 @@ Function RemoteFile( Val ConnectionParams, Val FilePath ) Export
 		
 		Response = HTTPConnector.Get( URL, Undefined, AdditionalParams );
 
-		If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.КодСостояния) ) Then
+		If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.StatusCode) ) Then
 			
-			Raise HTTPStatusCodesClientServerCached.FindIdByCode( Response.КодСостояния );
+			Raise HTTPStatusCodesClientServerCached.FindIdByCode( Response.StatusCode );
 		
 		EndIf;
 		

@@ -56,7 +56,7 @@ Procedure InfoEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	Webhook = TestsWebhooksServer.ДобавитьОбработчикСобытий("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logging.Info( "Информация11.Информация22.Информация33", "обушки-воробушки", Webhook.Ref );
 	// then
@@ -75,7 +75,7 @@ Procedure WarnEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение");
-	Webhook = TestsWebhooksServer.ДобавитьОбработчикСобытий("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logging.Warn( "Предупреждение11.Предупреждение22.Предупреждение33", "обушки-воробушки2", Webhook.Ref );
 	// then	
@@ -94,7 +94,7 @@ Procedure ErrorEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	Webhook = TestsWebhooksServer.ДобавитьОбработчикСобытий("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logging.Error( "Ошибка11.Ошибка22.Ошибка33", "обушки-воробушки3", Webhook.Ref );
 	// then
@@ -256,7 +256,7 @@ Procedure InfoEventWithObjectAndHTTPResponseWithBody400(Фреймворк) Expo
 
 EndProcedure	
 
-// @unit-test:dev
+// @unit-test
 Procedure InfoEventWithObjectAndHTTPResponseWithBody403(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация403.Информация403.Информация403.403';en = 'Webhooks.Информация403.Информация403.Информация403.403'");
@@ -275,7 +275,7 @@ Procedure InfoEventWithObjectAndHTTPResponseWithBody403(Фреймворк) Expo
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 Procedure InfoEventWithObjectAndHTTPResponseWithBody423(Фреймворк) Export
 	
 	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация423.Информация423.Информация423.423';en = 'Webhooks.Информация423.Информация423.Информация423.423'");
@@ -312,19 +312,20 @@ EndProcedure
 #Region Private
 Procedure УдалитьВсеОбработчикиСобытий()
 	
-	TestsCommonUseServer.СправочникиУдалитьВсеДанные("Webhooks");
+	UtilsServer.CatalogCleanUp("Webhooks");
 
 EndProcedure
 
 Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
 	
-	Возврат TestsCommonUseServer.ОтборЖурналаРегистрации(Событие, Уровень);
+	Возврат UtilsServer.EventLogFilterByEvent(Событие, Уровень);
 	
 EndFunction
 
 Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
 	
-	Возврат TestsCommonUseServer.СобытияЖурналаРегистрации(Отбор, Секунд);
+	UtilsServer.Pause(Секунд);
+	Возврат UtilsServer.GetEventLog(Отбор);
 	
 EndFunction
 

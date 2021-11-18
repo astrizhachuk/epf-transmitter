@@ -77,12 +77,12 @@ Procedure FilesByRoutes(Фреймворк) Export
 	НоваяСтрока.ErrorInfo = "";
 	
 	// Commits
-	ЭталонRouting = "/home/usr1cv8/test/expectation-routing.json";
+	ЭталонRouting = "/tmp/expectations/routing.json";
 	Текст = Новый ЧтениеТекста(ЭталонRouting, КодировкаТекста.UTF8);
 	JSON = Текст.Прочитать();
-	JSON = HTTPConnector.JsonВОбъект(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения());
+	JSON = HTTPConnector.JsonToObject(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения());
 	JSON = JSON.Получить("httpResponse").Получить("body").Получить("string");
-	Settings = HTTPConnector.JsonВОбъект(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения());
+	Settings = HTTPConnector.JsonToObject(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения());
 
 	Commits = Новый Массив;
 	Commit1 = Новый Соответствие;
@@ -171,7 +171,7 @@ Procedure AddRoutingFilesDescription(Фреймворк) Export
 	ПараметрыПреобразования = Новый Структура();
 	ПараметрыПреобразования.Вставить( "ПрочитатьВСоответствие", Истина );
 	ПараметрыПреобразования.Вставить( "ИменаСвойствСоЗначениямиДата", "timestamp" );
-	ДанныеЗапроса = HTTPConnector.JsonВОбъект(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения(), , ПараметрыПреобразования);
+	ДанныеЗапроса = HTTPConnector.JsonToObject(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения(), , ПараметрыПреобразования);
 
 	// when
 	Routing.AddRoutingFilesDescription(ОписаниеФайлов, ДанныеЗапроса.Get("commits"), "1");	
@@ -225,7 +225,7 @@ Procedure ExtendQueryDataWithRoutingSettings(Фреймворк) Export
 	ПараметрыПреобразования = Новый Структура();
 	ПараметрыПреобразования.Вставить( "ПрочитатьВСоответствие", Истина );
 	ПараметрыПреобразования.Вставить( "ИменаСвойствСоЗначениямиДата", "timestamp" );
-	ДанныеЗапроса = HTTPConnector.JsonВОбъект(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения(), , ПараметрыПреобразования);
+	ДанныеЗапроса = HTTPConnector.JsonToObject(GetBinaryDataFromString(JSON).ОткрытьПотокДляЧтения(), , ПараметрыПреобразования);
 
 	// ДанныеДляОтправки
 	ДанныеДляОтправки = Новый ТаблицаЗначений();

@@ -322,7 +322,7 @@ Procedure AddQueryDataCustomSetting( QueryData, Val CommitSHA, Val JSON ) Export
 	Commit = FindCommitById( QueryData, CommitSHA );
 
 	Stream = GetBinaryDataFromString( JSON, TextEncoding.UTF8 ).OpenStreamForRead();
-	CustomSetting = HTTPConnector.JsonВОбъект( Stream );
+	CustomSetting = HTTPConnector.JsonToObject( Stream );
 	CommonUseServerCall.AppendCollectionFromStream( CustomSetting, "json", Stream );
 	
 	Commit.Вставить( "custom_settings", CustomSetting );		

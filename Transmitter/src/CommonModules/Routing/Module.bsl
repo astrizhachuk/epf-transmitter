@@ -172,7 +172,7 @@ Procedure ExtendQueryDataWithRoutingSettings( Commits, Val RemoteFiles ) Export
 		EndIf;
 		
 		Stream = File[0].BinaryData.OpenStreamForRead();
-		Settings = HTTPConnector.JsonВОбъект( Stream );
+		Settings = HTTPConnector.JsonToObject( Stream );
 		CommonUseServerCall.AppendCollectionFromStream( Settings, "json", Stream );
 		
 		Commit.Insert( "settings", Settings );

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Внешние обработки (endpoint)
-  description: Управление внешними отчетами и обработками через HTTP сервис (REST).
+  description: Управление внешними отчетами и обработками через HTTP сервис (REST)
   contact:
     email: a.strizhachuk@yandex.ru
   version: 2.3.0
@@ -37,12 +37,13 @@ paths:
     get:
       tags:
         - epf
-      summary: Текущий статус функционала загрузки файлов
-      description: Показывает текущий статус функционала загрузки файлов внешних обработок
+      summary: Статус функциональности по загрузке внешних обработок
+      description: |
+        Показывает текущий статус функциональности по загрузке внешних обработок
       operationId: status
       responses:
         '200':
-          description: Текущий статус загрузки
+          description: Текущий статус
           content:
             application/json:
               schema:
@@ -61,14 +62,14 @@ paths:
       tags:
         - epf
       summary: Найти внешнюю обработку по GUID
-      description: >-
+      description: |
         Найти и вывести информацию о месте хранения файлов внешней обработки по
         его GUID
       operationId: findByGuid
       parameters:
         - name: guid
           in: path
-          description: >-
+          description: |
             GUID элемента, в котором хранится файл внешней обработки с его
             описанием
           required: true
@@ -94,7 +95,7 @@ paths:
               examples:
                 bad GUID:
                   summary: Плохой GUID
-                  value: >-
+                  value: |
                     {HTTPСервис.ExternalDataProcessors.Модуль(10)}: Ошибка при
                     вызове конструктора (УникальныйИдентификатор)
   /epf/findByFilename:
@@ -185,7 +186,7 @@ paths:
       requestBody:
         description: Внешний отчет или обработка в двоичном формате
         content:
-          application/x-www-form-urlencoded:
+          application/octet-stream:
             schema:
               type: string
               format: binary

@@ -9,11 +9,6 @@ Feature: Transmitter.Tests.TestsHTTPServicesServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ServicesGET
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServicesGET(Context());' |
-
-@OnServer
 Scenario: WebhooksPOST
 	And I execute 1C:Enterprise script at server
 	| 'TestsHTTPServicesServer.WebhooksPOST(Context());' |

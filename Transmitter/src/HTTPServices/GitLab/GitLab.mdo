@@ -7,9 +7,9 @@
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>GitLab-services</value>
+    <value>GitLab services</value>
   </synonym>
-  <comment>Работа с сервисами GitLab</comment>
+  <comment>Сервисы GitLab</comment>
   <rootURL>gitlab</rootURL>
   <reuseSessions>AutoUse</reuseSessions>
   <sessionMaxAge>20</sessionMaxAge>
@@ -32,21 +32,24 @@
       <handler>WebhooksPOST</handler>
     </methods>
   </urlTemplates>
-  <urlTemplates uuid="74a26fe0-749a-491a-8507-f3a2613b49b5">
-    <name>Services</name>
+  <urlTemplates uuid="cf81fd6b-7e78-482c-80b4-e6d54302f156">
+    <name>Status</name>
+    <synonym>
+      <key>en</key>
+      <value>Status</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Services</value>
+      <value>Статус</value>
     </synonym>
-    <comment>Описание сервисов из метаданных</comment>
-    <template>/services</template>
-    <methods uuid="02939f82-2346-4338-ba0f-1badb42b5fdd">
-      <name>GET</name>
+    <template>/status</template>
+    <methods uuid="8cc8114d-e9b4-428a-ae5b-66f6a0659cf3">
+      <name>Get</name>
       <synonym>
         <key>ru</key>
-        <value>GET</value>
+        <value>Get</value>
       </synonym>
-      <handler>ServicesGET</handler>
+      <handler>StatusGet</handler>
     </methods>
   </urlTemplates>
 </mdclass:HTTPService>

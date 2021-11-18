@@ -1,7 +1,7 @@
 #language: ru
 
 @ExportScenarios
-@Mock
+@UseMockserver
 @ignoreoncimainbuild
 
 Функционал: Запросы с сервера GitLab

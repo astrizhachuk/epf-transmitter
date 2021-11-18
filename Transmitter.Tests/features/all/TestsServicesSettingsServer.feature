@@ -9,31 +9,41 @@ Feature: Transmitter.Tests.TestsServicesSettingsServer
 	That I can guarantee the execution of the method
 
 @OnServer
+Scenario: Settings
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.Settings(Context());' |
+
+@OnServer
 Scenario: CurrentSettings
 	And I execute 1C:Enterprise script at server
 	| 'TestsServicesSettingsServer.CurrentSettings(Context());' |
 
 @OnServer
-Scenario: RoutingFileName
+Scenario: SetCurrentSettings
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.RoutingFileName(Context());' |
+	| 'TestsServicesSettingsServer.SetCurrentSettings(Context());' |
 
 @OnServer
-Scenario: TokenGitLab
+Scenario: IsHandleRequestsTrue
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.TokenGitLab(Context());' |
+	| 'TestsServicesSettingsServer.IsHandleRequestsTrue(Context());' |
 
 @OnServer
-Scenario: TimeoutGitLab
+Scenario: IsHandleRequestsFalse
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.TimeoutGitLab(Context());' |
+	| 'TestsServicesSettingsServer.IsHandleRequestsFalse(Context());' |
 
 @OnServer
-Scenario: TimeoutDeliveryFile
+Scenario: ReceiverUserName
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.TimeoutDeliveryFile(Context());' |
+	| 'TestsServicesSettingsServer.ReceiverUserName(Context());' |
 
 @OnServer
-Scenario: TokenReceiver
+Scenario: ReceiverUserPassword
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.TokenReceiver(Context());' |
+	| 'TestsServicesSettingsServer.ReceiverUserPassword(Context());' |
+
+@OnServer
+Scenario: DeliveryFileTimeout
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.DeliveryFileTimeout(Context());' |

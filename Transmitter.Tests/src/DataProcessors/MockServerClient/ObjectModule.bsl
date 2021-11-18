@@ -1538,7 +1538,7 @@ Procedure GenerateJSON()
 		JSONWriterOptions.Insert( "ПереносСтрок", JSONLineBreak.Unix );
 		JSONWriterOptions.Insert( "СимволыОтступа", " " );
 		
-		ThisObject.JSON = HTTPConnector.ОбъектВJson( ThisObject.Constructor, , JSONWriterOptions );
+		ThisObject.JSON = HTTPConnector.ObjectToJson( ThisObject.Constructor, , JSONWriterOptions );
 		
 	EndIf;
 	
@@ -1581,7 +1581,7 @@ EndFunction
 														
 	If ( HTTPStatusCodesClientServerCached.IsServerError(ThisObject.MockServerResponse.КодСостояния) ) Then
 		
-		Raise HTTPConnector.КакТекст( ThisObject.MockServerResponse );
+		Raise HTTPConnector.AsText( ThisObject.MockServerResponse );
 		
 	EndIf;
 		

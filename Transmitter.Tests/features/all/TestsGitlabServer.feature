@@ -3,72 +3,77 @@
 @tree
 @classname=ModuleExceptionPath
 
-Feature: Transmitter.Tests.TestsGitlabServer
+Feature: Transmitter.Tests.TestsGitLabServer
 	As Developer
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
 
 @OnServer
+Scenario: GetStatusMessage
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabServer.GetStatusMessage(Context());' |
+
+@OnServer
 Scenario: ConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.ConnectionParams(Context());' |
+	| 'TestsGitLabServer.ConnectionParams(Context());' |
 
 @OnServer
 Scenario: RemoteFileBadURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFileBadURL(Context());' |
+	| 'TestsGitLabServer.RemoteFileBadURL(Context());' |
 
 @OnServer
 Scenario: RemoteFile404NotFound
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFile404NotFound(Context());' |
+	| 'TestsGitLabServer.RemoteFile404NotFound(Context());' |
 
 @OnServer
 Scenario: RemoteFile401Unauthorized
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFile401Unauthorized(Context());' |
+	| 'TestsGitLabServer.RemoteFile401Unauthorized(Context());' |
 
 @OnServer
 Scenario: RemoteFileEmpty
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFileEmpty(Context());' |
+	| 'TestsGitLabServer.RemoteFileEmpty(Context());' |
 
 @OnServer
 Scenario: RemoteFile200Ok
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFile200Ok(Context());' |
+	| 'TestsGitLabServer.RemoteFile200Ok(Context());' |
 
 @OnServer
 Scenario: RemoteFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFiles(Context());' |
+	| 'TestsGitLabServer.RemoteFiles(Context());' |
 
 @OnServer
 Scenario: RemoteFilesWithDescription
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFilesWithDescription(Context());' |
+	| 'TestsGitLabServer.RemoteFilesWithDescription(Context());' |
 
 @OnServer
 Scenario: ProjectDescription
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.ProjectDescription(Context());' |
+	| 'TestsGitLabServer.ProjectDescription(Context());' |
 
 @OnServer
 Scenario: MergeRequests
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.MergeRequests(Context());' |
+	| 'TestsGitLabServer.MergeRequests(Context());' |
 
 @OnServer
 Scenario: RemoteFilesEmpty
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RemoteFilesEmpty(Context());' |
+	| 'TestsGitLabServer.RemoteFilesEmpty(Context());' |
 
 @OnServer
 Scenario: RAWFilePath
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.RAWFilePath(Context());' |
+	| 'TestsGitLabServer.RAWFilePath(Context());' |
 
 @OnServer
 Scenario: ListFileActions
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitlabServer.ListFileActions(Context());' |
+	| 'TestsGitLabServer.ListFileActions(Context());' |
