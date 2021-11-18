@@ -69,8 +69,8 @@ C:\Windows\System32\drivers\etc\hosts
 ##### Инициализация информационной базы для разработки сервиса
 
 ```bash
-> docker-compose up init --build -d
-> docker-compose rm init ras -fs
+> docker-compose up --build -d init
+> docker-compose rm -fs init ras
 ```
 
 Строка подключения к информационной базе - `Srvr=srv;Ref=transmitter;`.
@@ -78,7 +78,7 @@ C:\Windows\System32\drivers\etc\hosts
 ##### Запуск разрабатываемого сервиса
 
 ```bash
-> docker-compose up transmitter -d
+> docker-compose up -d transmitter
 ```
 
 ##### Остановка разрабатываемого сервиса

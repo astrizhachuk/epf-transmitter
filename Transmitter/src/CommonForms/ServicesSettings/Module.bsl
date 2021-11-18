@@ -33,9 +33,9 @@ Procedure WriteAndClose( Command )
 EndProcedure
 
 &AtClient
-Procedure TestConnections( Command )
+Procedure CheckServiceStatus( Command )
 	
-	OpenForm( "CommonForm.TestConnections", , , , , , , FormWindowOpeningMode.Independent );
+	OpenForm( "CommonForm.CheckingServiceStatus", , , , , , , FormWindowOpeningMode.Independent );
 
 EndProcedure
 
@@ -46,13 +46,16 @@ EndProcedure
 &AtClient
 Function WriteDataForm()
 	
+	Var Settings;
 	Var Result;
 
 	Result = False;
 	
 	If ( CheckFilling() ) Then
 		
-		WriteAtServer();
+		Settings = ServicesSettingsClientCerver.Settings();
+		FillPropertyValues( Settings, ThisObject );
+		SaveSettings( Settings );
 		RefreshInterface();
 		
 		Result = True;
@@ -63,19 +66,10 @@ Function WriteDataForm()
 	
 EndFunction
 
-&AtServer
-Procedure WriteAtServer()
+&AtServerNoContext
+Procedure SaveSettings( Val Settings )
 	
-	SetPrivilegedMode( True );
-	
-	Constants.HandleRequests.Set( ThisObject.HandleRequests );
-	Constants.TokenGitLab.Set( ThisObject.TokenGitLab );
-	Constants.RoutingFileName.Set( ThisObject.RoutingFileName );
-	Constants.TokenReceiver.Set( ThisObject.TokenReceiver );
-	Constants.TimeoutGitLab.Set( ThisObject.TimeoutGitLab );
-	Constants.TimeoutDeliveryFile.Set( ThisObject.TimeoutDeliveryFile );
-	
-	SetPrivilegedMode( False );
+	ServicesSettings.SetCurrentSettings( Settings );
 	
 EndProcedure
 

@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>Constant.TimeoutGitLab</name>
+		<name>Constant.ExternalStorageTimeout</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -23,14 +23,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.GitLab.URLTemplate.Services.Method.GET</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Constant.TokenGitLab</name>
+		<name>Constant.ExternalStorageToken</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -49,7 +42,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.TestConnections</name>
+		<name>CommonForm.CheckingServiceStatus</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -122,7 +115,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.TimeoutDeliveryFile</name>
+		<name>Constant.DeliveryFileTimeout</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -141,7 +134,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.HandleRequests</name>
+		<name>Constant.IsHandleRequests</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -163,25 +156,6 @@
 		<name>Subsystem.GitLabIntegration</name>
 		<right>
 			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Constant.TokenReceiver</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Update</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Edit</name>
 			<value>true</value>
 		</right>
 	</object>
@@ -273,6 +247,63 @@
 		</right>
 		<right>
 			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.ReceiverPassword</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.ReceiverUserName</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.ReceiverUserPassword</name>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>

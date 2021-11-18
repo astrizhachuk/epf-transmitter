@@ -1,4 +1,18 @@
-#Region Internal
+#Region Public
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetVersion(Framework) Export
+
+	// given
+	// when
+	Result = CommonUseServerCall.GetVersion();
+	// then
+	Framework.AssertEqual(Result, Metadata.Version);
+	
+EndProcedure
 
 // @unit-test:fast
 // Параметры:
@@ -9,13 +23,13 @@ Procedure МокСерверДоступен(Фреймворк) Export
 	// given
 	URL = "http://mockserver:1080";
 	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/receiver.yml", """version"": ""200""");
+	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/endpoint.yml", """version"": ""200""");
 	Мок = Неопределено;
 	// when
 	Результат = HTTPConnector.Get(URL + "/version");
 	// then
 	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
-	ТелоОтвета = HTTPConnector.КакТекст(Результат, КодировкаТекста.UTF8);
+	ТелоОтвета = HTTPConnector.AsText(Результат, КодировкаТекста.UTF8);
 	Фреймворк.ПроверитьВхождение(ТелоОтвета, """message""");
 
 EndProcedure
@@ -39,38 +53,17 @@ EndProcedure
 
 #EndRegion
 
-#Region Private
+#Region Internal
 
-Procedure Пауза(Знач Ждать) Export
-	ОкончаниеПаузы = ТекущаяДата() + Ждать;
-	Пока (Истина) Цикл
-		Если ТекущаяДата() >= ОкончаниеПаузы Тогда
-			Возврат;
-		КонецЕсли; 
-	КонецЦикла; 
-EndProcedure
 
-Function КакТекст(Знач Ответ, Знач Кодировка = Неопределено) Export
+
+Function AsText(Знач Ответ, Знач Кодировка = Неопределено) Export
 	
-	Возврат HTTPConnector.КакТекст(Ответ, Кодировка);
+	Возврат HTTPConnector.AsText(Ответ, Кодировка);
 
 EndFunction
 
-Procedure СправочникиУдалитьВсеДанные( Знач ИменаСправочников ) Export
-	
-	МассивИмен = СтрРазделить(ИменаСправочников, ",");
-	
-	Для Каждого Элемент Из МассивИмен Цикл
-		
-		ЭлементыСправочника = Справочники[СокрЛП(Элемент)].Выбрать();
-		Пока ЭлементыСправочника.Следующий() Цикл
-			Объект = ЭлементыСправочника.ПолучитьОбъект();
-			Объект.Удалить();
-		КонецЦикла;
-	
-	КонецЦикла;
-	
-EndProcedure
+
 
 Procedure РегистрыСведенийУдалитьВсеДанные( Знач ИменаРегистровСведений ) Export
 	
@@ -82,22 +75,5 @@ Procedure РегистрыСведенийУдалитьВсеДанные( Зн
 	КонецЦикла;
 	
 EndProcedure
-
-Function ОтборЖурналаРегистрации( Знач Событие, Знач Уровень = "Информация" ) Export
-	
-	Возврат Новый Структура("StartDate, Level, Event", ТекущаяДата(), УровеньЖурналаРегистрации[Уровень], Событие);
-	
-EndFunction
-
-Function СобытияЖурналаРегистрации( Знач Отбор, Знач Секунд = 2 ) Export
-
-	Пауза(Секунд);
-	Результат = Новый ТаблицаЗначений();
-	ВыгружаемыеКолонки = "Date, EventPresentation, MetadataPresentation, DataPresentation, Comment";
-	ВыгрузитьЖурналРегистрации(Результат, Отбор, ВыгружаемыеКолонки);
-	
-	Возврат Результат;
-	
-EndFunction
 
 #EndRegion

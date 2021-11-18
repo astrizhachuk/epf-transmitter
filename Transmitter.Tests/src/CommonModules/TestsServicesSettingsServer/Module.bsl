@@ -1,86 +1,162 @@
 #Region Internal
 
 // @unit-test
-Procedure CurrentSettings(Фреймворк) Export
-
-	// given		
-	Константы.HandleRequests.Установить(Истина);
-	Константы.RoutingFileName.Установить("FileName.json");
-	Константы.TokenGitLab.Установить("TokenGitLab");
-	Константы.TimeoutGitLab.Установить(998);
-	Константы.TokenReceiver.Установить("TokenReceiver");
-	Константы.TimeoutDeliveryFile.Установить(999);
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure Settings(Framework) Export
+	
+	// given
+	Result = Undefined;
 	// when
-	Результат = ServicesSettings.CurrentSettings();
+	Result = ServicesSettingsClientCerver.Settings();
 	// then
-	Фреймворк.ПроверитьТип(Результат, "ФиксированнаяСтруктура");
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 6);
-	Фреймворк.ПроверитьИстину(Результат.IsHandleRequests);
-	Фреймворк.ПроверитьРавенство(Результат.RoutingFileName, "FileName.json");
-	Фреймворк.ПроверитьРавенство(Результат.TokenGitLab, "TokenGitLab");		
-	Фреймворк.ПроверитьРавенство(Результат.TimeoutGitLab, 998);		
-	Фреймворк.ПроверитьРавенство(Результат.TokenReceiver, "TokenReceiver");
-	Фреймворк.ПроверитьРавенство(Результат.TimeoutDeliveryFile, 999);		
+	Framework.AssertEqual(Result.Count(), 7);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure CurrentSettings(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Constants.IsHandleRequests.Set(True);
+	Constants.RoutingFileName.Set("FileName" + Right(TIME, 5));
+	Constants.ExternalStorageToken.Set("StorageToken" + Right(TIME, 8));
+	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
+	Constants.ReceiverUserName.Set("UserName" + Right(TIME, 10));
+	Constants.ReceiverUserPassword.Set("UserPassword" + Right(TIME, 10));
+	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4))-1);
+	// when
+	Result = ServicesSettings.CurrentSettings();
+	// then
+	Framework.AssertEqual(Result.Количество(), 7);
+	Framework.AssertTrue(Result.IsHandleRequests);
+	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
+	Framework.AssertEqual(Result.ExternalStorageToken, "StorageToken" + Right(TIME, 8));		
+	Framework.AssertEqual(Result.ExternalStorageTimeout, Number(Right(TIME, 4)));		
+	Framework.AssertEqual(Result.ReceiverUserName, "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Result.ReceiverUserPassword, "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Result.DeliveryFileTimeout, Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
 // @unit-test
-Procedure RoutingFileName(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SetCurrentSettings(Framework) Export
 
-	// given		
-	Константы.RoutingFileName.Установить("НовоеFileName.json");
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Constants.IsHandleRequests.Set(Undefined);
+	Constants.RoutingFileName.Set(Undefined);
+	Constants.ExternalStorageToken.Set(Undefined);
+	Constants.ExternalStorageTimeout.Set(Undefined);
+	Constants.ReceiverUserName.Set(Undefined);
+	Constants.ReceiverUserPassword.Set(Undefined);
+	Constants.DeliveryFileTimeout.Set(Undefined);
+	Settings = New Structure();
+	Settings.Insert( "IsHandleRequests", True );
+	Settings.Insert( "RoutingFileName", "FileName" + Right(TIME, 5));
+	Settings.Insert( "ExternalStorageToken", "StorageToken" + Right(TIME, 8));
+	Settings.Insert( "ExternalStorageTimeout", Number(Right(TIME, 4)));
+	Settings.Insert( "ReceiverUserName", "UserName" + Right(TIME, 10));
+	Settings.Insert( "ReceiverUserPassword", "UserPassword" + Right(TIME, 10));
+	Settings.Insert( "DeliveryFileTimeout", Number(Right(TIME, 4))-1);
 	// when
-	Результат = ServicesSettings.RoutingFileName();
+	ServicesSettings.SetCurrentSettings(Settings);
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, "НовоеFileName.json");
+	Framework.AssertTrue(Constants.IsHandleRequests.Get());
+	Framework.AssertEqual(Constants.RoutingFileName.Get(), "FileName" + Right(TIME, 5));
+	Framework.AssertEqual(Constants.ExternalStorageToken.Get(), "StorageToken" + Right(TIME, 8));		
+	Framework.AssertEqual(Constants.ExternalStorageTimeout.Get(), Number(Right(TIME, 4)));		
+	Framework.AssertEqual(Constants.ReceiverUserName.Get(), "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Constants.ReceiverUserPassword.Get(), "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Constants.DeliveryFileTimeout.Get(), Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
 // @unit-test
-Procedure TokenGitLab(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure IsHandleRequestsTrue(Framework) Export
 
-	// given		
-	Константы.TokenGitLab.Установить("NewTokenGitLab");
+	// given
+	Constants.IsHandleRequests.Set(True);
 	// when
-	Результат = ServicesSettings.TokenGitLab();
+	Result = ServicesSettings.IsHandleRequests();
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, "NewTokenGitLab");
+	Framework.AssertTrue(Result);
 
 EndProcedure
 
 // @unit-test
-Procedure TimeoutGitLab(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure IsHandleRequestsFalse(Framework) Export
 
-	// given		
-	Константы.TimeoutGitLab.Установить(5);
+	// given
+	Constants.IsHandleRequests.Set(False);
 	// when
-	Результат = ServicesSettings.TimeoutGitLab();
+	Result = ServicesSettings.IsHandleRequests();
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, 5);
+	Framework.AssertFalse(Result);
 
 EndProcedure
 
 // @unit-test
-Procedure TimeoutDeliveryFile(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ReceiverUserName(Framework) Export
 
-	// given		
-	Константы.TimeoutDeliveryFile.Установить(9);
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	UserName = "UserName" + Right(TIME, 10);			
+	Constants.ReceiverUserName.Set(UserName);
 	// when
-	Результат = ServicesSettings.TimeoutDeliveryFile();
+	Result = ServicesSettings.ReceiverUserName();
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, 9);
+	Framework.AssertEqual(Result, UserName);
 
 EndProcedure
 
 // @unit-test
-Procedure TokenReceiver(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ReceiverUserPassword(Framework) Export
 
-	// given		
-	Константы.TokenReceiver.Установить("NewTokenReceiver");
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	UserPassword = "UserPassword" + Right(TIME, 10);			
+	Constants.ReceiverUserPassword.Set(UserPassword);
 	// when
-	Результат = ServicesSettings.TokenReceiver();
+	Result = ServicesSettings.ReceiverUserPassword();
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, "NewTokenReceiver");
+	Framework.AssertEqual(Result, UserPassword);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure DeliveryFileTimeout(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
+	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
+	// when
+	Result = ServicesSettings.DeliveryFileTimeout();
+	// then
+	Framework.AssertEqual(Result, Number(Right(TIME, 4)));
 
 EndProcedure
 

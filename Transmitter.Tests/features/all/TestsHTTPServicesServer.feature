@@ -9,59 +9,29 @@ Feature: Transmitter.Tests.TestsHTTPServicesServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ResponseTemplate
+Scenario: CreateMessage
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ResponseTemplate(Context());' |
+	| 'TestsHTTPServicesServer.CreateMessage(Context());' |
 
 @OnServer
-Scenario: ServiceDescriptionByNameServiceNotExists
+Scenario: SetBodyAsJSON
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByNameServiceNotExists(Context());' |
+	| 'TestsHTTPServicesServer.SetBodyAsJSON(Context());' |
 
 @OnServer
-Scenario: ServiceDescriptionByNameServiceExists
+Scenario: VersionGet200Ok
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByNameServiceExists(Context());' |
+	| 'TestsHTTPServicesServer.VersionGet200Ok(Context());' |
 
 @OnServer
-Scenario: ServiceDescriptionByURLBadURL
+Scenario: GitLabStatusGet200OkEnabled
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURLBadURL(Context());' |
+	| 'TestsHTTPServicesServer.GitLabStatusGet200OkEnabled(Context());' |
 
 @OnServer
-Scenario: ServiceDescriptionByURLEmptyURL
+Scenario: GitLabStatusGet200OkDisabled
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURLEmptyURL(Context());' |
-
-@OnServer
-Scenario: ServiceDescriptionByURLURLBadType
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURLURLBadType(Context());' |
-
-@OnServer
-Scenario: ServiceDescriptionByURLBadServiceName
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURLBadServiceName(Context());' |
-
-@OnServer
-Scenario: ServiceDescriptionByURLDeserializationError
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURLDeserializationError(Context());' |
-
-@OnServer
-Scenario: ServiceDescriptionByURL404NotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURL404NotFound(Context());' |
-
-@OnServer
-Scenario: ServiceDescriptionByURL
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServiceDescriptionByURL(Context());' |
-
-@OnServer
-Scenario: ServicesGET
-	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.ServicesGET(Context());' |
+	| 'TestsHTTPServicesServer.GitLabStatusGet200OkDisabled(Context());' |
 
 @OnServer
 Scenario: WebhooksPOST

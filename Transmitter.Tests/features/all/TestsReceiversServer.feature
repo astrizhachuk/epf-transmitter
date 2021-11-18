@@ -9,56 +9,41 @@ Feature: Transmitter.Tests.TestsReceiversServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ConnectionParams
+Scenario: GetConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.ConnectionParams(Context());' |
+	| 'TestsReceiversServer.GetConnectionParams(Context());' |
 
 @OnServer
-Scenario: ConnectionParamsNegativeTimeout
+Scenario: SendFileErrorWithoutEndpointAndEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.ConnectionParamsNegativeTimeout(Context());' |
+	| 'TestsReceiversServer.SendFileErrorWithoutEndpointAndEvent(Context());' |
 
 @OnServer
-Scenario: SendFileWithoutSendParamsAndWithoutEventParams
+Scenario: SendFileErrorWithoutEndpoint
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileWithoutSendParamsAndWithoutEventParams(Context());' |
+	| 'TestsReceiversServer.SendFileErrorWithoutEndpoint(Context());' |
 
 @OnServer
-Scenario: SendFileWithoutSendParamsAndEventParamsExists
+Scenario: SendFile4xxError
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileWithoutSendParamsAndEventParamsExists(Context());' |
+	| 'TestsReceiversServer.SendFile4xxError(Context());' |
 
 @OnServer
-Scenario: SendFileError403ForbiddenWithoutEventParams
+Scenario: SendFile200OkWithoutEventLogging
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileError403ForbiddenWithoutEventParams(Context());' |
+	| 'TestsReceiversServer.SendFile200OkWithoutEventLogging(Context());' |
 
 @OnServer
-Scenario: SendFileError403ForbiddenEventParamsExists
+Scenario: SendFile200OkWithEventLogging
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileError403ForbiddenEventParamsExists(Context());' |
+	| 'TestsReceiversServer.SendFile200OkWithEventLogging(Context());' |
 
 @OnServer
-Scenario: SendFile200OkWithoutEventParams
+Scenario: SendFileBackgroundJobError
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFile200OkWithoutEventParams(Context());' |
+	| 'TestsReceiversServer.SendFileBackgroundJobError(Context());' |
 
 @OnServer
-Scenario: SendFile200OkEventParamsExists
+Scenario: SendFileBackgroundJob200OkMultipleFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFile200OkEventParamsExists(Context());' |
-
-@OnServer
-Scenario: SendFileWithoutSendParamsBackgroundJob
-	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileWithoutSendParamsBackgroundJob(Context());' |
-
-@OnServer
-Scenario: SendFileBackgroundJobSingleFile200OkEventParamsExists
-	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileBackgroundJobSingleFile200OkEventParamsExists(Context());' |
-
-@OnServer
-Scenario: SendFileBackgroundJobMultipleFiles200OkEventParamsExists
-	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileBackgroundJobMultipleFiles200OkEventParamsExists(Context());' |
+	| 'TestsReceiversServer.SendFileBackgroundJob200OkMultipleFiles(Context());' |

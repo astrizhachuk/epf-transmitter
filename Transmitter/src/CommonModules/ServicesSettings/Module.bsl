@@ -1,28 +1,22 @@
 #Region Public
 
-// CurrentSettings returns a fixed structure with all the current settings.
+// CurrentSettings returns all the current settings.
 // 
-// Parameters:
 // Returns:
-// FixedStructure - description:
-// * IsHandleRequests - Boolean - (see Constants.HandleRequests);
-// * RoutingFileName - String - (see Constants.RoutingFileName);
-// * TokenGitLab - String - (see Constants.TokenGitLab);
-// * TimeoutGitLab - Number - (see Constants.TimeoutGitLab);
-// * TokenReceiver - String - (see Constants.TokenReceiver);
-// * TimeoutDeliveryFile - Number - (see Constants.TimeoutDeliveryFile);
+// FixedStructure - (see ServicesSettingsClientCerver.Settings);
 //
 Function CurrentSettings() Export
 	
 	Var Result;
 
-	Result = New Structure();
-	Result.Insert( "IsHandleRequests", IsHandleRequests() );
-	Result.Insert( "RoutingFileName", RoutingFileName() );
-	Result.Insert( "TokenGitLab", TokenGitLab() );
-	Result.Insert( "TimeoutGitLab", TimeoutGitLab() );
-	Result.Insert( "TokenReceiver", TokenReceiver() );
-	Result.Insert( "TimeoutDeliveryFile", TimeoutDeliveryFile() );
+	Result = ServicesSettingsClientCerver.Settings();
+	Result.IsHandleRequests = IsHandleRequests();
+	Result.RoutingFileName = RoutingFileName();
+	Result.ExternalStorageToken = ExternalStorageToken();
+	Result.ExternalStorageTimeout = ExternalStorageTimeout();
+	Result.ReceiverUserName = ReceiverUserName();
+	Result.ReceiverUserPassword = ReceiverUserPassword();
+	Result.DeliveryFileTimeout = DeliveryFileTimeout();
 	
 	Result = New FixedStructure( Result );
 
@@ -30,64 +24,64 @@ Function CurrentSettings() Export
 	
 EndFunction
 
-// RoutingFileName the constant value with the name of the Routing settings file located in the project root.
+// SetCurrentSettings sets the values of the current settings.
 //
 // Parameters:
-// Returns:
-// 	String - file name (max. 50 chars);
+// 	Settings - Structure - (see ServicesSettingsClientCerver.Settings);
 //
-Function RoutingFileName() Export
-	
-	Return Constants.RoutingFileName.Get();
-	
-EndFunction
+Procedure SetCurrentSettings( Val Settings ) Export
 
-// TokenGitLab returns the constant value from the private token of a GitLab user
-// with access to the GitLab API.
+	Constants.IsHandleRequests.Set( Settings.IsHandleRequests );
+	Constants.ExternalStorageToken.Set( Settings.ExternalStorageToken );
+	Constants.RoutingFileName.Set( Settings.RoutingFileName );
+	Constants.ReceiverUserName.Set( Settings.ReceiverUserName );
+	Constants.ReceiverUserPassword.Set( Settings.ReceiverUserPassword );
+	Constants.ExternalStorageTimeout.Set( Settings.ExternalStorageTimeout );
+	Constants.DeliveryFileTimeout.Set( Settings.DeliveryFileTimeout );
+	
+EndProcedure
+
+// IsHandleRequests returns true if external storage requests should be handled, otherwise false.
 // 
-// Parameters:
 // Returns:
-// 	String - value of PRIVATE-TOKEN (max. 50 chars);
+// 	Boolean - True - to handle requests, otherwise - False;
+//
+Function IsHandleRequests() Export
+
+	Return Constants.IsHandleRequests.Get();
+
+EndFunction
+
+// ReceiverUserName returns the user name to connect to the endpoint infobase.
 // 
-Function TokenGitLab() Export
-	
-	Return Constants.TokenGitLab.Get();
-	
-EndFunction
-
-// TimeoutGitLab returns the constant value with the connection timeout to the GitLab server.
-//
-// Parameters:
 // Returns:
-// 	Number - the connection timeout, sec (0 - timeout is not set);
+// 	String - user name (max. 256 chars);
 //
-Function TimeoutGitLab() Export
+Function ReceiverUserName() Export
 	
-	Return Constants.TimeoutGitLab.Get();
-
-EndFunction
-
-// TimeoutDeliveryFile returns the constant value with the connection timeout to the receiver.
-//
-// Parameters:
-// Returns:
-// 	Number - the connection timeout, sec (0 - timeout is not set);
-//
-Function TimeoutDeliveryFile() Export
-	
-	Return Constants.TimeoutDeliveryFile.Get();
+	Return Constants.ReceiverUserName.Get();
 	
 EndFunction
 
-// TokenReceiver returns the constant value used to connect to file delivery end-point services.
+// ReceiverUserPassword returns the user password to connect to the endpoint infobase.
 // 
-// Parameters:
 // Returns:
-// 	String - value of token (max. 20 chars);
+// 	String - user password (max. 256 chars);
 //
-Function TokenReceiver() Export
+Function ReceiverUserPassword() Export
 	
-	Return Constants.TokenReceiver.Get();
+	Return Constants.ReceiverUserPassword.Get();
+	
+EndFunction
+
+// DeliveryFileTimeout returns the connection timeout to the endpoint infobase.
+//
+// Returns:
+// 	Number - the connection timeout, sec. (0 - timeout is not set);
+//
+Function DeliveryFileTimeout() Export
+	
+	Return Constants.DeliveryFileTimeout.Get();
 	
 EndFunction
 
@@ -95,15 +89,36 @@ EndFunction
 
 #Region Private
 
-// IsHandleRequests returns the value of the setting of processing requests from the GitLab repository.
+// RoutingFileName returns the name of the routing settings file.
 //
-// Parameters:
 // Returns:
-// 	Boolean - True - to process requests, otherwise - False;
+// 	String - file name (max. 50 chars);
 //
-Function IsHandleRequests()
+Function RoutingFileName()
 	
-	Return Constants.HandleRequests.Get();
+	Return Constants.RoutingFileName.Get();
+	
+EndFunction
+
+// ExternalStorageToken returns a token to connect to external storage, like GitLab API.
+//
+// Returns:
+// 	String - a token (max. 50 chars);
+// 
+Function ExternalStorageToken()
+	
+	Return Constants.ExternalStorageToken.Get();
+	
+EndFunction
+
+// ExternalStorageTimeout returns the connection timeout to external storage, like GitLab.
+//
+// Returns:
+// 	Number - the connection timeout, sec. (0 - timeout is not set);
+//
+Function ExternalStorageTimeout()
+	
+	Return Constants.ExternalStorageTimeout.Get();
 
 EndFunction
 

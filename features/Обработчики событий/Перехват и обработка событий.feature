@@ -1,6 +1,6 @@
 ﻿#language: ru
 
-@Mock
+@UseMockserver
 
 Функционал: Перехват и обработка запроса с сервера GitLab
 
@@ -11,19 +11,19 @@
 Контекст:
 	Дано Я подключаю TestClient "Этот клиент" логин "Пользователь" пароль ""
 	И Я очищаю MockServer
-	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-routing.json"
-	И Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-epf-push.json"
+	И Я создаю Expectation из файла "/tmp/expectations/routing.json"
+	И Я создаю Expectation из файла "/tmp/expectations/push.json"
 	И я удаляю все элементы Справочника "Webhooks"
 	И я удаляю все записи РегистрСведений "QueryData"
 	И я удаляю все записи РегистрСведений "RemoteFiles"
 	И я закрыл все окна клиентского приложения
-	И Я настраиваю сервис работы с GitLab для функционального тестирования
+	И Я заполняю настройки сервиса работы с GitLab тестовыми значениями
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики событий'
 	Тогда открылось окно 'Обработчики событий'
 
 Сценарий: Я проверяю что запрос с сервера GitLab перехвачен и обработан
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
+	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 
@@ -99,7 +99,7 @@
 
 Сценарий: Я проверяю что повторно отправленный запрос (вручную) был обработан
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
+	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
@@ -122,7 +122,7 @@
 
 Сценарий: Я проверяю что повторно отправленный запрос (вручную) был обработан c изменением маршрутизации
 
-	Пусть Я создаю Expectation с телом запроса "/home/usr1cv8/test/expectation-endpoints.json"
+	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5

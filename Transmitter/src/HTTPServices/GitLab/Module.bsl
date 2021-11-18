@@ -2,22 +2,12 @@
 
 #Область Methods
 
-Function ServicesGET( Request )
+Function StatusGet(Request)
 	
-	Var Service;
-	Var Body;
 	Var Response;
 	
-	Response = New HTTPServiceResponse( HTTPStatusCodesClientServerCached.FindCodeById("OK") );
-	
-	Service = HTTPServices.ServiceDescriptionByName( "gitlab" );
-	
-	Body = New Structure();
-	Body.Insert( "version", Metadata.Version );
-	Body.Insert( "services", Service );
-	
-	Response.Headers.Insert( "Content-Type", "application/json" );
-	Response.SetBodyFromString( HTTPConnector.ОбъектВJson(Body) );
+	Response = New HTTPServiceResponse( FindCodeById("OK") );
+	HTTPServices.SetBodyAsJSON( Response, GitLab.GetStatusMessage() );
 	
 	Return Response;
 	
@@ -64,6 +54,12 @@ Function WebhooksPOST( Request )
 EndFunction
 
 #EndRegion
+
+Function FindCodeById( Val Id )
+	
+	Return HTTPStatusCodesClientServerCached.FindCodeById( Id );
+	
+EndFunction
 
 Procedure CheckToken( Webhook, Val Request, Response )
 
@@ -221,7 +217,7 @@ Procedure DeserializeRequestBody( Val Webhook, Val Request, Val Response, QueryD
 		ConversionParams.Insert( "ReadToMap", True );
 		ConversionParams.Insert( "PropertiesWithDateValuesNames", "timestamp" );
 		
-		QueryData = HTTPConnector.JsonВОбъект( Stream, , ConversionParams );
+		QueryData = HTTPConnector.JsonToObject( Stream, , ConversionParams );
 		CommonUseServerCall.AppendCollectionFromStream( QueryData, "json", Stream );
 		
 		Stream.Close();

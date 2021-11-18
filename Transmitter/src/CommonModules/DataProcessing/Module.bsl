@@ -231,7 +231,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	FILES_SENT_MESSAGE = NStr( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
 	RUNNING_JOBS_MESSAGE = NStr( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
 	
-	SendParams = Receivers.ConnectionParams();
+	SendParams = Receivers.GetConnectionParams();
 	
 	FilesCounter = 0;
 	JobsCounter = 0; 

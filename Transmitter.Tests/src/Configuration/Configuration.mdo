@@ -49,14 +49,16 @@
   </languages>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessing</commonModules>
-  <commonModules>CommonModule.TestsGitlabServer</commonModules>
+  <commonModules>CommonModule.TestsGitLabServer</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsReceiversServer</commonModules>
   <commonModules>CommonModule.TestsRoutingServer</commonModules>
+  <commonModules>CommonModule.TestsServicesSettingsClient</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.TestsStringsClient</commonModules>
   <commonModules>CommonModule.TestsStringsServer</commonModules>
   <commonModules>CommonModule.TestsWebhooksServer</commonModules>
   <commonModules>CommonModule.TestsLoggingServer</commonModules>
+  <commonModules>CommonModule.UtilsServer</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

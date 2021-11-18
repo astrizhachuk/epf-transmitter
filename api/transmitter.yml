@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Внешние обработки (transmitter)
+  description: |
+    Распределение внешних обработок по информационным базам
+  contact:
+    email: a.strizhachuk@yandex.ru
+  version: 2.0.0
+servers:
+  - url: http://transmitter/api/hs
+    description: develop
+tags:
+  - name: default
+  - name: gitlab
+paths:
+  /version:
+    get:
+      summary: Версия конфигурации
+      operationId: version
+      responses:
+        '200':
+          description: Текущая версия
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: 1.0.0
+  /gitlab/status:
+    get:
+      tags:
+        - gitlab
+      summary: Статус функциональности обработки запросов
+      description: |
+        Показывает текущий статус функциональности обработки запросов
+        внешних хранилищ (репозиториев)
+      operationId: status
+      responses:
+        '200':
+          description: Текущий статус
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message'
+              examples:
+                enabled:
+                  summary: Включено
+                  value:
+                    message: обработка запросов включена
+                disabled:
+                  summary: Отключено
+                  value:
+                    message: обработка запросов отключена
+  /gitlab/events/push:
+    post:
+      tags:
+        - gitlab
+      summary: Событие "push events"
+      description: |
+        Обработка запроса GitLab с событием "push events"
+      operationId: gitlabPush
+      parameters:
+      - name: X-Gitlab-Event
+        in: header
+        description: X-Gitlab-Event
+        required: true
+        schema:
+          type: string
+          enum:
+            - Push Hook
+      responses:
+        200:
+          description: Успех
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "info"
+                message: "Запрос обработан."
+        400:
+          description: Ошибочный запрос
+        403:
+          description: Доступ закрыт
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "warning"
+                message: "Секретный ключ не найден."
+        423:
+          description: Функционал отключен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+              example:
+                type: "warning"
+                message: "Загрузка из внешнего хранилища отключена."
+      security:
+      - api_key: []
+components:
+  schemas:
+    message:
+      type: object
+      properties:
+        message:
+          type: string
+    response:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - info
+          - warning
+          - error
+        message:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Gitlab-Token
+      in: header

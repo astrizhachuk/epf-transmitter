@@ -1,5 +1,16 @@
 #Region Public
 
+// GetVersion returns the version of the configuration.
+// 
+// Returns:
+// 	String - version;
+//
+Function GetVersion() Export
+	
+	Return Metadata.Version;
+	
+EndFunction
+
 #Region Stream
 
 // AppendCollectionFromStream adds an item to the collection with the value read from the stream.
