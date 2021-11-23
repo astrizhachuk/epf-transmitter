@@ -12,6 +12,14 @@ Procedure Pause(Val Wait) Export
 	
 EndProcedure
 
+Function GetJSON(Val Filename) Export
+	
+	Result = New TextReader(Filename, TextEncoding.UTF8);
+	
+	Return Result.Read();
+	
+EndFunction
+
 #Region Data
 
 Procedure CatalogCleanUp( Val Names ) Export

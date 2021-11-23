@@ -9,14 +9,14 @@ Feature: Transmitter.Tests.TestsGitLabServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetStatusMessage
+Scenario: GetRequestHandlerStateMessage
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.GetStatusMessage(Context());' |
+	| 'TestsGitLabServer.GetRequestHandlerStateMessage(Context());' |
 
 @OnServer
-Scenario: ConnectionParams
+Scenario: GetConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.ConnectionParams(Context());' |
+	| 'TestsGitLabServer.GetConnectionParams(Context());' |
 
 @OnServer
 Scenario: RemoteFileBadURL

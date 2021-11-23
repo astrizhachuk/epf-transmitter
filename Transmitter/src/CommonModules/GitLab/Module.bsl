@@ -1,12 +1,12 @@
 #Region Public
 
-// GetStatusMessage returns the current status of the request handler as a message object.
+// GetRequestHandlerStateMessage returns the current state of the GitLab request handler as a message object.
 // 
 // Returns:
 // 	Structure - message object:
 // * message - String - text message;
 //
-Function GetStatusMessage() Export
+Function GetRequestHandlerStateMessage() Export
 	
 	Var Result;
 	
@@ -27,28 +27,25 @@ Function GetStatusMessage() Export
 	
 EndFunction
 
-// ConnectionParams returns the connection parameters to the GitLab server.
+// GetConnectionParams returns the connection parameters to the GitLab server.
 // 
 // Parameters:
 // 	URL - String - URL to GitLab server, for example: "http://www.example.org";
 //
 // Returns:
 //	Structure - description:
-// * URL - String - URL to GitLab server;
-// * Token - String - access token to the server from the current settings;
-// * Timeout - Number - the connection timeout from the current settings, sec (0 - timeout is not set);
+// * URL - String - GitLab server URL;
+// * Token - String - access token;
+// * Timeout - Number - connection timeout, sec. (0 - timeout is not set);
 //
-Function ConnectionParams( Val URL ) Export
+Function GetConnectionParams( Val URL ) Export
 	
-	Var CurrentSettings;
 	Var Result;
-	
-	CurrentSettings = ServicesSettings.CurrentSettings();
 	
 	Result = New Structure();
 	Result.Insert( "URL", URL );
-	Result.Insert( "Token", CurrentSettings.ExternalStorageToken );
-	Result.Insert( "Timeout", CurrentSettings.ExternalStorageTimeout );
+	Result.Insert( "Token", ServicesSettings.ExternalStorageToken() );
+	Result.Insert( "Timeout", ServicesSettings.ExternalStorageTimeout() );
 	
 	Return Result;
 	
@@ -57,7 +54,7 @@ EndFunction
 // RemoteFile returns the file from the GitLab server with its description.
 // 
 // Parameters:
-// 	ConnectionParams - (See GitLab.ConnectionParams)
+// 	GetConnectionParams - (see GetConnectionParams)
 // 	FilePath - String - URL-encoded relative URL path to the RAW file, for example
 // 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
@@ -135,7 +132,7 @@ EndFunction
 // RemoteFile returns the files from the GitLab server with its descriptions.
 //
 // Parameters:
-// 	ConnectionParams - (See GitLab.ConnectionParams)
+// 	GetConnectionParams - (see GetConnectionParams)
 // 	FilePaths - Array of String - an array of relative URL paths (URL-encoded) to the files, for example
 // 							 "/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
@@ -218,26 +215,26 @@ Function RemoteFilesWithDescription( Val Webhook, Commits, Project ) Export
 	
 	RECEIVING_MESSAGE = NStr( "ru = 'получение файлов с сервера...';en = 'receiving files from the server...'" );
 	
-	Logging.Info( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, Webhook );
+	Logs.Info( EVENT_MESSAGE_BEGIN, RECEIVING_MESSAGE, Webhook );
 
 	RemoteFiles = AllRemoteFilesByActions( Commits, Project.Id );
 	RemoteFiles = RemoteFilesSliceLast( RemoteFiles );
 	Routing.AddRoutingFilesDescription( RemoteFiles, Commits, Project.Id );
 
-	ConnectionParams = ConnectionParams( Project.URL );
+	ConnectionParams = GetConnectionParams( Project.URL );
 	FillRemoteFilesBinaryData( RemoteFiles, ConnectionParams );	
 
 	For Each RemoteFile In RemoteFiles Do
 		
 		If ( NOT IsBlankString(RemoteFile.ErrorInfo) ) Then
 			
-			Logging.Error( EVENT_MESSAGE, RemoteFile.ErrorInfo, Webhook );
+			Logs.Error( EVENT_MESSAGE, RemoteFile.ErrorInfo, Webhook );
 			
 		EndIf;
 			
 	EndDo;
 	
-	Logging.Info( EVENT_MESSAGE_END, RECEIVING_MESSAGE, Webhook );
+	Logs.Info( EVENT_MESSAGE_END, RECEIVING_MESSAGE, Webhook );
 
 	Return RemoteFiles;	
 	
@@ -295,7 +292,7 @@ Function MergeRequests( Val URL, Val Id ) Export
 	Var Headers;
 	Var AdditionalParams;
 	
-	ConnectionParams = ConnectionParams( URL );
+	ConnectionParams = GetConnectionParams( URL );
 	
 	Headers = New Map();
 	Headers.Insert( "PRIVATE-TOKEN", ConnectionParams.Token );

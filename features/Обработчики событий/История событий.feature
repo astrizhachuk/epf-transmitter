@@ -25,7 +25,7 @@
 
 Сценарий: Загрузка истории событий с отказом от выбора периода загрузки данных
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Проверяем что записей еще нет
@@ -51,7 +51,7 @@
 Сценарий: Загрузка истории событий с выбором по периоду "Сегодня"
 
 	Пусть Я добавляю новый обработчик событий "Тест обработки запроса фэйк" с ключом "фэйк"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 6
 
 	Проверяем что записей еще нет для двух разных обработчиков событий
@@ -138,7 +138,7 @@
 
 Сценарий: Загрузка истории событий с выбором по периоду "Сегодня" с перезаписью записями на "Завтра"
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 1
 
 	Проверяем что записей еще нет

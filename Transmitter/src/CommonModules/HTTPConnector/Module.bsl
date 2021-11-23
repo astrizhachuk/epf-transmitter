@@ -1,3 +1,5 @@
+// BSLLS-off
+// 
 // Connector: handy HTTP-client for 1C:Enterprise 8 platform
 //
 // Copyright 2017-2021 Vladimir Bondarevskiy

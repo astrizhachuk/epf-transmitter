@@ -50,7 +50,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.GitLab.URLTemplate.Webhooks.Method.POST</name>
+		<name>HTTPService.GitLab.URLTemplate.Events.Method.Post</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -79,21 +79,14 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.ReceiverPassword</name>
+		<name>Constant.EndpointUserName</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ReceiverUserName</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Constant.ReceiverUserPassword</name>
+		<name>Constant.EndpointUserPassword</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

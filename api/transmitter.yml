@@ -18,7 +18,7 @@ paths:
       summary: Версия конфигурации
       operationId: version
       responses:
-        '200':
+        "200":
           description: Текущая версия
           content:
             application/json:
@@ -38,12 +38,12 @@ paths:
         внешних хранилищ (репозиториев)
       operationId: status
       responses:
-        '200':
+        "200":
           description: Текущий статус
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/message'
+                $ref: "#/components/schemas/message"
               examples:
                 enabled:
                   summary: Включено
@@ -62,62 +62,49 @@ paths:
         Обработка запроса GitLab с событием "push events"
       operationId: gitlabPush
       parameters:
-      - name: X-Gitlab-Event
-        in: header
-        description: X-Gitlab-Event
-        required: true
-        schema:
-          type: string
-          enum:
-            - Push Hook
+        - name: X-Gitlab-Event
+          in: header
+          description: X-Gitlab-Event
+          required: true
+          schema:
+            type: string
+            enum:
+              - Push Hook
       responses:
-        200:
+        "200":
           description: Успех
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/response'
-              example:
-                type: "info"
-                message: "Запрос обработан."
-        400:
+          content: {}
+        "400":
           description: Ошибочный запрос
-        403:
-          description: Доступ закрыт
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
-              example:
-                type: "warning"
-                message: "Секретный ключ не найден."
-        423:
+                $ref: "#/components/schemas/message"
+        "401":
+          description: Аутентификация не пройдена
+          content: {}
+        "423":
           description: Функционал отключен
+          content: {}
+        "500":
+          description: Ошибка сервера
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: '#/components/schemas/response'
-              example:
-                type: "warning"
-                message: "Загрузка из внешнего хранилища отключена."
+                type: string
+              examples:
+                runtime error:
+                  summary: Ошибка выполнения
+                  value: |
+                    {CommonModule.HTTPConnector.Module(764)}: Ошибка при
+                    вызове метода контекста (ReadJSON)
       security:
-      - api_key: []
+        - api_key: []
 components:
   schemas:
     message:
       type: object
       properties:
-        message:
-          type: string
-    response:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - info
-          - warning
-          - error
         message:
           type: string
   securitySchemes:

@@ -22,8 +22,8 @@
 	И в поле с именем "ExternalStorageToken" я ввожу текст "-U2ssrBsM4rmx85HXzZ1"
 	И в поле с именем "RoutingFileName" я ввожу текст ".ext-epf.json"
 	И в поле с именем "ExternalStorageTimeout" я ввожу текст '5'
-	И в поле с именем "ReceiverUserName" я ввожу текст 'User1'
-	И в поле с именем "ReceiverUserPassword" я ввожу текст 'Password1'	
+	И в поле с именем "EndpointUserName" я ввожу текст 'User1'
+	И в поле с именем "EndpointUserPassword" я ввожу текст 'Password1'	
 	И в поле с именем "DeliveryFileTimeout" я ввожу текст '5'
 
 	И я нажимаю на кнопку 'Записать и закрыть'

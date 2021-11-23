@@ -1,4 +1,4 @@
-#Region Internal
+#Region Public
 
 // @unit-test
 // Параметры:

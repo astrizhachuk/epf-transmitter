@@ -185,7 +185,7 @@ EndProcedure
 
 #Region Private
 
-// FileToSend returns a description of the file to delivery it to the receivers.
+// FileToSend returns a description of the file to delivery it to the endpoint infobases.
 //
 // Returns:
 // 	Structure - description:

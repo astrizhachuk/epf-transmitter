@@ -26,7 +26,7 @@
 
 Сценарий: Я проверяю открытие Merge Request в браузере
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 2
 
 	Когда в таблице "List" я перехожу к строке:
