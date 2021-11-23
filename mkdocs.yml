@@ -1,0 +1,49 @@
+site_name: epf-transmitter
+theme: 
+  name: material
+  language: ru
+  palette:
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: light blue
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+    # Light mode
+    - teal: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - search.highlight
+    - toc.integrate
+    - header.autohide
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: 'https://github.com/astrizhachuk/epf-transmitter'
+extra_css:
+  - 'assets/stylesheets/extra.css'
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - markdown.extensions.toc:
+      permalink: true
+      slugify: !!python/name:pymdownx.slugs.uslugify_cased
+      toc_depth: 2
+plugins:
+  - search:
+      lang: ru
+site_url: 'https://astrizhachuk.github.io/epf-transmitter'
+repo_name: 'astrizhachuk/epf-transmitter'
+repo_url: 'https://github.com/astrizhachuk/epf-transmitter'
+edit_uri: 'edit/master/docs'
