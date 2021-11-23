@@ -1,37 +1,38 @@
-#Region Internal
+#Region Public
 
 // @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetStatusMessage(Framework) Export
+Procedure GetRequestHandlerStateMessage(Framework) Export
 
 	// given
 	Constants.IsHandleRequests.Set(False);
 	Constants.IsHandleRequests.Set(True);
 	// when
-	Result = GitLab.GetStatusMessage();
+	Result = GitLab.GetRequestHandlerStateMessage();
 	// then
 	Framework.AssertStringContains(Result.message, NStr("ru = 'включена';en = 'enabled'" ));
 	
 EndProcedure
 
 // @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure ConnectionParams(Фреймворк) Export
+Procedure GetConnectionParams(Framework) Export
 	
 	// given
-	Константы.ExternalStorageToken.Установить("-U2ssrBsM4rmx85HXzZ1");
-	Константы.ExternalStorageTimeout.Установить(5);
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Constants.ExternalStorageToken.Set("Token" + Right(TIME, 10));
+	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
 	// when
-	Результат = Gitlab.ConnectionParams("http://www.example.org");
+	Result = Gitlab.GetConnectionParams(TIME);
 	// then
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 3);
-	Фреймворк.ПроверитьРавенство(Результат.URL, "http://www.example.org");
-	Фреймворк.ПроверитьРавенство(Результат.Token, "-U2ssrBsM4rmx85HXzZ1");
-	Фреймворк.ПроверитьРавенство(Результат.Timeout, 5);
+	Framework.AssertEqual(Result.Count(), 3);
+	Framework.AssertEqual(Result.URL, TIME);
+	Framework.AssertEqual(Result.Token, "Token" + Right(TIME, 10));
+	Framework.AssertEqual(Result.Timeout, Number(Right(TIME, 4)));
 
 EndProcedure
 

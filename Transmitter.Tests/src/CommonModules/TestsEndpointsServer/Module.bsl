@@ -8,11 +8,11 @@ Procedure GetConnectionParams(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Constants.ReceiverUserName.Set("UserName" + Right(TIME, 10));
-	Constants.ReceiverUserPassword.Set("UserPassword" + Right(TIME, 10));
+	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
+	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
 	// when
-	Result = Receivers.GetConnectionParams();
+	Result = Endpoints.GetConnectionParams();
 	// then
 	Framework.AssertEqual(Result.Количество(), 4);
 	Framework.AssertEqual(Result.URL, "");
@@ -33,7 +33,7 @@ Procedure SendFileErrorWithoutEndpointAndEvent(Framework) Export
 
 	// when
 	Try
-		Result = Receivers.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure());
+		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure());
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -58,7 +58,7 @@ Procedure SendFileErrorWithoutEndpoint(Framework) Export
 	
 	// when
 	Try
-		Result = Receivers.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Event);
+		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Event);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -95,7 +95,7 @@ Procedure SendFile4xxError(Framework) Export
 
 	// when
 	Try
-		Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
+		Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -111,7 +111,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure SendFile200OkWithoutEventLogging(Framework) Export
+Procedure SendFile200OkWithoutEventLog(Framework) Export
 
 	// given	
 	URL = "http://mockserver:1080";
@@ -128,7 +128,7 @@ Procedure SendFile200OkWithoutEventLogging(Framework) Export
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
 	// when
-	Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint);
+	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint);
 	
 	// then
 	Framework.AssertStringContains(Result, URL);
@@ -141,7 +141,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure SendFile200OkWithEventLogging(Framework) Export
+Procedure SendFile200OkWithEventLog(Framework) Export
 	
 	// given
 	WebhookCleanUp();
@@ -163,7 +163,7 @@ Procedure SendFile200OkWithEventLogging(Framework) Export
 	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
 
 	// when
-	Result = Receivers.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
+	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
 	
 	// then
 	Framework.AssertStringContains(Result, CheckoutSHA);
@@ -194,7 +194,7 @@ Procedure SendFileBackgroundJobError(Framework) Export
 	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
 	
 	// when
-	Job = BackgroundJobs.Execute("Receivers.SendFile", JobParams);
+	Job = BackgroundJobs.Execute("Endpoints.SendFile", JobParams);
 	Result = Job.WaitForExecutionCompletion();
 
 	// then
@@ -246,10 +246,10 @@ Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 			JobParams[2] = Endpoint;
 		EndIf;
 		
-		Job = BackgroundJobs.Execute("Receivers.SendFile",
+		Job = BackgroundJobs.Execute("Endpoints.SendFile",
 										JobParams,
 										"Index" + Index,
-										"Test.Receivers.SendFile." + Index);
+										"Test.Endpoints.SendFile." + Index);
 		Result.Добавить(Job.ОжидатьЗавершенияВыполнения(10));
 	EndDo;
 	Pause(3);

@@ -34,16 +34,26 @@ Scenario: IsHandleRequestsFalse
 	| 'TestsServicesSettingsServer.IsHandleRequestsFalse(Context());' |
 
 @OnServer
-Scenario: ReceiverUserName
+Scenario: EndpointUserName
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.ReceiverUserName(Context());' |
+	| 'TestsServicesSettingsServer.EndpointUserName(Context());' |
 
 @OnServer
-Scenario: ReceiverUserPassword
+Scenario: EndpointUserPassword
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.ReceiverUserPassword(Context());' |
+	| 'TestsServicesSettingsServer.EndpointUserPassword(Context());' |
 
 @OnServer
 Scenario: DeliveryFileTimeout
 	And I execute 1C:Enterprise script at server
 	| 'TestsServicesSettingsServer.DeliveryFileTimeout(Context());' |
+
+@OnServer
+Scenario: ExternalStorageToken
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.ExternalStorageToken(Context());' |
+
+@OnServer
+Scenario: ExternalStorageTimeout
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.ExternalStorageTimeout(Context());' |

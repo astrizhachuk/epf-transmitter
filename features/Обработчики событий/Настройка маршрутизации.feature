@@ -21,7 +21,7 @@
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики событий'
 	Тогда открылось окно 'Обработчики событий'
 	И Я добавляю новый обработчик событий "Тест обработки запроса" с ключом "gita"
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 2
 

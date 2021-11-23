@@ -5,7 +5,7 @@
     <valueManagerType typeId="2f0d450c-7912-4c55-8dba-23f506b8dd54" valueTypeId="1b5be132-53f2-484b-8e68-111210a309f3"/>
     <valueKeyType typeId="64301aab-7c09-4a74-8205-3e343373cf8f" valueTypeId="3413e5ef-f27b-4146-bbbb-2a153cfadf2e"/>
   </producedTypes>
-  <name>ReceiverUserName</name>
+  <name>EndpointUserName</name>
   <synonym>
     <key>en</key>
     <value>User</value>

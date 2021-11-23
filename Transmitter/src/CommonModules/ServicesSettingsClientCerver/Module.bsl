@@ -8,8 +8,8 @@
 // * RoutingFileName - String - the name of the routing settings file;
 // * ExternalStorageToken - String - a token for connecting to external storage;
 // * ExternalStorageTimeout - Number - the connection timeout to external storage;
-// * ReceiverUserName - String - endpoint infobase user name;
-// * ReceiverUserPassword - String - endpoint infobase user password;
+// * EndpointUserName - String - endpoint infobase user name;
+// * EndpointUserPassword - String - endpoint infobase user password;
 // * DeliveryFileTimeout - Number - endpoint infobase connection timeout;
 // 
 Function Settings() Export
@@ -21,8 +21,8 @@ Function Settings() Export
 	Result.Insert( "RoutingFileName" );
 	Result.Insert( "ExternalStorageToken" );
 	Result.Insert( "ExternalStorageTimeout" );
-	Result.Insert( "ReceiverUserName" );
-	Result.Insert( "ReceiverUserPassword" );
+	Result.Insert( "EndpointUserName" );
+	Result.Insert( "EndpointUserPassword" );
 	Result.Insert( "DeliveryFileTimeout" );
 	
 	Return Result;

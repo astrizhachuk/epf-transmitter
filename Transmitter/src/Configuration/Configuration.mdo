@@ -53,7 +53,7 @@
     <languageCode>en</languageCode>
   </languages>
   <subsystems>Subsystem.GitLabIntegration</subsystems>
-  <subsystems>Subsystem.Logging</subsystems>
+  <subsystems>Subsystem.Log</subsystems>
   <subsystems>Subsystem.ExternalDependencies</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.FullRights</roles>
@@ -62,13 +62,13 @@
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
   <commonModules>CommonModule.DataProcessing</commonModules>
+  <commonModules>CommonModule.Endpoints</commonModules>
   <commonModules>CommonModule.GitLab</commonModules>
   <commonModules>CommonModule.GitLabCached</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>
   <commonModules>CommonModule.HTTPServices</commonModules>
   <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
-  <commonModules>CommonModule.Logging</commonModules>
-  <commonModules>CommonModule.Receivers</commonModules>
+  <commonModules>CommonModule.Logs</commonModules>
   <commonModules>CommonModule.Routing</commonModules>
   <commonModules>CommonModule.ServicesSettings</commonModules>
   <commonModules>CommonModule.ServicesSettingsClientCerver</commonModules>
@@ -81,8 +81,8 @@
   <constants>Constant.ExternalStorageToken</constants>
   <constants>Constant.ExternalStorageTimeout</constants>
   <constants>Constant.IsHandleRequests</constants>
-  <constants>Constant.ReceiverUserName</constants>
-  <constants>Constant.ReceiverUserPassword</constants>
+  <constants>Constant.EndpointUserName</constants>
+  <constants>Constant.EndpointUserPassword</constants>
   <constants>Constant.RoutingFileName</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>

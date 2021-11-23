@@ -12,6 +12,12 @@ Function FindByToken( Val Token ) Export
 	
 	Var Webhook;
 	
+	if ( NOT ValueIsFilled(Token) ) Then
+		
+		Return Catalogs.Webhooks.EmptyRef();
+		
+	EndIf;
+	
 	Webhook = Catalogs.Webhooks.FindByToken( Token );
 
 	Return ?( ValueIsFilled(Webhook), Webhook[0], Catalogs.Webhooks.EmptyRef() );

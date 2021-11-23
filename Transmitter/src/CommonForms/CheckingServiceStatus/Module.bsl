@@ -32,14 +32,11 @@ EndProcedure
 &AtServerNoContext
 Function GetAuthentication()
 	
-	Var CurrentSettings;
 	Var Result;
 		
-	CurrentSettings = ServicesSettings.CurrentSettings();
-	
 	Result = New Structure();
-	Result.Insert( "User", CurrentSettings.ReceiverUserName );
-	Result.Insert( "Password", CurrentSettings.ReceiverUserPassword );
+	Result.Insert( "User", ServicesSettings.EndpointUserName() );
+	Result.Insert( "Password", ServicesSettings.EndpointUserPassword() );
 	
 	Return Result;
 	

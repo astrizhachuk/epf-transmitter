@@ -3,7 +3,7 @@
 @tree
 @classname=ModuleExceptionPath
 
-Feature: Transmitter.Tests.TestsReceiversServer
+Feature: Transmitter.Tests.TestsEndpointsServer
 	As Developer
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
@@ -11,39 +11,39 @@ Feature: Transmitter.Tests.TestsReceiversServer
 @OnServer
 Scenario: GetConnectionParams
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.GetConnectionParams(Context());' |
+	| 'TestsEndpointsServer.GetConnectionParams(Context());' |
 
 @OnServer
 Scenario: SendFileErrorWithoutEndpointAndEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileErrorWithoutEndpointAndEvent(Context());' |
+	| 'TestsEndpointsServer.SendFileErrorWithoutEndpointAndEvent(Context());' |
 
 @OnServer
 Scenario: SendFileErrorWithoutEndpoint
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileErrorWithoutEndpoint(Context());' |
+	| 'TestsEndpointsServer.SendFileErrorWithoutEndpoint(Context());' |
 
 @OnServer
 Scenario: SendFile4xxError
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFile4xxError(Context());' |
+	| 'TestsEndpointsServer.SendFile4xxError(Context());' |
 
 @OnServer
-Scenario: SendFile200OkWithoutEventLogging
+Scenario: SendFile200OkWithoutEventLog
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFile200OkWithoutEventLogging(Context());' |
+	| 'TestsEndpointsServer.SendFile200OkWithoutEventLog(Context());' |
 
 @OnServer
-Scenario: SendFile200OkWithEventLogging
+Scenario: SendFile200OkWithEventLog
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFile200OkWithEventLogging(Context());' |
+	| 'TestsEndpointsServer.SendFile200OkWithEventLog(Context());' |
 
 @OnServer
 Scenario: SendFileBackgroundJobError
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileBackgroundJobError(Context());' |
+	| 'TestsEndpointsServer.SendFileBackgroundJobError(Context());' |
 
 @OnServer
 Scenario: SendFileBackgroundJob200OkMultipleFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsReceiversServer.SendFileBackgroundJob200OkMultipleFiles(Context());' |
+	| 'TestsEndpointsServer.SendFileBackgroundJob200OkMultipleFiles(Context());' |

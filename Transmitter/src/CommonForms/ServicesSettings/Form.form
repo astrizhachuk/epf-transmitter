@@ -297,10 +297,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupReceiverSettings</name>
+    <name>GroupEndpointSettings</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>ReceiverUserName</name>
+      <name>EndpointUserName</name>
       <id>39</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -308,10 +308,10 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>ReceiverUserName</segments>
+        <segments>EndpointUserName</segments>
       </dataPath>
       <extendedTooltip>
-        <name>ReceiverUserNameExtendedTooltip</name>
+        <name>EndpointUserNameExtendedTooltip</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -326,7 +326,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ReceiverUserNameContextMenu</name>
+        <name>EndpointUserNameContextMenu</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -350,7 +350,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ReceiverUserPassword</name>
+      <name>EndpointUserPassword</name>
       <id>42</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -358,10 +358,10 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>ReceiverUserPassword</segments>
+        <segments>EndpointUserPassword</segments>
       </dataPath>
       <extendedTooltip>
-        <name>ReceiverUserPasswordExtendedTooltip</name>
+        <name>EndpointUserPasswordExtendedTooltip</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -376,7 +376,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ReceiverUserPasswordContextMenu</name>
+        <name>EndpointUserPasswordContextMenu</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -467,14 +467,14 @@
     </userVisible>
     <title>
       <key>en</key>
-      <value>Receivers</value>
+      <value>Endpoints</value>
     </title>
     <title>
       <key>ru</key>
       <value>Информационные базы-получатели</value>
     </title>
     <extendedTooltip>
-      <name>GroupReceiverSettingsExtendedTooltip</name>
+      <name>GroupEndpointSettingsExtendedTooltip</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -731,7 +731,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ReceiverUserName</name>
+    <name>EndpointUserName</name>
     <title>
       <key>en</key>
       <value>User</value>
@@ -755,7 +755,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ReceiverUserPassword</name>
+    <name>EndpointUserPassword</name>
     <title>
       <key>en</key>
       <value>Password</value>

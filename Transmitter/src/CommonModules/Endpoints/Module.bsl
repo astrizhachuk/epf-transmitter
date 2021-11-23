@@ -17,8 +17,8 @@ Function GetConnectionParams() Export
 	
 	Result = New Structure();
 	Result.Insert( "URL", "" );
-	Result.Insert( "User", ServicesSettings.ReceiverUserName() );
-	Result.Insert( "Password", ServicesSettings.ReceiverUserPassword() );
+	Result.Insert( "User", ServicesSettings.EndpointUserName() );
+	Result.Insert( "Password", ServicesSettings.EndpointUserPassword() );
 	Result.Insert( "Timeout", ServicesSettings.DeliveryFileTimeout() );
 	
 	Return Result;
@@ -55,7 +55,6 @@ Function SendFile( Val FileName, Val BinaryData, Val ConnectionParams, EventPara
 		CheckConnectionParams( ConnectionParams ); 
 		
 		Headers = New Map();
-		Headers.Insert( "Token", ConnectionParams.Token );
 		Headers.Insert( "Name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
 		
 		RequestParams = New Structure();
@@ -73,13 +72,13 @@ Function SendFile( Val FileName, Val BinaryData, Val ConnectionParams, EventPara
 			
 		EndIf;
 		
-		LoggingSendFileResult( Message, EventParams, Response.StatusCode );
+		LogSendFileResult( Message, EventParams, Response.StatusCode );
 		
 	Except
 		
 		Message = ErrorInfo().Description;
 		
-		LoggingSendFileResult( Message, EventParams, StatusCode(Response) );
+		LogSendFileResult( Message, EventParams, StatusCode(Response) );
 		
 		Raise Message;
 		
@@ -112,7 +111,8 @@ Procedure CheckConnectionParams( Val SendFileParams )
 	
 	If ( TypeOf(SendFileParams) <> Type("Structure")
 				OR NOT SendFileParams.Property("URL")
-				OR NOT SendFileParams.Property("Token") ) Then
+				OR NOT SendFileParams.Property("User")
+				OR NOT SendFileParams.Property("Password") ) Then
 			
 			Raise MISSING_DELIVERED_MESSAGE;
 			
@@ -138,11 +138,11 @@ Function StatusCode( Val Response )
 	
 EndFunction
 
-Procedure LoggingSendFileResult( Message, Val EventParams, Val StatusCode )
+Procedure LogSendFileResult( Message, Val EventParams, Val StatusCode )
 	
 	Var NewResponse;
 	
-	EVENT_MESSAGE = NStr( "ru = 'Core.ОтправкаДанныхПолучателю';en = 'Core.SendingFileReceiver'" );
+	EVENT_MESSAGE = NStr( "ru = 'Core.ОтправкаДанныхПолучателю';en = 'Core.SendingFileEndpoint'" );
 	
 	Webhook = Undefined;
 	NewResponse = Undefined;
@@ -151,17 +151,17 @@ Procedure LoggingSendFileResult( Message, Val EventParams, Val StatusCode )
 		
 		Webhook = EventParams.Webhook;
 		NewResponse = New HTTPServiceResponse( StatusCode );
-		Message = Logging.AddPrefix( Message, EventParams.CheckoutSHA );
+		Message = Logs.AddPrefix( Message, EventParams.CheckoutSHA );
 			
 	EndIf;
 
 	If ( HTTPStatusCodesClientServerCached.isOk(StatusCode) ) Then
 		
-		Logging.Info( EVENT_MESSAGE, Message, Webhook, NewResponse );
+		Logs.Info( EVENT_MESSAGE, Message, Webhook, NewResponse );
 
 	Else
 		
-		Logging.Error( EVENT_MESSAGE, Message, Webhook, NewResponse );
+		Logs.Error( EVENT_MESSAGE, Message, Webhook, NewResponse );
 		
 	EndIf;
 	

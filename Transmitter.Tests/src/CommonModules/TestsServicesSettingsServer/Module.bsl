@@ -1,4 +1,4 @@
-#Region Internal
+#Region Public
 
 // @unit-test
 // Params:
@@ -27,8 +27,8 @@ Procedure CurrentSettings(Framework) Export
 	Constants.RoutingFileName.Set("FileName" + Right(TIME, 5));
 	Constants.ExternalStorageToken.Set("StorageToken" + Right(TIME, 8));
 	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
-	Constants.ReceiverUserName.Set("UserName" + Right(TIME, 10));
-	Constants.ReceiverUserPassword.Set("UserPassword" + Right(TIME, 10));
+	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
+	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4))-1);
 	// when
 	Result = ServicesSettings.CurrentSettings();
@@ -38,8 +38,8 @@ Procedure CurrentSettings(Framework) Export
 	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
 	Framework.AssertEqual(Result.ExternalStorageToken, "StorageToken" + Right(TIME, 8));		
 	Framework.AssertEqual(Result.ExternalStorageTimeout, Number(Right(TIME, 4)));		
-	Framework.AssertEqual(Result.ReceiverUserName, "UserName" + Right(TIME, 10));
-	Framework.AssertEqual(Result.ReceiverUserPassword, "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Result.EndpointUserName, "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Result.EndpointUserPassword, "UserPassword" + Right(TIME, 10));
 	Framework.AssertEqual(Result.DeliveryFileTimeout, Number(Right(TIME, 4))-1);		
 
 EndProcedure
@@ -56,16 +56,16 @@ Procedure SetCurrentSettings(Framework) Export
 	Constants.RoutingFileName.Set(Undefined);
 	Constants.ExternalStorageToken.Set(Undefined);
 	Constants.ExternalStorageTimeout.Set(Undefined);
-	Constants.ReceiverUserName.Set(Undefined);
-	Constants.ReceiverUserPassword.Set(Undefined);
+	Constants.EndpointUserName.Set(Undefined);
+	Constants.EndpointUserPassword.Set(Undefined);
 	Constants.DeliveryFileTimeout.Set(Undefined);
 	Settings = New Structure();
 	Settings.Insert( "IsHandleRequests", True );
 	Settings.Insert( "RoutingFileName", "FileName" + Right(TIME, 5));
 	Settings.Insert( "ExternalStorageToken", "StorageToken" + Right(TIME, 8));
 	Settings.Insert( "ExternalStorageTimeout", Number(Right(TIME, 4)));
-	Settings.Insert( "ReceiverUserName", "UserName" + Right(TIME, 10));
-	Settings.Insert( "ReceiverUserPassword", "UserPassword" + Right(TIME, 10));
+	Settings.Insert( "EndpointUserName", "UserName" + Right(TIME, 10));
+	Settings.Insert( "EndpointUserPassword", "UserPassword" + Right(TIME, 10));
 	Settings.Insert( "DeliveryFileTimeout", Number(Right(TIME, 4))-1);
 	// when
 	ServicesSettings.SetCurrentSettings(Settings);
@@ -74,8 +74,8 @@ Procedure SetCurrentSettings(Framework) Export
 	Framework.AssertEqual(Constants.RoutingFileName.Get(), "FileName" + Right(TIME, 5));
 	Framework.AssertEqual(Constants.ExternalStorageToken.Get(), "StorageToken" + Right(TIME, 8));		
 	Framework.AssertEqual(Constants.ExternalStorageTimeout.Get(), Number(Right(TIME, 4)));		
-	Framework.AssertEqual(Constants.ReceiverUserName.Get(), "UserName" + Right(TIME, 10));
-	Framework.AssertEqual(Constants.ReceiverUserPassword.Get(), "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Constants.EndpointUserName.Get(), "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Constants.EndpointUserPassword.Get(), "UserPassword" + Right(TIME, 10));
 	Framework.AssertEqual(Constants.DeliveryFileTimeout.Get(), Number(Right(TIME, 4))-1);		
 
 EndProcedure
@@ -114,14 +114,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ReceiverUserName(Framework) Export
+Procedure EndpointUserName(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
 	UserName = "UserName" + Right(TIME, 10);			
-	Constants.ReceiverUserName.Set(UserName);
+	Constants.EndpointUserName.Set(UserName);
 	// when
-	Result = ServicesSettings.ReceiverUserName();
+	Result = ServicesSettings.EndpointUserName();
 	// then
 	Framework.AssertEqual(Result, UserName);
 
@@ -131,14 +131,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ReceiverUserPassword(Framework) Export
+Procedure EndpointUserPassword(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
 	UserPassword = "UserPassword" + Right(TIME, 10);			
-	Constants.ReceiverUserPassword.Set(UserPassword);
+	Constants.EndpointUserPassword.Set(UserPassword);
 	// when
-	Result = ServicesSettings.ReceiverUserPassword();
+	Result = ServicesSettings.EndpointUserPassword();
 	// then
 	Framework.AssertEqual(Result, UserPassword);
 
@@ -155,6 +155,39 @@ Procedure DeliveryFileTimeout(Framework) Export
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
 	// when
 	Result = ServicesSettings.DeliveryFileTimeout();
+	// then
+	Framework.AssertEqual(Result, Number(Right(TIME, 4)));
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ExternalStorageToken(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Token = "Token" + Right(TIME, 10);			
+	Constants.ExternalStorageToken.Set(Token);
+	// when
+	Result = ServicesSettings.ExternalStorageToken();
+	// then
+	Framework.AssertEqual(Result, Token);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ExternalStorageTimeout(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
+	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
+	// when
+	Result = ServicesSettings.ExternalStorageTimeout();
 	// then
 	Framework.AssertEqual(Result, Number(Right(TIME, 4)));
 
