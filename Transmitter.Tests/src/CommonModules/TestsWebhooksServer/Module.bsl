@@ -1,95 +1,5 @@
+// BSLLS-off
 #Region Public
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure FindByTokenEmptyRefIfNumber(Фреймворк) Export
-
-	// given
-	УдалитьВсеWebhooks();
-	// when
-	Результат = Webhooks.FindByToken(1);
-	// then
-	Фреймворк.ПроверитьНеЗаполненность(Результат);
-
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure FindByTokenEmptyRefIfBlankRef(Фреймворк) Export
-
-	// given
-	УдалитьВсеWebhooks();
-	// when
-	Результат = Webhooks.FindByToken("");
-	// then
-	Фреймворк.ПроверитьНеЗаполненность(Результат);
-
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure FindByTokenEmptyRefIfUndefined(Фреймворк) Export
-
-	// given
-	УдалитьВсеWebhooks();
-	// when
-	Результат = Webhooks.FindByToken(Неопределено);
-	// then
-	Фреймворк.ПроверитьНеЗаполненность(Результат);
-
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure FindByTokenEmptyRefIfNotFound(Фреймворк) Export
-
-	// given
-	УдалитьВсеWebhooks();
-	// when
-	Результат = Webhooks.FindByToken("блаблаблаблака");
-	// then
-	Фреймворк.ПроверитьНеЗаполненность(Результат);
-
-EndProcedure
-
-// @unit-test
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
-//
-Procedure FindByToken(Фреймворк) Export
-	
-	// given
-	СекретныйКлюч = "ЮнитТест";
-	УдалитьВсеWebhooks();
-	// Создаем три записи с одинаковым ключом, первая и третья помечены на удаление.
-	ОбработчикСобытия1 = AddWebhook("ЮнитТест1", СекретныйКлюч);
-	ОбработчикСобытия1.ПометкаУдаления = Истина;
-	ОбработчикСобытия1.Записать();
-	ОбработчикСобытия2 = AddWebhook("ЮнитТест2", СекретныйКлюч);
-	ОбработчикСобытия2.ПометкаУдаления = Истина;
-	ОбработчикСобытия2.Записать();
-	Код = ОбработчикСобытия2.Ссылка.Код;
-	ОбработчикСобытия3 = AddWebhook("ЮнитТест3", СекретныйКлюч);
-	ОбработчикСобытия3.ПометкаУдаления = Истина;
-	ОбработчикСобытия3.Записать();
-	ОбработчикСобытия2.ПометкаУдаления = Ложь;
-	ОбработчикСобытия2.Записать();
-	// Еще запись, но уже с другим ключом.
-	AddWebhook("ЮнитТест4", СекретныйКлюч + "Бадабумс");
-	// when	
-	Результат = Webhooks.FindByToken(СекретныйКлюч);
-	// then
-	Фреймворк.Что(Результат.Код).Равно(Код);
-	
-EndProcedure
 
 // @unit-test
 // Параметры:
@@ -101,8 +11,8 @@ Procedure LoadEventsHistory(Фреймворк) Export
 	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 	
 	//given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", "ЮнитТест");
 	ЗаписьЖурналаРегистрации(EVENT_OBJECT + ".Операция.Что", УровеньЖурналаРегистрации.Информация );
 	ЗаписьЖурналаРегистрации(EVENT_OBJECT + ".Операция.Что.Что", УровеньЖурналаРегистрации.Информация, Метаданные.НайтиПоТипу(ТипЗнч(ОбработчикСобытия)), ОбработчикСобытия.Ссылка );
@@ -136,8 +46,8 @@ EndProcedure
 Procedure SaveQueryData(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	Данные = "Тест";
@@ -163,8 +73,8 @@ Procedure SaveQueryDataWriteError(Фреймворк) Export
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	Данные = "Тест";
 	// when
 	Попытка
@@ -184,8 +94,8 @@ EndProcedure
 Procedure SaveRemoteFiles(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	Данные = "Тест";
@@ -211,8 +121,8 @@ Procedure SaveRemoteFilesWriteError(Фреймворк) Export
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	Данные = "Тест";
 	// when
 	Попытка
@@ -233,8 +143,8 @@ EndProcedure
 Procedure LoadRemoteFiles(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	
@@ -264,8 +174,8 @@ EndProcedure
 Procedure LoadRemoteFilesNoData(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	// when	
@@ -283,8 +193,8 @@ EndProcedure
 Procedure LoadQueryData(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	
@@ -313,8 +223,8 @@ EndProcedure
 Procedure LoadQueryDataNoData(Фреймворк) Export
 	
 	// given
-	УдалитьВсеWebhooks();
-	ОчиститьРегистрыСведений();
+	WebhookCleanUp();
+	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
 	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
 	// when	
@@ -327,42 +237,41 @@ EndProcedure
 
 #EndRegion
 
-#Region Private
+#Region Internal
 
-Function AddWebhook(Знач Наименование = "", Знач СекретныйКлюч = "") Export
+Function AddWebhook(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
 	
-		ОбработчикСобытия = Catalogs.Webhooks.СоздатьЭлемент();
-		ОбработчикСобытия.Наименование = Наименование;
-		ОбработчикСобытия.SecretToken = СекретныйКлюч;
-		ОбработчикСобытия.Записать();
+		Item = Catalogs.Webhooks.CreateItem();
+		Item.DataExchange.Load = True;
+		Item.Description = Name;
+		Item.ProjectURL = ProjectURL;
+		Item.SecretToken = SecretToken;
+		Item.Write();
 		
-		Возврат ОбработчикСобытия;
+		Return Item;
 	
 EndFunction
 
-Procedure УдалитьВсеWebhooks()
+#EndRegion
+
+#Region Private
+
+Procedure WebhookCleanUp()
 	
 	UtilsServer.CatalogCleanUp("Webhooks");
 
 EndProcedure
 
-Procedure ОчиститьРегистрыСведений()
+Procedure InformationRegistersCleanUp()
 	
-	TestsCommonUseServer.РегистрыСведенийУдалитьВсеДанные("QueryData,RemoteFiles");
+	UtilsServer.InformationRegisterCleanUp("QueryData, RemoteFiles");
 
 EndProcedure
 
-Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
-	
-	Возврат UtilsServer.EventLogFilterByEvent(Событие, Уровень);
-	
+Function NewWebhook(Val Name, Val ProjectURL, Val Token)
+
+	Return TestsWebhooksServer.AddWebhook(Name, ProjectURL, Token);
+
 EndFunction
 
-Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
-	
-	UtilsServer.Pause(Секунд);
-	Возврат UtilsServer.GetEventLog(Отбор);
-	
-EndFunction
-	
 #EndRegion

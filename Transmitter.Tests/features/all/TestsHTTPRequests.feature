@@ -49,9 +49,9 @@ Scenario: EventsPostPush401Unauthorized
 	| 'TestsHTTPRequests.EventsPostPush401Unauthorized(Context());' |
 
 @OnServer
-Scenario: EventsPostPush401UnauthorizedWithoutWebhook
+Scenario: EventsPostPush404NotFound
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush401UnauthorizedWithoutWebhook(Context());' |
+	| 'TestsHTTPRequests.EventsPostPush404NotFound(Context());' |
 
 @OnServer
 Scenario: EventsPostPush423Locked

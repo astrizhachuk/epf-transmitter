@@ -1,34 +1,37 @@
 #Region Public
 
-// FindByToken returns search result from registered and not marked for deletion webhooks.
+// FindByURL returns the search result by URL from records not marked for deletion.
 // 
 // Parameters:
-// 	Token - String - secret token;
+// 	URL - String - search URL;
 // 	
 // Returns:
-// 	Array of CatalogRef.Webhooks - search result from registered and not marked for deletion webhooks or empty array;
+// 	ValueTable - search result as a set of attributes:
+// 	* Ref - CatalogRef.Webhooks - ref to webhook;
+// 	* SecretToken - String - webhook token;
 //
-Function FindByToken( Val Token ) Export
+Function FindByURL( Val URL ) Export
 	
 	Var Query;
 	
-	If ( TypeOf(Token) <> Type("String") OR IsBlankString(Token) ) Then
+	If ( TypeOf(URL) <> Type("String") ) Then
 		
 		Return New Array();
 		
 	EndIf;
 	
 	Query = New Query();
-	Query.SetParameter( "SecretToken", Token );
+	Query.SetParameter( "URL", URL );
 	Query.Text = 	"SELECT
-	               	|	Webhooks.Ссылка AS Ref
-	               	|FROM
-	               	|	Catalog.Webhooks AS Webhooks
-	               	|WHERE
-	               	|	NOT Webhooks.DeletionMark
-	               	|	AND Webhooks.SecretToken = &SecretToken";
+					|	Webhooks.Ref AS Ref,
+					|	Webhooks.SecretToken AS SecretToken
+					|FROM
+					|	Catalog.Webhooks AS Webhooks
+					|WHERE
+					|	NOT Webhooks.DeletionMark
+					|	AND Webhooks.ProjectURL = &URL";
 	
-	Return Query.Execute().Unload().UnloadColumn( "Ref" );
+	Return Query.Execute().Unload();
 	
 EndFunction
 

@@ -1,29 +1,5 @@
 #Region Public
 
-// FindByToken returns search result from registered webhooks.
-// 
-// Parameters:
-// 	Token - String - secret token;
-// 	
-// Returns:
-// 	CatalogRef.Webhooks - search result from registered webhooks or blank ref;
-//
-Function FindByToken( Val Token ) Export
-	
-	Var Webhook;
-	
-	if ( NOT ValueIsFilled(Token) ) Then
-		
-		Return Catalogs.Webhooks.EmptyRef();
-		
-	EndIf;
-	
-	Webhook = Catalogs.Webhooks.FindByToken( Token );
-
-	Return ?( ValueIsFilled(Webhook), Webhook[0], Catalogs.Webhooks.EmptyRef() );
-	
-EndFunction
-
 // LoadEventsHistory loads data from the event log into the object by filter.
 // 
 // Parameters:

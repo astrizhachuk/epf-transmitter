@@ -23,7 +23,7 @@ Procedure CurrentSettings(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	Constants.RoutingFileName.Set("FileName" + Right(TIME, 5));
 	Constants.ExternalStorageToken.Set("StorageToken" + Right(TIME, 8));
 	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
@@ -34,7 +34,7 @@ Procedure CurrentSettings(Framework) Export
 	Result = ServicesSettings.CurrentSettings();
 	// then
 	Framework.AssertEqual(Result.Количество(), 7);
-	Framework.AssertTrue(Result.IsHandleRequests);
+	Framework.AssertTrue(Result.HandleRequests);
 	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
 	Framework.AssertEqual(Result.ExternalStorageToken, "StorageToken" + Right(TIME, 8));		
 	Framework.AssertEqual(Result.ExternalStorageTimeout, Number(Right(TIME, 4)));		
@@ -52,7 +52,7 @@ Procedure SetCurrentSettings(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Constants.IsHandleRequests.Set(Undefined);
+	Constants.HandleRequests.Set(Undefined);
 	Constants.RoutingFileName.Set(Undefined);
 	Constants.ExternalStorageToken.Set(Undefined);
 	Constants.ExternalStorageTimeout.Set(Undefined);
@@ -60,7 +60,7 @@ Procedure SetCurrentSettings(Framework) Export
 	Constants.EndpointUserPassword.Set(Undefined);
 	Constants.DeliveryFileTimeout.Set(Undefined);
 	Settings = New Structure();
-	Settings.Insert( "IsHandleRequests", True );
+	Settings.Insert( "HandleRequests", True );
 	Settings.Insert( "RoutingFileName", "FileName" + Right(TIME, 5));
 	Settings.Insert( "ExternalStorageToken", "StorageToken" + Right(TIME, 8));
 	Settings.Insert( "ExternalStorageTimeout", Number(Right(TIME, 4)));
@@ -70,7 +70,7 @@ Procedure SetCurrentSettings(Framework) Export
 	// when
 	ServicesSettings.SetCurrentSettings(Settings);
 	// then
-	Framework.AssertTrue(Constants.IsHandleRequests.Get());
+	Framework.AssertTrue(Constants.HandleRequests.Get());
 	Framework.AssertEqual(Constants.RoutingFileName.Get(), "FileName" + Right(TIME, 5));
 	Framework.AssertEqual(Constants.ExternalStorageToken.Get(), "StorageToken" + Right(TIME, 8));		
 	Framework.AssertEqual(Constants.ExternalStorageTimeout.Get(), Number(Right(TIME, 4)));		
@@ -84,12 +84,12 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure IsHandleRequestsTrue(Framework) Export
+Procedure HandleRequestsTrue(Framework) Export
 
 	// given
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	// when
-	Result = ServicesSettings.IsHandleRequests();
+	Result = ServicesSettings.HandleRequests();
 	// then
 	Framework.AssertTrue(Result);
 
@@ -99,12 +99,12 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure IsHandleRequestsFalse(Framework) Export
+Procedure HandleRequestsFalse(Framework) Export
 
 	// given
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(False);
 	// when
-	Result = ServicesSettings.IsHandleRequests();
+	Result = ServicesSettings.HandleRequests();
 	// then
 	Framework.AssertFalse(Result);
 

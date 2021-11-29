@@ -32,7 +32,7 @@
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <items xsi:type="form:FormField">
-    <name>IsHandleRequests</name>
+    <name>HandleRequests</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -41,12 +41,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>IsHandleRequests</segments>
+        <segments>HandleRequests</segments>
       </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>IsHandleRequestsExtendedTooltip</name>
+      <name>HandleRequestsExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -61,7 +61,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>IsHandleRequestsContextMenu</name>
+      <name>HandleRequestsContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -612,7 +612,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>IsHandleRequests</name>
+    <name>HandleRequests</name>
     <title>
       <key>en</key>
       <value>Handle external storage requests</value>

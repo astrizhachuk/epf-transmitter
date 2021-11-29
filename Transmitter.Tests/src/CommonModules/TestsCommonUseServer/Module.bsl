@@ -1,6 +1,6 @@
 #Region Public
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -55,25 +55,10 @@ EndProcedure
 
 #Region Internal
 
-
-
 Function AsText(Знач Ответ, Знач Кодировка = Неопределено) Export
 	
 	Возврат HTTPConnector.AsText(Ответ, Кодировка);
 
 EndFunction
-
-
-
-Procedure РегистрыСведенийУдалитьВсеДанные( Знач ИменаРегистровСведений ) Export
-	
-	МассивИмен = СтрРазделить(ИменаРегистровСведений, ",");
-	
-	Для Каждого Элемент Из МассивИмен Цикл
-		НаборЗаписей = РегистрыСведений[СокрЛП(Элемент)].СоздатьНаборЗаписей();
-		НаборЗаписей.Записать();
-	КонецЦикла;
-	
-EndProcedure
 
 #EndRegion

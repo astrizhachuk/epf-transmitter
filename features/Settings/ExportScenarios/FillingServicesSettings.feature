@@ -18,7 +18,7 @@
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Настройки сервисов'
 	Тогда открылось окно 'Настройки сервисов'
 
-	И я устанавливаю флаг с именем 'IsHandleRequests'
+	И я устанавливаю флаг с именем 'HandleRequests'
 	И в поле с именем "ExternalStorageToken" я ввожу текст "-U2ssrBsM4rmx85HXzZ1"
 	И в поле с именем "RoutingFileName" я ввожу текст ".ext-epf.json"
 	И в поле с именем "ExternalStorageTimeout" я ввожу текст '5'

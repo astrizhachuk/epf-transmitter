@@ -9,31 +9,6 @@ Feature: Transmitter.Tests.TestsWebhooksServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: FindByTokenEmptyRefIfNumber
-	And I execute 1C:Enterprise script at server
-	| 'TestsWebhooksServer.FindByTokenEmptyRefIfNumber(Context());' |
-
-@OnServer
-Scenario: FindByTokenEmptyRefIfBlankRef
-	And I execute 1C:Enterprise script at server
-	| 'TestsWebhooksServer.FindByTokenEmptyRefIfBlankRef(Context());' |
-
-@OnServer
-Scenario: FindByTokenEmptyRefIfUndefined
-	And I execute 1C:Enterprise script at server
-	| 'TestsWebhooksServer.FindByTokenEmptyRefIfUndefined(Context());' |
-
-@OnServer
-Scenario: FindByTokenEmptyRefIfNotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsWebhooksServer.FindByTokenEmptyRefIfNotFound(Context());' |
-
-@OnServer
-Scenario: FindByToken
-	And I execute 1C:Enterprise script at server
-	| 'TestsWebhooksServer.FindByToken(Context());' |
-
-@OnServer
 Scenario: LoadEventsHistory
 	And I execute 1C:Enterprise script at server
 	| 'TestsWebhooksServer.LoadEventsHistory(Context());' |

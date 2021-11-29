@@ -111,15 +111,43 @@
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.Webhooks.Form.ItemForm</defaultObjectForm>
+  <attributes uuid="ccba447a-b38a-407b-bf57-3d0295644b1c">
+    <name>ProjectURL</name>
+    <synonym>
+      <key>en</key>
+      <value>URL</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>URL</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>250</length>
+      </stringQualifiers>
+    </type>
+    <toolTip>
+      <key>en</key>
+      <value>Repository URL</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>URL проекта</value>
+    </toolTip>
+    <fillChecking>ShowError</fillChecking>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
   <attributes uuid="55455e9c-9afd-4878-ad8f-a14d78247c46">
     <name>SecretToken</name>
     <synonym>
       <key>en</key>
-      <value>Secret Token</value>
+      <value>Token</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Секретный ключ</value>
+      <value>Токен</value>
     </synonym>
     <type>
       <types>String</types>
@@ -130,9 +158,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillChecking>ShowError</fillChecking>
-    <fillValue xsi:type="core:StringValue">
-      <value></value>
-    </fillValue>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>

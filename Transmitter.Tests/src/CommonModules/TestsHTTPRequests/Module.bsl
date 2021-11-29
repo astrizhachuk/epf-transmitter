@@ -1,4 +1,4 @@
-// BSLLS-выкл.
+// BSLLS-off
 #Region Public
 
 // @unit-test
@@ -28,7 +28,7 @@ EndProcedure
 Procedure GitLabStatusGet200OkEnabled(Framework) Export
 	
 	// given
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/status";
 		
@@ -50,7 +50,7 @@ EndProcedure
 Procedure GitLabStatusGet200OkDisabled(Framework) Export
 	
 	// given
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(False);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/status";
 	
@@ -75,9 +75,9 @@ Procedure EventsPostPush200Ok(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
 	JSON = UtilsServer.GetJSON("/test/requests/push.json");
@@ -101,12 +101,12 @@ Procedure EventsPostPush400BadRequestWithoutToken(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
 	Options = Options("Push Hook", Token);
 	Options.Headers.Delete("X-Gitlab-Token");
 
@@ -129,12 +129,12 @@ Procedure EventsPostPush400BadRequestWithoutEvent(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
 	Options = Options("Push Hook", Token);
 	Options.Headers.Delete("X-Gitlab-Event");
 
@@ -158,12 +158,12 @@ Procedure EventsPostPush400BadRequestWrongEventMethod(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Tag Hook", Token));
@@ -184,12 +184,12 @@ Procedure EventsPostPush401Unauthorized(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", "fake"));
@@ -205,28 +205,29 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure EventsPostPush401UnauthorizedWithoutWebhook(Framework) Export
+Procedure EventsPostPush404NotFound(Framework) Export
 	
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = StrReplace(JSON, """web_url"": ""http://mockserver:1080/root/external-epf""", """web_url"": ""fake""");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", Token));
 	
 	// then
-	Framework.AssertEqual(Result.StatusCode, 401);
+	Framework.AssertEqual(Result.StatusCode, 404);
 	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
 	Framework.AssertTrue(IsBlankString(Body));
 	
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -235,12 +236,12 @@ Procedure EventsPostPush423Locked(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(False);
+	Constants.HandleRequests.Set(False);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = "{}";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
 	
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", Token));
@@ -261,9 +262,9 @@ Procedure EventsPostPush500InternalServerErrorWrongData(Framework) Export
 	// given
 	WebhookCleanUp();
 	
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(True);
 	Token = "token";
-	TestsWebhooksServer.AddWebhook("Test", Token);
+	NewWebhook("Test", "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
 	JSON = "wrong data, there must be JSON";
@@ -288,6 +289,12 @@ Procedure WebhookCleanUp()
 	UtilsServer.CatalogCleanUp("Webhooks");
 
 EndProcedure
+
+Function NewWebhook(Val Name, Val ProjectURL, Val Token)
+
+	Return TestsWebhooksServer.AddWebhook(Name, ProjectURL, Token);
+
+EndFunction
 
 Function Options(Val Event, Val Token)
 	

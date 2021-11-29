@@ -10,7 +10,7 @@ Function CurrentSettings() Export
 	Var Result;
 
 	Result = ServicesSettingsClientCerver.Settings();
-	Result.IsHandleRequests = IsHandleRequests();
+	Result.HandleRequests = HandleRequests();
 	Result.RoutingFileName = RoutingFileName();
 	Result.ExternalStorageToken = ExternalStorageToken();
 	Result.ExternalStorageTimeout = ExternalStorageTimeout();
@@ -31,7 +31,7 @@ EndFunction
 //
 Procedure SetCurrentSettings( Val Settings ) Export
 
-	Constants.IsHandleRequests.Set( Settings.IsHandleRequests );
+	Constants.HandleRequests.Set( Settings.HandleRequests );
 	Constants.ExternalStorageToken.Set( Settings.ExternalStorageToken );
 	Constants.RoutingFileName.Set( Settings.RoutingFileName );
 	Constants.EndpointUserName.Set( Settings.EndpointUserName );
@@ -41,14 +41,14 @@ Procedure SetCurrentSettings( Val Settings ) Export
 	
 EndProcedure
 
-// IsHandleRequests returns true if external storage requests should be handled, otherwise false.
+// HandleRequests returns true if external storage requests should be handled, otherwise false.
 // 
 // Returns:
 // 	Boolean - True - to handle requests, otherwise - False;
 //
-Function IsHandleRequests() Export
+Function HandleRequests() Export
 
-	Return Constants.IsHandleRequests.Get();
+	Return Constants.HandleRequests.Get();
 
 EndFunction
 

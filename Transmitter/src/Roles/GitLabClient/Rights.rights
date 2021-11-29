@@ -134,7 +134,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.IsHandleRequests</name>
+		<name>Constant.HandleRequests</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

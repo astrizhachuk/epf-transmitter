@@ -13,7 +13,7 @@ Function GetRequestHandlerStateMessage() Export
 	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
 	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
 	
-	If ( ServicesSettings.IsHandleRequests() ) Then
+	If ( ServicesSettings.HandleRequests() ) Then
 		
 		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
 		

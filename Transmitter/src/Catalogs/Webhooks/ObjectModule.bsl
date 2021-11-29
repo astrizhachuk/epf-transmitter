@@ -2,7 +2,7 @@
 
 Procedure BeforeWrite( Cancel )
 	
-	Var WebhooksByToken;
+	Var Items;
 	
 	If ( Cancel OR DataExchange.Load ) Then
 		
@@ -10,11 +10,11 @@ Procedure BeforeWrite( Cancel )
 
 	EndIf;
 	
-	WebhooksByToken = Catalogs.Webhooks.FindByToken( ThisObject.SecretToken );
+	Items = Catalogs.Webhooks.FindByURL( ThisObject.ProjectURL );
 	
-	For Each Webhook In WebhooksByToken Do
+	For Each Item In Items Do
 		
-		If ( Webhook = ThisObject.Ref) Then
+		If ( ThisObject.Ref = Item.Ref ) Then
 
 			Continue;
 			

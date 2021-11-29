@@ -83,6 +83,9 @@ paths:
         "401":
           description: Аутентификация не пройдена
           content: {}
+        "404":
+          description: Обработчик события не найден
+          content: {}
         "423":
           description: Функционал отключен
           content: {}
