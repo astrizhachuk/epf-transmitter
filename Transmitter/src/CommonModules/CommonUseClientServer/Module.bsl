@@ -40,9 +40,12 @@ EndProcedure
 // Array;
 // 
 Function CollapseArray(Array) Export
+	
 	Result = New  Array;
 	SupplementArray(Result, Array, True);
+	
 	Return Result;
+	
 EndFunction
 
 // Returns value of the structure property.
@@ -66,6 +69,7 @@ Function StructureProperty(Structure, Key, DefaultValue = Undefined) Export
 	EndIf;
 	
 	Result = DefaultValue;
+	
 	If Structure.Property(Key, Result) Then
 		Return Result;
 	Else

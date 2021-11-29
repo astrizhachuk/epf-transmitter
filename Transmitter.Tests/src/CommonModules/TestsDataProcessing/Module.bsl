@@ -559,7 +559,7 @@ EndProcedure
 
 Procedure ОчиститьРегистрыСведений()
 	
-	TestsCommonUseServer.РегистрыСведенийУдалитьВсеДанные("QueryData,RemoteFiles");
+	UtilsServer.InformationRegistersCleanUp("QueryData,RemoteFiles");
 
 EndProcedure
 

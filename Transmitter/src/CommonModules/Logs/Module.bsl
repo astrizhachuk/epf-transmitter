@@ -12,6 +12,7 @@ Function Messages() Export
 										|en = 'The request is missing a secret key.'" ));
 	Result.Insert( "DESERIALIZING", NStr( "ru = 'Десериализация данных запроса.';
 										|en = 'Deserializing request data.'" ));
+	//todo rename KEY_NOT_FOUND ?
 	Result.Insert( "KEY_NOT_FOUND", NStr( "ru = 'Секретный ключ не найден.';en = 'The Secret Key is not found.'" ));
 	Result.Insert( "LOADING_DISABLED", NStr( "ru = 'Загрузка из внешнего хранилища отключена.';
 											|en = 'Loading of the files is disabled.'" ));
@@ -19,6 +20,10 @@ Function Messages() Export
 											|en = 'Received a request from the GitLab server.'" ));
 	Result.Insert( "REQUEST_PROCESSED", NStr( "ru = 'Запрос с сервера GitLab обработан.';
 											|en = 'The request from the GitLab server has been processed.'" ));
+	Result.Insert( "URL_MISSING", NStr( "ru = 'В теле запроса не указан web_url проекта.';
+											|en = 'The project web_url is not specified in the request body.'" ));
+	Result.Insert( "WEBHOOK_NOT_FOUND", NStr( "ru = 'Обработчик событий не найден.';
+											|en = 'Webhook not found.'" ));
 
 	Return Result;
 	

@@ -4,7 +4,7 @@
 // 
 // Returns:
 // 	Structure - description:
-// * IsHandleRequests - Boolean - True - to handle external storage requests, otherwise - False;
+// * HandleRequests - Boolean - True - to handle external storage requests, otherwise - False;
 // * RoutingFileName - String - the name of the routing settings file;
 // * ExternalStorageToken - String - a token for connecting to external storage;
 // * ExternalStorageTimeout - Number - the connection timeout to external storage;
@@ -17,7 +17,7 @@ Function Settings() Export
 	Var Result;
 
 	Result = New Structure();
-	Result.Insert( "IsHandleRequests" );
+	Result.Insert( "HandleRequests" );
 	Result.Insert( "RoutingFileName" );
 	Result.Insert( "ExternalStorageToken" );
 	Result.Insert( "ExternalStorageTimeout" );

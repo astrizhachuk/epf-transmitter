@@ -24,14 +24,14 @@ Scenario: SetCurrentSettings
 	| 'TestsServicesSettingsServer.SetCurrentSettings(Context());' |
 
 @OnServer
-Scenario: IsHandleRequestsTrue
+Scenario: HandleRequestsTrue
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.IsHandleRequestsTrue(Context());' |
+	| 'TestsServicesSettingsServer.HandleRequestsTrue(Context());' |
 
 @OnServer
-Scenario: IsHandleRequestsFalse
+Scenario: HandleRequestsFalse
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.IsHandleRequestsFalse(Context());' |
+	| 'TestsServicesSettingsServer.HandleRequestsFalse(Context());' |
 
 @OnServer
 Scenario: EndpointUserName

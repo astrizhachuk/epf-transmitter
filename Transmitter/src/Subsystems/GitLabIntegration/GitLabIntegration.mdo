@@ -17,7 +17,7 @@
   <content>CommonModule.HTTPServices</content>
   <content>Role.GitLabClient</content>
   <content>HTTPService.GitLab</content>
-  <content>Constant.IsHandleRequests</content>
+  <content>Constant.HandleRequests</content>
   <content>FunctionalOption.HandleRequests</content>
   <content>Constant.RoutingFileName</content>
   <content>Constant.ExternalStorageToken</content>

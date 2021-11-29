@@ -13,7 +13,7 @@
 
 ## Архитектура решения
 
-* API: [swagger](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-transmitter), [postman](https://documenter.getpostman.com/view/3977639/UVJYKJqF), [local](./api/transmitter.yml).
+* API: [swagger](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-transmitter), [postman](https://documenter.getpostman.com/view/3977639/UVJbHcxQ), [local](./api/transmitter.yml).
 * GitLab Enterprise Edition не ниже 11.4.0-ee.
 * На конечных точках (базах получателях) должен быть реализован API обновления внешний отчетов и обработок: см. [swagger](https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-endpoint), [postman](https://documenter.getpostman.com/view/3977639/UVCCe3qs), [local](./api/endpoint.yml). Пример реализации сервиса для базы-приемника - [epf-endpoint](https://github.com/astrizhachuk/epf-endpoint)
 * Платформа 1С для сервиса не ниже 8.3.17.1549;

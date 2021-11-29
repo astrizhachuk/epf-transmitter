@@ -14,39 +14,38 @@ Function StatusGet(Request)
 EndFunction
 
 Function EventsPost( Request )
-	
-	Var Token;
-	Var Webhook;
+
 	Var Data;
+	Var Credentials;
+	Var Token;
 	Var Response;
 	
 	Logs.Info( Logs.Events().WS_REQUEST_BEGIN, Logs.Messages().REQUEST_RECEIVED );
 
 	Response = New HTTPServiceResponse( FindCodeById("OK") );
 	
-	CheckHeaders( Request, Response );
-	
-	Token = GetHeader( Request, "X-Gitlab-Token" );
-	CheckToken( Response, Token );
-	
-	Webhook = Webhooks.FindByToken( Token );
-	Authenticate( Response, Webhook );	
-	
 	CheckHandleRequestsEnabled( Response );
+
+	CheckHeaders( Request, Response );
 	
 	If ( NOT StatusCodes().isOk(Response.StatusCode) ) Then
 		
 		Return Response;
 		
 	EndIf;
+	
+	Data = GetData( Request );
+	Credentials = Projects.FindCredentials( GetProjectURL(Data) );
 
-	Data = GetData( Request, Response );
+	Token = GetHeader( Request, "X-Gitlab-Token" );
+	
+	Authenticate( Credentials, Token, Response );
 	
 	If ( StatusCodes().isOk(Response.StatusCode) ) Then
 
-		DataProcessing.RunBackgroundJob( Webhook, Data );
+		DataProcessing.RunBackgroundJob( Credentials.Ref, Data );
 		
-	EndIf;
+	EndIf;	
 	
 	Logs.Info( Logs.Events().WS_REQUEST_END, Logs.Messages().REQUEST_PROCESSED, , Response );
 
@@ -94,7 +93,7 @@ Function EventEqualMethodName( Val Request, Val Event )
 	
 EndFunction
 
-Function GetData( Val Request, Val Response )
+Function GetData( Val Request )
 		
 	Var Stream;
 	Var ConversionParams;
@@ -127,6 +126,32 @@ Function GetData( Val Request, Val Response )
 	
 EndFunction
 
+Function GetProjectURL( Val Data )
+
+	Var Result;
+	
+	Try
+		
+		Result = Data.Get( "project" ).Get( "web_url" );
+		
+		If ( Result = Undefined ) Then
+			
+			Raise Logs.Messages().URL_MISSING;
+			
+		EndIf;
+		
+	Except
+		
+		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription( ErrorInfo() ) );
+		
+		Raise;
+		
+	EndTry;
+	
+	Return Result;
+	
+EndFunction
+
 #Region Validations
 
 Procedure CheckHeaders( Val Request, Response )
@@ -146,7 +171,8 @@ Procedure CheckHeaders( Val Request, Response )
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().KEY_MISSING, , Response );
-
+		Return;
+		
 	EndIf;	
 	
 	Event = GetHeader( Request, "X-Gitlab-Event" );
@@ -155,19 +181,21 @@ Procedure CheckHeaders( Val Request, Response )
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_MISSING, , Response );
-
+		Return;
+		
 	EndIf;
 	
 	If ( NOT EventEqualMethodName(Request, Event) ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_WRONG, , Response );
-		
+		Return;
+				
 	EndIf;
 
 EndProcedure
 
-Procedure CheckToken( Response, Val Token )
+Procedure Authenticate( Val Credentials, Val Token, Response )
 	
 	If ( NOT StatusCodes().isOk(Response.StatusCode) ) Then
 		
@@ -175,27 +203,19 @@ Procedure CheckToken( Response, Val Token )
 		
 	EndIf;
 	
-	if ( NOT ValueIsFilled(Token) ) Then
-	
-		Response = New HTTPServiceResponse( FindCodeById("UNAUTHORIZED") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().KEY_MISSING, , Response );
-		
-	EndIf;
-	
-EndProcedure
+	If ( NOT ValueIsFilled(Credentials) ) Then
 
-Procedure Authenticate( Response, Val Webhook )
-	
-	If ( NOT StatusCodes().isOk(Response.StatusCode) ) Then
-		
+		Response = New HTTPServiceResponse( FindCodeById("NOT_FOUND") );
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().WEBHOOK_NOT_FOUND, , Response );
 		Return;
 		
 	EndIf;
 	
-	If ( Webhook.IsEmpty() ) Then
+	If ( Credentials.SecretToken <> Token ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("UNAUTHORIZED") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().KEY_NOT_FOUND, , Response );
+		Return;
 										 
 	EndIf;
 	
@@ -209,7 +229,7 @@ Procedure CheckHandleRequestsEnabled( Response )
 		
 	EndIf;
 	
-	If ( NOT ServicesSettings.IsHandleRequests() ) Then
+	If ( NOT ServicesSettings.HandleRequests() ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("LOCKED") );
 		Response.Reason = "file upload is disabled";

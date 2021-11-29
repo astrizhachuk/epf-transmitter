@@ -11,6 +11,44 @@ Function GetVersion() Export
 	
 EndFunction
 
+#Region SSL
+
+// ValueTableToArray converts a table of values to an array of structures.
+// 
+// Parameters:
+// 	ValueTable - ValueTable - arbitrary table of values;
+// 	
+// Returns:
+// 	Array of Structure - array of structures:
+// 	* Key - column name;
+// 	* Value - value;
+//
+Function ValueTableToArray( ValueTable ) Export
+
+	Array = New Array();
+	StructureString = "";
+	NeedСomma = False;
+	
+	For Each Column In ValueTable.Columns Do
+		If NeedСomma Then
+			StructureString = StructureString + ",";
+		EndIf;
+		StructureString = StructureString + Column.Name;
+		NeedСomma = True;	
+	EndDo;
+	
+	For Each String In ValueTable Do	
+		NewString = New Structure(StructureString);
+		FillPropertyValues(NewString, String);
+		Array.Add(NewString);
+	EndDo;
+	
+	Return Array;
+
+EndFunction
+
+#EndRegion
+
 #Region Stream
 
 // AppendCollectionFromStream adds an item to the collection with the value read from the stream.

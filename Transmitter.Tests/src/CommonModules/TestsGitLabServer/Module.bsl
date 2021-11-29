@@ -7,8 +7,8 @@
 Procedure GetRequestHandlerStateMessage(Framework) Export
 
 	// given
-	Constants.IsHandleRequests.Set(False);
-	Constants.IsHandleRequests.Set(True);
+	Constants.HandleRequests.Set(False);
+	Constants.HandleRequests.Set(True);
 	// when
 	Result = GitLab.GetRequestHandlerStateMessage();
 	// then

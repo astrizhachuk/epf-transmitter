@@ -39,6 +39,19 @@ Procedure CatalogCleanUp( Val Names ) Export
 	
 EndProcedure
 
+Procedure InformationRegisterCleanUp( Val Names ) Export
+	
+	InformationRegisterNames = StrSplit(Names, ",");
+	
+	For Each Element In InformationRegisterNames Do
+		
+		Set = InformationRegisters[TrimAll(Element)].CreateRecordSet();
+		Set.Write();
+		
+	EndDo;
+	
+EndProcedure
+
 #EndRegion
 
 #Region EventLog

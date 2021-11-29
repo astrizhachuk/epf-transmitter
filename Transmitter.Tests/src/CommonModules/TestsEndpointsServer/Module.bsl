@@ -54,7 +54,7 @@ Procedure SendFileErrorWithoutEndpoint(Framework) Export
 	
 	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 	
-	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, "0123456789abcdef");
+	Event = NewEvent(NewWebhook("Test", "Token").Ref, "0123456789abcdef");
 	
 	// when
 	Try
@@ -91,7 +91,7 @@ Procedure SendFile4xxError(Framework) Export
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 	
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
+	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
 
 	// when
 	Try
@@ -160,7 +160,7 @@ Procedure SendFile200OkWithEventLog(Framework) Export
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
+	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
 
 	// when
 	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
@@ -189,7 +189,7 @@ Procedure SendFileBackgroundJobError(Framework) Export
 	
 	Endpoint = New Structure();
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(TestsWebhooksServer.AddWebhook("Test", "Token").Ref, CheckoutSHA);
+	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
 	
 	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
 	
@@ -228,7 +228,7 @@ Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
-	Webhook = TestsWebhooksServer.AddWebhook("Test", "Token");
+	Webhook = NewWebhook("Test", "Token");
 	CheckoutSHA = "0123456789abcdef";		
 	Event = NewEvent(Webhook.Ref, CheckoutSHA);
 	
@@ -286,12 +286,6 @@ Procedure Pause(Val Period)
 	
 EndProcedure
 
-Procedure WebhookCleanUp()
-	
-	UtilsServer.CatalogCleanUp("Webhooks");
-
-EndProcedure
-
 #Region EventLog
 
 Function EventLogFilterByData(Data, Level = "Information")
@@ -309,6 +303,18 @@ EndFunction
 #EndRegion
 
 #Region Data
+
+Procedure WebhookCleanUp()
+	
+	UtilsServer.CatalogCleanUp("Webhooks");
+
+EndProcedure
+
+Function NewWebhook(Val Name, Val Token)
+
+	Return TestsWebhooksServer.AddWebhook(Name, "empty", Token);
+
+EndFunction
 
 Function NewEndpoint(Val URL, Val User, Val Password)
 	
