@@ -11,9 +11,9 @@ Procedure LoadEventsHistory(Фреймворк) Export
 	EVENT_OBJECT = НСтр( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 	
 	//given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", "ЮнитТест");
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", "ЮнитТест");
 	ЗаписьЖурналаРегистрации(EVENT_OBJECT + ".Операция.Что", УровеньЖурналаРегистрации.Информация );
 	ЗаписьЖурналаРегистрации(EVENT_OBJECT + ".Операция.Что.Что", УровеньЖурналаРегистрации.Информация, Метаданные.НайтиПоТипу(ТипЗнч(ОбработчикСобытия)), ОбработчикСобытия.Ссылка );
 	ЗаписьЖурналаРегистрации(EVENT_OBJECT + ".Операция.Что.Что.200", УровеньЖурналаРегистрации.Информация, Метаданные.НайтиПоТипу(ТипЗнч(ОбработчикСобытия)), ОбработчикСобытия.Ссылка );
@@ -46,10 +46,10 @@ EndProcedure
 Procedure SaveQueryData(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	Данные = "Тест";
 	// when	
 	Webhooks.SaveQueryData(ОбработчикСобытия.Ссылка, "CheckoutSHA", Данные);
@@ -73,7 +73,7 @@ Procedure SaveQueryDataWriteError(Фреймворк) Export
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	Данные = "Тест";
 	// when
@@ -94,10 +94,10 @@ EndProcedure
 Procedure SaveRemoteFiles(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	Данные = "Тест";
 	// when	
 	Webhooks.SaveRemoteFiles(ОбработчикСобытия.Ссылка, "CheckoutSHA", Данные);
@@ -121,7 +121,7 @@ Procedure SaveRemoteFilesWriteError(Фреймворк) Export
 	ERROR_WRITE_MESSAGE = НСтр("ru = 'Ошибка при вызове метода контекста (Write)';en = 'Error calling context method (Write)'");
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	Данные = "Тест";
 	// when
@@ -143,10 +143,10 @@ EndProcedure
 Procedure LoadRemoteFiles(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	
 	Данные = Новый ТаблицаЗначений;
 	Данные.Колонки.Добавить("Колонка");
@@ -174,10 +174,10 @@ EndProcedure
 Procedure LoadRemoteFilesNoData(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	// when	
 	Результат = Webhooks.LoadRemoteFiles( ОбработчикСобытия.Ссылка, "CheckoutSHA" );
 	// then
@@ -193,10 +193,10 @@ EndProcedure
 Procedure LoadQueryData(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	
 	Данные = Новый Соответствие();
 	Данные.Вставить("CheckoutSHA", "Значение");
@@ -223,10 +223,10 @@ EndProcedure
 Procedure LoadQueryDataNoData(Фреймворк) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	InformationRegistersCleanUp();
 	СекретныйКлюч = "ЮнитТест";
-	ОбработчикСобытия = AddWebhook("ЮнитТест1", СекретныйКлюч);
+	ОбработчикСобытия = AddExternalRequestHandler("ЮнитТест1", СекретныйКлюч);
 	// when	
 	Результат = Webhooks.LoadQueryData( ОбработчикСобытия.Ссылка, "CheckoutSHA" );
 	// then
@@ -239,9 +239,9 @@ EndProcedure
 
 #Region Internal
 
-Function AddWebhook(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
+Function AddExternalRequestHandler(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
 	
-		Item = Catalogs.Webhooks.CreateItem();
+		Item = Catalogs.ExternalRequestHandlers.CreateItem();
 		Item.DataExchange.Load = True;
 		Item.Description = Name;
 		Item.ProjectURL = ProjectURL;
@@ -256,9 +256,9 @@ EndFunction
 
 #Region Private
 
-Procedure WebhookCleanUp()
+Procedure ExternalRequestHandlersCleanUp()
 	
-	UtilsServer.CatalogCleanUp("Webhooks");
+	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
 
 EndProcedure
 
@@ -268,9 +268,9 @@ Procedure InformationRegistersCleanUp()
 
 EndProcedure
 
-Function NewWebhook(Val Name, Val ProjectURL, Val Token)
+Function NewExternalRequestHandler(Val Name, Val ProjectURL, Val Token)
 
-	Return TestsWebhooksServer.AddWebhook(Name, ProjectURL, Token);
+	Return TestsWebhooksServer.AddExternalRequestHandler(Name, ProjectURL, Token);
 
 EndFunction
 

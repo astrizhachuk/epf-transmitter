@@ -84,7 +84,7 @@
       <value>Обработчик события</value>
     </synonym>
     <type>
-      <types>CatalogRef.Webhooks</types>
+      <types>CatalogRef.ExternalRequestHandlers</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>

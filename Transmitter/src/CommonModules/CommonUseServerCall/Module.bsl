@@ -11,6 +11,8 @@ Function GetVersion() Export
 	
 EndFunction
 
+// BSLLS-off)
+
 #Region SSL
 
 // ValueTableToArray converts a table of values to an array of structures.
@@ -27,14 +29,14 @@ Function ValueTableToArray( ValueTable ) Export
 
 	Array = New Array();
 	StructureString = "";
-	NeedСomma = False;
+	NeedSeparator = False;
 	
 	For Each Column In ValueTable.Columns Do
-		If NeedСomma Then
+		If NeedSeparator Then
 			StructureString = StructureString + ",";
 		EndIf;
 		StructureString = StructureString + Column.Name;
-		NeedСomma = True;	
+		NeedSeparator = True;	
 	EndDo;
 	
 	For Each String In ValueTable Do	
@@ -48,6 +50,8 @@ Function ValueTableToArray( ValueTable ) Export
 EndFunction
 
 #EndRegion
+
+// BSLLS-on
 
 #Region Stream
 

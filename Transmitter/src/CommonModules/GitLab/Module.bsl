@@ -54,7 +54,7 @@ EndFunction
 // RemoteFile returns the file from the GitLab server with its description.
 // 
 // Parameters:
-// 	GetConnectionParams - (see GetConnectionParams)
+// 	ConnectionParams - (see GetConnectionParams)
 // 	FilePath - String - URL-encoded relative URL path to the RAW file, for example
 // 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
@@ -187,7 +187,7 @@ EndFunction
 // from deserialized GitLab request;
 // 
 // Parameters:
-//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 // 	Commits - Map - deserialized commits from the GitLab request;
 // 	Project - Structure - description;
 // * Id - String - project id;

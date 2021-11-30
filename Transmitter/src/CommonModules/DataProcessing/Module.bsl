@@ -3,7 +3,7 @@
 // RunBackgroundJob prepares and run background job to process "webhooked" or saved GitLab server request.
 // 
 // Parameters:
-//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 // 	DataSource - Map, String - GitLab request body deserialized from JSON or "checkout_sha" of previously saved request;
 //
 // Returns:
@@ -88,7 +88,7 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 	NO_DATA_MESSAGE = NStr( "ru = 'нет данных для отправки.';en = 'no data to send.'" );
 	
 	Message = Logs.AddPrefix( DATA_PROCESSING_MESSAGE, WebhookParams.CheckoutSHA );
-	Logs.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.ExternalRequestHandler );
 	
 	RemoteFiles = Undefined;
 	
@@ -97,7 +97,7 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 	If ( NOT ValueIsFilled(QueryData) OR NOT ValueIsFilled(RemoteFiles) ) Then
 
 		Message = Logs.AddPrefix( NO_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-		Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
+		Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.ExternalRequestHandler );
 		
 		Return;
 		
@@ -108,7 +108,7 @@ Procedure Run( Val WebhookParams, Val QueryData ) Export
 			
 	SendFiles( WebhookParams, RemoteFiles );
 
-	Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.ExternalRequestHandler );
 	
 EndProcedure
 
@@ -137,7 +137,7 @@ Function WebhookParams( Val Webhook, Val CheckoutSHA )
 	Var Result;
 	
 	Result = New Structure();
-	Result.Insert( "Webhook", Webhook );
+	Result.Insert( "ExternalRequestHandler", Webhook );
 	Result.Insert( "CheckoutSHA", CheckoutSHA );
 	
 	Return Result;
@@ -188,13 +188,13 @@ Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 	LOADING_DATA_MESSAGE = NStr( "ru = 'загрузка ранее сохраненных данных.';en = 'loading previously saved data.'" );
 	
 	Message = Logs.AddPrefix( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-	Logs.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE_BEGIN, Message, WebhookParams.ExternalRequestHandler );
 
 	If ( QueryData <> Undefined ) Then
 		
 		ProjectParams = GitLab.ProjectDescription( QueryData );
 		Commits = QueryData.Get( "commits" );
-		RemoteFiles = GitLab.RemoteFilesWithDescription( WebhookParams.Webhook, Commits, ProjectParams );
+		RemoteFiles = GitLab.RemoteFilesWithDescription( WebhookParams.ExternalRequestHandler, Commits, ProjectParams );
 		Routing.ExtendQueryDataWithRoutingSettings( Commits, RemoteFiles );
 		
 		SaveData( WebhookParams, QueryData, RemoteFiles );
@@ -202,20 +202,20 @@ Procedure PrepareData( Val WebhookParams, QueryData, RemoteFiles )
 	Else
 		
 		Message = Logs.AddPrefix( LOADING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-		Logs.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
+		Logs.Info( EVENT_MESSAGE, Message, WebhookParams.ExternalRequestHandler );
 				
 		LoadData( WebhookParams, QueryData, RemoteFiles );
 		
 	EndIf;
 
 	Message = Logs.AddPrefix( PREPARING_DATA_MESSAGE, WebhookParams.CheckoutSHA );
-	Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE_END, Message, WebhookParams.ExternalRequestHandler );
 	
 EndProcedure
 
 Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	
-	Var SendParams;
+	Var DeliveryParams;
 	Var JobParams;
 	
 	Var FilesCounter;
@@ -231,7 +231,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	FILES_SENT_MESSAGE = NStr( "ru = 'отправляемых файлов: ';en = 'files sent: '" );
 	RUNNING_JOBS_MESSAGE = NStr( "ru = 'запущенных заданий: ';en = 'running jobs: '" );
 	
-	SendParams = Endpoints.GetConnectionParams();
+	DeliveryParams = Endpoints.GetConnectionParams();
 	
 	FilesCounter = 0;
 	JobsCounter = 0; 
@@ -242,7 +242,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 			
 			Message = Logs.AddPrefix( GET_FILE_ERROR_MESSAGE, WebhookParams.CheckoutSHA );
 			Message = Message + Chars.LF + RemoteFile.ErrorInfo;
-			Logs.Warn( EVENT_MESSAGE, Message, WebhookParams.Webhook );
+			Logs.Warn( EVENT_MESSAGE, Message, WebhookParams.ExternalRequestHandler );
 			
 			Continue;
 			
@@ -252,7 +252,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 		
 		For Each URL In RemoteFile.Routes Do
 			
-			SendParams.URL = URL;
+			Endpoints.SetURL( DeliveryParams, URL );
 			
 			JobKey = WebhookParams.CheckoutSHA + "|" + URL + "|" + RemoteFile.FileName;
 				
@@ -260,7 +260,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 				
 				Message = Logs.AddPrefix( JOB_WAS_STARTED_MESSAGE, WebhookParams.CheckoutSHA );
 				Message = Message + Chars.LF + KEY_MESSAGE + JobKey;
-				Logs.Warn( EVENT_MESSAGE, Message, WebhookParams.Webhook );
+				Logs.Warn( EVENT_MESSAGE, Message, WebhookParams.ExternalRequestHandler );
 				
 				Continue;
 				
@@ -269,7 +269,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 			JobParams = New Array();
 			JobParams.Add( RemoteFile.FileName );
 			JobParams.Add( RemoteFile.BinaryData );
-			JobParams.Add( SendParams );
+			JobParams.Add( DeliveryParams );
 			JobParams.Add( WebhookParams );
 			
 			BackgroundJobs.Execute( "Endpoints.SendFile", JobParams, JobKey, WebhookParams.CheckoutSHA );
@@ -281,10 +281,10 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 	EndDo;
 	
 	Message = Logs.AddPrefix( FILES_SENT_MESSAGE + FilesCounter, WebhookParams.CheckoutSHA );
-	Logs.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE, Message, WebhookParams.ExternalRequestHandler );
 	
 	Message = Logs.AddPrefix( RUNNING_JOBS_MESSAGE + JobsCounter, WebhookParams.CheckoutSHA );
-	Logs.Info( EVENT_MESSAGE, Message, WebhookParams.Webhook );
+	Logs.Info( EVENT_MESSAGE, Message, WebhookParams.ExternalRequestHandler );
 	
 EndProcedure
 
@@ -300,7 +300,7 @@ Procedure LogAction( Val WebhookParams, Val Action, Val Result = Undefined )
 		
 		Message = "[" + Action + "]: " + OPERATION_SUCCEEDED_MESSAGE;
 		Message = Logs.AddPrefix( Message, WebhookParams.CheckoutSHA );
-		Logs.Info( "Core." + Action, Message, WebhookParams.Webhook );
+		Logs.Info( "Core." + Action, Message, WebhookParams.ExternalRequestHandler );
 		
 	Else
 
@@ -313,7 +313,7 @@ Procedure LogAction( Val WebhookParams, Val Action, Val Result = Undefined )
 			
 		EndIf;
 					
-		Logs.Warn( EVENT_MESSAGE + "." + Action, Message, WebhookParams.Webhook );
+		Logs.Warn( EVENT_MESSAGE + "." + Action, Message, WebhookParams.ExternalRequestHandler );
 			
 	EndIf;
 		
@@ -324,10 +324,10 @@ Procedure LoadData( Val WebhookParams, QueryData, RemoteFiles )
 	LOAD_QUERY_MESSAGE = NStr( "ru = 'ЗагрузкаЗапросаИзБазыДанных';en = 'LoadingRequestFromDatabase'" );
 	LOAD_FILES_MESSAGE = NStr( "ru = 'ЗагрузкаВнешнихФайловИзБазыДанных';en = 'LoadingFilesFromDatabase'" );
 	
-	QueryData = Webhooks.LoadQueryData( WebhookParams.Webhook, WebhookParams.CheckoutSHA );
+	QueryData = Webhooks.LoadQueryData( WebhookParams.ExternalRequestHandler, WebhookParams.CheckoutSHA );
 	LogAction( WebhookParams, LOAD_QUERY_MESSAGE, QueryData );
 
-	RemoteFiles = Webhooks.LoadRemoteFiles( WebhookParams.Webhook, WebhookParams.CheckoutSHA );
+	RemoteFiles = Webhooks.LoadRemoteFiles( WebhookParams.ExternalRequestHandler, WebhookParams.CheckoutSHA );
 	LogAction( WebhookParams, LOAD_FILES_MESSAGE, RemoteFiles );
 	
 EndProcedure
@@ -342,7 +342,7 @@ Procedure SaveQueryData( Val WebhookParams, Val QueryData )
 	
 	Try
 		
-		Webhooks.SaveQueryData( WebhookParams.Webhook, WebhookParams.CheckoutSHA, QueryData );
+		Webhooks.SaveQueryData( WebhookParams.ExternalRequestHandler, WebhookParams.CheckoutSHA, QueryData );
 		
 	Except
 		
@@ -364,7 +364,7 @@ Procedure SaveRemoteFiles( Val WebhookParams, Val ОтправляемыеДан
 	
 	Try
 		
-		Webhooks.SaveRemoteFiles( WebhookParams.Webhook, WebhookParams.CheckoutSHA, ОтправляемыеДанные );
+		Webhooks.SaveRemoteFiles( WebhookParams.ExternalRequestHandler, WebhookParams.CheckoutSHA, ОтправляемыеДанные );
 		
 	Except
 		

@@ -54,7 +54,7 @@ Procedure LoadEventsHistory( Command )
 
 	Notify = New NotifyDescription("DoAfterLoadEventsHistory", ThisObject);
 
-	OpenForm( "Catalog.Webhooks.Form.FilterEventsHistory",
+	OpenForm( "Catalog.ExternalRequestHandlers.Form.FilterEventsHistory",
 			 ,
 			 ThisObject,
 			 ,
@@ -154,7 +154,7 @@ Procedure OpenBackgroundJobs( Command )
 	Filter = New Structure();
 	Filter.Insert( "RecordKey", CurrentRow );
 				 
-	OpenForm( "Catalog.Webhooks.Form.BackgroundJobs",
+	OpenForm( "Catalog.ExternalRequestHandlers.Form.BackgroundJobs",
 			 Filter,
 			 ThisObject,
 			 ,
@@ -227,7 +227,7 @@ Procedure OpenEditorJSON( Val CurrentRow, Val Command )
 	OpenOptions.Insert( "RecordKey", CurrentRow );
 	OpenOptions.Insert( "CommandName", Command.Name );
 
-	OpenForm( "Catalog.Webhooks.Form.EditorJSON",
+	OpenForm( "Catalog.ExternalRequestHandlers.Form.EditorJSON",
 				OpenOptions,
 				ThisObject,
 				,

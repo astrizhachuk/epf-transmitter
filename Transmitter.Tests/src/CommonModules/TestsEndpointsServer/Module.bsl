@@ -1,3 +1,4 @@
+// BSLLS-off
 #Region Public
 
 // @unit-test
@@ -11,11 +12,12 @@ Procedure GetConnectionParams(Framework) Export
 	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
 	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
+	
 	// when
 	Result = Endpoints.GetConnectionParams();
+	
 	// then
-	Framework.AssertEqual(Result.Количество(), 4);
-	Framework.AssertEqual(Result.URL, "");
+	Framework.AssertEqual(Result.Количество(), 3);
 	Framework.AssertEqual(Result.User, "UserName" + Right(TIME, 10));
 	Framework.AssertEqual(Result.Password, "UserPassword" + Right(TIME, 10));	
 	Framework.AssertEqual(Result.Timeout, Number(Right(TIME, 4)));
@@ -26,10 +28,27 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure SendFileErrorWithoutEndpointAndEvent(Framework) Export
+Procedure SetURL(Framework) Export
+
+	// given
+	Options = New Structure();
+	URL = "http://url";
+	
+	// when
+	Endpoints.SetURL(Options, URL);
+	
+	// then
+	Framework.AssertEqual(Options.URL, URL);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SendFileErrorWithoutEndpointAndOptions(Framework) Export
 	
 	// given
-	MISSING_ENDPOINT_MESSAGE = NStr("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
 
 	// when
 	Try
@@ -38,7 +57,7 @@ Procedure SendFileErrorWithoutEndpointAndEvent(Framework) Export
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
 	EndTry;
 	
 EndProcedure
@@ -50,32 +69,30 @@ EndProcedure
 Procedure SendFileErrorWithoutEndpoint(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
-	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	
-	Event = NewEvent(NewWebhook("Test", "Token").Ref, "0123456789abcdef");
+	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, "0123456789abcdef");
 	
 	// when
 	Try
-		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Event);
+		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Options);
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
 	КонецПопытки;
 	
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure SendFile4xxError(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
 	URL = "http://mockserver:1080";
 	User = "User1";
@@ -91,17 +108,16 @@ Procedure SendFile4xxError(Framework) Export
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 	
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
+	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
 
 	// when
 	Try
-		Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
+		Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Options);
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
 		Framework.AssertStringContains(ErrorInfo.Description, CheckoutSHA);
-		Framework.AssertStringContains(ErrorInfo.Description, NStr("ru = 'Ошибка';en = 'Error'"));
 		Framework.AssertStringContains(ErrorInfo.Description, StatusCode);
 	EndTry;
 	
@@ -144,7 +160,7 @@ EndProcedure
 Procedure SendFile200OkWithEventLog(Framework) Export
 	
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
 	URL = "http://mockserver:1080";
 	User = "User1";
@@ -160,10 +176,10 @@ Procedure SendFile200OkWithEventLog(Framework) Export
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
+	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
 
 	// when
-	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Event);
+	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Options);
 	
 	// then
 	Framework.AssertStringContains(Result, CheckoutSHA);
@@ -180,18 +196,16 @@ EndProcedure
 Procedure SendFileBackgroundJobError(Framework) Export
 
 	//given
-	WebhookCleanUp();
-	
-	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
+	ExternalRequestHandlersCleanUp();
 	
 	FileName = "Файл.epf";
 	Data = "data";
 	
 	Endpoint = New Structure();
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(NewWebhook("Test", "Token").Ref, CheckoutSHA);
+	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
 	
-	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
+	JobParams = NewJobParams(FileName, Data, Endpoint, Options);
 	
 	// when
 	Job = BackgroundJobs.Execute("Endpoints.SendFile", JobParams);
@@ -200,20 +214,18 @@ Procedure SendFileBackgroundJobError(Framework) Export
 	// then
 	Framework.AssertEqual(Result.State, BackgroundJobState.Failed);
 	Framework.AssertStringContains(Result.ErrorInfo.Description, CheckoutSHA);
-	Framework.AssertStringContains(Result.ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+	Framework.AssertStringContains(Result.ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
 
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 	
 	// given
-	MISSING_ENDPOINT_MESSAGE = НСтр("ru = 'Отсутствуют параметры доставки файлов.';en = 'File delivery options are missing.'");
-	
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
 	URL = "http://mockserver:1080";
 	User = "User1";
@@ -228,13 +240,13 @@ Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 
 	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
 
-	Webhook = NewWebhook("Test", "Token");
+	ExternalRequestHandler = NewExternalRequestHandler("Test", "Token");
 	CheckoutSHA = "0123456789abcdef";		
-	Event = NewEvent(Webhook.Ref, CheckoutSHA);
+	Options = NewOptions(ExternalRequestHandler.Ref, CheckoutSHA);
 	
-	EventLogFilter = EventLogFilterByData(Webhook.Ref);
+	EventLogFilter = EventLogFilterByData(ExternalRequestHandler.Ref);
 
-	JobParams = NewJobParams(FileName, Data, Endpoint, Event);
+	JobParams = NewJobParams(FileName, Data, Endpoint, Options);
 	
 	// when
 	// three files: two good, one bad
@@ -261,7 +273,7 @@ Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 	Framework.AssertEqual(Result[2].State, BackgroundJobState.Completed);
 	
 	Framework.AssertStringContains(Result[1].ErrorInfo.Description, CheckoutSHA);
-	Framework.AssertStringContains(Result[1].ErrorInfo.Description, MISSING_ENDPOINT_MESSAGE);
+	Framework.AssertStringContains(Result[1].ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
 
 	Framework.AssertEqual(EventLog.Count(), 2);
 	Framework.AssertStringContains(EventLog[0].Comment, CheckoutSHA);
@@ -304,15 +316,15 @@ EndFunction
 
 #Region Data
 
-Procedure WebhookCleanUp()
+Procedure ExternalRequestHandlersCleanUp()
 	
-	UtilsServer.CatalogCleanUp("Webhooks");
+	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
 
 EndProcedure
 
-Function NewWebhook(Val Name, Val Token)
+Function NewExternalRequestHandler(Val Name, Val Token)
 
-	Return TestsWebhooksServer.AddWebhook(Name, "empty", Token);
+	Return TestsWebhooksServer.AddExternalRequestHandler(Name, "empty", Token);
 
 EndFunction
 
@@ -328,23 +340,23 @@ Function NewEndpoint(Val URL, Val User, Val Password)
 	
 EndFunction
 
-Function NewEvent(Val Ref, Val CheckoutSHA)
+Function NewOptions(Val Ref, Val CheckoutSHA)
 	
 	Result = New Structure();
-	Result.Insert( "Webhook", Ref );
+	Result.Insert( "ExternalRequestHandler", Ref );
 	Result.Insert( "CheckoutSHA", CheckoutSHA );
 	
 	Return Result;
 	
 EndFunction
 
-Function NewJobParams(Val FileName, Val Data, Val Endpoint, Val Event)
+Function NewJobParams(Val FileName, Val Data, Val Endpoint, Val Options)
 
 	Result = New Array();
 	Result.Add(FileName);
 	Result.Add(GetBinaryDataFromString(Data));
 	Result.Add(Endpoint);
-	Result.Add(Event);
+	Result.Add(Options);
 	
 	Return Result;
 	
@@ -362,7 +374,7 @@ Procedure SetMockUploadFile(Val URL, Val User, Val Password, Val FileName, Val D
 				.WithPath("/epf/uploadFile")
 				.Headers()
 					.WithHeader("Authorization", "Basic " + Base64)
-					.WithHeader("Name", FileName)
+					.WithHeader("name", FileName)
 				.WithBody(Data)
 		)
 	    .Respond(

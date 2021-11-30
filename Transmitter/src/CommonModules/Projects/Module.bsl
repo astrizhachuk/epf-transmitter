@@ -7,14 +7,14 @@
 // 	
 // Returns:
 // 	Structure - credentials:
-// * Ref - CatalogRef.Webhooks - ref to webhook;
+// * Ref - CatalogRef.ExternalRequestHandlers - ref to webhook;
 // * SecretToken - String - webhook token; 
 //
 Function FindCredentials( Val URL ) Export
 
 	Var Items;
 	
-	Items = Catalogs.Webhooks.FindByURL( URL );
+	Items = Catalogs.ExternalRequestHandlers.FindByURL( URL );
 	
 	If ( NOT ValueIsFilled(Items) ) Then
 		

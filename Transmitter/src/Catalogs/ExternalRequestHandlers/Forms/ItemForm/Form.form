@@ -1636,7 +1636,7 @@
     </title>
     <id>1</id>
     <valueType>
-      <types>CatalogObject.Webhooks</types>
+      <types>CatalogObject.ExternalRequestHandlers</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1680,7 +1680,7 @@
 	EventsHistory.UserName,
 	EventsHistory.Comment
 ИЗ
-	Catalog.Webhooks.EventsHistory КАК EventsHistory</queryText>
+	Catalog.ExternalRequestHandlers.EventsHistory КАК EventsHistory</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>

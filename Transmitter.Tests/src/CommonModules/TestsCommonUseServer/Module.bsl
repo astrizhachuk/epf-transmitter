@@ -1,14 +1,16 @@
 #Region Public
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure GetVersion(Framework) Export
 
 	// given
+
 	// when
 	Result = CommonUseServerCall.GetVersion();
+	
 	// then
 	Framework.AssertEqual(Result, Metadata.Version);
 	

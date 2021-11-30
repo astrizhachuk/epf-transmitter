@@ -63,7 +63,7 @@ EndFunction
 
 Function FindCodeById( Val Id )
 	
-	Return HTTPStatusCodesClientServerCached.FindCodeById( Id );
+	Return StatusCodes().FindCodeById( Id );
 	
 EndFunction
 
