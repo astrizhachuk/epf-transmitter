@@ -14,9 +14,14 @@ Scenario: GetConnectionParams
 	| 'TestsEndpointsServer.GetConnectionParams(Context());' |
 
 @OnServer
-Scenario: SendFileErrorWithoutEndpointAndEvent
+Scenario: SetURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFileErrorWithoutEndpointAndEvent(Context());' |
+	| 'TestsEndpointsServer.SetURL(Context());' |
+
+@OnServer
+Scenario: SendFileErrorWithoutEndpointAndOptions
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.SendFileErrorWithoutEndpointAndOptions(Context());' |
 
 @OnServer
 Scenario: SendFileErrorWithoutEndpoint

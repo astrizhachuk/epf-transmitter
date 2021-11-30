@@ -18,7 +18,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.Webhooks</name>
+		<name>Catalog.ExternalRequestHandlers</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

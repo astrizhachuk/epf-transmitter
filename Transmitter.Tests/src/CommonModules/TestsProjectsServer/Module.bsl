@@ -8,24 +8,24 @@
 Procedure FindCredentials(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	URL1 = "http://url1";
 	Token1 = "token1";
-	Webhook1 = NewWebhook("Test1", URL1, Token1);
+	RequestHandler1 = NewExternalRequestHandler("Test1", URL1, Token1);
 	
 	URL2 = "http://url2";
 	Token2 = "token2";
-	Webhook2 = NewWebhook("Test2", URL2, Token2);
-	Webhook2.SetDeletionMark(True);
+	RequestHandler2 = NewExternalRequestHandler("Test2", URL2, Token2);
+	RequestHandler2.SetDeletionMark(True);
 	
-	Webhook3 = NewWebhook("Test3", URL2, Token2);	
+	RequestHandler3 = NewExternalRequestHandler("Test3", URL2, Token2);	
 	
 	// when
 	Result = Projects.FindCredentials(URL2);
 	
 	// then
 	Framework.AssertFilled(Result);
-	Framework.AssertEqual(Result.Ref, Webhook3.Ref);	
+	Framework.AssertEqual(Result.Ref, RequestHandler3.Ref);	
 	Framework.AssertEqual(Result.SecretToken, Token2);
 
 EndProcedure
@@ -37,10 +37,10 @@ EndProcedure
 Procedure FindCredentialsNotFound(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	URL = "http://url";
 	Token = "token";
-	NewWebhook("Test", URL, Token);
+	NewExternalRequestHandler("Test", URL, Token);
 	
 	// when
 	Result = Projects.FindCredentials("fake");
@@ -57,14 +57,14 @@ EndProcedure
 Procedure FindCredentialsDublicated(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
 	DUPLICATED_MESSAGE = NStr( "ru = 'Обнаружены повторяющиеся проекты.';en = 'Duplicate projects found.'" );
 	
 	URL = "http://url";
 	Token = "token";
-	Webhook1 = NewWebhook("Test1", URL, Token);
-	Webhook2 = NewWebhook("Test2", URL, Token);
+	RequestHandler1 = NewExternalRequestHandler("Test1", URL, Token);
+	RequestHandler2 = NewExternalRequestHandler("Test2", URL, Token);
 	
 	// when
 	Try
@@ -85,7 +85,7 @@ EndProcedure
 Procedure FindCredentialsWrongType(Framework) Export
 
 	// given
-	WebhookCleanUp();
+	ExternalRequestHandlersCleanUp();
 	
 	// when
 	Result = Projects.FindCredentials(Undefined);
@@ -97,34 +97,17 @@ EndProcedure
 
 #EndRegion
 
-#Region Internal
-
-Function AddWebhook(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
-	
-		Item = Catalogs.Webhooks.CreateItem();
-		Item.DataExchange.Load = True;
-		Item.Description = Name;
-		Item.ProjectURL = ProjectURL;
-		Item.SecretToken = SecretToken;
-		Item.Write();
-		
-		Return Item;
-	
-EndFunction
-
-#EndRegion
-
 #Region Private
 
-Procedure WebhookCleanUp()
+Procedure ExternalRequestHandlersCleanUp()
 	
-	UtilsServer.CatalogCleanUp("Webhooks");
+	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
 
 EndProcedure
 
-Function NewWebhook(Val Name, Val ProjectURL, Val Token)
+Function NewExternalRequestHandler(Val Name, Val ProjectURL, Val Token)
 
-	Return TestsWebhooksServer.AddWebhook(Name, ProjectURL, Token);
+	Return TestsWebhooksServer.AddExternalRequestHandler(Name, ProjectURL, Token);
 
 EndFunction
 

@@ -3,7 +3,9 @@
 Function Messages() Export
 	
 	Result = New Structure();
-
+	
+	Result.Insert( "ENDPOINT_OPTIONS_MISSING", NStr( "ru = 'Отсутствуют параметры доставки файла.';
+													|en = 'File delivery options are missing.'" ));
 	Result.Insert( "EVENT_MISSING", NStr( "ru = 'В запросе отсутствует событие.';
 										|en = 'The request is missing an event.'" ));
 	Result.Insert( "EVENT_WRONG", NStr( "ru = 'Событие из запроса не соответствует выбранному методу.';
@@ -38,7 +40,8 @@ Function Events() Export
 											|en = 'WebService.QueryProcessing.Begin'" ));
 	Result.Insert( "WS_REQUEST_END", NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';
 											|en = 'WebService.QueryProcessing.End'" ));
-	
+	Result.Insert( "ENDPOINT_SEND_FILE", NStr( "ru = 'Endpoint.ОтправкаФайла';en = 'Endpoint.SendingFile'" ));
+
 	Return Result;
 	
 EndFunction

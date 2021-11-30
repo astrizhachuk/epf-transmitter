@@ -1,12 +1,9 @@
 #Region Public
 
-// todo move up "URL"
-
 // GetConnectionParams returns connection parameters to the endpoint service.
 // 
 // Returns:
 // Structure - description:
-// * URL - String - endpoint service URL;
 // * User - String - user name;
 // * Password - String - user password;
 // * Timeout - Number - connection timeout, sec. (0 - timeout is not set);
@@ -16,7 +13,6 @@ Function GetConnectionParams() Export
 	Var Result;
 	
 	Result = New Structure();
-	Result.Insert( "URL", "" );
 	Result.Insert( "User", ServicesSettings.EndpointUserName() );
 	Result.Insert( "Password", ServicesSettings.EndpointUserPassword() );
 	Result.Insert( "Timeout", ServicesSettings.DeliveryFileTimeout() );
@@ -25,60 +21,77 @@ Function GetConnectionParams() Export
 	
 EndFunction
 
-// TODO rewrite descr (proc to func), I want to receive the execution result not through the log
-
-// SendFile send the file to the endpoint infobase. The file delivery endpoint service must implement the API
-// for the recipient infobase, see https://app.swaggerhub.com/apis/astrizhachuk/epf-transmitter
+// SetURL sets the delivery URL for the endpoint connection parameters. 
 // 
 // Parameters:
-//	FileName - String - the file name used for searching and replacing external reports and processing (UTF-8);
-//	BinaryData - BinaryData - binary file body;
-//	ConnectionParams - Structure - file delivery parameters:
-// * URL - String - end-point service URL;
-// * Token - String - access token to the service;
-// * Timeout - Number - the connection timeout, sec (0 - timeout is not set);
-//	EventParams - Undefined, Structure - description of the event that started sending the file:
-// * Webhook - CatalogRef.Webhooks - a ref to webhook;
-// * CheckoutSHA - String - event identifier (commit SHA) for which the file upload is triggered;
+// 	Params - Structure - parameters (see GetConnectionParams);
+// 	URL - String - endpoint service URL;
 //
-Function SendFile( Val FileName, Val BinaryData, Val ConnectionParams, EventParams = Undefined ) Export
+Procedure SetURL( Params, Val URL ) Export
+	
+	Params.Insert( "URL", URL );
+	
+EndProcedure
+
+// SendFile sends a file to the endpoint infobase. The endpoint service must implement the API
+// see https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-endpoint
+// 
+// Parameters:
+//	FileName - String - the filename used to replace files in the endpoint infobase (UTF-8);
+//	Data - BinaryData - file body;
+//	Endpoint - Structure - upload file options:
+// * URL - String - endpoint service URL;
+// * User - String - user name;
+// * Password - String - user password;
+// * Timeout - Number - connection timeout, sec. (0 - timeout is not set);
+//	Options - Undefined, Structure - additional parameters for logging the result of sending a file:
+// * GetRequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+// * CheckoutSHA - String - event identifier (commit SHA) for which the file sending is initiated;
+//
+// Returns:
+// 	String - the result of the operation with a response from the endpoint;
+//
+Function SendFile( Val FileName, Val Data, Val Endpoint, Options = Undefined ) Export
 
 	Var Headers;
 	Var RequestParams;
 	Var Response;
+	Var StatusCode;
 	Var Message;
-
-	Response = Undefined;
+	
+	StatusCode = Undefined; // undefined for internal errors
 
 	Try
 		
-		CheckConnectionParams( ConnectionParams ); 
+		Assert( Endpoint );
 		
 		Headers = New Map();
-		Headers.Insert( "Name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
-		
+		Headers.Insert( "name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
+
 		RequestParams = New Structure();
-		RequestParams.Insert( "Authentication", GetAuthentication(ConnectionParams) );
+		RequestParams.Insert( "Authentication", GetAuthentication(Endpoint) );
 		RequestParams.Insert( "Headers", Headers );
-		RequestParams.Insert( "Timeout", ConnectionParams.Timeout );
+		RequestParams.Insert( "Timeout", Endpoint.Timeout );
 		
-		Response = HTTPConnector.Post( ConnectionParams.URL, BinaryData, RequestParams );
+		Response = HTTPConnector.Post( Endpoint.URL, Data, RequestParams );
 		
-		Message = CreateSendFileResultMessage( Response, FileName, ConnectionParams.URL );
+		Message = CreateResponseMessage( Endpoint.URL, FileName, Response );
+		
+		StatusCode = Response.StatusCode;
 	
-		If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.StatusCode) ) Then
+		If ( NOT StatusCodes().isOk(StatusCode) ) Then
 			
 			Raise Message;
 			
 		EndIf;
 		
-		LogSendFileResult( Message, EventParams, Response.StatusCode );
+		Message = AddMessagePrefix( Message, Options );
+		Logs.Info( Logs.Events().ENDPOINT_SEND_FILE, Message, GetRequestHandler(Options), NewResponse(StatusCode) );
 		
 	Except
 		
-		Message = ErrorInfo().Description;
-		
-		LogSendFileResult( Message, EventParams, StatusCode(Response) );
+		Message = AddMessagePrefix( ErrorInfo().Description, Options );
+		Logs.Error( Logs.Events().ENDPOINT_SEND_FILE, Message, GetRequestHandler(Options), NewResponse(StatusCode) );
 		
 		Raise Message;
 		
@@ -104,91 +117,81 @@ Function GetAuthentication( Val ConnectionParams )
 	
 EndFunction
 
-Procedure CheckConnectionParams( Val SendFileParams )
+Procedure Assert( Val Endpoint )
 	
-	MISSING_DELIVERED_MESSAGE = NStr( "ru = 'Отсутствуют параметры доставки файлов.';
-									|en = 'File delivery options are missing.'" );
+	If ( NOT (Endpoint.Property("URL") AND Endpoint.Property("User") AND Endpoint.Property("Password")) ) Then
 	
-	If ( TypeOf(SendFileParams) <> Type("Structure")
-				OR NOT SendFileParams.Property("URL")
-				OR NOT SendFileParams.Property("User")
-				OR NOT SendFileParams.Property("Password") ) Then
-			
-			Raise MISSING_DELIVERED_MESSAGE;
-			
+		Raise Logs.Messages().ENDPOINT_OPTIONS_MISSING;
+		
 	EndIf;
 	
 EndProcedure
 
-Function StatusCode( Val Response )
+Function StatusCodes()
 	
-	Var Result;
-	
-	If ( Response = Undefined ) Then
-			
-		Result = HTTPStatusCodesClientServerCached.FindCodeById("INTERNAL_SERVER_ERROR");
-			
-	Else
-			
-		Result = Response.StatusCode;
-			
-	EndIf;
-	
-	Возврат Result;
+	Return HTTPStatusCodesClientServerCached;
 	
 EndFunction
 
-Procedure LogSendFileResult( Message, Val EventParams, Val StatusCode )
+Function CreateResponseMessage( Val URL, Val FileName, Val Response )
 	
-	Var NewResponse;
+	Var ResponseBody;
+	Var Message;
 	
-	EVENT_MESSAGE = NStr( "ru = 'Core.ОтправкаДанныхПолучателю';en = 'Core.SendingFileEndpoint'" );
-	
-	Webhook = Undefined;
-	NewResponse = Undefined;
+	Message = NStr( "ru = 'URL: %1; имя файла: %2
+					|Код ответа: %3
+					|%4';
+					|en = 'URL: %1; filename: %2
+					|Status code: %3
+					|%4'" );
 
-	If ( EventParams <> Undefined ) Then
-		
-		Webhook = EventParams.Webhook;
-		NewResponse = New HTTPServiceResponse( StatusCode );
-		Message = Logs.AddPrefix( Message, EventParams.CheckoutSHA );
+	ResponseBody = HTTPConnector.AsText(Response, TextEncoding.UTF8);
+	
+	Return StrTemplate( Message, URL, FileName, Response.StatusCode, ResponseBody );
+	
+EndFunction
+
+Function AddMessagePrefix( Val Message, Val Options )
+	
+	Var Result;
+	
+	Result = Message;
+
+	If ( Options <> Undefined AND Options.Property("CheckoutSHA") ) Then
+	
+		Result = Logs.AddPrefix( Message, Options.CheckoutSHA );
 			
 	EndIf;
+	
+	Return Result;
+	
+EndFunction
 
-	If ( HTTPStatusCodesClientServerCached.isOk(StatusCode) ) Then
+Function NewResponse( Val StatusCode )
+	
+	If ( StatusCode = Undefined ) Then
 		
-		Logs.Info( EVENT_MESSAGE, Message, Webhook, NewResponse );
+		Return StatusCode;
+	
+	EndIf;
+		
+	Return New HTTPServiceResponse( StatusCode );
+	
+EndFunction
 
-	Else
+Function GetRequestHandler( Val Options )
+	
+	Var Result;
+	
+	Result = Undefined;
+	
+	If ( Options <> Undefined ) Then
 		
-		Logs.Error( EVENT_MESSAGE, Message, Webhook, NewResponse );
+		Options.Property( "ExternalRequestHandler", Result );
 		
 	EndIf;
-	
-EndProcedure
-
-Function CreateSendFileResultMessage( Val Response, Val FileName, Val URL )
-	
-	Var DeliveryMessage;
-	Var ResponseBody;
-	
-	DELIVERY_MESSAGE = NStr( "ru = 'URL сервиса доставки: %1; файл: %2';en = 'delivery service URL: %1; file: %2'" );
-	ERROR_STATUS_CODE_MESSAGE = NStr( "ru = '[ Ошибка ]: Код ответа: ';en = '[ Error ]: Response Code: '" );
-	SERVER_RESPONSE_MESSAGE = NStr( "ru = '; текст ответа:';en = '; response message:'" ); 
-	
-	DeliveryMessage = StrTemplate( DELIVERY_MESSAGE, URL, FileName );
-	
-	If ( HTTPStatusCodesClientServerCached.isOk(Response.StatusCode) ) Then
 		
-		ResponseBody = HTTPConnector.AsText(Response, TextEncoding.UTF8);
-		
-	Else
-		
-		ResponseBody = ERROR_STATUS_CODE_MESSAGE + Response.StatusCode;
-		
-	EndIf;
-	
-	Return DeliveryMessage + SERVER_RESPONSE_MESSAGE + Chars.LF + ResponseBody;
+	Return Result;
 	
 EndFunction
 

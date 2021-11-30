@@ -87,7 +87,7 @@
   <constants>Constant.RoutingFileName</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>
-  <catalogs>Catalog.Webhooks</catalogs>
+  <catalogs>Catalog.ExternalRequestHandlers</catalogs>
   <informationRegisters>InformationRegister.QueryData</informationRegisters>
   <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
 </mdclass:Configuration>

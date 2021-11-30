@@ -7,18 +7,18 @@
     <listType typeId="da456113-2e00-4097-aab1-b4d87ed28a0e" valueTypeId="96356021-0e15-4bcd-af7f-b58479851408"/>
     <managerType typeId="0c581e1c-c7bf-49ce-90c4-01fb3aea5176" valueTypeId="b9c4b4b3-2b50-4f72-b0d9-8f38c41f5f87"/>
   </producedTypes>
-  <name>Webhooks</name>
+  <name>ExternalRequestHandlers</name>
   <synonym>
     <key>en</key>
-    <value>Webhooks</value>
+    <value>External request handlers</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Обработчики событий</value>
+    <value>Обработчики внешних запросов</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <inputByString>Catalog.Webhooks.StandardAttribute.Description</inputByString>
-  <inputByString>Catalog.Webhooks.StandardAttribute.Code</inputByString>
+  <inputByString>Catalog.ExternalRequestHandlers.StandardAttribute.Description</inputByString>
+  <inputByString>Catalog.ExternalRequestHandlers.StandardAttribute.Code</inputByString>
   <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
   <standardAttributes>
     <dataHistory>Use</dataHistory>
@@ -110,7 +110,7 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.Webhooks.Form.ItemForm</defaultObjectForm>
+  <defaultObjectForm>Catalog.ExternalRequestHandlers.Form.ItemForm</defaultObjectForm>
   <attributes uuid="ccba447a-b38a-407b-bf57-3d0295644b1c">
     <name>ProjectURL</name>
     <synonym>

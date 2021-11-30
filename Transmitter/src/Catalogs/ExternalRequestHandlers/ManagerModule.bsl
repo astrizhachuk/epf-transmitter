@@ -7,7 +7,7 @@
 // 	
 // Returns:
 // 	ValueTable - search result as a set of attributes:
-// 	* Ref - CatalogRef.Webhooks - ref to webhook;
+// 	* Ref - CatalogRef.ExternalRequestHandlers - ref to webhook;
 // 	* SecretToken - String - webhook token;
 //
 Function FindByURL( Val URL ) Export
@@ -26,7 +26,7 @@ Function FindByURL( Val URL ) Export
 					|	Webhooks.Ref AS Ref,
 					|	Webhooks.SecretToken AS SecretToken
 					|FROM
-					|	Catalog.Webhooks AS Webhooks
+					|	Catalog.ExternalRequestHandlers AS Webhooks
 					|WHERE
 					|	NOT Webhooks.DeletionMark
 					|	AND Webhooks.ProjectURL = &URL";
@@ -38,7 +38,7 @@ EndFunction
 // LoadEventsHistory loads data from the event log into the object by filter.
 // 
 // Parameters:
-// 	Object - CatalogObject.Webhooks - target object; 
+// 	Object - CatalogObject.ExternalRequestHandlers - target object; 
 // 	Destination - String - tabular section name;
 // 	Filter - Structure - event log filter (see global context UnloadEventLog);
 // 	RecordsLoaded - Number - (returned) number of loaded records;
@@ -51,7 +51,7 @@ Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded 
 	
 	EVENT_OBJECT = NStr( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
 
-	If ( TypeOf(Object) <> Type("CatalogObject.Webhooks") ) Then
+	If ( TypeOf(Object) <> Type("CatalogObject.ExternalRequestHandlers") ) Then
 		
 		Return;
 		

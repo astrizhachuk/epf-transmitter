@@ -56,7 +56,7 @@ Procedure InfoEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logs.Info( "Информация11.Информация22.Информация33", "обушки-воробушки", Webhook.Ref );
 	// then
@@ -75,7 +75,7 @@ Procedure WarnEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение");
-	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logs.Warn( "Предупреждение11.Предупреждение22.Предупреждение33", "обушки-воробушки2", Webhook.Ref );
 	// then	
@@ -94,7 +94,7 @@ Procedure ErrorEventWithObject(Фреймворк) Export
 	// given
 	УдалитьВсеОбработчикиСобытий();
 	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	Webhook = TestsWebhooksServer.AddWebhook("ТестЛогирование", "ТестЛогирование");
+	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
 	// when
 	Logs.Error( "Ошибка11.Ошибка22.Ошибка33", "обушки-воробушки3", Webhook.Ref );
 	// then
@@ -312,7 +312,7 @@ EndProcedure
 #Region Private
 Procedure УдалитьВсеОбработчикиСобытий()
 	
-	UtilsServer.CatalogCleanUp("Webhooks");
+	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
 
 EndProcedure
 

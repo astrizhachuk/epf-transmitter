@@ -58,7 +58,7 @@ Function GetJSON( Val Data )
 	
 	Result = JSONWrite.Close();
 
-	Возврат Result;
+	Return Result;
 	
 EndFunction
 

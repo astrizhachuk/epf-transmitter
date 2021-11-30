@@ -3,7 +3,7 @@
 // LoadEventsHistory loads data from the event log into the object by filter.
 // 
 // Parameters:
-// 	Object - CatalogObject.Webhooks - target object; 
+// 	Object - CatalogObject.ExternalRequestHandlers - target object; 
 // 	Destination - String - tabular section name;
 // 	Filter - Structure - event log filter (see global context UnloadEventLog);
 // 	RecordsLoaded - Number - (returned) number of loaded records;
@@ -16,14 +16,14 @@ Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded 
 		
 	EndIf;
 	
-	Catalogs.Webhooks.LoadEventsHistory( Object, Destination, Filter, RecordsLoaded );
+	Catalogs.ExternalRequestHandlers.LoadEventsHistory( Object, Destination, Filter, RecordsLoaded );
 	
 EndProcedure
 
 // SaveQueryData saves the GitLab request data deserialized from JSON to the infobase.
 // 
 // Parameters:
-// 	Webhook - CatalogRef.Webhooks - a ref to webhook;
+// 	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier (commit SHA);
 // 	QueryData - Map - request body deserialized from JSON;
 //
@@ -36,7 +36,7 @@ EndProcedure
 // SaveRemoteFiles saves remote files from the GitLab with its descriptions.
 // 
 // Parameters:
-//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier (commit SHA);
 // 	RemoteFiles - ValueTable - description:
 // * RAWFilePath - String - relative URL path to the RAW file;
@@ -57,7 +57,7 @@ EndProcedure
 // LoadQueryData loads from the infobase previously saved the GitLab request data deserialized from JSON.
 // 
 // Parameters:
-//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier (commit SHA);
 //
 // Returns:
@@ -78,7 +78,7 @@ EndFunction
 // LoadRemoteFiles loads from the infobase previously saved remote files with their description.
 // 
 // Parameters:
-//	Webhook - CatalogRef.Webhooks - a ref to webhook;
+//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier (commit SHA);
 //
 // Returns:

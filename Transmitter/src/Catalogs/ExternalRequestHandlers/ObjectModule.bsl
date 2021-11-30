@@ -10,7 +10,7 @@ Procedure BeforeWrite( Cancel )
 
 	EndIf;
 	
-	Items = Catalogs.Webhooks.FindByURL( ThisObject.ProjectURL );
+	Items = Catalogs.ExternalRequestHandlers.FindByURL( ThisObject.ProjectURL );
 	
 	For Each Item In Items Do
 		

@@ -349,7 +349,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Commits[0].JSON</segments>
+        <segments>Commits.JSON</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>

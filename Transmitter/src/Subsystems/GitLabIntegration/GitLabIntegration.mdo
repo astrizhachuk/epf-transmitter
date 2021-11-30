@@ -21,7 +21,7 @@
   <content>FunctionalOption.HandleRequests</content>
   <content>Constant.RoutingFileName</content>
   <content>Constant.ExternalStorageToken</content>
-  <content>Catalog.Webhooks</content>
+  <content>Catalog.ExternalRequestHandlers</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.ServicesSettings</content>
   <content>Constant.ExternalStorageTimeout</content>
