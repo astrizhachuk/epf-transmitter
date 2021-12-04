@@ -153,17 +153,17 @@ EndFunction
 
 Function AddMessagePrefix( Val Message, Val Options )
 	
-	Var Result;
+	Var CheckoutSHA;
 	
-	Result = Message;
-
-	If ( Options <> Undefined AND Options.Property("CheckoutSHA") ) Then
+	CheckoutSHA = CommonUseClientServer.StructureProperty( Options, "CheckoutSHA" );
 	
-		Result = Logs.AddPrefix( Message, Options.CheckoutSHA );
-			
+	If ( CheckoutSHA = Undefined ) Then
+		
+		Return Message;
+		
 	EndIf;
-	
-	Return Result;
+
+	Return Logs.AddPrefix( Message, CheckoutSHA );
 	
 EndFunction
 
@@ -181,17 +181,7 @@ EndFunction
 
 Function GetRequestHandler( Val Options )
 	
-	Var Result;
-	
-	Result = Undefined;
-	
-	If ( Options <> Undefined ) Then
-		
-		Options.Property( "ExternalRequestHandler", Result );
-		
-	EndIf;
-		
-	Return Result;
+	Return CommonUseClientServer.StructureProperty( Options, "ExternalRequestHandler" );
 	
 EndFunction
 

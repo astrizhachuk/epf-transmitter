@@ -302,7 +302,7 @@ EndProcedure
 
 Function EventLogFilterByData(Data, Level = "Information")
 	
-	Return UtilsServer.EventLogFilterByData(Data, Level);
+	Return UtilsServer.EventLogFilterByData(Data, Level, "BackgroundJob");
 	
 EndFunction
 

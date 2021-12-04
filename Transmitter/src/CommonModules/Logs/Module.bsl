@@ -1,7 +1,36 @@
 #Region Public
 
-Function Messages() Export
+// Events returns a collection of EventNames for use in the global context's WriteLogEvent() method.
+// 
+// Returns:
+// 	Structure - collection:
+// 	* Key - String - event key;
+// 	* Value - String - EventName for WriteLogEvent();
+//
+Function Events() Export
+
+	Result = New Structure();
+
+	Result.Insert( "WS_REQUEST", NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" ));
+	Result.Insert( "WS_REQUEST_BEGIN", NStr( "ru = 'WebService.ОбработкаЗапроса.Начало';
+											|en = 'WebService.QueryProcessing.Begin'" ));
+	Result.Insert( "WS_REQUEST_END", NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';
+											|en = 'WebService.QueryProcessing.End'" ));
+	Result.Insert( "ENDPOINT_SEND_FILE", NStr( "ru = 'Endpoint.ОтправкаФайла';en = 'Endpoint.SendingFile'" ));
+
+	Return Result;
 	
+EndFunction
+
+// Messages returns a collection of Commentaries for use in the global context's WriteLogEvent() method.
+//  
+// Returns:
+// 	Structure - collection:
+// 	* Key - String - comment key;
+// 	* Value - String - comment for WriteLogEvent();
+//
+Function Messages() Export
+
 	Result = New Structure();
 	
 	Result.Insert( "ENDPOINT_OPTIONS_MISSING", NStr( "ru = 'Отсутствуют параметры доставки файла.';
@@ -31,21 +60,6 @@ Function Messages() Export
 	
 EndFunction
 
-Function Events() Export
-	
-	Result = New Structure();
-
-	Result.Insert( "WS_REQUEST", NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" ));
-	Result.Insert( "WS_REQUEST_BEGIN", NStr( "ru = 'WebService.ОбработкаЗапроса.Начало';
-											|en = 'WebService.QueryProcessing.Begin'" ));
-	Result.Insert( "WS_REQUEST_END", NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';
-											|en = 'WebService.QueryProcessing.End'" ));
-	Result.Insert( "ENDPOINT_SEND_FILE", NStr( "ru = 'Endpoint.ОтправкаФайла';en = 'Endpoint.SendingFile'" ));
-
-	Return Result;
-	
-EndFunction
-
 // Info adds an information event to the log. When an HTTPResponse or HTTPServiceResponse is passed to a procedure,
 // an HTTP status code will be appended to the logged message event. For HTTPServiceResponse, this object will be
 // augmented with logged message data for HTTP status codes that support this capability.
@@ -53,7 +67,7 @@ EndFunction
 // Parameters:
 // 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
 // 	Message - String - message text;
-//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
 //  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
 Procedure Info( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
@@ -61,8 +75,8 @@ Procedure Info( Val Event, Val Message, Object = Undefined, Response = Undefined
 	Var LogOptions;
 	
 	LogOptions = LogOptions( Object, Response );
-	AddResponseBody( LogOptions, EventLogLevel.Information, Message);
-	Write( Event, EventLogLevel.Information, Message, LogOptions);
+	AppendResponseBody( LogOptions, EventLogLevel.Information, Message);
+	Write( Event, EventLogLevel.Information, Message, LogOptions );
 
 EndProcedure
 
@@ -73,7 +87,7 @@ EndProcedure
 // Parameters:
 // 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
 // 	Message - String - message text;
-//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
 //  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
 Procedure Warn( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
@@ -81,7 +95,7 @@ Procedure Warn( Val Event, Val Message, Object = Undefined, Response = Undefined
 	Var LogOptions;
 
 	LogOptions = LogOptions( Object, Response );
-	AddResponseBody( LogOptions, EventLogLevel.Warning, Message );
+	AppendResponseBody( LogOptions, EventLogLevel.Warning, Message );
 	Write( Event, EventLogLevel.Warning, Message, LogOptions );
 
 EndProcedure
@@ -93,7 +107,7 @@ EndProcedure
 // Parameters:
 // 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
 // 	Message - String - message text;
-//  Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
+//  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
 //  Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
 //
 Procedure Error( Val Event, Val Message, Object = Undefined, Response = Undefined ) Export
@@ -101,12 +115,12 @@ Procedure Error( Val Event, Val Message, Object = Undefined, Response = Undefine
 	Var LogOptions;
 	
 	LogOptions = LogOptions( Object, Response );
-	AddResponseBody( LogOptions, EventLogLevel.Error, Message );
+	AppendResponseBody( LogOptions, EventLogLevel.Error, Message );
 	Write( Event, EventLogLevel.Error, Message, LogOptions );
 
 EndProcedure
 
-// AddPrefixReturns the amended text of the message with a prefix in the format: "[Prefix]: Message".
+// AddPrefix returns the amended text of the message with a prefix in the format: "[Prefix]: Message".
 // 
 // Parameters:
 // 	Message - String - message text;
@@ -125,24 +139,30 @@ EndFunction
 
 #Region Private
 
-Function LogLevelMap()
+// LogOptions returns additional parameters for the log event entry.
+// 
+// Returns:
+// Structure - additional parameters:
+//   * Object - AnyRef - a ref to an object which metadata needs to be added to the log;
+//   * Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
+//
+Function LogOptions( Val Object = Undefined, Val Response = Undefined )
 	
 	Var Result;
 	
-	Result = New Map();
-	Result.Insert( NStr("ru = 'Информация';en = 'Information'"), "info" );
-	Result.Insert( NStr("ru = 'Предупреждение';en = 'Warning'"), "warning" );
-	Result.Insert( NStr("ru = 'Ошибка';en = 'Error'"), "error" );
+	Result = New Structure();
+	Result.Insert( "Object", Object );
+	Result.Insert( "Response", Response );
 	
 	Return Result;
-		
+	
 EndFunction
 
 Procedure AppendStatusCode( Event, Val LogOptions )
 	
 	Var Response;
 	
-	Response = CommonUseClientServer.StructureProperty( LogOptions, "HTTPResponse" );
+	Response = CommonUseClientServer.StructureProperty( LogOptions, "Response" );
 
 	If ( Response <> Undefined ) Then
 			
@@ -152,27 +172,31 @@ Procedure AppendStatusCode( Event, Val LogOptions )
 
 EndProcedure
 
-Procedure AddResponseBody( LogOptions, Val Level, Val Message )
+Procedure AppendResponseBody( LogOptions, Val Level, Val Message )
 	
-	Var HTTPResponse;
+	Var Response;
 	Var Body;
 	
-	HTTPResponse = CommonUseClientServer.StructureProperty( LogOptions, "HTTPResponse" );
+	Response = CommonUseClientServer.StructureProperty( LogOptions, "Response" );
 	
-	If ( HTTPResponse = Undefined ) Then
+	If ( Response = Undefined ) Then
 		
 		Return;
 		
 	EndIf;
 	
-	If ( HTTPStatusCodesClientServerCached.IsBadRequest(HTTPResponse.StatusCode) ) Then
+	If ( HTTPStatusCodesClientServerCached.IsBadRequest(Response.StatusCode) ) Then
 
-		HTTPResponse.Headers.Insert( "Content-Type", "application/json" );
-		
+		Response.Headers.Insert( "Content-Type", "application/json" );
 		Body = HTTPServices.CreateMessage(Message);
-		//Body.type = LogLevelMap().Get( String(Level) );
+		Response.SetBodyFromString( HTTPConnector.ObjectToJson(Body) );
 
-		HTTPResponse.SetBodyFromString( HTTPConnector.ObjectToJson(Body) );
+	EndIf;
+	
+	If ( HTTPStatusCodesClientServerCached.IsInternalServerError(Response.StatusCode) ) Then
+
+		Response.Headers.Insert( "Content-Type", "text/plain" );
+		Response.SetBodyFromString( HTTPConnector.ObjectToJson(Message) );
 
 	EndIf;
 	
@@ -182,11 +206,9 @@ Procedure Write( Val Event, Val Level, Val Message, Val LogOptions )
 	
 	Var Object;
 	
-	EVENT_CONTEXT = NStr( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" ); 
-	
 	AppendStatusCode( Event, LogOptions );
 
-	Event = EVENT_CONTEXT + "." + Event;
+	Event = Metadata.Catalogs.ExternalRequestHandlers.Synonym + "." + Event;
 	
 	Object = CommonUseClientServer.StructureProperty( LogOptions, "Object" );
 
@@ -201,24 +223,5 @@ Procedure Write( Val Event, Val Level, Val Message, Val LogOptions )
 	EndIf;
 
 EndProcedure
-
-// LogOptions returns additional parameters for the log event entry.
-// 
-// Returns:
-// Structure - additional parameters:
-//   * Object - AnyRef - a ref to an object whose metadata needs to be added to the log;
-//   * Response - HTTPResponse, HTTPServiceResponse - HTTP response or HTTP service response;
-//
-Function LogOptions( Val Object = Undefined, Val Response = Undefined )
-	
-	Var Result;
-	
-	Result = New Structure();
-	Result.Insert( "Object", Object );
-	Result.Insert( "HTTPResponse", Response );
-	
-	Return Result;
-	
-EndFunction
 
 #EndRegion

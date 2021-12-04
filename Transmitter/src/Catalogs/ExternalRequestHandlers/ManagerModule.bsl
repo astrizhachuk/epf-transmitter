@@ -49,7 +49,7 @@ Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded 
 	Var Event;
 	Var NewHistoryRecord;
 	
-	EVENT_OBJECT = NStr( "ru = 'ОбработчикиСобытий';en = 'Webhooks'" );
+	CONTEXT = Metadata.Catalogs.ExternalRequestHandlers.Synonym;
 
 	If ( TypeOf(Object) <> Type("CatalogObject.ExternalRequestHandlers") ) Then
 		
@@ -67,7 +67,7 @@ Procedure LoadEventsHistory( Object, Val Destination, Val Filter, RecordsLoaded 
 		
 		Event = Event( Record );
 		
-		If ( Event.ObjectName <> EVENT_OBJECT ) Then
+		If ( Event.ObjectName <> CONTEXT ) Then
 			
 			Continue;
 			
