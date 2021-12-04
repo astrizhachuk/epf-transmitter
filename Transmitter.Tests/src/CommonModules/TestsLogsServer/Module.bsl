@@ -1,332 +1,497 @@
+// BSLLS-off
 #Region Public
 
-// @unit-test
-Procedure InfoOnlyEvent(Фреймворк) Export
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure Events(Framework) Export
+
+	// given
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация1.Информация2.Информация3';en = 'Webhooks.Информация1.Информация2.Информация3'");
+	// when
+	Result = Logs.Events();
+	
+	// then
+	Framework.AssertType(Result, "Structure");
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure Messages(Framework) Export
+
+	// given
+	
+	// when
+	Result = Logs.Messages();
+	
+	// then
+	Framework.AssertType(Result, "Structure");
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoOnlyEvent(Framework) Export
+
+	// given
+	Event = NewEvent(NStr("ru = 'Информация1';en = 'Information1'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event);
+	Comment = "InfoOnlyEvent";
+	
+	// when
+	Pause(1);
+	Logs.Info(ToString(Event), Comment);
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure WarnOnlyEvent(Framework) Export
 	
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
+	Event = NewEvent(NStr("ru = 'Предупреждение1';en = 'Warning1'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning");
+	Comment = "WarnOnlyEvent";
+	
 	// when
-	Logs.Info( "Информация1.Информация2.Информация3", "обушки-воробушки");
+	Pause(1);
+	Logs.Warn(ToString(Event), Comment);
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+		
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки", "Информация");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ErrorOnlyEvent(Framework) Export
+	
+	// given
+	Event = NewEvent(NStr("ru = 'Ошибка1';en = 'Error1'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
+	Comment = "ErrorOnlyEvent";
+	
+	// when
+	Pause(1);
+	Logs.Error(ToString(Event), Comment);
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+		
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObject(Framework) Export
+	
+	// given
+	ExternalRequestHandlersCleanUp();
+	
+	Event = NewEvent(NStr("ru = 'Информация2';en = 'Information2'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event);
+	Comment = "InfoEventWithObject";
+
+	// when
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertFalse(IsBlankString(Result[0].MetadataPresentation));
 
 EndProcedure
 
 // @unit-test
-Procedure WarnOnlyEvent(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Предупреждение1.Предупреждение2.Предупреждение3';en = 'Webhooks.Предупреждение1.Предупреждение2.Предупреждение3'");
-	
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение"); 
-	// when
-	Logs.Warn( "Предупреждение1.Предупреждение2.Предупреждение3", "обушки-воробушки2");
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки2", "Предупреждение");
-	
-EndProcedure
-
-// @unit-test
-Procedure ErrorOnlyEvent(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Ошибка1.Ошибка2.Ошибка3';en = 'Webhooks.Ошибка1.Ошибка2.Ошибка3'");
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure WarnEventWithObject(Framework) Export
 	
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	// when
-	Logs.Error( "Ошибка1.Ошибка2.Ошибка3", "обушки-воробушки3");
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Ошибка");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки3", "Ошибка");
-	
-EndProcedure
+	ExternalRequestHandlersCleanUp();
 
-// @unit-test
-Procedure InfoEventWithObject(Фреймворк) Export
+	Event = NewEvent(NStr("ru = 'Предупреждение2';en = 'Warning2'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning");
+	Comment = "WarnEventWithObject";
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация11.Информация22.Информация33';en = 'Webhooks.Информация11.Информация22.Информация33'");
-	
-	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
 	// when
-	Logs.Info( "Информация11.Информация22.Информация33", "обушки-воробушки", Webhook.Ref );
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);	
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки", "Информация");
-	Фреймворк.ПроверитьЛожь(ПустаяСтрока(Результат[0].MetadataPresentation), "Информация");
+	Pause(1);
+	Logs.Warn(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
 	
-EndProcedure
-
-// @unit-test
-Procedure WarnEventWithObject(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Предупреждение11.Предупреждение22.Предупреждение33';en = 'Webhooks.Предупреждение11.Предупреждение22.Предупреждение33'");
-
-	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение");
-	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
-	// when
-	Logs.Warn( "Предупреждение11.Предупреждение22.Предупреждение33", "обушки-воробушки2", Webhook.Ref );
 	// then	
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки2", "Предупреждение");
-	Фреймворк.ПроверитьЛожь(ПустаяСтрока(Результат[0].MetadataPresentation), "Предупреждение");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertFalse(IsBlankString(Result[0].MetadataPresentation));
 	
 EndProcedure
 
 // @unit-test
-Procedure ErrorEventWithObject(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ErrorEventWithObject(Framework) Export
+
+	// given
+	ExternalRequestHandlersCleanUp();
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Ошибка11.Ошибка22.Ошибка33';en = 'Webhooks.Ошибка11.Ошибка22.Ошибка33'");
+	Event = NewEvent(NStr("ru = 'Ошибка2';en = 'Error2'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
+	Comment = "ErrorEventWithObject";
+
+	// when
+	Pause(1);
+	Logs.Error(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertFalse(IsBlankString(Result[0].MetadataPresentation));
+	
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// given
-	УдалитьВсеОбработчикиСобытий();
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	Webhook = TestsWebhooksServer.AddExternalRequestHandler("ТестЛогирование", "ТестЛогирование");
+	StatusCode = 200;
+	Event = NewEvent(NStr("ru = 'Информация3';en = 'Information3'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Comment = "InfoEventWithObjectAndHTTPResponse200WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
 	// when
-	Logs.Error( "Ошибка11.Ошибка22.Ошибка33", "обушки-воробушки3", Webhook.Ref );
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);	
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Ошибка");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки3", "Ошибка");
-	Фреймворк.ПроверитьЛожь(ПустаяСтрока(Результат[0].MetadataPresentation), "Ошибка");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertStringContains(Result[0].Comment, Comment);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 	
 EndProcedure
 
 // @unit-test
-Procedure InfoEventWithObjectAndHTTPResponse200(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация111.Информация222.Информация333.200';en = 'Webhooks.Информация111.Информация222.Информация333.200'");
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure WarnEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	Response = Новый HTTPСервисОтвет(200);
+	StatusCode = 200;
+	Event = NewEvent(NStr("ru = 'Предупреждение3';en = 'Warning3'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning", StatusCode);
+	Comment = "WarnEventWithObjectAndHTTPResponse200WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
 	// when
-	Logs.Info( "Информация111.Информация222.Информация333", "обушки-воробушки", , Response );
+	Pause(1);
+	Logs.Warn(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);		
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация");
-	Фреймворк.ПроверитьВхождение(Результат[0].Comment, "обушки-воробушки", "Информация");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 200, "Информация");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""info""", "Информация");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 	
 EndProcedure
 
 // @unit-test
-Procedure WarnEventWithObjectAndHTTPResponse200(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ErrorEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Предупреждение111.Предупреждение222.Предупреждение333.200';en = 'Webhooks.Предупреждение111.Предупреждение222.Предупреждение333.200'");
-
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение");
-	Response = Новый HTTPСервисОтвет(200);
-	// when
-	Logs.Warn( "Предупреждение111.Предупреждение222.Предупреждение333", "обушки-воробушки2", , Response );
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);		
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки2", "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 200, "Предупреждение");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""warning""", "Предупреждение");
-	
-EndProcedure
+	StatusCode = 200;
+	Event = NewEvent(NStr("ru = 'Ошибка3';en = 'Error3'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error", StatusCode);
+	Comment = "ErrorEventWithObjectAndHTTPResponse200WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
 
-// @unit-test
-Procedure ErrorEventWithObjectAndHTTPResponse200(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Ошибка111.Ошибка222.Ошибка333.200';en = 'Webhooks.Ошибка111.Ошибка222.Ошибка333.200'");
-
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	Response = Новый HTTPСервисОтвет(200);
 	// when
-	Logs.Error( "Ошибка111.Ошибка222.Ошибка333", "обушки-воробушки3", , Response );
+	Pause(1);
+	Logs.Error(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Ошибка");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки3", "Ошибка");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 200, "Ошибка");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""error""", "Ошибка");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 
 EndProcedure
 
-// @unit-test
-Procedure InfoEventWithObjectAndHTTPResponse400(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация1111.Информация2222.Информация3333.400';en = 'Webhooks.Информация1111.Информация2222.Информация3333.400'");
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObjectAndHTTPResponse400WithBody(Framework) Export
 
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE);
-	Response = Новый HTTPСервисОтвет(400);
+	StatusCode = 400;
+	Event = NewEvent(NStr("ru = 'Информация4';en = 'Information4'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Comment = "InfoEventWithObjectAndHTTPResponse400WithBody";
+	Response = New HTTPServiceResponse(StatusCode);
+		
 	// when
-	Logs.Info( "Информация1111.Информация2222.Информация3333", "обушки-воробушки", , Response );
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);		
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки", "Информация");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 400, "Информация");
-	Фреймворк.ПроверитьИстину(ПустаяСтрока(Response.GetBodyAsString()), "Информация");
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertEqual(Response.Headers.Get("Content-Type"), "application/json");
+	Framework.AssertStringContains(Response.GetBodyAsString(), """message"":");
+	Framework.AssertStringContains(Response.GetBodyAsString(), Comment);
 
 EndProcedure
 
 // @unit-test
-Procedure WarnEventWithObjectAndHTTPResponse400(Фреймворк) Export
-
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Предупреждение1111.Предупреждение2222.Предупреждение3333.400';en = 'Webhooks.Предупреждение1111.Предупреждение2222.Предупреждение3333.400'");
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObjectAndHTTPResponse401WithoutBody(Framework) Export
 	
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Предупреждение");
-	Response = Новый HTTPСервисОтвет(400);
+	StatusCode = 401;
+	Event = NewEvent(NStr("ru = 'Информация5';en = 'Information5'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Comment = "InfoEventWithObjectAndHTTPResponse401WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
 	// when
-	Logs.Warn( "Предупреждение1111.Предупреждение2222.Предупреждение3333", "обушки-воробушки2", , Response );
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);		
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки2", "Предупреждение");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 400, "Предупреждение");
-	Фреймворк.ПроверитьИстину(ПустаяСтрока(Response.GetBodyAsString()), "Предупреждение");
-	
-EndProcedure
-
-// @unit-test
-Procedure ErrorEventWithObjectAndHTTPResponse400(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Ошибка1111.Ошибка2222.Ошибка3333.400';en = 'Webhooks.Ошибка1111.Ошибка2222.Ошибка3333.400'");
-
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Ошибка");
-	Response = Новый HTTPСервисОтвет(400);
-	// when
-	Logs.Error( "Ошибка1111.Ошибка2222.Ошибка3333", "обушки-воробушки3", , Response );
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Ошибка");
-	Фреймворк.ПроверитьРавенство(Результат[0].Comment, "обушки-воробушки3", "Ошибка");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 400, "Ошибка");
-	Фреймворк.ПроверитьИстину(ПустаяСтрока(Response.GetBodyAsString()), "Ошибка");
-	
-EndProcedure
-
-// @unit-test
-Procedure InfoEventWithObjectAndHTTPResponseWithBody200(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация200.Информация200.Информация200.200';en = 'Webhooks.Информация200.Информация200.Информация200.200'");
-
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Информация");
-	Response = Новый HTTPСервисОтвет(200);
-	// when
-	Logs.Info( "Информация200.Информация200.Информация200", "обушки-воробушки", , Response );
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация.200");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 200, "Информация.200");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""info""", "Информация.200");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """message"": ""обушки-воробушки""", "Информация.200");	
-			
-EndProcedure	
-
-// @unit-test
-Procedure InfoEventWithObjectAndHTTPResponseWithBody400(Фреймворк) Export
-	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация400.Информация400.Информация400.400';en = 'Webhooks.Информация400.Информация400.Информация400.400'");
-
-	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Информация");
-	Response = Новый HTTPСервисОтвет(400);
-	// when
-	Logs.Info( "Информация400.Информация400.Информация400", "обушки-воробушки2", , Response );
-	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация.400");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 400, "Информация.400");
-	Фреймворк.ПроверитьИстину(ПустаяСтрока(Response.GetBodyAsString()), "Информация.400");				
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));				
 
 EndProcedure	
 
 // @unit-test
-Procedure InfoEventWithObjectAndHTTPResponseWithBody403(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObjectAndHTTPResponse404WithoutBody(Framework) Export
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация403.Информация403.Информация403.403';en = 'Webhooks.Информация403.Информация403.Информация403.403'");
-
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Информация");
-	Response = Новый HTTPСервисОтвет(403);
+	StatusCode = 404;
+	Event = NewEvent(NStr("ru = 'Информация6';en = 'Information6'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Comment = "InfoEventWithObjectAndHTTPResponse404WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
 	// when
-	Logs.Info( "Информация403.Информация403.Информация403", "обушки-воробушки3", , Response );
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация.403");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 403, "Информация.403");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""info""", "Информация.403");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """message"": ""обушки-воробушки3""", "Информация.403");	
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));				
 
 EndProcedure
 
 // @unit-test
-Procedure InfoEventWithObjectAndHTTPResponseWithBody423(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure InfoEventWithObjectAndHTTPResponse423WithoutBody(Framework) Export
 	
-	EVENT_MESSAGE = НСтр("ru = 'ОбработчикиСобытий.Информация423.Информация423.Информация423.423';en = 'Webhooks.Информация423.Информация423.Информация423.423'");
-
 	// given
-	ОтборЖурналаРегистрации = ОтборЖурналаРегистрации(EVENT_MESSAGE, "Информация");
-	Response = Новый HTTPСервисОтвет(423);
+	StatusCode = 423;
+	Event = NewEvent(NStr("ru = 'Информация7';en = 'Information7'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Comment = "InfoEventWithObjectAndHTTPResponse423WithoutBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
 	// when
-	Logs.Info( "Информация423.Информация423.Информация423", "обушки-воробушки4", , Response );
+	Pause(1);
+	Logs.Info(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
 	// then
-	Результат = СобытияЖурналаРегистрации(ОтборЖурналаРегистрации);
-	Фреймворк.ПроверитьРавенство(Результат.Количество(), 1, "Информация.423");
-	Фреймворк.ПроверитьРавенство(Response.StatusCode, 423, "Информация.423");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """type"": ""info""", "Информация.423");
-	Фреймворк.ПроверитьВхождение(Response.GetBodyAsString(), """message"": ""обушки-воробушки4""", "Информация.423");	
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));				
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure ErrorEventWithObjectAndHTTPResponse500WithBody(Framework) Export
+	
+	// given
+	StatusCode = 500;
+	Event = NewEvent(NStr("ru = 'Ошибка8';en = 'Error8'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error", StatusCode);
+	Comment = "ErrorEventWithObjectAndHTTPResponse500WithBody";
+	Response = New HTTPServiceResponse(StatusCode);
+	
+	// when
+	Pause(1);
+	Logs.Error(ToString(Event), Comment, , Response );
+	Pause(2);
+	Result = GetEventLog(EventLogFilterByEvent);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Response.StatusCode, StatusCode);
+	Framework.AssertEqual(Response.Headers.Get("Content-Type"), "text/plain");
+	Framework.AssertStringContains(Response.GetBodyAsString(), Comment);			
 
 EndProcedure
 
 // @unit-test
-Procedure ДополнитьСообщениеПрефиксом(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure AddPrefix(Framework) Export
 	
 	// given
-	Префикс = "Префикс";
-	Сообщение = "Текст сообщения.";
+	Prefix = "Prefix Префикс";
+	Message = "Message Сообщение";
+	
 	// when
-	Результат = Logs.AddPrefix(Сообщение, Префикс);
+	Result = Logs.AddPrefix(Message, Prefix);
+	
 	// then
-	Фреймворк.ПроверитьРавенство(Результат, "[ Префикс ]: Текст сообщения.");
+	Framework.AssertEqual(Result, "[ Prefix Префикс ]: Message Сообщение");
 	
 EndProcedure	
 
 #EndRegion
 
 #Region Private
-Procedure УдалитьВсеОбработчикиСобытий()
+
+Procedure Pause(Val Period)
+	
+	UtilsServer.Pause(Period);
+	
+EndProcedure
+
+#Region EventLog
+
+Function NewLog()
+	
+	Result = New Array();
+	Result.Add(Metadata.Catalogs.ExternalRequestHandlers.Synonym);
+
+	Return Result;
+	
+EndFunction
+
+Function NewEvent(Val Value, Val Level)
+	
+	Result = New Array();
+	
+	For Index = 1 To Level Do
+		
+		Result.Add(Value + String(Index) );
+		
+	EndDo;
+	
+	Return Result;
+	
+EndFunction
+
+Function ToString(Val Events)
+	
+	Return StrConcat(Events, ".");
+	
+EndFunction
+
+Function EventLogFilterByEvent(Events, Level = "Information", Val StatusCode = 0)
+	
+	Result = NewLog();
+	
+	CommonUseClientServer.SupplementArray(Result, Events);
+
+	If ValueIsFilled(StatusCode) Then
+		
+		Result.Add(StatusCode);
+		
+	EndIf;
+
+	Return UtilsServer.EventLogFilterByEvent(StrConcat(Result, "."), Level, "1CV8C");
+	
+EndFunction
+
+Function GetEventLog(Val Filter)
+	
+	Return UtilsServer.GetEventLog(Filter);
+	
+EndFunction
+
+#EndRegion
+
+#Region Data
+
+Procedure ExternalRequestHandlersCleanUp()
 	
 	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
 
 EndProcedure
 
-Function ОтборЖурналаРегистрации(Событие, Уровень = "Информация")
-	
-	Возврат UtilsServer.EventLogFilterByEvent(Событие, Уровень);
-	
+Function NewExternalRequestHandler(Val Name, Val Token)
+
+	Return TestsWebhooksServer.AddExternalRequestHandler(Name, "empty", Token);
+
 EndFunction
 
-Function СобытияЖурналаРегистрации(Отбор, Секунд = 2)
-	
-	UtilsServer.Pause(Секунд);
-	Возврат UtilsServer.GetEventLog(Отбор);
-	
-EndFunction
+#EndRegion
 
 #EndRegion
