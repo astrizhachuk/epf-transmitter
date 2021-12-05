@@ -26,6 +26,7 @@ theme:
         icon: material/lightbulb-outline
         name: Switch to dark mode
   features:
+    - content.code.annotate
     - navigation.tabs
     - search.highlight
     - toc.integrate
