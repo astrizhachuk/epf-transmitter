@@ -3,7 +3,9 @@ name: GitHub Pages
 on:
   push:
     branches:
-    - mkdocs
+    - master
+    - 'docs/**'
+    - 'docs-**'
     paths:
     - 'docs/**'
     - 'mkdocs.yml'

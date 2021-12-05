@@ -1,4 +1,10 @@
 site_name: epf-transmitter
+
+site_url: 'https://astrizhachuk.github.io/epf-transmitter'
+repo_name: 'astrizhachuk/epf-transmitter'
+repo_url: 'https://github.com/astrizhachuk/epf-transmitter'
+edit_uri: 'edit/master/docs'
+
 theme: 
   name: material
   language: ru
@@ -30,20 +36,47 @@ extra:
       link: 'https://github.com/astrizhachuk/epf-transmitter'
 extra_css:
   - 'assets/stylesheets/extra.css'
-markdown_extensions:
-  - admonition
-  - codehilite
-  - pymdownx.details
-  - pymdownx.highlight
-  - pymdownx.superfences
-  - markdown.extensions.toc:
-      permalink: true
-      slugify: !!python/name:pymdownx.slugs.uslugify_cased
-      toc_depth: 4
+
 plugins:
   - search:
       lang: ru
-site_url: 'https://astrizhachuk.github.io/epf-transmitter'
-repo_name: 'astrizhachuk/epf-transmitter'
-repo_url: 'https://github.com/astrizhachuk/epf-transmitter'
-edit_uri: 'edit/master/docs'
+
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid-experimental
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.snippets

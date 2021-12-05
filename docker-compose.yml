@@ -16,6 +16,23 @@ services:
     networks:
       - back_net
 
+  mkdocs:
+    image: squidfunk/mkdocs-material:latest
+    container_name: mkdocs
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      LIVE_RELOAD_SUPPORT: 'true'
+      FAST_MODE: 'true'
+      DOCS_DIRECTORY: 'docs'
+    volumes:
+      - ./:/mkdocs
+    working_dir: /mkdocs
+    command: serve --dev-addr=0.0.0.0:8000
+    networks:
+      - back_net
+
   gitlab:
     image: gitlab/gitlab-ee:14.4.0-ee.0
     container_name: gitlab
