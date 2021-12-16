@@ -6,9 +6,9 @@
 
 Управление процессом доставки осуществляется через [Environments](https://docs.gitlab.com/ee/ci/environments/index.html), а запускает процесс доставки установка в репозитории соответствующего тега. Кроме продуктивной среды поддерживается [Review App](https://docs.gitlab.com/ee/ci/review_apps/).
 
-Сервис устанавливается на сервер, на котором установлен docker-compose и gitlab-runner (shell), подключенный к репозиторию проекта.
+Сервис устанавливается на сервер, на котором установлен `docker-compose` и `gitlab-runner (shell)`, подключенный к репозиторию проекта.
 
-Описание парамеров и режимов запуска разворачиваемого сервиса можно найти в файле [.gitlab-ci.yml](../.gitlab-ci.yml), а также в [настройках конфигурации](../production.yml) самого сервиса.
+Описание парамеров и режимов запуска разворачиваемого сервиса можно найти в файле [.gitlab-ci.yml](https://github.com/astrizhachuk/epf-transmitter/tree/master/.gitlab-ci.yml), а также в [настройках конфигурации](https://github.com/astrizhachuk/epf-transmitter/tree/master/production.yml) самого сервиса.
 
 ## Production
 
