@@ -1,5 +1,7 @@
 #Region Public
 
+// @Deprecated - просто шляпа какая-то
+
 // RunBackgroundJob prepares and run background job to process "webhooked" or saved GitLab server request.
 // 
 // Parameters:

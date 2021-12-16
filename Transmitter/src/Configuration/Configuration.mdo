@@ -76,6 +76,7 @@
   <commonModules>CommonModule.ServicesSettingsClientCerver</commonModules>
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <commonModules>CommonModule.Webhooks</commonModules>
+  <commonModules>CommonModule.ExternalRequestProcessing</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <httpServices>HTTPService.Version</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
