@@ -59,6 +59,7 @@
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>
   <roles>Role.GitLabAPI</roles>
+  <commonModules>CommonModule.BackgroundJobsExt</commonModules>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
   <commonModules>CommonModule.DataProcessing</commonModules>

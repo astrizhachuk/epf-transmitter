@@ -42,7 +42,7 @@ Function RunBackgroundJob( Val Webhook, Val DataSource ) Export
 	
 	EndIf;
 	
-	If ( IsActiveBackgroundJob(CheckoutSHA) ) Then
+	If ( BackgroundJobsExt.IsActive(CheckoutSHA) ) Then
 		
 		Message = Logs.AddPrefix( JOB_WAS_STARTED_MESSAGE, CheckoutSHA );
 		Logs.Warn( EVENT_MESSAGE, Message, Webhook );
@@ -115,22 +115,6 @@ EndProcedure
 #EndRegion
 
 #Region Private
-
-Function ActiveBackgroundJob( Val Key )
-	
-	Var Filter;
-	
-	Filter = New Structure( "Key, State", Key, BackgroundJobState.Active );
-
-	Return BackgroundJobs.GetBackgroundJobs( Filter );
-	
-EndFunction
-
-Function IsActiveBackgroundJob( Val Key )
-	
-	Return ValueIsFilled( ActiveBackgroundJob(Key) );
-	
-EndFunction
 
 Function WebhookParams( Val Webhook, Val CheckoutSHA )
 	
@@ -256,7 +240,7 @@ Procedure SendFiles( Val WebhookParams, Val RemoteFiles )
 			
 			JobKey = WebhookParams.CheckoutSHA + "|" + URL + "|" + RemoteFile.FileName;
 				
-			If ( IsActiveBackgroundJob(JobKey) ) Then
+			If ( BackgroundJobsExt.IsActive(JobKey) ) Then
 				
 				Message = Logs.AddPrefix( JOB_WAS_STARTED_MESSAGE, WebhookParams.CheckoutSHA );
 				Message = Message + Chars.LF + KEY_MESSAGE + JobKey;
