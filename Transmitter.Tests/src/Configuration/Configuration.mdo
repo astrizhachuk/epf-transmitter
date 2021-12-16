@@ -47,6 +47,7 @@
     </extension>
     <languageCode>en</languageCode>
   </languages>
+  <commonModules>CommonModule.TestsBackgroundJobsExtServer</commonModules>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessing</commonModules>
   <commonModules>CommonModule.TestsEndpointsServer</commonModules>

@@ -219,6 +219,7 @@ Procedure SendFileBackgroundJobError(Framework) Export
 EndProcedure
 
 // @unit-test:dev
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -262,7 +263,7 @@ Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
 										JobParams,
 										"Index" + Index,
 										"Test.Endpoints.SendFile." + Index);
-		Result.Добавить(Job.ОжидатьЗавершенияВыполнения(10));
+		Result.Add(Job.WaitForExecutionCompletion(10));
 	EndDo;
 	Pause(3);
 	EventLog = GetEventLog(EventLogFilter);

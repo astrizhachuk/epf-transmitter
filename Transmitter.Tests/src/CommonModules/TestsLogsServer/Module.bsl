@@ -1,7 +1,7 @@
 // BSLLS-off
 #Region Public
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -17,7 +17,7 @@ Procedure Events(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -33,7 +33,8 @@ Procedure Messages(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -56,7 +57,8 @@ Procedure InfoOnlyEvent(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -79,7 +81,8 @@ Procedure WarnOnlyEvent(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -102,7 +105,8 @@ Procedure ErrorOnlyEvent(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -129,6 +133,7 @@ Procedure InfoEventWithObject(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -155,6 +160,7 @@ Procedure WarnEventWithObject(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -180,7 +186,8 @@ Procedure ErrorEventWithObject(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -208,6 +215,7 @@ Procedure InfoEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -235,6 +243,7 @@ Procedure WarnEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -261,7 +270,8 @@ Procedure ErrorEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -291,6 +301,7 @@ Procedure InfoEventWithObjectAndHTTPResponse400WithBody(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -317,6 +328,7 @@ Procedure InfoEventWithObjectAndHTTPResponse401WithoutBody(Framework) Export
 EndProcedure	
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -343,6 +355,7 @@ Procedure InfoEventWithObjectAndHTTPResponse404WithoutBody(Framework) Export
 EndProcedure
 
 // @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -368,7 +381,8 @@ Procedure InfoEventWithObjectAndHTTPResponse423WithoutBody(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
+// @timer
 // Params:
 // 	Framework - TestFramework - Test framework
 //
