@@ -30,8 +30,10 @@ Procedure CurrentSettings(Framework) Export
 	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
 	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4))-1);
+	
 	// when
 	Result = ServicesSettings.CurrentSettings();
+	
 	// then
 	Framework.AssertEqual(Result.Количество(), 7);
 	Framework.AssertTrue(Result.HandleRequests);
@@ -67,8 +69,10 @@ Procedure SetCurrentSettings(Framework) Export
 	Settings.Insert( "EndpointUserName", "UserName" + Right(TIME, 10));
 	Settings.Insert( "EndpointUserPassword", "UserPassword" + Right(TIME, 10));
 	Settings.Insert( "DeliveryFileTimeout", Number(Right(TIME, 4))-1);
+	
 	// when
 	ServicesSettings.SetCurrentSettings(Settings);
+	
 	// then
 	Framework.AssertTrue(Constants.HandleRequests.Get());
 	Framework.AssertEqual(Constants.RoutingFileName.Get(), "FileName" + Right(TIME, 5));
@@ -88,8 +92,10 @@ Procedure HandleRequestsTrue(Framework) Export
 
 	// given
 	Constants.HandleRequests.Set(True);
+	
 	// when
 	Result = ServicesSettings.HandleRequests();
+	
 	// then
 	Framework.AssertTrue(Result);
 
@@ -103,8 +109,10 @@ Procedure HandleRequestsFalse(Framework) Export
 
 	// given
 	Constants.HandleRequests.Set(False);
+	
 	// when
 	Result = ServicesSettings.HandleRequests();
+	
 	// then
 	Framework.AssertFalse(Result);
 
@@ -118,10 +126,13 @@ Procedure EndpointUserName(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	
 	UserName = "UserName" + Right(TIME, 10);			
 	Constants.EndpointUserName.Set(UserName);
+	
 	// when
 	Result = ServicesSettings.EndpointUserName();
+	
 	// then
 	Framework.AssertEqual(Result, UserName);
 
@@ -135,10 +146,13 @@ Procedure EndpointUserPassword(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	
 	UserPassword = "UserPassword" + Right(TIME, 10);			
 	Constants.EndpointUserPassword.Set(UserPassword);
+	
 	// when
 	Result = ServicesSettings.EndpointUserPassword();
+	
 	// then
 	Framework.AssertEqual(Result, UserPassword);
 
@@ -152,11 +166,15 @@ Procedure DeliveryFileTimeout(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
-	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
+	
+	Timeout = Number(Right(TIME, 4));
+	Constants.DeliveryFileTimeout.Set(Timeout);
+	
 	// when
 	Result = ServicesSettings.DeliveryFileTimeout();
+	
 	// then
-	Framework.AssertEqual(Result, Number(Right(TIME, 4)));
+	Framework.AssertEqual(Result, Timeout);
 
 EndProcedure
 
@@ -168,10 +186,13 @@ Procedure ExternalStorageToken(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Token = "Token" + Right(TIME, 10);			
+	
+	Token = "Token" + TIME;			
 	Constants.ExternalStorageToken.Set(Token);
+	
 	// when
 	Result = ServicesSettings.ExternalStorageToken();
+	
 	// then
 	Framework.AssertEqual(Result, Token);
 
@@ -185,11 +206,35 @@ Procedure ExternalStorageTimeout(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
-	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
+	
+	Timeout = Number(Right(TIME, 4));
+	Constants.ExternalStorageTimeout.Set(Timeout);
+	
 	// when
 	Result = ServicesSettings.ExternalStorageTimeout();
+	
 	// then
-	Framework.AssertEqual(Result, Number(Right(TIME, 4)));
+	Framework.AssertEqual(Result, Timeout);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure RoutingFileName(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+
+	RoutingFileName = "RoutingFileName" + TIME;			
+	Constants.RoutingFileName.Set(RoutingFileName);
+	
+	// when
+	Result = ServicesSettings.RoutingFileName();
+	
+	// then
+	Framework.AssertEqual(Result, RoutingFileName);
 
 EndProcedure
 

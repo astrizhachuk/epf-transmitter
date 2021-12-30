@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4f00f53b-b02e-407e-a74b-b49e44bf9ace">
-  <name>BackgroundJobsExt</name>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="9b45a558-1fae-4afa-a41d-fb965309fceb">
+  <name>RemoteFiles</name>
   <synonym>
     <key>en</key>
-    <value>Background jobs (extentions)</value>
+    <value>Remote files</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Фоновые задания (расширение)</value>
+    <value>Файлы внешнего хранилища</value>
   </synonym>
   <server>true</server>
   <externalConnection>true</externalConnection>

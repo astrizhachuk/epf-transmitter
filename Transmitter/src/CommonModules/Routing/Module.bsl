@@ -1,12 +1,12 @@
-#Region Internal
+#Region Public
 
 // TODO подумать о возвращении отправки по доступным маршрутам, если файл не имеет описания в json
 
-// FilesByRoutes returns remote files with delivery end-point service URLs.
+// GetFilesByRoutes returns remote files with delivery end-point service URLs.
 // 
 // Parameters:
 // 	Commits - Map - deserialized commits from the GitLab request;
-// 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
+// 	Files - ValueTable - files from the GitLab server with its descriptions:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * FilePath - String - relative path to the file in remote repository (with the filename);
@@ -21,26 +21,21 @@
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
 // * Routes - Array of String - delivery end-point service URLs;
-// * ErrorInfo - String - description of an error while processing files;
 //
-Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
+Function GetFilesByRoutes( Val RequestData, Val Files ) Export
 	
 	Var RoutesByCommits;
 	Var FileToSend;
 	Var Routes;
 	Var Result;
 	
-	ROUTING_SETTINGS_MISSING_MESSAGE = NStr( "ru = '%1: отсутствуют настройки маршрутизации.';
-										|en = '%1: there are no routing settings.'" );
-										
-	DELIVERY_ROUTE_MISSING_MESSAGE = NStr( "ru = '%1: не задан маршрут доставки файла.';
-										|en = '%1: file delivery route not specified.'" );
+	Commits = ExternalRequests.GetCommitsOrRaise( RequestData );
 	
 	RoutesByCommits = RoutesByCommits( Commits );
 	
 	Result = New Array();
 	
-	For Each RemoteFile In RemoteFiles Do
+	For Each RemoteFile In Files Do
 		
 		If ( IsSettingFile(RemoteFile) ) Then
 			
@@ -52,29 +47,11 @@ Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 		
 		FillPropertyValues( FileToSend, RemoteFile );
 		
-		If ( NOT IsBlankString(FileToSend.ErrorInfo) ) Then
-			
-			Result.Add( FileToSend );
-			
-			Continue;
-			
-		EndIf;
-			
 		Routes = RoutesByCommits.Get( RemoteFile.CommitSHA );
 	
-		If ( Routes = Undefined ) Then
+		If ( Routes <> Undefined ) Then
 			
-			FileToSend.ErrorInfo = StrTemplate( ROUTING_SETTINGS_MISSING_MESSAGE, RemoteFile.CommitSHA );
-
-		Else
-
 			FileToSend.Routes = Routes.Get( RemoteFile.FilePath );
-			
-			If ( FileToSend.Routes = Undefined ) Then
-
-				FileToSend.ErrorInfo = StrTemplate( DELIVERY_ROUTE_MISSING_MESSAGE, RemoteFile.CommitSHA );
-				
-			EndIf;
 
 		EndIf;
 		
@@ -86,101 +63,6 @@ Function FilesByRoutes( Val RemoteFiles, Val Commits ) Export
 	
 EndFunction
 
-// AddRoutingFilesDescription adds a description of files with routing settings.
-// 
-// Parameters:
-// 	Commits - Map - deserialized commits from the GitLab request;
-//	ProjectId - String - project id from the GitLab request;
-// 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
-// * RAWFilePath - String - relative URL path to the RAW file;
-// * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
-// * BinaryData - BinaryData - file data;
-// * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
-// * CommitSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
-//
-Procedure AddRoutingFilesDescription( RemoteFiles, Val Commits, Val ProjectId ) Export
-	
-	Var FilePath;
-	Var CommitSHA;
-	Var RAWFilePath;
-	Var NewDescription;
-	
-	If ( Commits = Undefined ) Then
-		
-		Return;
-		
-	EndIf;
-
-	FilePath = ServicesSettings.CurrentSettings().RoutingFileName;
-	
-	For Each Commit In Commits Do
-
-		NewDescription = RemoteFiles.Add();
-		CommitSHA = Commit.Get( "id" );
-		RAWFilePath = GitLab.RAWFilePath( ProjectId, FilePath, CommitSHA );
-		NewDescription.RAWFilePath = RAWFilePath;
-		NewDescription.FilePath = FilePath;
-		NewDescription.Action = "";
-		NewDescription.Date = Commit.Get( "timestamp" );
-		NewDescription.CommitSHA = CommitSHA;
-	
-	EndDo;
-
-EndProcedure
-
-// ExtendQueryDataWithRoutingSettings adds file routing settings deserialized from JSON to the request data.
-// 
-// Parameters:
-// 	Commits - Map - deserialized commits from the GitLab request;
-// 	RemoteFiles - ValueTable - files from the GitLab server with its descriptions:
-// * RAWFilePath - String - relative URL path to the RAW file;
-// * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
-// * BinaryData - BinaryData - file data;
-// * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
-// * CommitSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
-//
-Procedure ExtendQueryDataWithRoutingSettings( Commits, Val RemoteFiles ) Export
-	
-	Var FilePath;
-	Var Filter;
-	Var File;
-	Var Stream;
-	Var Settings;
-
-	FilePath = ServicesSettings.CurrentSettings().RoutingFileName;	
-	
-	For Each Commit In Commits Do
-		
-		Filter = New Structure();
-		Filter.Insert( "CommitSHA", Commit.Get( "id" ) );
-		Filter.Insert( "FilePath", FilePath );
-		Filter.Insert( "Action", "" );
-		Filter.Insert( "ErrorInfo", "" );
-		
-		File = RemoteFiles.FindRows( Filter );
-		
-		If ( NOT ValueIsFilled(File) ) Then
-			
-			Continue;
-			
-		EndIf;
-		
-		Stream = File[0].BinaryData.OpenStreamForRead();
-		Settings = HTTPConnector.JsonToObject( Stream );
-		CommonUseServerCall.AppendCollectionFromStream( Settings, "json", Stream );
-		
-		Commit.Insert( "settings", Settings );
-		
-	EndDo;
-	
-EndProcedure
- 
 #EndRegion
 
 #Region Private
@@ -192,7 +74,6 @@ EndProcedure
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
 // * Routes - Array of String - delivery end-point service URLs;
-// * ErrorInfo - String - description of an error while processing files;
 //
 Function FileToSend()
 	
@@ -202,7 +83,6 @@ Function FileToSend()
 	Result.Insert( "FileName", "" );
 	Result.Insert( "BinaryData", Undefined );
 	Result.Insert( "Routes", Undefined );
-	Result.Insert( "ErrorInfo", "" );
 	
 	Return Result;
 	

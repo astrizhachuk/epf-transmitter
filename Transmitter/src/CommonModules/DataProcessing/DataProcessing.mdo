@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3c80cb73-f58b-41fc-b720-fb40994dbf86">
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d6fb716d-97db-4629-9069-86ff34db286d">
   <name>DataProcessing</name>
   <synonym>
     <key>en</key>

@@ -12,5 +12,4 @@
   <includeHelpInContents>true</includeHelpInContents>
   <content>CommonModule.HTTPStatusCodesClientServerCached</content>
   <content>CommonModule.HTTPConnector</content>
-  <content>CommonModule.BackgroundJobsExt</content>
 </mdclass:Subsystem>

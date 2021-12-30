@@ -21,7 +21,7 @@ Function GetConnectionParams() Export
 	
 EndFunction
 
-// SetURL sets the delivery URL for the endpoint connection parameters. 
+// SetURL sets the upload file URL for the endpoint connection parameters. 
 // 
 // Parameters:
 // 	Params - Structure - parameters (see GetConnectionParams);
@@ -37,68 +37,107 @@ EndProcedure
 // see https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-endpoint
 // 
 // Parameters:
-//	FileName - String - the filename used to replace files in the endpoint infobase (UTF-8);
-//	Data - BinaryData - file body;
 //	Endpoint - Structure - upload file options:
 // * URL - String - endpoint service URL;
 // * User - String - user name;
 // * Password - String - user password;
 // * Timeout - Number - connection timeout, sec. (0 - timeout is not set);
-//	Options - Undefined, Structure - additional parameters for logging the result of sending a file:
-// * GetRequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
-// * CheckoutSHA - String - event identifier (commit SHA) for which the file sending is initiated;
+//	FileName - String - the filename used to replace files in the endpoint infobase (UTF-8);
+//	Data - BinaryData - file body;
 //
 // Returns:
 // 	String - the result of the operation with a response from the endpoint;
 //
-Function SendFile( Val FileName, Val Data, Val Endpoint, Options = Undefined ) Export
+Function SendFile( Val Endpoint, Val FileName, Val Data ) Export
 
 	Var Headers;
 	Var RequestParams;
 	Var Response;
-	Var StatusCode;
 	Var Message;
 	
-	StatusCode = Undefined; // undefined for internal errors
-
-	Try
-		
-		Assert( Endpoint );
-		
-		Headers = New Map();
-		Headers.Insert( "name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
-
-		RequestParams = New Structure();
-		RequestParams.Insert( "Authentication", GetAuthentication(Endpoint) );
-		RequestParams.Insert( "Headers", Headers );
-		RequestParams.Insert( "Timeout", Endpoint.Timeout );
-		
-		Response = HTTPConnector.Post( Endpoint.URL, Data, RequestParams );
-		
-		Message = CreateResponseMessage( Endpoint.URL, FileName, Response );
-		
-		StatusCode = Response.StatusCode;
+	Assert( Endpoint );
 	
-		If ( NOT StatusCodes().isOk(StatusCode) ) Then
-			
-			Raise Message;
-			
-		EndIf;
-		
-		Message = AddMessagePrefix( Message, Options );
-		Logs.Info( Logs.Events().ENDPOINT_SEND_FILE, Message, GetRequestHandler(Options), NewResponse(StatusCode) );
-		
-	Except
-		
-		Message = AddMessagePrefix( ErrorInfo().Description, Options );
-		Logs.Error( Logs.Events().ENDPOINT_SEND_FILE, Message, GetRequestHandler(Options), NewResponse(StatusCode) );
-		
+	Headers = New Map();
+	Headers.Insert( "name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
+
+	RequestParams = New Structure();
+	RequestParams.Insert( "Authentication", GetAuthentication(Endpoint) );
+	RequestParams.Insert( "Headers", Headers );
+	RequestParams.Insert( "Timeout", Endpoint.Timeout );
+	
+	Response = HTTPConnector.Post( Endpoint.URL, Data, RequestParams );
+	
+	Message = CreateResponseMessage( Endpoint.URL, FileName, Response );
+
+	If ( NOT StatusCodes().isOk(Response.StatusCode) ) Then
+
 		Raise Message;
 		
-	EndTry;
-	
+	EndIf;
+		
 	Return Message;
 		
+EndFunction
+
+// BackgroundSendFiles runs and returns the file uploads to the endpoints in the background.
+// 
+// Parameters:
+// 	Files - Structure - file upload description:
+// * FileName - String - file name; 
+// * Data - BinaryData - file data;
+// * Routes - Undefined, Array of String - list of endpoint service URLs;
+// 	
+// Returns:
+// 	Array of Structure - file sending result:
+// 	* BackgroundJob - BackgroundJob - the background job;
+// 	* ErrorInfo - ErrorInfo - an error occurred when starting a background job;
+//
+Function BackgroundSendFiles( Val Files ) Export
+
+	Var JobKey;
+	Var Endpoint;
+	Var BackgroundJob;
+	Var BackgroundJobParams;
+	Var ErrorInfo;
+	Var Result;
+	
+	Endpoint = Endpoints.GetConnectionParams();
+	
+	Result = New Array();
+	
+	For Each File In Files Do
+		
+		For Each URL In File.Routes Do
+		
+			BackgroundJob = Undefined;
+			ErrorInfo = Undefined;
+			
+			Try
+				Endpoints.SetURL( Endpoint, URL );
+				
+				BackgroundJobParams = New Array();
+				BackgroundJobParams.Add( Endpoint );
+				BackgroundJobParams.Add( File.FileName );
+				BackgroundJobParams.Add( File.Data );
+				
+				JobKey = File.CommitSHA + "|" + URL + "|" + File.FileName;
+				
+				BackgroundJob = BackgroundJobs.Execute( "Endpoints.SendFile", BackgroundJobParams, JobKey );
+	
+			Except
+				
+				ErrorInfo = ErrorInfo();
+				
+			EndTry;
+			
+			Result.Add( NewFileSendingResult(BackgroundJob, ErrorInfo) );
+		
+		EndDo;
+		
+	EndDo;
+	
+	Return Result;
+	
 EndFunction
 
 #EndRegion
@@ -119,6 +158,12 @@ EndFunction
 
 Procedure Assert( Val Endpoint )
 	
+	If ( TypeOf(Endpoint) <> Type("Structure") ) Then
+		
+		Raise Logs.Messages().ENDPOINT_OPTIONS_MISSING;
+		
+	EndIf;
+
 	If ( NOT (Endpoint.Property("URL") AND Endpoint.Property("User") AND Endpoint.Property("Password")) ) Then
 	
 		Raise Logs.Messages().ENDPOINT_OPTIONS_MISSING;
@@ -151,37 +196,15 @@ Function CreateResponseMessage( Val URL, Val FileName, Val Response )
 	
 EndFunction
 
-Function AddMessagePrefix( Val Message, Val Options )
+Function NewFileSendingResult( Val BackgroundJob, Val ErrorInfo )
 	
-	Var CheckoutSHA;
+	Var Result;
 	
-	CheckoutSHA = CommonUseClientServer.StructureProperty( Options, "CheckoutSHA" );
+	Result = New Structure();
+	Result.Insert( "BackgroundJob", BackgroundJob );
+	Result.Insert( "ErrorInfo", ErrorInfo );
 	
-	If ( CheckoutSHA = Undefined ) Then
-		
-		Return Message;
-		
-	EndIf;
-
-	Return Logs.AddPrefix( Message, CheckoutSHA );
-	
-EndFunction
-
-Function NewResponse( Val StatusCode )
-	
-	If ( StatusCode = Undefined ) Then
-		
-		Return StatusCode;
-	
-	EndIf;
-		
-	Return New HTTPServiceResponse( StatusCode );
-	
-EndFunction
-
-Function GetRequestHandler( Val Options )
-	
-	Return CommonUseClientServer.StructureProperty( Options, "ExternalRequestHandler" );
+	Return Result;
 	
 EndFunction
 

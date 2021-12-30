@@ -227,7 +227,7 @@ Procedure EventsPostPush404NotFound(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -257,7 +257,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure EventsPostPush500InternalServerErrorWrongData(Framework) Export
+Procedure EventsPostPush500InternalServerErrorWrongBodyFormat(Framework) Export
 	
 	// given
 	ExternalRequestHandlersCleanUp();
@@ -268,6 +268,34 @@ Procedure EventsPostPush500InternalServerErrorWrongData(Framework) Export
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
 	JSON = "wrong data, there must be JSON";
+	Options = Options("Push Hook", Token);
+
+	// when
+	Result = HTTPConnector.Post(URL, JSON, Options);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, 500);
+	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
+	Framework.AssertFalse(IsBlankString(Body));
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure EventsPostPush500InternalServerErrorCheckoutSHAMissed(Framework) Export
+	
+	// given
+	ExternalRequestHandlersCleanUp();
+	
+	Constants.HandleRequests.Set(True);
+	Token = "token";
+	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
+	URL = ServerURL + "/hs/gitlab/events/push";
+	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = StrReplace(JSON, """checkout_sha"": ", """checkout_sha_missed"": ");
 	Options = Options("Push Hook", Token);
 
 	// when
@@ -292,7 +320,7 @@ EndProcedure
 
 Function NewExternalRequestHandler(Val Name, Val ProjectURL, Val Token)
 
-	Return TestsWebhooksServer.AddExternalRequestHandler(Name, ProjectURL, Token);
+	Return UtilsServer.NewExternalRequestHandler(Name, ProjectURL, Token);
 
 EndFunction
 

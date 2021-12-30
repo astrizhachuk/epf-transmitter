@@ -146,7 +146,7 @@ Procedure FillFormValues( Val RecordKey )
 	Var CustomSettings;
 	Var NewRaw;
 	
-	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	If ( QueryData = Undefined ) Then
 		
@@ -254,9 +254,9 @@ Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	Var Commit;
 	Var DefaultSetting;
 
-	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	If ( NOT ValueIsFilled(QueryData) ) Then
+	If ( QueryData = Undefined ) Then
 		
 		Return;
 		
@@ -305,7 +305,7 @@ Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
 	Var QueryData;
 	Var Commit;
 	
-	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	Commit = FindCommitById( QueryData, CommitSHA );
 	
 	Return ( Commit.Get("custom_settings") <> Undefined );
@@ -334,7 +334,7 @@ Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
 	Var QueryData;
 	
-	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
 	If ( QueryData = Undefined ) Then
 		

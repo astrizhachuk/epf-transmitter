@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="af648752-080e-4335-b61d-88ae23c5057b">
-  <name>TestsDataProcessing</name>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="386ec529-637f-4499-ac19-71b908ec64a6">
+  <name>TestsDataProcessingServer</name>
   <synonym>
     <key>ru</key>
     <value>Обработка данных</value>

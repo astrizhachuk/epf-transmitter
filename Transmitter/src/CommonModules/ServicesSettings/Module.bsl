@@ -107,16 +107,12 @@ Function ExternalStorageTimeout() Export
 
 EndFunction
 
-#EndRegion
-
-#Region Private
-
 // RoutingFileName returns the name of the routing settings file.
 //
 // Returns:
 // 	String - file name (max. 50 chars);
 //
-Function RoutingFileName()
+Function RoutingFileName() Export
 	
 	Return Constants.RoutingFileName.Get();
 	

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8f763681-42e4-4414-b305-5cb02a8dc0d7">
+  <name>TestsRemoteFilesServer</name>
+  <synonym>
+    <key>ru</key>
+    <value>Tests remote files server</value>
+  </synonym>
+  <server>true</server>
+</mdclass:CommonModule>

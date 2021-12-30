@@ -19,11 +19,6 @@ Scenario: SetURL
 	| 'TestsEndpointsServer.SetURL(Context());' |
 
 @OnServer
-Scenario: SendFileErrorWithoutEndpointAndOptions
-	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFileErrorWithoutEndpointAndOptions(Context());' |
-
-@OnServer
 Scenario: SendFileErrorWithoutEndpoint
 	And I execute 1C:Enterprise script at server
 	| 'TestsEndpointsServer.SendFileErrorWithoutEndpoint(Context());' |
@@ -34,21 +29,26 @@ Scenario: SendFile4xxError
 	| 'TestsEndpointsServer.SendFile4xxError(Context());' |
 
 @OnServer
-Scenario: SendFile200OkWithoutEventLog
+Scenario: SendFile200Ok
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFile200OkWithoutEventLog(Context());' |
+	| 'TestsEndpointsServer.SendFile200Ok(Context());' |
 
 @OnServer
-Scenario: SendFile200OkWithEventLog
+Scenario: BackgroundSendFilesEmptyFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFile200OkWithEventLog(Context());' |
+	| 'TestsEndpointsServer.BackgroundSendFilesEmptyFiles(Context());' |
 
 @OnServer
-Scenario: SendFileBackgroundJobError
+Scenario: BackgroundSendFilesActiveJob
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFileBackgroundJobError(Context());' |
+	| 'TestsEndpointsServer.BackgroundSendFilesActiveJob(Context());' |
 
 @OnServer
-Scenario: SendFileBackgroundJob200OkMultipleFiles
+Scenario: BackgroundSendFilesJobError
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFileBackgroundJob200OkMultipleFiles(Context());' |
+	| 'TestsEndpointsServer.BackgroundSendFilesJobError(Context());' |
+
+@OnServer
+Scenario: BackgroundSendFilesMixedResult
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.BackgroundSendFilesMixedResult(Context());' |

@@ -35,6 +35,7 @@ Function EventsPost( Request )
 	EndIf;
 	
 	Data = GetData( Request );
+
 	Credentials = Projects.FindCredentials( GetProjectURL(Data) );
 
 	Token = GetHeader( Request, "X-Gitlab-Token" );
@@ -42,7 +43,8 @@ Function EventsPost( Request )
 	Authenticate( Credentials, Token, Response );
 	
 	If ( StatusCodes().isOk(Response.StatusCode) ) Then
-
+		
+		CheckCheckoutSHA( Data, Credentials.Ref );
 		DataProcessing.RunBackgroundJob( Credentials.Ref, Data );
 		
 	EndIf;	
@@ -127,28 +129,18 @@ Function GetData( Val Request )
 EndFunction
 
 Function GetProjectURL( Val Data )
-
-	Var Result;
 	
 	Try
-		
-		Result = Data.Get( "project" ).Get( "web_url" );
-		
-		If ( Result = Undefined ) Then
-			
-			Raise Logs.Messages().URL_MISSING;
-			
-		EndIf;
+
+		Return ExternalRequests.GetProjectOrRaise(Data).URL;
 		
 	Except
-		
+
 		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription( ErrorInfo() ) );
 		
 		Raise;
 		
 	EndTry;
-	
-	Return Result;
 	
 EndFunction
 
@@ -237,6 +229,22 @@ Procedure CheckHandleRequestsEnabled( Response )
 
 	EndIf;
 
+EndProcedure
+
+Procedure CheckCheckoutSHA( Val Data, Val RequestHandler )
+	
+	Var Message;
+	
+	If ( Data.Get("checkout_sha") = Undefined ) Then
+		
+		Message = Logs.Messages().CHECKOUT_SHA_MISSING;
+		
+		Logs.Error( Logs.Events().WS_REQUEST, Message, RequestHandler );
+			
+		Raise Message;
+			
+	EndIf;
+	
 EndProcedure
 
 #EndRegion

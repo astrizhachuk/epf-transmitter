@@ -107,7 +107,7 @@ EndProcedure
 
 Function NewExternalRequestHandler(Val Name, Val ProjectURL, Val Token)
 
-	Return TestsWebhooksServer.AddExternalRequestHandler(Name, ProjectURL, Token);
+	Return UtilsServer.NewExternalRequestHandler(Name, ProjectURL, Token);
 
 EndFunction
 

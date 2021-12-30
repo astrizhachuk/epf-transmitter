@@ -9,6 +9,7 @@ Procedure GetConnectionParams(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	
 	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
 	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4)));
@@ -31,34 +32,14 @@ EndProcedure
 Procedure SetURL(Framework) Export
 
 	// given
-	Options = New Structure();
+	Endpoint = New Structure();
 	URL = "http://url";
 	
 	// when
-	Endpoints.SetURL(Options, URL);
+	Endpoints.SetURL(Endpoint, URL);
 	
 	// then
-	Framework.AssertEqual(Options.URL, URL);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SendFileErrorWithoutEndpointAndOptions(Framework) Export
-	
-	// given
-
-	// when
-	Try
-		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure());
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
-	EndTry;
+	Framework.AssertEqual(Endpoint.URL, URL);
 	
 EndProcedure
 
@@ -69,13 +50,14 @@ EndProcedure
 Procedure SendFileErrorWithoutEndpoint(Framework) Export
 
 	// given
-	ExternalRequestHandlersCleanUp();
-	
-	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, "0123456789abcdef");
-	
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+
+	FileName = "Файл" + TIME + ".epf";
+	Data = GetBinaryDataFromString(TIME);
+
 	// when
 	Try
-		Result = Endpoints.SendFile("test.epf", GetBinaryDataFromString("data"), New Structure(), Options);
+		Endpoints.SendFile(New Structure(), FileName, Data);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -85,40 +67,46 @@ Procedure SendFileErrorWithoutEndpoint(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure SendFile4xxError(Framework) Export
 
 	// given
-	ExternalRequestHandlersCleanUp();
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
 	
 	URL = "http://mockserver:1080";
-	User = "User1";
-	Password = "Password1";
-	FileName = "Файл.epf";
-	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
-	Data = "data";
+	User = "User" + TIME;
+	Password = "Password" + TIME;
+	
+	Constants.EndpointUserName.Set(User);
+	Constants.EndpointUserPassword.Set(Password);
+	Constants.DeliveryFileTimeout.Set(5);
+	
+	FileName = "Файл" + TIME + ".epf";
+	FileNameEncoded = EncodeString(FileName, StringEncodingMethod.URLInURLEncoding);
+	Data = TIME;
 	StatusCode = 403;
 	ResponseBody = "{""key"":""value""}";
 
 	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
 
-	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
-	
-	CheckoutSHA = "0123456789abcdef";		
-	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
+	EndpointURL = URL + "/epf/uploadFile";
+	Endpoint = NewEndpoint(EndpointURL, User, Password);
 
 	// when
 	Try
-		Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Options);
+		Endpoints.SendFile(Endpoint, FileName, GetBinaryDataFromString(Data));
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, CheckoutSHA);
+		Framework.AssertStringContains(ErrorInfo.Description, EndpointURL);
+		Framework.AssertStringContains(ErrorInfo.Description, FileName);
 		Framework.AssertStringContains(ErrorInfo.Description, StatusCode);
+		Framework.AssertStringContains(ErrorInfo.Description, ResponseBody);		
+		
 	EndTry;
 	
 EndProcedure
@@ -127,241 +115,182 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure SendFile200OkWithoutEventLog(Framework) Export
+Procedure SendFile200Ok(Framework) Export
 
-	// given	
-	URL = "http://mockserver:1080";
-	User = "User1";
-	Password = "Password1";
-	FileName = "Файл.epf";
-	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
-	Data = "data";
-	StatusCode = 200;
-	ResponseBody = "{""key"":""value""}";
-
-	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
-
-	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
-
-	// when
-	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint);
-	
-	// then
-	Framework.AssertStringContains(Result, URL);
-	Framework.AssertStringContains(Result, FileName);
-	Framework.AssertStringContains(Result, ResponseBody);
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SendFile200OkWithEventLog(Framework) Export
-	
 	// given
-	ExternalRequestHandlersCleanUp();
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
 	
 	URL = "http://mockserver:1080";
-	User = "User1";
-	Password = "Password1";
-	FileName = "Файл.epf";
-	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
-	Data = "data";
-	StatusCode = 200;
-	ResponseBody = "{""key"":""value""}";
-
-	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
-
-	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
-
-	CheckoutSHA = "0123456789abcdef";		
-	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
-
-	// when
-	Result = Endpoints.SendFile(FileName, GetBinaryDataFromString(Data), Endpoint, Options);
-	
-	// then
-	Framework.AssertStringContains(Result, CheckoutSHA);
-	Framework.AssertStringContains(Result, URL);
-	Framework.AssertStringContains(Result, FileName);
-	Framework.AssertStringContains(Result, ResponseBody);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SendFileBackgroundJobError(Framework) Export
-
-	//given
-	ExternalRequestHandlersCleanUp();
-	
-	FileName = "Файл.epf";
-	Data = "data";
-	
-	Endpoint = New Structure();
-	CheckoutSHA = "0123456789abcdef";		
-	Options = NewOptions(NewExternalRequestHandler("Test", "Token").Ref, CheckoutSHA);
-	
-	JobParams = NewJobParams(FileName, Data, Endpoint, Options);
-	
-	// when
-	Job = BackgroundJobs.Execute("Endpoints.SendFile", JobParams);
-	Result = Job.WaitForExecutionCompletion();
-
-	// then
-	Framework.AssertEqual(Result.State, BackgroundJobState.Failed);
-	Framework.AssertStringContains(Result.ErrorInfo.Description, CheckoutSHA);
-	Framework.AssertStringContains(Result.ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
-
-EndProcedure
-
-// @unit-test:dev
-// @timer
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SendFileBackgroundJob200OkMultipleFiles(Framework) Export
-	
-	// given
-	ExternalRequestHandlersCleanUp();
-	
-	URL = "http://mockserver:1080";
-	User = "User1";
-	Password = "Password1";
-	FileName = "Файл.epf";
-	FileNameEncoded = "%D0%A4%D0%B0%D0%B9%D0%BB.epf";
-	Data = "data";
-	StatusCode = 200;
-	ResponseBody = "{""key"":""value""}";
-
-	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
-
-	Endpoint = NewEndpoint(URL + "/epf/uploadFile", User, Password);
-
-	ExternalRequestHandler = NewExternalRequestHandler("Test", "Token");
-	CheckoutSHA = "0123456789abcdef";		
-	Options = NewOptions(ExternalRequestHandler.Ref, CheckoutSHA);
-	
-	EventLogFilter = EventLogFilterByData(ExternalRequestHandler.Ref);
-
-	JobParams = NewJobParams(FileName, Data, Endpoint, Options);
-	
-	// when
-	// three files: two good, one bad
-	Result = New Array();
-	For Index = 1 To 3 Do
-		If Index = 2 Then
-			JobParams[2] = New Structure();
-		Else
-			JobParams[2] = Endpoint;
-		EndIf;
+	User = "User" + TIME;
+	Password = "Password" + TIME;
+	Constants.EndpointUserName.Set(User);
+	Constants.EndpointUserPassword.Set(Password);
+	Constants.DeliveryFileTimeout.Set(5);
 		
-		Job = BackgroundJobs.Execute("Endpoints.SendFile",
-										JobParams,
-										"Index" + Index,
-										"Test.Endpoints.SendFile." + Index);
-		Result.Add(Job.WaitForExecutionCompletion(10));
-	EndDo;
-	Pause(3);
-	EventLog = GetEventLog(EventLogFilter);
+	FileName = "Файл" + TIME + ".epf";
+	FileNameEncoded = EncodeString(FileName, StringEncodingMethod.URLInURLEncoding);
+	Data = TIME;
+	StatusCode = 200;
+	ResponseBody = "{""key"":""value""}";
+
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
+
+	EndpointURL = URL + "/epf/uploadFile";
+	Endpoint = NewEndpoint(EndpointURL, User, Password);
+
+	// when
+	Result = Endpoints.SendFile(Endpoint, FileName, GetBinaryDataFromString(Data));
+	
+	// then
+	Framework.AssertStringContains(Result, EndpointURL);
+	Framework.AssertStringContains(Result, FileName);
+	Framework.AssertStringContains(Result, StatusCode);
+	Framework.AssertStringContains(Result, ResponseBody);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure BackgroundSendFilesEmptyFiles(Framework) Export
+
+	// given
+	Files = New Array;
+
+	// when
+	Result = Endpoints.BackgroundSendFiles(Files);
 
 	// then
-	Framework.AssertEqual(Result[0].State, BackgroundJobState.Completed);
-	Framework.AssertEqual(Result[1].State, BackgroundJobState.Failed);
-	Framework.AssertEqual(Result[2].State, BackgroundJobState.Completed);
+	Framework.AssertNotFilled(Result);
 	
-	Framework.AssertStringContains(Result[1].ErrorInfo.Description, CheckoutSHA);
-	Framework.AssertStringContains(Result[1].ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
+EndProcedure
 
-	Framework.AssertEqual(EventLog.Count(), 2);
-	Framework.AssertStringContains(EventLog[0].Comment, CheckoutSHA);
-	Framework.AssertStringContains(EventLog[0].Comment, URL);
-	Framework.AssertStringContains(EventLog[0].Comment, FileName);
-	Framework.AssertStringContains(EventLog[0].Comment, ResponseBody);
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure BackgroundSendFilesActiveJob(Framework) Export
+
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+
+	CommitSHA = TIME;
+	FileName = "Файл" + TIME + ".epf";
 	
-	Framework.AssertStringContains(EventLog[1].Comment, CheckoutSHA);
-	Framework.AssertStringContains(EventLog[1].Comment, URL);
-	Framework.AssertStringContains(EventLog[1].Comment, FileName);
-	Framework.AssertStringContains(EventLog[1].Comment, ResponseBody);
+	EndpointURL = "http://" + TIME + "/epf/uploadFile";
+	User = "User" + TIME;
+	Password = "Password" + TIME;
+	Endpoint = NewEndpoint(EndpointURL, User, Password);
+		
+	Routes = New Array;
+	Routes.Add(Endpoint);
+	
+	File1 = NewFile(CommitSHA, FileName, Routes);
+	File2 = NewFile(CommitSHA, FileName, Routes);
+	
+	Files = New Array;
+	Files.Add(File1);
+	Files.Add(File2);
+	
+	// when
+	Result = Endpoints.BackgroundSendFiles(Files);
+
+	// then
+	Framework.AssertFilled(Result);
+	
+	Framework.AssertFilled(Result[0].BackgroundJob);
+	Framework.AssertNotFilled(Result[0].ErrorInfo);
+	
+	Framework.AssertNotFilled(Result[1].BackgroundJob);
+	Framework.AssertFilled(Result[1].ErrorInfo);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure BackgroundSendFilesJobError(Framework) Export
+
+	// given
+	Routes = New Array;
+	Routes.Add(Undefined);
+	
+	File1 = New Structure("CommitSHA, FileName, Routes, Data", Undefined, Undefined, Routes, Undefined);
+	Files = New Array;
+	Files.Add(File1);
+	
+	// when
+	Result = Endpoints.BackgroundSendFiles(Files);
+
+	// then
+	Framework.AssertNotFilled(Result[0].BackgroundJob);
+	Framework.AssertFilled(Result[0].ErrorInfo);
+		
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure BackgroundSendFilesMixedResult(Framework) Export
+	
+	// given
+	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	
+	User = "User" + TIME;
+	Password = "Password" + TIME;
+	Constants.EndpointUserName.Set(User);
+	Constants.EndpointUserPassword.Set(Password);
+	Constants.DeliveryFileTimeout.Set(5);
+	
+	URL = "http://mockserver:1080";
+	
+	FileName = "Файл" + TIME + ".epf";
+	FileNameEncoded = EncodeString(FileName, StringEncodingMethod.URLInURLEncoding);
+	Data = TIME;
+	StatusCode = 200;
+	ResponseBody = "{""key"":""value""}";
+
+	SetMockUploadFile(URL, User, Password, FileNameEncoded, Data, StatusCode, ResponseBody);
+
+	CommitSHA = TIME;
+	
+	EndpointURL = URL + "/epf/uploadFile";
+	Routes = New Array;
+	Routes.Add(EndpointURL);
+	Routes.Add(EndpointURL);
+
+	NotFoundURL = "http://mockserver:1080/NotFound";
+	NotFoundStatusCode = 404;
+	RoutesHasError = New Array;
+	RoutesHasError.Add(NotFoundURL);
+
+	File1 = NewFile(CommitSHA, FileName, RoutesHasError);
+	File2 = NewFile(CommitSHA, FileName, Routes);
+	Files = New Array;
+	Files.Add(File1);
+	Files.Add(File2);
+	
+	// when
+	Jobs = Endpoints.BackgroundSendFiles(Files);
+
+	Result1 = Jobs[0].BackgroundJob.WaitForExecutionCompletion(30);	
+	Result2 = Jobs[1].BackgroundJob.WaitForExecutionCompletion(30);
+	
+	// then
+	Framework.AssertStringContains(Result1.ErrorInfo.Description, NotFoundURL);
+	Framework.AssertStringContains(Result1.ErrorInfo.Description, FileName);
+	Framework.AssertStringContains(Result1.ErrorInfo.Description, NotFoundStatusCode);
+	
+	Framework.AssertEqual(Result2.State, BackgroundJobState.Completed);
 
 EndProcedure
 
 #EndRegion
 
 #Region Private
-
-Procedure Pause(Val Period)
-	
-	UtilsServer.Pause(Period);
-	
-EndProcedure
-
-#Region EventLog
-
-Function EventLogFilterByData(Data, Level = "Information")
-	
-	Return UtilsServer.EventLogFilterByData(Data, Level, "BackgroundJob");
-	
-EndFunction
-
-Function GetEventLog(Val Filter)
-	
-	Return UtilsServer.GetEventLog(Filter);
-	
-EndFunction
-
-#EndRegion
-
-#Region Data
-
-Procedure ExternalRequestHandlersCleanUp()
-	
-	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
-
-EndProcedure
-
-Function NewExternalRequestHandler(Val Name, Val Token)
-
-	Return TestsWebhooksServer.AddExternalRequestHandler(Name, "empty", Token);
-
-EndFunction
-
-Function NewEndpoint(Val URL, Val User, Val Password)
-	
-	Result = New Structure();	
-	Result.Insert("URL", URL);
-	Result.Insert("User", User);
-	Result.Insert("Password", Password);
-	Result.Insert("Timeout", 5);
-	
-	Return Result;
-	
-EndFunction
-
-Function NewOptions(Val Ref, Val CheckoutSHA)
-	
-	Result = New Structure();
-	Result.Insert( "ExternalRequestHandler", Ref );
-	Result.Insert( "CheckoutSHA", CheckoutSHA );
-	
-	Return Result;
-	
-EndFunction
-
-Function NewJobParams(Val FileName, Val Data, Val Endpoint, Val Options)
-
-	Result = New Array();
-	Result.Add(FileName);
-	Result.Add(GetBinaryDataFromString(Data));
-	Result.Add(Endpoint);
-	Result.Add(Options);
-	
-	Return Result;
-	
-EndFunction
 
 Procedure SetMockUploadFile(Val URL, Val User, Val Password, Val FileName, Val Data, Val StatusCode, Val ResponseBody)
 	
@@ -386,6 +315,32 @@ Procedure SetMockUploadFile(Val URL, Val User, Val Password, Val FileName, Val D
     Mock = Undefined;
     
 EndProcedure
+
+#Region Data
+
+Function NewEndpoint(Val URL, Val User, Val Password)
+	
+	Result = New Structure();	
+	Result.Insert("URL", URL);
+	Result.Insert("User", User);
+	Result.Insert("Password", Password);
+	Result.Insert("Timeout", 5);
+	
+	Return Result;
+	
+EndFunction
+
+Function NewFile(Val String, FileName, Routes)
+
+	Result = New Structure();	
+	Result.Insert("CommitSHA", String);
+	Result.Insert("FileName", FileName);
+	Result.Insert("Routes", Routes);
+	Result.Insert("Data", GetBinaryDataFromString(String));
+	
+	Return Result;
+	
+EndFunction
 
 #EndRegion
 

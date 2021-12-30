@@ -14,11 +14,6 @@ Scenario: GetRequestHandlerStateMessage
 	| 'TestsGitLabServer.GetRequestHandlerStateMessage(Context());' |
 
 @OnServer
-Scenario: GetConnectionParams
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.GetConnectionParams(Context());' |
-
-@OnServer
 Scenario: RemoteFileBadURL
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabServer.RemoteFileBadURL(Context());' |
@@ -49,31 +44,6 @@ Scenario: RemoteFiles
 	| 'TestsGitLabServer.RemoteFiles(Context());' |
 
 @OnServer
-Scenario: RemoteFilesWithDescription
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.RemoteFilesWithDescription(Context());' |
-
-@OnServer
-Scenario: ProjectDescription
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.ProjectDescription(Context());' |
-
-@OnServer
 Scenario: MergeRequests
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabServer.MergeRequests(Context());' |
-
-@OnServer
-Scenario: RemoteFilesEmpty
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.RemoteFilesEmpty(Context());' |
-
-@OnServer
-Scenario: RAWFilePath
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.RAWFilePath(Context());' |
-
-@OnServer
-Scenario: ListFileActions
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabServer.ListFileActions(Context());' |

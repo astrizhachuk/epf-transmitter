@@ -247,9 +247,9 @@ Function MergeRequestURL( Val RecordKey )
 	Var MergeCommitSHA;
 	Var Result;
 	
-	QueryData = Webhooks.LoadQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	ProjectParams = GitLab.ProjectDescription( QueryData );
+	ProjectParams = GitLabAPI.GetProject( QueryData );
 
 	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
 	// подумать, или зарегать в ишузах 

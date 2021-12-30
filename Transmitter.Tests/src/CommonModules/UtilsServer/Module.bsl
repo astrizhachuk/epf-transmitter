@@ -12,6 +12,12 @@ Procedure Pause(Val Wait) Export
 	
 EndProcedure
 
+Function RandomString() Export
+	
+	Return StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	
+EndFunction
+
 Function GetJSON(Val Filename) Export
 	
 	Result = New TextReader(Filename, TextEncoding.UTF8);
@@ -19,6 +25,33 @@ Function GetJSON(Val Filename) Export
 	Return Result.Read();
 	
 EndFunction
+
+#Region Request
+
+Function NewProject(Val Id, Val URL) Export
+	
+	Result = New Map;
+	Result.Insert("id", Id);
+	Result.Insert("web_url", URL);
+	
+	Return Result;
+	
+EndFunction
+
+Function NewCommit(Val Id, Val Date, Val Added, Val Modified, Val Removed) Export
+	
+	Result = New Map;
+	Result.Insert("id", Id);
+	Result.Insert("timestamp", Date);
+	Result.Insert("added", Added);
+	Result.Insert("modified", Modified);
+	Result.Insert("removed", Removed);
+	
+	Return Result;
+	
+EndFunction
+
+#EndRegion
 
 #Region Data
 
@@ -49,6 +82,80 @@ Procedure InformationRegisterCleanUp( Val Names ) Export
 		Set.Write();
 		
 	EndDo;
+	
+EndProcedure
+
+Function SplitString(Val String) Export
+
+	Return StrSplit(String, "|", False);
+	
+EndFunction
+
+Procedure AddFileMetadata(FilesMetadata, Val CommitSHA, Val FileName, Val FilePath, Val Action, Val Data, Val Error) Export
+
+	NewFile = FilesMetadata.Add();
+	NewFile.CommitSHA = CommitSHA;
+	If FilesMetadata.Columns.Find("FileName") <> Undefined Then
+		NewFile.FileName = FileName;
+	EndIf;
+	If FilesMetadata.Columns.Find("FilePath") <> Undefined Then
+		NewFile.FilePath = FilePath;
+	EndIf;
+	NewFile.Action = Action;
+	NewFile.BinaryData = GetBinaryDataFromString(Data);
+	If Error = Undefined Then
+		NewFile.ErrorInfo = Error;
+	Else
+		NewFile.ErrorInfo = NewError(Error);
+	EndIf;
+	
+EndProcedure
+
+Function NewError(Val Text) Export
+	
+	Try
+		
+		Raise Text;
+		
+	Except
+		
+		Return ErrorInfo();
+		
+	EndTry;
+	
+EndFunction
+
+Function NewExternalRequestHandler(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
+	
+		Item = Catalogs.ExternalRequestHandlers.CreateItem();
+		Item.DataExchange.Load = True;
+		Item.Description = Name;
+		Item.ProjectURL = ProjectURL;
+		Item.SecretToken = SecretToken;
+		Item.Write();
+		
+		Return Item;
+	
+EndFunction
+
+Function GetRecordSet(Val Name, Val RequestHandler, Val CheckoutSHA) Export
+
+	Result = InformationRegisters[ Name ].CreateRecordSet();
+	Result.Filter.Webhook.Set(RequestHandler);
+	Result.Filter.CheckoutSHA.Set(CheckoutSHA);
+	Result.Read();
+	
+	Return Result;
+	
+EndFunction
+
+Procedure AddRecord(Val Name, Val RequestHandler, Val CheckoutSHA, Val Data) Export
+
+	RecordManager = InformationRegisters[ Name ].CreateRecordManager();
+	RecordManager.Webhook = RequestHandler.Ref;
+	RecordManager.CheckoutSHA = CheckoutSHA;
+	RecordManager.Data = New ValueStorage(Data);
+	RecordManager.Write();
 	
 EndProcedure
 

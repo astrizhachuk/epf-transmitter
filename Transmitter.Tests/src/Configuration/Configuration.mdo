@@ -47,15 +47,17 @@
     </extension>
     <languageCode>en</languageCode>
   </languages>
-  <commonModules>CommonModule.TestsBackgroundJobsExtServer</commonModules>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
-  <commonModules>CommonModule.TestsDataProcessing</commonModules>
+  <commonModules>CommonModule.TestsDataProcessingServer</commonModules>
   <commonModules>CommonModule.TestsEndpointsServer</commonModules>
+  <commonModules>CommonModule.TestsExternalRequestsServer</commonModules>
+  <commonModules>CommonModule.TestsGitLabAPIServer</commonModules>
   <commonModules>CommonModule.TestsGitLabServer</commonModules>
   <commonModules>CommonModule.TestsHTTPRequests</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsLogsServer</commonModules>
   <commonModules>CommonModule.TestsProjectsServer</commonModules>
+  <commonModules>CommonModule.TestsRemoteFilesServer</commonModules>
   <commonModules>CommonModule.TestsRoutingServer</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsClient</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>

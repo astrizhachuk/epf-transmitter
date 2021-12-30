@@ -57,3 +57,8 @@ Scenario: ExternalStorageToken
 Scenario: ExternalStorageTimeout
 	And I execute 1C:Enterprise script at server
 	| 'TestsServicesSettingsServer.ExternalStorageTimeout(Context());' |
+
+@OnServer
+Scenario: RoutingFileName
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.RoutingFileName(Context());' |

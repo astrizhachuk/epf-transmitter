@@ -1,5 +1,7 @@
 #Region Public
 
+// TODO тексты, события, сообщения к пересмотру (унификация и причесывание)
+
 // Events returns a collection of EventNames for use in the global context's WriteLogEvent() method.
 // 
 // Returns:
@@ -10,12 +12,22 @@
 Function Events() Export
 
 	Result = New Structure();
+	
+	Result.Insert( "DOWNLOAD_FILE", NStr( "ru = 'ОбработкаДанных.ЗагрузкаФайлаИзВнешнегоХранилища';en = 'DataProcessing.DownloadFileFromRemoteStorage'" ));
+	
+	Result.Insert( "LOAD_DATA", NStr( "ru = 'ОбработкаДанных.ЗагрузкаДанныхИБ';en = 'DataProcessing.LoadDataIB'" ));
+	Result.Insert( "SAVE_DATA", NStr( "ru = 'ОбработкаДанных.СохранениеДанныхИБ';en = 'DataProcessing.SaveDataIB'" ));
 
 	Result.Insert( "WS_REQUEST", NStr( "ru = 'WebService.ОбработкаЗапроса';en = 'WebService.QueryProcessing'" ));
 	Result.Insert( "WS_REQUEST_BEGIN", NStr( "ru = 'WebService.ОбработкаЗапроса.Начало';
 											|en = 'WebService.QueryProcessing.Begin'" ));
 	Result.Insert( "WS_REQUEST_END", NStr( "ru = 'WebService.ОбработкаЗапроса.Окончание';
 											|en = 'WebService.QueryProcessing.End'" ));
+
+	Result.Insert( "JOB_RUNNING", NStr( "ru = 'ОбработкаДанных.ЗапускФоновогоЗадания';en = 'DataProcessing.BackgroundJobRun'" ));												
+	Result.Insert( "DATA_PROCESSING", NStr( "ru = 'Core.ОбработкаДанных';en = 'Core.DataProcessing'" ));											
+											
+											
 	Result.Insert( "ENDPOINT_SEND_FILE", NStr( "ru = 'Endpoint.ОтправкаФайла';en = 'Endpoint.SendingFile'" ));
 
 	Return Result;
@@ -33,28 +45,46 @@ Function Messages() Export
 
 	Result = New Structure();
 	
-	Result.Insert( "ENDPOINT_OPTIONS_MISSING", NStr( "ru = 'Отсутствуют параметры доставки файла.';
-													|en = 'File delivery options are missing.'" ));
-	Result.Insert( "EVENT_MISSING", NStr( "ru = 'В запросе отсутствует событие.';
-										|en = 'The request is missing an event.'" ));
-	Result.Insert( "EVENT_WRONG", NStr( "ru = 'Событие из запроса не соответствует выбранному методу.';
+	// TODO no need?
+	Result.Insert( "ROUTE_MISSING", NStr("ru = 'не задан маршрут доставки файла.';
+										|en = 'file delivery route not specified.'") );
+	Result.Insert( "NO_COMMITS", NStr( "ru = 'отсутствуют ""commits""';
+												|en = '""commits"" is missing'" ));
+	Result.Insert( "NO_POJECT_DESCRIPTION", NStr( "ru = 'нет данных о проекте';
+													|en = 'no project description'" ));
+	Result.Insert( "NO_REQUEST_BODY", NStr( "ru = 'в теле запроса нет данных';
+										|en = 'no request body data'" ));	
+	Result.Insert( "NO_SEND_DATA", NStr( "ru = 'нет данных для отправки';
+										|en = 'no data to send'" ));		
+	// TODO данная проверка под вопросом
+	Result.Insert( "UNSUPPORTED_FORMAT", NStr( "ru = 'неподдерживаемый формат данных';
+												|en = 'unsupported data format'" ));		
+	Result.Insert( "CHECKOUT_SHA_MISSING", NStr( "ru = 'отсутствует ""checkout_sha""';
+												|en = '""checkout_sha"" is missing'" ));
+												
+	// TODO no need?	
+	Result.Insert( "JOB_ALREADY_RUNNING", NStr( "ru = 'фоновое задание уже запущено';
+												|en = 'background job is already running'" ));	
+	Result.Insert( "ENDPOINT_OPTIONS_MISSING", NStr( "ru = 'Отсутствуют параметры доставки файла';
+													|en = 'File delivery options are missing'" ));
+	Result.Insert( "EVENT_MISSING", NStr( "ru = 'В запросе отсутствует событие';
+										|en = 'The request is missing an event'" ));
+	Result.Insert( "EVENT_WRONG", NStr( "ru = 'Событие из запроса не соответствует выбранному методу';
 										|en = 'The request event does not match the selected method.'" ));
-	Result.Insert( "KEY_MISSING", NStr( "ru = 'В запросе отсутствует секретный ключ.';
-										|en = 'The request is missing a secret key.'" ));
-	Result.Insert( "DESERIALIZING", NStr( "ru = 'Десериализация данных запроса.';
-										|en = 'Deserializing request data.'" ));
+	Result.Insert( "KEY_MISSING", NStr( "ru = 'В запросе отсутствует секретный ключ';
+										|en = 'The request is missing a secret key'" ));
+	Result.Insert( "DESERIALIZING", NStr( "ru = 'Десериализация данных запроса';
+										|en = 'Deserializing request data'" ));
 	//todo rename KEY_NOT_FOUND ?
-	Result.Insert( "KEY_NOT_FOUND", NStr( "ru = 'Секретный ключ не найден.';en = 'The Secret Key is not found.'" ));
-	Result.Insert( "LOADING_DISABLED", NStr( "ru = 'Загрузка из внешнего хранилища отключена.';
-											|en = 'Loading of the files is disabled.'" ));
-	Result.Insert( "REQUEST_RECEIVED", NStr( "ru = 'Получен запрос с сервера GitLab.';
-											|en = 'Received a request from the GitLab server.'" ));
-	Result.Insert( "REQUEST_PROCESSED", NStr( "ru = 'Запрос с сервера GitLab обработан.';
-											|en = 'The request from the GitLab server has been processed.'" ));
-	Result.Insert( "URL_MISSING", NStr( "ru = 'В теле запроса не указан web_url проекта.';
-											|en = 'The project web_url is not specified in the request body.'" ));
-	Result.Insert( "WEBHOOK_NOT_FOUND", NStr( "ru = 'Обработчик событий не найден.';
-											|en = 'Webhook not found.'" ));
+	Result.Insert( "KEY_NOT_FOUND", NStr( "ru = 'Секретный ключ не найден';en = 'The Secret Key is not found'" ));
+	Result.Insert( "LOADING_DISABLED", NStr( "ru = 'Загрузка из внешнего хранилища отключена';
+											|en = 'Loading of the files is disabled'" ));
+	Result.Insert( "REQUEST_RECEIVED", NStr( "ru = 'Получен запрос с сервера GitLab';
+											|en = 'Received a request from the GitLab server'" ));
+	Result.Insert( "REQUEST_PROCESSED", NStr( "ru = 'Запрос с сервера GitLab обработан';
+											|en = 'The request from the GitLab server has been processed'" ));
+	Result.Insert( "WEBHOOK_NOT_FOUND", NStr( "ru = 'Обработчик событий не найден';
+											|en = 'Webhook not found'" ));
 
 	Return Result;
 	

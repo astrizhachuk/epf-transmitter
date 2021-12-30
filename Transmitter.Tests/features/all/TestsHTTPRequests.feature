@@ -59,6 +59,11 @@ Scenario: EventsPostPush423Locked
 	| 'TestsHTTPRequests.EventsPostPush423Locked(Context());' |
 
 @OnServer
-Scenario: EventsPostPush500InternalServerErrorWrongData
+Scenario: EventsPostPush500InternalServerErrorWrongBodyFormat
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush500InternalServerErrorWrongData(Context());' |
+	| 'TestsHTTPRequests.EventsPostPush500InternalServerErrorWrongBodyFormat(Context());' |
+
+@OnServer
+Scenario: EventsPostPush500InternalServerErrorCheckoutSHAMissed
+	And I execute 1C:Enterprise script at server
+	| 'TestsHTTPRequests.EventsPostPush500InternalServerErrorCheckoutSHAMissed(Context());' |
