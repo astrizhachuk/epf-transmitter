@@ -14,9 +14,9 @@ Scenario: GetVersion
 	| 'TestsCommonUseServer.GetVersion(Context());' |
 
 @OnServer
-Scenario: МокСерверДоступен
+Scenario: NewErrorInfo
 	And I execute 1C:Enterprise script at server
-	| 'TestsCommonUseServer.МокСерверДоступен(Context());' |
+	| 'TestsCommonUseServer.NewErrorInfo(Context());' |
 
 @OnServer
 Scenario: AppendCollectionFromStream

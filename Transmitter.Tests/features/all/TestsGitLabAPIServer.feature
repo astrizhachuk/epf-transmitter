@@ -14,19 +14,14 @@ Scenario: GetConnectionParams
 	| 'TestsGitLabAPIServer.GetConnectionParams(Context());' |
 
 @OnServer
-Scenario: GetCheckoutSHA
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabAPIServer.GetCheckoutSHA(Context());' |
-
-@OnServer
 Scenario: GetCheckoutSHANotFound
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabAPIServer.GetCheckoutSHANotFound(Context());' |
 
 @OnServer
-Scenario: GetProject
+Scenario: GetCheckoutSHA
 	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabAPIServer.GetProject(Context());' |
+	| 'TestsGitLabAPIServer.GetCheckoutSHA(Context());' |
 
 @OnServer
 Scenario: GetProjectWithoutProjectNode
@@ -54,14 +49,14 @@ Scenario: GetProjectLongURL
 	| 'TestsGitLabAPIServer.GetProjectLongURL(Context());' |
 
 @OnServer
-Scenario: GetCommits
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabAPIServer.GetCommits(Context());' |
-
-@OnServer
 Scenario: GetCommitsWithoutCommitsNode
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabAPIServer.GetCommitsWithoutCommitsNode(Context());' |
+
+@OnServer
+Scenario: GetCommits
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetCommits(Context());' |
 
 @OnServer
 Scenario: GetRAWFilePath
@@ -72,3 +67,28 @@ Scenario: GetRAWFilePath
 Scenario: GetFileActions
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabAPIServer.GetFileActions(Context());' |
+
+@OnServer
+Scenario: GetMergeRequests
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetMergeRequests(Context());' |
+
+@OnServer
+Scenario: GetRAWFilesNoRAWFilePaths
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetRAWFilesNoRAWFilePaths(Context());' |
+
+@OnServer
+Scenario: GetRAWFilesBadURL
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetRAWFilesBadURL(Context());' |
+
+@OnServer
+Scenario: GetRAWFiles404NotFound
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetRAWFiles404NotFound(Context());' |
+
+@OnServer
+Scenario: GetRAWFilesMixed
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetRAWFilesMixed(Context());' |

@@ -1,16 +1,16 @@
 #Region Public
 
-// FindCredentials returns the credentials for the URL of the remote project. 
+// FindByURL looks for the project credentials at the remote project URL.
 // 
 // Parameters:
 // 	URL - String - remote project URL;
 // 	
 // Returns:
 // 	Structure - credentials:
-// * Ref - CatalogRef.ExternalRequestHandlers - ref to webhook;
-// * SecretToken - String - webhook token; 
+// * Ref - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+// * SecretToken - String - remote project token; 
 //
-Function FindCredentials( Val URL ) Export
+Function FindByURL( Val URL ) Export
 
 	Var Items;
 	

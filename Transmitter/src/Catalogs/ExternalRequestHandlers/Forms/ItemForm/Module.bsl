@@ -197,7 +197,7 @@ Procedure LoadEventsHistoryAtServer( Val Period, RecordsLoaded = 0 )
 	Filter.Insert( "StartDate", Period.StartDate );
 	Filter.Insert( "EndDate", Period.EndDate );
 	
-	Webhooks.LoadEventsHistory( ObjectData, "EventsHistory", Filter, RecordsLoaded );
+	LoadEventsHistoryFromModule( ObjectData, "EventsHistory", Filter, RecordsLoaded );
 
 	ThisObject.ValueToFormAttribute( ObjectData, "Object" );
 	
@@ -253,7 +253,7 @@ Function MergeRequestURL( Val RecordKey )
 
 	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
 	// подумать, или зарегать в ишузах 
-	MergeRequests = GitLab.MergeRequests( ProjectParams.URL, ProjectParams.Id ); 
+	MergeRequests = GitLabAPI.GetMergeRequests( ProjectParams.URL, ProjectParams.Id ); 
 
 	Result = "";
 	
@@ -280,5 +280,27 @@ Function MergeRequestURL( Val RecordKey )
 	Return Result;
 
 EndFunction
+
+// TODO проверить, почему это ранее было в общем модуле
+
+// LoadEventsHistory loads data from the event log into the object by filter.
+// 
+// Parameters:
+// 	Object - CatalogObject.ExternalRequestHandlers - target object; 
+// 	Destination - String - tabular section name;
+// 	Filter - Structure - event log filter (see global context UnloadEventLog);
+// 	RecordsLoaded - Number - (returned) number of loaded records;
+//
+Procedure LoadEventsHistoryFromModule( Object, Val Destination, Val Filter, RecordsLoaded )
+	
+	If ( NOT Filter.Property( "Data" ) ) Then
+		
+		Filter.Insert( "Data", Object.Ref );
+		
+	EndIf;
+	
+	Catalogs.ExternalRequestHandlers.LoadEventsHistory( Object, Destination, Filter, RecordsLoaded );
+	
+EndProcedure
 
 #EndRegion

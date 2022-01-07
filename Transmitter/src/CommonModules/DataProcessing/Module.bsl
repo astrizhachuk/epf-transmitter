@@ -74,6 +74,8 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 
 	Var Project;
 	Var ConnectionParams;
+	Var FilesToSend;
+	Var Jobs;
 	
 	Project = ExternalRequests.GetProjectOrRaise( RequestData );
 
@@ -82,55 +84,33 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 	If ( Files = Undefined ) Then
 		
 		Files = RemoteFiles.GetFromRemoteVCS( ConnectionParams, RequestData );
-		
-		// TODO Возможно дублирование обработки ошибки, чекнуть после рефакторинга роута
-		LogDowloadErrors(Files, RequestHandler, CheckoutSHA );
+		LogDownloadResult( Files, RequestHandler, CheckoutSHA );
 		
 		// TODO логирование загрузки файлов куцое, вернуться сюда при создании фунциональных тестов
-		// возможно, что сообщение надо опустить ниже перед SendFile и согласовать с LogDowloadErrors
+		// возможно, что сообщение надо опустить ниже перед SendFile и согласовать с LogDownloadResult
 		Message = Logs.AddPrefix( "???", CheckoutSHA );
 		Logs.Info( Logs.Events().DOWNLOAD_FILE, Message, RequestHandler );
+	
+		ExternalRequests.AppendRoutingSettings( RequestData, Files );
 	
 	EndIf;
 	
 	AssertFiles( Files, RequestHandler, CheckoutSHA );
 	
-	ExternalRequests.AppendRoutingSettings( RequestData, Files );
-	
-	//Files = Routing.GetFilesByRoutes( RequestData, Files );
-	
-	// TODO добавить обработку отсутсвия маршрутов
-
 	If ( DumpData ) Then
 		
 		ExternalRequests.Dump( RequestHandler, CheckoutSHA, RequestData );
 		RemoteFiles.Dump( RequestHandler, CheckoutSHA, Files );
 		
 	EndIf;
+	
+	FilesToSend = Routing.GetFilesByRoutes( RequestData, Files );
+	LogRoutingResult( FilesToSend, RequestHandler, CheckoutSHA );
+	
+	FilesToSend = RemoveUnroutedFiles( FilesToSend );
 
-	// Send
-	Stab=new array;
-	
-//	CommitSHA = TIME;
-//	
-//	EndpointURL = URL + "/epf/uploadFile";
-//	Routes = New Array;
-//	Routes.Add(EndpointURL);
-//	Routes.Add(EndpointURL);
-//
-//	NotFoundURL = "http://mockserver:1080/NotFound";
-//	NotFoundStatusCode = 404;
-//	RoutesHasError = New Array;
-//	RoutesHasError.Add(NotFoundURL);
-//
-//	File1 = NewFile(CommitSHA, FileName, RoutesHasError);
-//	File2 = NewFile(CommitSHA, FileName, Routes);
-//	Files = New Array;
-//	Files.Add(File1);
-//	Files.Add(File2);	
-	
-	Jobs = Endpoints.BackgroundSendFiles( Stab );
-//	LogRunBackgroundSendFiles( Jobs, RequestHandler, CheckoutSHA );
+	Jobs = Endpoints.BackgroundSendFiles( FilesToSend );
+	LogRunBackgroundSendFiles( Jobs, RequestHandler, CheckoutSHA );
 	
 EndProcedure
 
@@ -153,7 +133,7 @@ Procedure AssertFiles( Val Files, Val RequestHandler, Val CheckoutSHA )
 	
 EndProcedure
 
-Procedure LogDowloadErrors( Val Files, Val RequestHandler, Val CheckoutSHA )
+Procedure LogDownloadResult( Val Files, Val RequestHandler, Val CheckoutSHA )
 	
 	Var Message;
 	
@@ -167,6 +147,75 @@ Procedure LogDowloadErrors( Val Files, Val RequestHandler, Val CheckoutSHA )
 		EndIf;
 				
 	EndDo;
+	
+EndProcedure
+
+Procedure LogRoutingResult( Val Files, Val RequestHandler, Val CheckoutSHA )
+	
+	Var Message;
+	
+	For Each File In Files Do
+			
+		If ( File.Routes = Undefined ) Then
+			
+			Message = Logs.AddPrefix( File.CommitSHA + ": " + Logs.Messages().ROUTE_MISSING, CheckoutSHA );
+			Logs.Error( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
+			
+		EndIf;
+				
+	EndDo;
+	
+EndProcedure
+
+Function RemoveUnroutedFiles( Val Files )
+	
+	Var Result;
+	
+	Result = New Array();
+	
+	For Each File In Files Do
+			
+		If ( File.Routes = Undefined ) Then
+			
+			Continue;
+			
+		EndIf;
+		
+		Result.Add( File );
+				
+	EndDo;	
+	
+	Return Result;
+	
+EndFunction
+
+Procedure LogRunBackgroundSendFiles( Val Jobs, Val RequestHandler, Val CheckoutSHA )
+
+	Var Created;
+	Var Message;
+	
+	Created = 0;
+	
+	For Each Job In Jobs Do
+			
+		If ( Job.BackgroundJob <> Undefined ) Then
+			
+			Created = Created + 1;
+
+		EndIf;
+		
+		If ( Job.ErrorInfo <> Undefined ) Then
+			
+			Message = Logs.AddPrefix( ErrorProcessing.DetailErrorDescription(Job.ErrorInfo), CheckoutSHA );			
+			Logs.Error( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
+			
+		EndIf;
+				
+	EndDo;
+	
+	Message = StrTemplate( Logs.Messages().UPLOAD_FILE_JOB_CREATED, Created );
+	Message = Logs.AddPrefix( Message, CheckoutSHA );			
+	Logs.Info( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
 	
 EndProcedure
 

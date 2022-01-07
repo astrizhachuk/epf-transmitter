@@ -11,9 +11,65 @@ Function GetVersion() Export
 	
 EndFunction
 
-// BSLLS-off)
+// NewErrorInfo creates a new ErrorInfo instance with the specified description.
+// 
+// Parameters:
+// 	Message - String - error text;
+// 	
+// Returns:
+// 	ErrorInfo - new ErrorInfo;
+//
+Function NewErrorInfo( Val Message ) Export
+	
+	Try
+		
+		Raise Message;
+		
+	Except
+		
+		Return ErrorInfo();
+		
+	EndTry;
+	
+EndFunction
+
+#Region Stream
+
+// AppendCollectionFromStream adds an item to the collection with the value read from the stream.
+// 
+// Parameters:
+// 	Collection - Structure, Map - destination;
+// 	Key - String - the key of the new item;
+// 	Stream - Stream - source;
+//			
+Procedure AppendCollectionFromStream( Collection, Val Key, Val Stream ) Export
+	
+	Var Reader;
+	Var Text;
+
+	Try
+		
+		Stream.Seek( 0, PositionInStream.Begin );
+		Reader = New TextReader( Stream, TextEncoding.UTF8 );
+		Text = Reader.Read();
+		Collection.Insert( Key, Text );
+		
+	Except
+		
+		Reader.Close();
+		Raise;
+		
+	EndTry;
+
+	Reader.Close();
+	
+EndProcedure
+
+#EndRegion
 
 #Region SSL
+
+// BSLLS-off
 
 // ValueTableToArray converts a table of values to an array of structures.
 // 
@@ -49,42 +105,8 @@ Function ValueTableToArray( ValueTable ) Export
 
 EndFunction
 
-#EndRegion
-
 // BSLLS-on
 
-#Region Stream
-
-// AppendCollectionFromStream adds an item to the collection with the value read from the stream.
-// 
-// Parameters:
-// 	Collection - Structure, Map - destination;
-// 	Key - String - the key of the new item;
-// 	Stream - Stream - source;
-//			
-Procedure AppendCollectionFromStream( Collection, Val Key, Val Stream ) Export
-	
-	Var Reader;
-	Var Text;
-
-	Try
-		
-		Stream.Seek( 0, PositionInStream.Begin );
-		Reader = New TextReader( Stream, TextEncoding.UTF8 );
-		Text = Reader.Read();
-		Collection.Insert( Key, Text );
-		
-	Except
-		
-		Reader.Close();
-		Raise;
-		
-	EndTry;
-
-	Reader.Close();
-	
-EndProcedure
-
-#EndRegion 
+#EndRegion
 
 #EndRegion

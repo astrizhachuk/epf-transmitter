@@ -3,12 +3,12 @@
 @tree
 @classname=ModuleExceptionPath
 
-Feature: Transmitter.Tests.TestsCommonUseServer
+Feature: Transmitter.Tests.Tests
 	As Developer
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: МокСерверДоступен
+Scenario: MockServerEnabled
 	And I execute 1C:Enterprise script at server
-	| 'TestsCommonUseServer.МокСерверДоступен(Context());' |
+	| 'Tests.MockServerEnabled(Context());' |

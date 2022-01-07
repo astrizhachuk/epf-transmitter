@@ -9,6 +9,6 @@ Feature: Transmitter.Tests.TestsStringsServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: ПерекодироватьСтроку
+Scenario: EncodeStringFromTo
 	And I execute 1C:Enterprise script at server
-	| 'TestsStringsServer.ПерекодироватьСтроку(Context());' |
+	| 'TestsStringsServer.EncodeStringFromTo(Context());' |

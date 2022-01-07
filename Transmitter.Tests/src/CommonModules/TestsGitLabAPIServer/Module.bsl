@@ -7,41 +7,19 @@
 Procedure GetConnectionParams(Framework) Export
 	
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	URL = "http://" + TIME;
-	Token = "Token" + Right(TIME, 10);
-	Timeout = Number(Right(TIME, 4));
-
-	Constants.ExternalStorageToken.Set(Token);
-	Constants.ExternalStorageTimeout.Set(Timeout);
+	Connection = Tests.NewConnection(, , Number(Right(Tests.RandomString(), 4)));
+	Constants.ExternalStorageToken.Set(Connection.Token);
+	Constants.ExternalStorageTimeout.Set(Connection.Timeout);
 	
 	// when
-	Result = GitlabAPI.GetConnectionParams(URL);
+	Result = GitlabAPI.GetConnectionParams(Connection.URL);
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 3);
-	Framework.AssertEqual(Result.URL, URL);
-	Framework.AssertEqual(Result.Token, Token);
-	Framework.AssertEqual(Result.Timeout, Timeout);
+	Framework.AssertEqual(Result.URL, Connection.URL);
+	Framework.AssertEqual(Result.Token, Connection.Token);
+	Framework.AssertEqual(Result.Timeout, Connection.Timeout);
 
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCheckoutSHA(Framework) Export
-
-	// given
-	Data = New Map;
-	Data.Insert("checkout_sha", "value");
-	
-	// when
-	Result = GitLabAPI.GetCheckoutSHA(Data);
-	
-	// then
-	Framework.AssertEqual(Result, "value");
-	
 EndProcedure
 
 // @unit-test
@@ -65,25 +43,19 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetProject(Framework) Export
-	
+Procedure GetCheckoutSHA(Framework) Export
+
 	// given
-	ProjectId = 1;
-	ServerURL = "http://mockserver:1080";
-	
-	Project = New Map;
-	Project.Insert("id", 1);
-	Project.Insert("web_url", ServerURL);
+	Text = "value";
 	
 	Data = New Map;
-	Data.Insert("project", Project);	
+	Data.Insert("checkout_sha", Text);
 	
 	// when
-	Result = GitLabAPI.GetProject(Data);
+	Result = GitLabAPI.GetCheckoutSHA(Data);
 	
 	// then
-	Framework.AssertEqual(Result.Id, ProjectId);
-	Framework.AssertEqual(Result.ServerURL, ServerURL);
+	Framework.AssertEqual(Result, Text);
 	
 EndProcedure
 
@@ -133,7 +105,7 @@ Procedure GetProjectWithoutProjectId(Framework) Export
 	
 	// given
 	Project = New Map;
-	Project.Insert("web_url", "http://domen/path");
+	Project.Insert("web_url", "http://example.com/path");
 	
 	Data = New Map;
 	Data.Insert("project", Project);
@@ -153,11 +125,7 @@ EndProcedure
 Procedure GetProjectShortURL(Framework) Export
 	
 	// given
-	URL = "http://domen";
-	
-	Project = New Map;
-	Project.Insert("id", 1);
-	Project.Insert("web_url", URL);
+	Project = Tests.NewProject(1, "http://example.com");
 	
 	Data = New Map;
 	Data.Insert("project", Project);
@@ -166,8 +134,9 @@ Procedure GetProjectShortURL(Framework) Export
 	Result = GitLabAPI.GetProject(Data);
 	
 	// then
-	Framework.AssertEqual(Result.URL, URL);
-	Framework.AssertEqual(Result.ServerURL, URL);
+	Framework.AssertEqual(Result.URL, Project.Get("web_url"));
+	Framework.AssertEqual(Result.ServerURL, Project.Get("web_url"));
+	Framework.AssertEqual(Result.Id, Project.Get("id"));
 	
 EndProcedure
 
@@ -178,12 +147,7 @@ EndProcedure
 Procedure GetProjectLongURL(Framework) Export
 	
 	// given
-	LongURL = "http://domen/path/";
-	ShortURL = "http://domen";
-	
-	Project = New Map;
-	Project.Insert("id", 1);
-	Project.Insert("web_url", LongURL);
+	Project = Tests.NewProject(1, "http://example.com/path/");
 	
 	Data = New Map;
 	Data.Insert("project", Project);
@@ -192,31 +156,12 @@ Procedure GetProjectLongURL(Framework) Export
 	Result = GitLabAPI.GetProject(Data);
 	
 	// then
-	Framework.AssertEqual(Result.URL, LongURL);
-	Framework.AssertEqual(Result.ServerURL, ShortURL);
+	Framework.AssertEqual(Result.URL, Project.Get("web_url"));
+	Framework.AssertEqual(Result.ServerURL, "http://example.com");
+	Framework.AssertEqual(Result.Id, Project.Get("id"));
 	
 EndProcedure
 
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCommits(Framework) Export
-	
-	// given
-	Commits = New Map;
-	Commits.Insert("key", "value");
-	
-	Data = New Map;
-	Data.Insert("commits", Commits);	
-	
-	// when
-	Result = GitLabAPI.GetCommits(Data);
-	
-	// then
-	Framework.AssertFilled(Result);
-	
-EndProcedure
 
 // @unit-test
 // Params:
@@ -239,15 +184,35 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure GetCommits(Framework) Export
+
+	// given
+	Commits = New Map;
+	Commits.Insert("key", "value");
+	
+	Data = New Map;
+	Data.Insert("commits", Commits);	
+	
+	// when
+	Result = GitLabAPI.GetCommits(Data);
+	
+	// then
+	Framework.AssertFilled(Result);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 Procedure GetRAWFilePath(Framework) Export
 	
 	// given
-	ProjectId = 1;
 	Path = "а/б/в";
-	EncodedPath = "%D0%B0/%D0%B1/%D0%B2";
+	ProjectId = 1;
 	CommitSHA = "0123456789";
 	RAWFilePath = "/api/v4/projects/" + ProjectId
-					+ "/repository/files/" + EncodedPath
+					+ "/repository/files/" + EncodeString(Path, StringEncodingMethod.URLEncoding)
 					+ "/raw?ref=" + CommitSHA;
 	
 	// when
@@ -265,18 +230,187 @@ EndProcedure
 Procedure GetFileActions(Framework) Export
 	
 	// given
-	A = "added";
-	M = "modified";
-	R = "removed";
 	
 	// when	
 	Result = GitlabAPI.GetFileActions();
 	
 	// then
-	Framework.AssertEqual(Result[0], A);
-	Framework.AssertEqual(Result[1], M);
-	Framework.AssertEqual(Result[2], R);
+	Framework.AssertEqual(Result[0], "added");
+	Framework.AssertEqual(Result[1], "modified");
+	Framework.AssertEqual(Result[2], "removed");
 	
 EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetMergeRequests(Framework) Export
+	
+	// given
+	Connection = Tests.NewConnection(Tests.MockURL());
+	Constants.ExternalStorageToken.Set(Connection.Token);
+	Constants.ExternalStorageTimeout.Set(Connection.Timeout);
+	
+	ProjectId = 1;
+	JSON = "[
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": null,
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/4""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""c1775c33f82fcf22b3c2c4a5b4e95e430ef35d89"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/3""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""87fc6b2782f1bcadce980cb52941e2bd90974c0f"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/2""
+			 |	},
+			 |	{
+			 |		""project_id"": 1,
+			 |		""merge_commit_sha"": ""686109dffcee3e8ef51013f2e7702a8590eb5d73"",
+			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/1""
+			 |	}
+			 |]";
+			 
+	SetMockMergeRequests(Connection, JSON, 200);
+
+	// when
+	Result = GitlabAPI.GetMergeRequests(Connection.URL, ProjectId);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 4);
+	Framework.AssertEqual(Result[0].Count(), 3);
+	Framework.AssertEqual(Result[0].Get("project_id"), ProjectId);
+	Framework.AssertEqual(Result[0].Get("web_url"), "http://gitlab/root/external-epf/-/merge_requests/4");
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetRAWFilesNoRAWFilePaths(Framework) Export
+	
+	// given
+	
+	// when
+	Result = GitlabAPI.GetRAWFiles(Tests.NewConnection(), New Array);
+	
+	// then
+	Framework.AssertNotFilled(Result);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetRAWFilesBadURL(Framework) Export
+	
+	// given
+	Connection = Tests.NewConnection();
+	RAWFilePaths = New Array;
+	RAWFilePaths.Add("/HostNotFound");
+	
+	// when
+	Result = GitlabAPI.GetRAWFiles(Connection, RAWFilePaths);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertStringContains(Result[0].ErrorInfo.Description, "Couldn't resolve host name");
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetRAWFiles404NotFound(Framework) Export
+
+	// given
+	Connection = Tests.NewConnection(Tests.MockURL());
+	RAWFilePaths = New Array;
+	RAWFilePaths.Add("/api/v4/projects/.*/repository/files/нет такого файла.epf");
+
+	Tests.ResetMockServer();
+	Tests.SetMockGitLabDownloadFile(Connection, , 404);
+
+	// when
+	Result = GitlabAPI.GetRAWFiles(Connection, RAWFilePaths);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertStringContains(Result[0].ErrorInfo.Description, HTTPStatusCodesClientServerCached.FindIdByCode(404));
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetRAWFilesMixed(Framework) Export
+
+	// given
+	Connection = Tests.NewConnection(Tests.MockURL());
+	File1 = Tests.NewFile("path", "file 1", "epf");
+	File2 = Tests.NewFile("каталог", "файл 2", "epf");
+	
+	RAWFilePaths = New Array;
+	RAWFilePaths.Add(Tests.NewRAWFilePath(File1, "master"));
+	RAWFilePaths.Add(Tests.NewRAWFilePath(File2, "master"));
+	RAWFilePaths.Add(File1.APIPath + "нет файла.epf");	
+
+	Tests.ResetMockServer();
+	Tests.SetMockGitLabDownloadFile(Connection, File1, 200);
+	Tests.SetMockGitLabDownloadFile(Connection, File2, 200);
+	Tests.SetMockGitLabDownloadFile(Connection, , 404);
+	
+	// when
+	Result = GitlabAPI.GetRAWFiles(Connection, RAWFilePaths);
+	
+	// then	
+	Framework.AssertEqual(Result[0].RAWFilePath, RAWFilePaths[0]);
+	Framework.AssertEqual(Result[0].FileName, File1.FileName);
+	Framework.AssertFilled(Result[0].BinaryData);
+	Framework.AssertNotFilled(Result[0].ErrorInfo);
+	Framework.AssertEqual(Result[1].RAWFilePath, RAWFilePaths[1]);
+	Framework.AssertEqual(Result[1].FileName, File2.FileName);
+	Framework.AssertFilled(Result[1].BinaryData);
+	Framework.AssertNotFilled(Result[1].ErrorInfo);
+	Framework.AssertStringContains(Result[2].ErrorInfo.Description, HTTPStatusCodesClientServerCached.FindIdByCode(404));
+
+EndProcedure
+
+#EndRegion
+
+#Region Private
+
+#Region MockServer
+
+Procedure SetMockMergeRequests(Connection, JSON, StatusCode)
+	
+	Mock = DataProcessors.MockServerClient.Create();
+
+	Mock.Server(Connection.URL, , True)
+		.Когда(
+			Mock.Request()
+				.WithMethod("GET")
+				.WithPath("/api/v4/projects/.*/merge_requests")
+				.Headers()
+					.WithHeader("PRIVATE-TOKEN", Connection.Token)
+		)
+	    .Respond(
+	        Mock.Response()
+	        	.WithStatusCode(StatusCode)
+	        	.WithBody(JSON)
+	    );
+    
+EndProcedure
+
+#EndRegion
 
 #EndRegion

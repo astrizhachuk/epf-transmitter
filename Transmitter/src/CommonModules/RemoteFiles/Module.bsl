@@ -298,7 +298,7 @@ Procedure AppendBinaryData( FilesMetadata, Val ConnectionParams )
 
 	RAWFilePaths = FilesMetadata.UnloadColumn( "RAWFilePath" );
 	
-	DownloadedFiles = Gitlab.RemoteFiles( ConnectionParams, RAWFilePaths );
+	DownloadedFiles = GitlabAPI.GetRAWFiles( ConnectionParams, RAWFilePaths );
 	
 	For Each File In DownloadedFiles Do
 			

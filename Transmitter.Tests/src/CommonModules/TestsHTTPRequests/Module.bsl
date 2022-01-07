@@ -73,14 +73,14 @@ EndProcedure
 Procedure EventsPostPush200Ok(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", Token));
@@ -99,14 +99,14 @@ EndProcedure
 Procedure EventsPostPush400BadRequestWithoutToken(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	Options = Options("Push Hook", Token);
 	Options.Headers.Delete("X-Gitlab-Token");
 
@@ -127,14 +127,14 @@ EndProcedure
 Procedure EventsPostPush400BadRequestWithoutEvent(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	Options = Options("Push Hook", Token);
 	Options.Headers.Delete("X-Gitlab-Event");
 
@@ -156,14 +156,14 @@ EndProcedure
 Procedure EventsPostPush400BadRequestWrongEventMethod(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Tag Hook", Token));
@@ -182,14 +182,14 @@ EndProcedure
 Procedure EventsPostPush401Unauthorized(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", "fake"));
@@ -208,13 +208,13 @@ EndProcedure
 Procedure EventsPostPush404NotFound(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
+	
+	Token = Tests.NewToken();;
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	JSON = StrReplace(JSON, """web_url"": ""http://mockserver:1080/root/external-epf""", """web_url"": ""fake""");
 
 	// when
@@ -234,14 +234,14 @@ EndProcedure
 Procedure EventsPostPush423Locked(Framework) Export
 
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(False);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	
 	// when
 	Result = HTTPConnector.Post(URL, JSON, Options("Push Hook", Token));
@@ -260,11 +260,11 @@ EndProcedure
 Procedure EventsPostPush500InternalServerErrorWrongBodyFormat(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
 	JSON = "wrong data, there must be JSON";
@@ -287,14 +287,14 @@ EndProcedure
 Procedure EventsPostPush500InternalServerErrorCheckoutSHAMissed(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Constants.HandleRequests.Set(True);
-	Token = "token";
-	NewExternalRequestHandler("Test", "http://mockserver:1080/root/external-epf", Token);
+	
+	Token = Tests.NewToken();
+	Tests.NewExternalRequestHandler(, "http://mockserver:1080/root/external-epf", Token);
 	ServerURL = "http://transmitter/api/" + CurrentLanguage().LanguageCode;
 	URL = ServerURL + "/hs/gitlab/events/push";
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	JSON = StrReplace(JSON, """checkout_sha"": ", """checkout_sha_missed"": ");
 	Options = Options("Push Hook", Token);
 
@@ -311,18 +311,6 @@ EndProcedure
 #EndRegion
 
 #Region Private
-
-Procedure ExternalRequestHandlersCleanUp()
-	
-	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
-
-EndProcedure
-
-Function NewExternalRequestHandler(Val Name, Val ProjectURL, Val Token)
-
-	Return UtilsServer.NewExternalRequestHandler(Name, ProjectURL, Token);
-
-EndFunction
 
 Function Options(Val Event, Val Token)
 	

@@ -74,6 +74,8 @@ Function EndpointUserPassword() Export
 	
 EndFunction
 
+// TODO rename to EndpointTimeout
+
 // DeliveryFileTimeout returns the connection timeout to the endpoint infobase.
 //
 // Returns:

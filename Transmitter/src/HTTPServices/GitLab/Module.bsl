@@ -7,7 +7,7 @@ Function StatusGet(Request)
 	Var Response;
 	
 	Response = New HTTPServiceResponse( FindCodeById("OK") );
-	HTTPServices.SetBodyAsJSON( Response, GitLab.GetRequestHandlerStateMessage() );
+	HTTPServices.SetBodyAsJSON( Response, GetHandleRequestsStatus() );
 	
 	Return Response;
 	
@@ -16,8 +16,8 @@ EndFunction
 Function EventsPost( Request )
 
 	Var Data;
-	Var Credentials;
 	Var Token;
+	Var Credential;
 	Var Response;
 	
 	Logs.Info( Logs.Events().WS_REQUEST_BEGIN, Logs.Messages().REQUEST_RECEIVED );
@@ -36,16 +36,16 @@ Function EventsPost( Request )
 	
 	Data = GetData( Request );
 
-	Credentials = Projects.FindCredentials( GetProjectURL(Data) );
+	Credential = Credentials.FindByURL( GetProjectURL(Data) );
 
 	Token = GetHeader( Request, "X-Gitlab-Token" );
 	
-	Authenticate( Credentials, Token, Response );
+	Authenticate( Credential, Token, Response );
 	
 	If ( StatusCodes().isOk(Response.StatusCode) ) Then
 		
-		CheckCheckoutSHA( Data, Credentials.Ref );
-		DataProcessing.RunBackgroundJob( Credentials.Ref, Data );
+		CheckCheckoutSHA( Data, Credential.Ref );
+		DataProcessing.Start( Credential.Ref, Data );
 		
 	EndIf;	
 	
@@ -141,6 +141,34 @@ Function GetProjectURL( Val Data )
 		Raise;
 		
 	EndTry;
+	
+EndFunction
+
+// GetHandleRequestsStatus returns the current setting state for handling requests
+// from external stores as a message object.
+// 
+// Returns:
+// 	Structure - message object:
+// * message - String - message text;
+//
+Function GetHandleRequestsStatus()
+	
+	Var Result;
+	
+	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
+	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
+	
+	If ( ServicesSettings.HandleRequests() ) Then
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
+		
+	Else
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_DISABLED );
+		
+	EndIf;
+	
+	Return Result;
 	
 EndFunction
 

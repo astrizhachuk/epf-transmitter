@@ -1,17 +1,22 @@
 #Region Public
 
 // @unit-test
-Procedure ПерекодироватьСтроку(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure EncodeStringFromTo(Framework) Export
 	
 	// given
-	Эталон_UTF8 = "тестовая строка";
-	Эталон_KOI8_R = "я┌п╣я│я┌п╬п╡п╟я▐ я│я┌я─п╬п╨п╟";
+	UTF8 = "тестовая строка";
+	KOI8 = "я┌п╣я│я┌п╬п╡п╟я▐ я│я┌я─п╬п╨п╟";
+	
 	// when
-	Кодировка_KOI8_R = StringsClientServer.Encode(Эталон_UTF8, "UTF-8", "KOI8-R");
-	Кодировка_UTF8 = StringsClientServer.Encode(Кодировка_KOI8_R, "KOI8-R");
+	NewKOI8 = StringsClientServer.Encode(UTF8, "UTF-8", "KOI8-R");
+	NewUTF8 = StringsClientServer.Encode(NewKOI8, "KOI8-R");
+	
 	// then
-	Фреймворк.ПроверитьРавенство(Кодировка_KOI8_R, Эталон_KOI8_R); 
-	Фреймворк.ПроверитьРавенство(Кодировка_UTF8, Эталон_UTF8);
+	Framework.AssertEqual(KOI8, NewKOI8); 
+	Framework.AssertEqual(UTF8, NewUTF8);
 	
 EndProcedure
 

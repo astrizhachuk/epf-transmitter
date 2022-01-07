@@ -46,9 +46,9 @@ Procedure InfoOnlyEvent(Framework) Export
 	Comment = "InfoOnlyEvent";
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment);
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -70,9 +70,9 @@ Procedure WarnOnlyEvent(Framework) Export
 	Comment = "WarnOnlyEvent";
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Warn(ToString(Event), Comment);
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 		
 	// then
@@ -94,9 +94,9 @@ Procedure ErrorOnlyEvent(Framework) Export
 	Comment = "ErrorOnlyEvent";
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Error(ToString(Event), Comment);
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 		
 	// then
@@ -113,16 +113,16 @@ EndProcedure
 Procedure InfoEventWithObject(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	
 	Event = NewEvent(NStr("ru = 'Информация2';en = 'Information2'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event);
 	Comment = "InfoEventWithObject";
 
 	// when
-	Pause(1);
-	Logs.Info(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
-	Pause(2);
+	Tests.Pause(1);
+	Logs.Info(ToString(Event), Comment, Tests.NewExternalRequestHandler().Ref );
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -140,16 +140,16 @@ EndProcedure
 Procedure WarnEventWithObject(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 
 	Event = NewEvent(NStr("ru = 'Предупреждение2';en = 'Warning2'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning");
 	Comment = "WarnEventWithObject";
 	
 	// when
-	Pause(1);
-	Logs.Warn(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
-	Pause(2);
+	Tests.Pause(1);
+	Logs.Warn(ToString(Event), Comment, Tests.NewExternalRequestHandler().Ref );
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then	
@@ -167,16 +167,16 @@ EndProcedure
 Procedure ErrorEventWithObject(Framework) Export
 
 	// given
-	ExternalRequestHandlersCleanUp();
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	
 	Event = NewEvent(NStr("ru = 'Ошибка2';en = 'Error2'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
 	Comment = "ErrorEventWithObject";
 
 	// when
-	Pause(1);
-	Logs.Error(ToString(Event), Comment, NewExternalRequestHandler("Test", "Token").Ref );
-	Pause(2);
+	Tests.Pause(1);
+	Logs.Error(ToString(Event), Comment, Tests.NewExternalRequestHandler().Ref );
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -201,9 +201,9 @@ Procedure InfoEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -229,9 +229,9 @@ Procedure WarnEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Warn(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -257,9 +257,9 @@ Procedure ErrorEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Error(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 
 	// then
@@ -285,9 +285,9 @@ Procedure InfoEventWithObjectAndHTTPResponse400WithBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 		
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -315,9 +315,9 @@ Procedure InfoEventWithObjectAndHTTPResponse401WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -342,9 +342,9 @@ Procedure InfoEventWithObjectAndHTTPResponse404WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -369,9 +369,9 @@ Procedure InfoEventWithObjectAndHTTPResponse423WithoutBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Info(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -396,9 +396,9 @@ Procedure ErrorEventWithObjectAndHTTPResponse500WithBody(Framework) Export
 	Response = New HTTPServiceResponse(StatusCode);
 	
 	// when
-	Pause(1);
+	Tests.Pause(1);
 	Logs.Error(ToString(Event), Comment, , Response );
-	Pause(2);
+	Tests.Pause(2);
 	Result = GetEventLog(EventLogFilterByEvent);
 	
 	// then
@@ -430,12 +430,6 @@ EndProcedure
 #EndRegion
 
 #Region Private
-
-Procedure Pause(Val Period)
-	
-	UtilsServer.Pause(Period);
-	
-EndProcedure
 
 #Region EventLog
 
@@ -480,30 +474,14 @@ Function EventLogFilterByEvent(Events, Level = "Information", Val StatusCode = 0
 		
 	EndIf;
 
-	Return UtilsServer.EventLogFilterByEvent(StrConcat(Result, "."), Level, "1CV8C");
+	Return Tests.EventLogFilterByEvent(StrConcat(Result, "."), Level, "1CV8C");
 	
 EndFunction
 
 Function GetEventLog(Val Filter)
 	
-	Return UtilsServer.GetEventLog(Filter);
+	Return Tests.GetEventLog(Filter);
 	
-EndFunction
-
-#EndRegion
-
-#Region Data
-
-Procedure ExternalRequestHandlersCleanUp()
-	
-	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
-
-EndProcedure
-
-Function NewExternalRequestHandler(Val Name, Val Token)
-
-	Return UtilsServer.NewExternalRequestHandler(Name, "empty", Token);
-
 EndFunction
 
 #EndRegion

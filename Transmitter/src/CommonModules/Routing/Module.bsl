@@ -18,6 +18,7 @@
 //
 // Returns:
 // 	Array of Structure:
+// * CommitSHA - String - сommit SHA;
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
 // * Routes - Array of String - delivery end-point service URLs;
@@ -71,6 +72,7 @@ EndFunction
 //
 // Returns:
 // 	Structure - description:
+// * CommitSHA - String - сommit SHA; 
 // * FileName - String - file name; 
 // * BinaryData - BinaryData - file data;
 // * Routes - Array of String - delivery end-point service URLs;
@@ -80,6 +82,7 @@ Function FileToSend()
 	Var Result;
 	
 	Result = New Structure();
+	Result.Insert( "CommitSHA", "" );
 	Result.Insert( "FileName", "" );
 	Result.Insert( "BinaryData", Undefined );
 	Result.Insert( "Routes", Undefined );

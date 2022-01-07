@@ -26,18 +26,15 @@ EndProcedure
 Procedure GetProjectOrRaise(Framework) Export
 	
 	// given
-	ProjectId = 1;
-	ServerURL = "http://mockserver:1080";
-	
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	Data = HTTPConnector.JsonToObject(JSON);
 
 	// when
 	Result = ExternalRequests.GetProjectOrRaise(Data);
 	
 	// then
-	Framework.AssertEqual(Result.Id, ProjectId);
-	Framework.AssertEqual(Result.ServerURL, ServerURL);
+	Framework.AssertEqual(Result.Id, 1);
+	Framework.AssertEqual(Result.ServerURL, "http://mockserver:1080");
 	
 EndProcedure
 
@@ -52,7 +49,7 @@ Procedure GetProjectOrRaiseException(Framework) Export
 
 	// when
 	Try
-		Result = ExternalRequests.GetProjectOrRaise(Data);
+		ExternalRequests.GetProjectOrRaise(Data);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -69,7 +66,7 @@ EndProcedure
 Procedure GetCommitsOrRaise(Framework) Export
 	
 	// given
-	JSON = UtilsServer.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push.json");
 	Data = HTTPConnector.JsonToObject(JSON);
 
 	// when
@@ -91,7 +88,7 @@ Procedure GetCommitsOrRaiseException(Framework) Export
 
 	// when
 	Try
-		Result = ExternalRequests.GetCommitsOrRaise(Data);
+		ExternalRequests.GetCommitsOrRaise(Data);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -108,18 +105,17 @@ EndProcedure
 Procedure GetRequestBody(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	InformationRegistersCleanUp();
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
 	
-	ExternalRequestHandler = NewExternalRequestHandler("Test", "http://" + TIME);
-	CheckoutSHA = TIME;
-	Data = "Data" + TIME;
+	ExternalRequestHandler = Tests.NewExternalRequestHandler();
+	CheckoutSHA = Tests.RandomString();
+	Data = "Data" + Tests.RandomString();
 	
 	Map = New Map();
 	Map.Insert("Key", Data);
 	
-	AddRecord("QueryData", ExternalRequestHandler, CheckoutSHA, Map);
+	Tests.AddRecord("QueryData", ExternalRequestHandler, CheckoutSHA, Map);
 	
 	// when	
 	Result = ExternalRequests.GetRequestBody(ExternalRequestHandler.Ref, CheckoutSHA);
@@ -138,15 +134,11 @@ EndProcedure
 Procedure GetRequestBodyNoData(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	InformationRegistersCleanUp();
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	ExternalRequestHandler = NewExternalRequestHandler("Test", "http://" + TIME);
-	CheckoutSHA = TIME;
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
 	
 	// when	
-	Result = ExternalRequests.GetRequestBody( ExternalRequestHandler.Ref, CheckoutSHA );
+	Result = ExternalRequests.GetRequestBody(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
 	
 	// then
 	Framework.AssertNotFilled(Result);
@@ -160,17 +152,11 @@ EndProcedure
 Procedure AppendRoutingSettingsNoData(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	FileName = ".ext-epf" + TIME +".json";
-	Constants.RoutingFileName.Set(FileName);
-	
-	Data = New Map;
-	Files = New ValueTable();
+	Constants.RoutingFileName.Set(Tests.NewFileName(".ext-epf", "json"));
 
 	// when
 	Try
-		ExternalRequests.AppendRoutingSettings(Data, Files);
+		ExternalRequests.AppendRoutingSettings(New Map, New ValueTable());
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -180,22 +166,19 @@ Procedure AppendRoutingSettingsNoData(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure AppendRoutingSettings(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	FileEPF = Tests.NewFile("каталог", "файл", "epf");
+	FileSettings = Tests.NewFile("", ".ext-epf", "json");
+	Constants.RoutingFileName.Set(FileSettings.FileName);
 	
-	FilePath = ".ext-epf" + TIME +".json";
-	Constants.RoutingFileName.Set(FilePath);
-	
-	Commit1 = New Map;
-	Commit1.Insert("id", "commit1");
-	Commit2 = New Map;
-	Commit2.Insert("id", "commit2");
+	Commit1 = Tests.NewCommit("commit1");
+	Commit2 = Tests.NewCommit("commit2");
 	Commits = New Array;
 	Commits.Add(Commit1);
 	Commits.Add(Commit2);
@@ -203,22 +186,19 @@ Procedure AppendRoutingSettings(Framework) Export
 	Data = New Map;
 	Data.Insert("commits", Commits);
 	
-	JSON1 = "{""key1"":""value1""}";
-	JSON2 = "{""key2"":""value2""}";
-	JSON3 = "{""key3"":""value3""}";
-
-	Files = NewFiles();
-	AddFileMetadata(Files, "commit1", FilePath, "added", JSON1 );
-	AddFileMetadata(Files, "commit1", FilePath, "", JSON2 );
-	AddFileMetadata(Files, "commit2", FilePath, "", JSON3, "any error" );		
+	FilesMetadata = Tests.NewFilesMetadata();
+	Tests.AddFileMetadata(FilesMetadata, FileEPF, Commit1, "added");
+	Tests.AddFileMetadata(FilesMetadata, FileSettings, Commit1, "");
+	Tests.AddFileMetadata(FilesMetadata, FileSettings, Commit2, "", , "any error");	
 
 	// when
-	ExternalRequests.AppendRoutingSettings(Data, Files);
+	ExternalRequests.AppendRoutingSettings(Data, FilesMetadata);
 
 	// then
-	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("key2"), "value2");
-	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("json"), JSON2);
-	Framework.AssertNotFilled(Data.Get("commits")[1].Get("settings"));	
+	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("text"), FileSettings.FileName);
+	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("json"), FileSettings.Data);
+	Framework.AssertNotFilled(Data.Get("commits")[1].Get("settings"));
+	
 EndProcedure
 
 // @unit-test
@@ -228,17 +208,16 @@ EndProcedure
 Procedure Dump(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	InformationRegistersCleanUp();
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
 	
-	ExternalRequestHandler = NewExternalRequestHandler("Test", "http://" + TIME);
-	CheckoutSHA = TIME;
-	Data = "Data" + TIME;
+	ExternalRequestHandler = Tests.NewExternalRequestHandler();
+	CheckoutSHA = Tests.RandomString();
+	Data = "Data" + Tests.RandomString();
 	
 	// when	
 	ExternalRequests.Dump(ExternalRequestHandler.Ref, CheckoutSHA, Data);
-	Result = GetRecordSet("QueryData", ExternalRequestHandler.Ref, CheckoutSHA);
+	Result = Tests.GetRecordSet("QueryData", ExternalRequestHandler.Ref, CheckoutSHA);
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
@@ -253,17 +232,14 @@ EndProcedure
 Procedure DumpException(Framework) Export
 	
 	// given
-	ExternalRequestHandlersCleanUp();
-	InformationRegistersCleanUp();
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	ExternalRequestHandler = NewExternalRequestHandler("Test", "http://" + TIME);
-	CheckoutSHA = TIME;
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+
 	Data = New HTTPRequest();
 	
 	// when
 	Try
-		ExternalRequests.Dump(ExternalRequestHandler.Ref, CheckoutSHA, Data);
+		ExternalRequests.Dump(Tests.NewExternalRequestHandler().Ref, Tests.RandomString(), Data);
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -272,62 +248,5 @@ Procedure DumpException(Framework) Export
 	EndTry;	
 	
 EndProcedure
-
-#EndRegion
-
-#Region Private
-
-#Region Data
-
-Procedure ExternalRequestHandlersCleanUp()
-	
-	UtilsServer.CatalogCleanUp("ExternalRequestHandlers");
-
-EndProcedure
-
-Procedure InformationRegistersCleanUp()
-	
-	UtilsServer.InformationRegisterCleanUp("QueryData, RemoteFiles");
-
-EndProcedure
-
-Function NewExternalRequestHandler(Val Name, Val ProjectURL)
-	
-	Return UtilsServer.NewExternalRequestHandler(Name, ProjectURL, "empty");
-	
-EndFunction
-
-Function GetRecordSet(Name, Handler, CheckoutSHA)
-
-	Return UtilsServer.GetRecordSet(Name, Handler, CheckoutSHA);
-	
-EndFunction
-
-Procedure AddRecord(Name, Handler, CheckoutSHA, Data)
-	
-	UtilsServer.AddRecord(Name, Handler, CheckoutSHA, Data);
-
-EndProcedure
-
-Function NewFiles()
-	
-	Result = New ValueTable();
-	Result.Columns.Add( "FilePath", New TypeDescription("String") );
-	Result.Columns.Add( "BinaryData", New TypeDescription("BinaryData") );
-	Result.Columns.Add( "Action", New TypeDescription("String") );
-	Result.Columns.Add( "CommitSHA", New TypeDescription("String") );
-	Result.Columns.Add( "ErrorInfo" );
-	
-	Return Result;
-	
-EndFunction
-		
-Procedure AddFileMetadata(Files, Val CommitSHA, Val FilePath, Val Action, Val Data, Val Error = Undefined)
-	
-	UtilsServer.AddFileMetadata(Files, CommitSHA, "", FilePath, Action, Data, Error);
-	
-EndProcedure
-
-#EndRegion
 
 #EndRegion

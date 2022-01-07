@@ -58,7 +58,7 @@ Function SendFile( Val Endpoint, Val FileName, Val Data ) Export
 	Assert( Endpoint );
 	
 	Headers = New Map();
-	Headers.Insert( "name", EncodeString(FileName, StringEncodingMethod.URLInURLEncoding) );
+	Headers.Insert( "name", EncodeString(FileName, StringEncodingMethod.URLEncoding) );
 
 	RequestParams = New Structure();
 	RequestParams.Insert( "Authentication", GetAuthentication(Endpoint) );
@@ -79,12 +79,13 @@ Function SendFile( Val Endpoint, Val FileName, Val Data ) Export
 		
 EndFunction
 
-// BackgroundSendFiles runs and returns the file uploads to the endpoints in the background.
+// BackgroundSendFiles returns the result of running a background job to upload files to endpoint infobases.
 // 
 // Parameters:
 // 	Files - Structure - file upload description:
+// * CommitSHA - String - сommit SHA;
 // * FileName - String - file name; 
-// * Data - BinaryData - file data;
+// * BinaryData - BinaryData - file data;
 // * Routes - Undefined, Array of String - list of endpoint service URLs;
 // 	
 // Returns:
@@ -118,7 +119,7 @@ Function BackgroundSendFiles( Val Files ) Export
 				BackgroundJobParams = New Array();
 				BackgroundJobParams.Add( Endpoint );
 				BackgroundJobParams.Add( File.FileName );
-				BackgroundJobParams.Add( File.Data );
+				BackgroundJobParams.Add( File.BinaryData );
 				
 				JobKey = File.CommitSHA + "|" + URL + "|" + File.FileName;
 				

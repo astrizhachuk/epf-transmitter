@@ -8,6 +8,6 @@ Feature: Transmitter.Tests.TestsStringsClient
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
 
-Scenario: ПерекодироватьСтроку
+Scenario: EncodeStringFromTo
 	And I execute 1C:Enterprise script
-	| 'TestsStringsClient.ПерекодироватьСтроку(Context());' |
+	| 'TestsStringsClient.EncodeStringFromTo(Context());' |

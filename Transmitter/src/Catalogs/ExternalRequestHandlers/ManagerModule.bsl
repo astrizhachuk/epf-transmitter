@@ -3,12 +3,12 @@
 // FindByURL returns the search result by URL from records not marked for deletion.
 // 
 // Parameters:
-// 	URL - String - search URL;
+// 	URL - String - remote project URL;
 // 	
 // Returns:
-// 	ValueTable - search result as a set of attributes:
-// 	* Ref - CatalogRef.ExternalRequestHandlers - ref to webhook;
-// 	* SecretToken - String - webhook token;
+// 	ValueTable - search result:
+// 	* Ref - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+// 	* SecretToken - String - remote repository token;
 //
 Function FindByURL( Val URL ) Export
 	

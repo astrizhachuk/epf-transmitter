@@ -8,8 +8,10 @@ Procedure Settings(Framework) Export
 	
 	// given
 	Result = Undefined;
+	
 	// when
 	Result = ServicesSettingsClientCerver.Settings();
+	
 	// then
 	Framework.AssertEqual(Result.Count(), 7);
 	
@@ -125,9 +127,7 @@ EndProcedure
 Procedure EndpointUserName(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	UserName = "UserName" + Right(TIME, 10);			
+	UserName = "UserName" + Tests.RandomString();			
 	Constants.EndpointUserName.Set(UserName);
 	
 	// when
@@ -145,9 +145,7 @@ EndProcedure
 Procedure EndpointUserPassword(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	UserPassword = "UserPassword" + Right(TIME, 10);			
+	UserPassword = "UserPassword" + Tests.RandomString();			
 	Constants.EndpointUserPassword.Set(UserPassword);
 	
 	// when
@@ -165,9 +163,7 @@ EndProcedure
 Procedure DeliveryFileTimeout(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
-	
-	Timeout = Number(Right(TIME, 4));
+	Timeout = Number(Right(Tests.RandomString(), 4));
 	Constants.DeliveryFileTimeout.Set(Timeout);
 	
 	// when
@@ -185,9 +181,7 @@ EndProcedure
 Procedure ExternalStorageToken(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	
-	Token = "Token" + TIME;			
+	Token = "Token" + Tests.RandomString();			
 	Constants.ExternalStorageToken.Set(Token);
 	
 	// when
@@ -205,9 +199,7 @@ EndProcedure
 Procedure ExternalStorageTimeout(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");			
-	
-	Timeout = Number(Right(TIME, 4));
+	Timeout = Number(Right(Tests.RandomString(), 4));
 	Constants.ExternalStorageTimeout.Set(Timeout);
 	
 	// when
@@ -225,9 +217,7 @@ EndProcedure
 Procedure RoutingFileName(Framework) Export
 
 	// given
-	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-
-	RoutingFileName = "RoutingFileName" + TIME;			
+	RoutingFileName = "RoutingFileName" + Tests.RandomString();			
 	Constants.RoutingFileName.Set(RoutingFileName);
 	
 	// when

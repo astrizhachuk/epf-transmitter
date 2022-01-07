@@ -47,23 +47,21 @@
     </extension>
     <languageCode>en</languageCode>
   </languages>
+  <commonModules>CommonModule.Tests</commonModules>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
+  <commonModules>CommonModule.TestsCredentialsServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessingServer</commonModules>
   <commonModules>CommonModule.TestsEndpointsServer</commonModules>
   <commonModules>CommonModule.TestsExternalRequestsServer</commonModules>
   <commonModules>CommonModule.TestsGitLabAPIServer</commonModules>
-  <commonModules>CommonModule.TestsGitLabServer</commonModules>
   <commonModules>CommonModule.TestsHTTPRequests</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsLogsServer</commonModules>
-  <commonModules>CommonModule.TestsProjectsServer</commonModules>
   <commonModules>CommonModule.TestsRemoteFilesServer</commonModules>
   <commonModules>CommonModule.TestsRoutingServer</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsClient</commonModules>
   <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
   <commonModules>CommonModule.TestsStringsClient</commonModules>
   <commonModules>CommonModule.TestsStringsServer</commonModules>
-  <commonModules>CommonModule.TestsWebhooksServer</commonModules>
-  <commonModules>CommonModule.UtilsServer</commonModules>
   <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
 </mdclass:Configuration>

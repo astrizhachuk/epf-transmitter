@@ -1,6 +1,8 @@
-// BSLLS-off
-
 #Region Public
+
+#Region SSL
+
+// BSLLS-off
 
 // Supplements the DestinationArray array with values from the SourceArray array.
 //
@@ -115,5 +117,9 @@ Function AddCompositionItem(AreaToAdd,
 	Return Item;
 	
 EndFunction
+
+// BSLLS-on
+
+#EndRegion
 
 #EndRegion

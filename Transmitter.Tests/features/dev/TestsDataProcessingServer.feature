@@ -9,6 +9,6 @@ Feature: Transmitter.Tests.TestsDataProcessingServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: RunLogs
+Scenario: StartDownloadFromRemoteVCSNoRouts
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.RunLogs(Context());' |
+	| 'TestsDataProcessingServer.StartDownloadFromRemoteVCSNoRouts(Context());' |

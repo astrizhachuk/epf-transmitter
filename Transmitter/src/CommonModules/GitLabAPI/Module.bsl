@@ -108,9 +108,8 @@ Function GetRAWFilePath( Val FilePath, Val ProjectId, Val CommitSHA ) Export
 	Var URL;
 	
 	URL = "/api/v4/projects/%1/repository/files/%2/raw?ref=%3";
-	URL = StrTemplate( URL, ProjectId, FilePath, CommitSHA );
-	
-	Return EncodeString( URL, StringEncodingMethod.URLInURLEncoding );
+
+	Return StrTemplate( URL, ProjectId, EncodeString(FilePath, StringEncodingMethod.URLEncoding), CommitSHA );
 	
 EndFunction
 
@@ -132,6 +131,58 @@ Function GetFileActions() Export
 	
 EndFunction
 
+// GetMergeRequests returns all deserialized GitLab merge requests by project.
+// 
+// Parameters:
+// 	URL - String - GitLab server URL, for example: "http://www.example.org";
+// 	ProjectId - String - project Id;
+//
+// Returns:
+//   Map, Structure - deserialized merge requests;
+//
+Function GetMergeRequests( Val URL, Val ProjectId ) Export
+	
+	Var MR;
+	Var ConnectionParams;
+	
+	ConnectionParams = GetConnectionParams( URL );
+	
+	MR = ConnectionParams.URL + MergeRequestsPath( ProjectId );
+
+	Return HTTPConnector.GetJson( MR, Undefined, AdditionalParams(ConnectionParams) );
+	
+EndFunction
+
+// GetRAWFiles returns the files from the GitLab server with its descriptions.
+//
+// Parameters:
+// 	GetConnectionParams - (see GetConnectionParams)
+// 	FilePaths - Array of String - an array of URL-encoded relative paths to the downloaded files, for example
+// 								"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
+// 	
+// Returns:
+// 	Array of Structure - description:
+// * RAWFilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name (UTF-8);
+// * BinaryData - BinaryData - file data;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
+// 
+Function GetRAWFiles( Val ConnectionParams, Val FilePaths ) Export
+	
+	Var Result;
+
+	Result = New Array();
+	
+	For Each RAWFilePath In FilePaths Do
+		
+		Result.Add( DownloadFile(ConnectionParams, RAWFilePath) );
+		
+	EndDo;
+	
+	Return Result;
+
+EndFunction
+
 #EndRegion
 
 #Region Private
@@ -149,6 +200,95 @@ Function GetServerURL( Val URL )
 	EndIf;
 	
 	Return URL;
+	
+EndFunction
+
+Function FileDescription()
+
+	Var Result;
+	
+	Result = New Structure();
+	Result.Insert( "RAWFilePath", "" );
+	Result.Insert( "FileName", "" );
+	Result.Insert( "BinaryData", Undefined );
+	Result.Insert( "ErrorInfo", Undefined );
+	
+	Return Result;
+
+EndFunction
+
+Function AdditionalParams( Val ConnectionParams )
+	
+	Var Headers;
+	Var Result;
+	
+	Headers = New Map();
+	Headers.Insert( "PRIVATE-TOKEN", ConnectionParams.Token );
+	
+	Result = New Structure();
+	Result.Insert( "VerifySSL", False );
+	Result.Insert( "Headers", Headers );
+	Result.Insert( "Timeout", ConnectionParams.Timeout );
+	
+	Return Result;
+	
+EndFunction
+
+// DownloadFile returns the file from the GitLab server with its description.
+// 
+// Parameters:
+// 	ConnectionParams - (see GetConnectionParams)
+// 	FilePath - String - URL-encoded relative path to the RAW file, for example
+// 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
+// 	
+// Returns:
+//	Structure - description:
+// * FilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name (UTF-8);
+// * BinaryData - BinaryData - file data;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
+//
+Function DownloadFile( Val ConnectionParams, Val FilePath )
+
+	Var URL;
+	Var Response;
+	Var Message;
+	Var Result;
+	
+	Result = FileDescription();
+	
+	Result.RAWFilePath = FilePath;
+
+	URL = ConnectionParams.URL + FilePath;
+
+	Try
+		
+		Response = HTTPConnector.Get( URL, Undefined, AdditionalParams(ConnectionParams) );
+
+		If ( NOT HTTPStatusCodesClientServerCached.isOk(Response.StatusCode) ) Then
+			
+			Raise HTTPStatusCodesClientServerCached.FindIdByCode( Response.StatusCode );
+		
+		EndIf;
+
+		Result.FileName = Response.Headers.Get( "X-Gitlab-File-Name" );
+		Result.BinaryData = Response.Body;
+		
+	Except
+
+		Message = Logs.Messages().DOWNLOAD_FILE_ERROR;
+		Message = StrTemplate( Message, URL, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
+		Result.ErrorInfo = CommonUseServerCall.NewErrorInfo( Message );
+		
+	EndTry;
+
+	Return Result;
+	
+EndFunction
+
+Function MergeRequestsPath( Val ProjectId )
+	
+	Return StrTemplate( "/api/v4/projects/%1/merge_requests", String(ProjectId) );
 	
 EndFunction
 

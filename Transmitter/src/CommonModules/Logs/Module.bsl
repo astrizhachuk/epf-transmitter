@@ -45,9 +45,14 @@ Function Messages() Export
 
 	Result = New Structure();
 	
-	// TODO no need?
-	Result.Insert( "ROUTE_MISSING", NStr("ru = 'не задан маршрут доставки файла.';
-										|en = 'file delivery route not specified.'") );
+	Result.Insert( "DOWNLOAD_FILE_ERROR", NStr( "ru = 'ошибка загрузки файла: URL: %1: описание ошибки:" + Chars.LF + "%2';
+												|en = 'file download error: URL: %1: error description:" + Chars.LF + "%2'" ));
+	
+	Result.Insert( "UPLOAD_FILE_JOB_CREATED", NStr( "ru = 'создано заданий на отправку файла: %1';
+													|en = 'file upload jobs created: %1'" ));	
+	
+	Result.Insert( "ROUTE_MISSING", NStr("ru = 'не задан маршрут доставки файла';
+										|en = 'file delivery route not specified'") );
 	Result.Insert( "NO_COMMITS", NStr( "ru = 'отсутствуют ""commits""';
 												|en = '""commits"" is missing'" ));
 	Result.Insert( "NO_POJECT_DESCRIPTION", NStr( "ru = 'нет данных о проекте';

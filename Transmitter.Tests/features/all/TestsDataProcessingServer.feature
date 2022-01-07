@@ -39,14 +39,9 @@ Scenario: StartCommitsNotFound
 	| 'TestsDataProcessingServer.StartCommitsNotFound(Context());' |
 
 @OnServer
-Scenario: StartDownloadFromRemoteVCSErrors
+Scenario: StartDownloadFromRemoteVCSNoRouts
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.StartDownloadFromRemoteVCSErrors(Context());' |
-
-@OnServer
-Scenario: ManualRunSuccess
-	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.ManualRunSuccess(Context());' |
+	| 'TestsDataProcessingServer.StartDownloadFromRemoteVCSNoRouts(Context());' |
 
 @OnServer
 Scenario: ManualRunErrorLoadDataRequestBodyNotFound
@@ -59,11 +54,11 @@ Scenario: ManualRunErrorLoadDataRemoteFilesNotFound
 	| 'TestsDataProcessingServer.ManualRunErrorLoadDataRemoteFilesNotFound(Context());' |
 
 @OnServer
-Scenario: ManualLoadData
+Scenario: ManualLoadDataSaccess
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.ManualLoadData(Context());' |
+	| 'TestsDataProcessingServer.ManualLoadDataSaccess(Context());' |
 
 @OnServer
-Scenario: RunLogs
+Scenario: ManualRunCompleted
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.RunLogs(Context());' |
+	| 'TestsDataProcessingServer.ManualRunCompleted(Context());' |

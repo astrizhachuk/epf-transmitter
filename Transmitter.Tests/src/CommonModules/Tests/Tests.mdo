@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="b423f1d5-82a4-4f6d-8b9d-00c080e09d91">
-  <name>UtilsServer</name>
+  <name>Tests</name>
   <synonym>
     <key>en</key>
-    <value>Utils (server)</value>
+    <value>Tests (server)</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Утилиты (сервер)</value>
+    <value>Тесты (сервер)</value>
   </synonym>
   <server>true</server>
 </mdclass:CommonModule>

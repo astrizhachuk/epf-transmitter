@@ -8,10 +8,12 @@ Procedure Settings(Framework) Export
 	
 	// given
 	Result = Undefined;
+	
 	// when
 	Result = ServicesSettingsClientCerver.Settings();
+	
 	// then
-	Framework.AssertEqual(Result.Количество(), 7);
+	Framework.AssertEqual(Result.Count(), 7);
 	
 EndProcedure
 

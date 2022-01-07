@@ -16,51 +16,45 @@ Procedure GetVersion(Framework) Export
 	
 EndProcedure
 
-// @unit-test:fast
-// Параметры:
-// 	Фреймворк - ФреймворкТестирования - Фреймворк тестирования
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
 //
-Procedure МокСерверДоступен(Фреймворк) Export
-	
-	// given
-	URL = "http://mockserver:1080";
-	Мок = Обработки.MockServerClient.Создать();
-	Мок.Сервер(URL, , Истина).ОжидатьOpenAPI("file:/tmp/endpoint.yml", """version"": ""200""");
-	Мок = Неопределено;
-	// when
-	Результат = HTTPConnector.Get(URL + "/version");
-	// then
-	Фреймворк.ПроверитьРавенство(Результат.КодСостояния, 200);
-	ТелоОтвета = HTTPConnector.AsText(Результат, КодировкаТекста.UTF8);
-	Фреймворк.ПроверитьВхождение(ТелоОтвета, """message""");
+Procedure NewErrorInfo(Framework) Export
 
+	// given
+	Message = "new description";
+
+	// when
+	Result = CommonUseServerCall.NewErrorInfo(Message);
+	
+	// then
+	Framework.AssertStringContains(Result.Description, Message);
+	
 EndProcedure
 
 // @unit-test
-Procedure AppendCollectionFromStream(Фреймворк) Export
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure AppendCollectionFromStream(Framework) Export
+
+	// given
+	Stream = New MemoryStream();
+	Writer = New TextWriter(Stream);
+	Text = "text текст";
+	Writer.Write(Text);
+   	Writer.Close();
+
+	Result = New Structure("Key", "Value");
 	
-	Поток = Новый ПотокВПамяти();
-	ЗаписьТекста = Новый ЗаписьТекста(Поток);
-	Значение = "Туточки текст потока";
-	ЗаписьТекста.Записать(Значение);
-   	ЗаписьТекста.Закрыть();
+	// when
+	CommonUseServerCall.AppendCollectionFromStream(Result, "NewKey", Stream);
+   	Stream.Close();
 
-	Коллекция = Новый Структура("Ключ1", "Значение1");
-	CommonUseServerCall.AppendCollectionFromStream(Коллекция, "Ключ2", Поток);
-   	Поток.Закрыть();
-
-   	Фреймворк.ПроверитьРавенство( Значение, Коллекция.Ключ2 );
+	// then
+   	Framework.AssertEqual( Result.NewKey, Text );
 
 EndProcedure
-
-#EndRegion
-
-#Region Internal
-
-Function AsText(Знач Ответ, Знач Кодировка = Неопределено) Export
-	
-	Возврат HTTPConnector.AsText(Ответ, Кодировка);
-
-EndFunction
 
 #EndRegion
