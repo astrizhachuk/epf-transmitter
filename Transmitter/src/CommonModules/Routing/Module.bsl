@@ -2,19 +2,17 @@
 
 // TODO подумать о возвращении отправки по доступным маршрутам, если файл не имеет описания в json
 
-// TODO rewrite desc
-
-// GetFilesByRoutes returns remote files with delivery end-point service URLs.
+// GetFilesByRoutes returns downloaded files with the URLs of the delivery endpoint service.
 // 
 // Parameters:
 //	RequestData - Map - deserialized request body;
-// 	Files - ValueTable - files from the GitLab server with its descriptions:
+// 	Files - ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
+// * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
