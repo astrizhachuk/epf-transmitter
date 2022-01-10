@@ -241,15 +241,15 @@ EndProcedure
 &AtServerNoContext
 Function MergeRequestURL( Val RecordKey )
 	
-	Var QueryData;
+	Var RequestData;
 	Var ProjectParams;
 	Var MergeRequests;
 	Var MergeCommitSHA;
 	Var Result;
 	
-	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	ProjectParams = GitLabAPI.GetProject( QueryData );
+	ProjectParams = GitLabAPI.GetProject( RequestData );
 
 	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
 	// подумать, или зарегать в ишузах 

@@ -9,14 +9,14 @@
     <recordType typeId="07450e3c-f3a9-4cc7-95b8-a9092b52e472" valueTypeId="97e659be-de43-4f32-b96d-c8781dabeb0b"/>
     <recordManagerType typeId="dd978bb9-d852-49a1-a422-edbf406b2267" valueTypeId="0cd8f4af-8c8f-463d-a59f-c88b1279d257"/>
   </producedTypes>
-  <name>QueryData</name>
+  <name>ExternalRequests</name>
   <synonym>
     <key>en</key>
-    <value>Query Data</value>
+    <value>External Requests</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Данные запросов</value>
+    <value>Внешние запросы</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>

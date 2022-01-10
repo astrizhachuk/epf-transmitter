@@ -140,15 +140,15 @@ EndProcedure
 &AtServer
 Procedure FillFormValues( Val RecordKey )
 	
-	Var QueryData;
+	Var RequestData;
 	Var QueryCommits;
 	Var Settings;
 	Var CustomSettings;
 	Var NewRaw;
 	
-	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	If ( QueryData = Undefined ) Then
+	If ( RequestData = Undefined ) Then
 		
 		Return;
 		
@@ -157,11 +157,11 @@ Procedure FillFormValues( Val RecordKey )
 	If ( ThisObject.IsQuery ) Then
 		
 		NewRaw = ThisObject.Commits.Add();
-		NewRaw.JSON = QueryData.Get( "json" );
+		NewRaw.JSON = RequestData.Get( "json" );
 		
 	Else
 
-		QueryCommits = QueryData.Get( "commits" );
+		QueryCommits = RequestData.Get( "commits" );
 		
 		For Each Commit In QueryCommits Do
 			
@@ -225,11 +225,11 @@ Procedure SetAllowEditJSON( Val Edit = False )
 EndProcedure
 
 &AtServerNoContext 
-Function FindCommitById( Val QueryData, Val CommitSHA )
+Function FindCommitById( Val RequestData, Val CommitSHA )
 	
 	Var QueryCommits;
 
-	QueryCommits = QueryData.Get( "commits" );
+	QueryCommits = RequestData.Get( "commits" );
 	
 	For Each Commit In QueryCommits Do
 
@@ -250,19 +250,19 @@ EndFunction
 &AtServerNoContext
 Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	
-	Var QueryData;
+	Var RequestData;
 	Var Commit;
 	Var DefaultSetting;
 
-	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	If ( QueryData = Undefined ) Then
+	If ( RequestData = Undefined ) Then
 		
 		Return;
 		
 	EndIf;
 
-	Commit = FindCommitById( QueryData, CommitSHA );
+	Commit = FindCommitById( RequestData, CommitSHA );
 	DefaultSetting = Commit.Get( "settings" ).Get( "json" );
 	
 	If ( IsBlankString(DefaultSetting) OR DefaultSetting = CurrentSetting ) Then
@@ -272,7 +272,7 @@ Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	EndIf;		
 
 	Commit.Delete( "custom_settings" );				
-	Webhooks.SaveQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA, QueryData );
+	ExternalRequests.Dump( RecordKey.Webhook, RecordKey.CheckoutSHA, RequestData );
 	
 	CurrentSetting = DefaultSetting; 
 
@@ -302,24 +302,24 @@ EndProcedure
 &AtServerNoContext
 Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
 
-	Var QueryData;
+	Var RequestData;
 	Var Commit;
 	
-	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
-	Commit = FindCommitById( QueryData, CommitSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	Commit = FindCommitById( RequestData, CommitSHA );
 	
 	Return ( Commit.Get("custom_settings") <> Undefined );
 	
 EndFunction
 
 &AtServerNoContext
-Procedure AddQueryDataCustomSetting( QueryData, Val CommitSHA, Val JSON ) Export
+Procedure AppendSettings( RequestData, Val CommitSHA, Val JSON )
 	
 	Var Commit;
 	Var CustomSetting;
 	Var Stream;
 	
-	Commit = FindCommitById( QueryData, CommitSHA );
+	Commit = FindCommitById( RequestData, CommitSHA );
 
 	Stream = GetBinaryDataFromString( JSON, TextEncoding.UTF8 ).OpenStreamForRead();
 	CustomSetting = HTTPConnector.JsonToObject( Stream );
@@ -332,19 +332,19 @@ EndProcedure
 &AtServerNoContext
 Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
-	Var QueryData;
+	Var RequestData;
 	
-	QueryData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
 	
-	If ( QueryData = Undefined ) Then
+	If ( RequestData = Undefined ) Then
 		
 		Return;
 		
 	EndIf;
 	
-	AddQueryDataCustomSetting( QueryData, CommitSHA, JSON );
+	AppendSettings( RequestData, CommitSHA, JSON );
 	
-	Webhooks.SaveQueryData( RecordKey.Webhook, RecordKey.CheckoutSHA, QueryData );	
+	ExternalRequests.Dump( RecordKey.Webhook, RecordKey.CheckoutSHA, RequestData );	
 
 EndProcedure
 

@@ -88,6 +88,6 @@
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>
   <catalogs>Catalog.ExternalRequestHandlers</catalogs>
-  <informationRegisters>InformationRegister.QueryData</informationRegisters>
+  <informationRegisters>InformationRegister.ExternalRequests</informationRegisters>
   <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
 </mdclass:Configuration>

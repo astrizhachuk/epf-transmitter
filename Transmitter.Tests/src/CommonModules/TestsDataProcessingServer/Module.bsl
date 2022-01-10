@@ -82,7 +82,7 @@ Procedure StartSaveData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	CheckoutSHA = Tests.RandomString();
 	RequestHandler = Tests.NewExternalRequestHandler();
@@ -103,12 +103,12 @@ Procedure StartSaveData(Framework) Export
 	Filter = New Structure();
 	Filter.Insert("Webhook", RequestHandler.Ref);
 	Filter.Insert("CheckoutSHA", CheckoutSHA);
-	QueryData = InformationRegisters.QueryData.Get(Filter);
+	ExternalRequest = InformationRegisters.ExternalRequests.Get(Filter);
 	FilesMetadata = InformationRegisters.RemoteFiles.Get(Filter);
 		
 	// then
 	Framework.AssertTrue(Result.State = BackgroundJobState.Completed);
-	Framework.AssertEqual(QueryData.Data.Get().Get("checkout_sha"), CheckoutSHA);
+	Framework.AssertEqual(ExternalRequest.Data.Get().Get("checkout_sha"), CheckoutSHA);
 	Framework.AssertEqual(FilesMetadata.Data.Get()[0]["FileName"], File.FileName);
 		
 EndProcedure
@@ -144,7 +144,7 @@ Procedure StartCommitsNotFound(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	RequestHandler = Tests.NewExternalRequestHandler();
 	
@@ -212,7 +212,7 @@ Procedure ManualRunErrorLoadDataRequestBodyNotFound(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 
 	RequestHandler = Tests.NewExternalRequestHandler();
 	
@@ -238,14 +238,14 @@ Procedure ManualRunErrorLoadDataRemoteFilesNotFound(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 
 	CheckoutSHA = Tests.RandomString();	
 	RequestHandler = Tests.NewExternalRequestHandler();
 
 	Data = New Map;
 	Data.Insert("checkout_sha", CheckoutSHA);
-	Tests.AddRecord("QueryData", RequestHandler, CheckoutSHA, Data);
+	Tests.AddRecord("ExternalRequests", RequestHandler, CheckoutSHA, Data);
 
 	// when
 	Result = DataProcessing.Manual(RequestHandler.Ref, "fake");
@@ -263,7 +263,7 @@ Procedure ManualLoadDataSaccess(Framework) Export
 
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	CheckoutSHA = Tests.RandomString();
 	RequestHandler = Tests.NewExternalRequestHandler();
@@ -278,7 +278,7 @@ Procedure ManualLoadDataSaccess(Framework) Export
 	FilesMetadata = Tests.NewFilesMetadata();
 	Tests.AddFileMetadata(FilesMetadata, File, CheckoutSHA, "modifed", Date(2020, 07, 21, 09, 22, 31));
 	
-	Tests.AddRecord("QueryData", RequestHandler, CheckoutSHA, Data);
+	Tests.AddRecord("ExternalRequests", RequestHandler, CheckoutSHA, Data);
 	Tests.AddRecord("RemoteFiles", RequestHandler, CheckoutSHA, FilesMetadata);	
 	
 	// when
@@ -297,7 +297,7 @@ Procedure ManualRunCompleted(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	File1 = Tests.NewFile("", "routing", "json");
 	Constants.RoutingFileName.Set(File1.FileName);
@@ -331,7 +331,7 @@ Procedure ManualRunCompleted(Framework) Export
 	Tests.AddFileMetadata(FilesMetadata, File1, CheckoutSHA, "", Date(2020, 01, 21, 09, 22, 31));
 	Tests.AddFileMetadata(FilesMetadata, File2, CheckoutSHA, "modified", Date(2020, 01, 21, 09, 22, 31));
 	
-	Tests.AddRecord("QueryData", RequestHandler, CheckoutSHA, Data);
+	Tests.AddRecord("ExternalRequests", RequestHandler, CheckoutSHA, Data);
 	Tests.AddRecord("RemoteFiles", RequestHandler, CheckoutSHA, FilesMetadata);
 	
 	// when

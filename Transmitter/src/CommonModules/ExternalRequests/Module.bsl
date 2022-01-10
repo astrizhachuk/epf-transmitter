@@ -91,9 +91,9 @@ Function GetRequestBody( Val RequestHandler, Val CheckoutSHA ) Export
 	Filter.Insert( "Webhook", RequestHandler );
 	Filter.Insert( "CheckoutSHA", CheckoutSHA );
 	
-	Result = InformationRegisters.QueryData.Get(Filter).Data.Get();
+	Result = InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
 	
-	Message = Metadata.InformationRegisters.QueryData.FullName();
+	Message = Metadata.InformationRegisters.ExternalRequests.FullName();
 	Message = Logs.AddPrefix( Message, CheckoutSHA );
 	
 	If ( ValueIsFilled(Result) ) Then
@@ -167,12 +167,12 @@ Procedure Dump( Val RequestHandler, Val CheckoutSHA, Val Data ) Export
 	
 	Var Message;
 	
-	Message = Metadata.InformationRegisters.QueryData.FullName();
+	Message = Metadata.InformationRegisters.ExternalRequests.FullName();
 	Message = Logs.AddPrefix( Message, CheckoutSHA );
 	
 	Try
 		
-		InformationRegisters.QueryData.SaveData( RequestHandler, CheckoutSHA, Data );
+		InformationRegisters.ExternalRequests.SaveData( RequestHandler, CheckoutSHA, Data );
 		
 	Except
 		

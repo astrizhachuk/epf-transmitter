@@ -106,7 +106,7 @@ Procedure GetRequestBody(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	ExternalRequestHandler = Tests.NewExternalRequestHandler();
 	CheckoutSHA = Tests.RandomString();
@@ -115,7 +115,7 @@ Procedure GetRequestBody(Framework) Export
 	Map = New Map();
 	Map.Insert("Key", Data);
 	
-	Tests.AddRecord("QueryData", ExternalRequestHandler, CheckoutSHA, Map);
+	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Map);
 	
 	// when	
 	Result = ExternalRequests.GetRequestBody(ExternalRequestHandler.Ref, CheckoutSHA);
@@ -135,7 +135,7 @@ Procedure GetRequestBodyNoData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	// when	
 	Result = ExternalRequests.GetRequestBody(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
@@ -209,7 +209,7 @@ Procedure Dump(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	ExternalRequestHandler = Tests.NewExternalRequestHandler();
 	CheckoutSHA = Tests.RandomString();
@@ -217,7 +217,7 @@ Procedure Dump(Framework) Export
 	
 	// when	
 	ExternalRequests.Dump(ExternalRequestHandler.Ref, CheckoutSHA, Data);
-	Result = Tests.GetRecordSet("QueryData", ExternalRequestHandler.Ref, CheckoutSHA);
+	Result = Tests.GetRecordSet("ExternalRequests", ExternalRequestHandler.Ref, CheckoutSHA);
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
@@ -233,7 +233,7 @@ Procedure DumpException(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 
 	Data = New HTTPRequest();
 	

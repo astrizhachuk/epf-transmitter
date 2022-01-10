@@ -16,7 +16,7 @@
 	И Я создаю Expectation из файла "/tmp/expectations/push.json"
 	И Я создаю Expectation из файла "/tmp/expectations/merge-requests.json"
 	И я удаляю все элементы Справочника "ExternalRequestHandlers"
-	И я удаляю все записи РегистрСведений "QueryData"
+	И я удаляю все записи РегистрСведений "ExternalRequests"
 	И я удаляю все записи РегистрСведений "RemoteFiles"
 	И я закрыл все окна клиентского приложения
 	И Я заполняю настройки сервиса работы с GitLab тестовыми значениями

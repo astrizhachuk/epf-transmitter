@@ -1708,7 +1708,7 @@
       <common>true</common>
     </edit>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <mainTable>InformationRegister.QueryData</mainTable>
+      <mainTable>InformationRegister.ExternalRequests</mainTable>
       <dynamicDataRead>true</dynamicDataRead>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -1884,7 +1884,7 @@
   <commandInterface>
     <navigationPanel>
       <cmiFragmentRecord>
-        <command>InformationRegister.QueryData.StandardCommand.OpenByValue.Webhook</command>
+        <command>InformationRegister.ExternalRequests.StandardCommand.OpenByValue.Webhook</command>
         <commandParameter xsi:type="form:DataPath">
           <segments>Object.Ref</segments>
         </commandParameter>

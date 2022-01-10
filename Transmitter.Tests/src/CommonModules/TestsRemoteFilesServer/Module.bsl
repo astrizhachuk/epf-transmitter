@@ -130,7 +130,7 @@ Procedure GetFromIB(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	ExternalRequestHandler = Tests.NewExternalRequestHandler();
 	CheckoutSHA = "CheckoutSHA" + Tests.RandomString();
@@ -161,7 +161,7 @@ Procedure GetFromIBNoData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 
 	// when	
 	Result = RemoteFiles.GetFromIB(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
@@ -179,7 +179,7 @@ Procedure Dump(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	ExternalRequestHandler = Tests.NewExternalRequestHandler();
 	CheckoutSHA = "CheckoutSHA" + Tests.RandomString();
@@ -203,7 +203,7 @@ Procedure DumpException(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("QueryData, RemoteFiles");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 
 	Data = New HTTPRequest();
 	
