@@ -1,5 +1,22 @@
 #Region Public
 
+// GetFromRemoteVCS returns files downloaded from external repositories with their descriptions.
+// 
+// Parameters:
+// 	ConnectionParams - Structure - connection parameters to the GitLab server (see GitLabAPI.GetConnectionParams);
+// 	RequestData - Map - deserialized request body;
+// 	
+// Returns:
+//	ValueTable - downloaded files metadata:
+// * RAWFilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name;
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
+// * BinaryData - BinaryData - file data;
+// * Action - String - file operation type: "added", "modified", "removed";
+// * Date - Date - file operation date;
+// * CommitSHA - String - сommit SHA;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
+//
 Function GetFromRemoteVCS( Val ConnectionParams, Val RequestData ) Export
 	
 	Var Files;
@@ -29,7 +46,7 @@ Function GetFromRemoteVCS( Val ConnectionParams, Val RequestData ) Export
 	
 EndFunction
 
-// GetFromIB returns downloaded files from external repositories stored in the infobase. 
+// GetFromIB returns files downloaded from external repositories and saved in the infobase.
 // 
 // Parameters:
 //	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
@@ -79,7 +96,7 @@ Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	
 EndFunction
 
-// Dump saves downloaded files from external repositories with their descriptions.
+// Dump saves files downloaded from external repositories with their descriptions.
 //
 // Parameters:
 //	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
@@ -121,7 +138,7 @@ EndProcedure
 
 #Region Private
 
-// FileMetadata returns an empty table for downloaded file metadata from external repositories.
+// FileMetadata returns an empty table for files metadata downloaded from external repositories.
 // 
 // Returns:
 //	ValueTable - downloaded files metadata:
