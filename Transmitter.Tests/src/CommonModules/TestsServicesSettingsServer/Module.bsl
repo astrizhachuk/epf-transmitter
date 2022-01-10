@@ -10,7 +10,7 @@ Procedure Settings(Framework) Export
 	Result = Undefined;
 	
 	// when
-	Result = ServicesSettingsClientCerver.Settings();
+	Result = ServicesSettingsClientServer.Settings();
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 7);

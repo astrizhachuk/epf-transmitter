@@ -3,13 +3,13 @@
 // CurrentSettings returns all the current settings.
 // 
 // Returns:
-// FixedStructure - (see ServicesSettingsClientCerver.Settings);
+// FixedStructure - (see ServicesSettingsClientServer.Settings);
 //
 Function CurrentSettings() Export
 	
 	Var Result;
 
-	Result = ServicesSettingsClientCerver.Settings();
+	Result = ServicesSettingsClientServer.Settings();
 	Result.HandleRequests = HandleRequests();
 	Result.RoutingFileName = RoutingFileName();
 	Result.ExternalStorageToken = ExternalStorageToken();
@@ -27,7 +27,7 @@ EndFunction
 // SetCurrentSettings sets the values of the current settings.
 //
 // Parameters:
-// 	Settings - Structure - (see ServicesSettingsClientCerver.Settings);
+// 	Settings - Structure - (see ServicesSettingsClientServer.Settings);
 //
 Procedure SetCurrentSettings( Val Settings ) Export
 

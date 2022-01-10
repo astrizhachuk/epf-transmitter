@@ -53,7 +53,7 @@ Function WriteDataForm()
 	
 	If ( CheckFilling() ) Then
 		
-		Settings = ServicesSettingsClientCerver.Settings();
+		Settings = ServicesSettingsClientServer.Settings();
 		FillPropertyValues( Settings, ThisObject );
 		SaveSettings( Settings );
 		RefreshInterface();
