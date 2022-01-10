@@ -14,7 +14,7 @@ Procedure BeforeWrite( Cancel )
 	
 	For Each Item In Items Do
 		
-		If ( ThisObject.Ref = Item.Ref ) Then
+		If ( Ref = Item.Ref ) Then
 
 			Continue;
 			
