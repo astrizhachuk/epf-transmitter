@@ -156,6 +156,7 @@ EndFunction
 // 
 // Parameters:
 // 	Path - String - path to the file (with the filename);
+//  Ext - String - extension (without dot);
 //
 // Returns:
 // 	Boolean - True - the file contains the specified extension, otherwise - False;
