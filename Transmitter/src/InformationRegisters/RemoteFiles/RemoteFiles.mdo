@@ -74,14 +74,14 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
   <dimensions uuid="23fd0284-a34a-47b1-ad27-33c89c29b187">
-    <name>Webhook</name>
+    <name>RequestHandler</name>
     <synonym>
       <key>en</key>
-      <value>Webhook</value>
+      <value>External request handler</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Обработчик события</value>
+      <value>Обработчик внешнего запроса</value>
     </synonym>
     <type>
       <types>CatalogRef.ExternalRequestHandlers</types>

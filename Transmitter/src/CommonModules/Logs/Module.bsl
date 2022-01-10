@@ -88,8 +88,8 @@ Function Messages() Export
 											|en = 'Received a request from the GitLab server'" ));
 	Result.Insert( "REQUEST_PROCESSED", NStr( "ru = 'Запрос с сервера GitLab обработан';
 											|en = 'The request from the GitLab server has been processed'" ));
-	Result.Insert( "WEBHOOK_NOT_FOUND", NStr( "ru = 'Обработчик событий не найден';
-											|en = 'Webhook not found'" ));
+	Result.Insert( "REQUEST_HANDLER_NOT_FOUND", NStr( "ru = 'обработчик внешних запросов не найден';
+											|en = 'external request handler not found'" ));
 
 	Return Result;
 	

@@ -101,7 +101,7 @@ Procedure StartSaveData(Framework) Export
 							.WaitForExecutionCompletion(30);
 	
 	Filter = New Structure();
-	Filter.Insert("Webhook", RequestHandler.Ref);
+	Filter.Insert("RequestHandler", RequestHandler.Ref);
 	Filter.Insert("CheckoutSHA", CheckoutSHA);
 	ExternalRequest = InformationRegisters.ExternalRequests.Get(Filter);
 	FilesMetadata = InformationRegisters.RemoteFiles.Get(Filter);

@@ -1884,7 +1884,7 @@
   <commandInterface>
     <navigationPanel>
       <cmiFragmentRecord>
-        <command>InformationRegister.ExternalRequests.StandardCommand.OpenByValue.Webhook</command>
+        <command>InformationRegister.ExternalRequests.StandardCommand.OpenByValue.RequestHandler</command>
         <commandParameter xsi:type="form:DataPath">
           <segments>Object.Ref</segments>
         </commandParameter>
@@ -1893,7 +1893,7 @@
         <userVisible/>
       </cmiFragmentRecord>
       <cmiFragmentRecord>
-        <command>InformationRegister.RemoteFiles.StandardCommand.OpenByValue.Webhook</command>
+        <command>InformationRegister.RemoteFiles.StandardCommand.OpenByValue.RequestHandler</command>
         <commandParameter xsi:type="form:DataPath">
           <segments>Object.Ref</segments>
         </commandParameter>

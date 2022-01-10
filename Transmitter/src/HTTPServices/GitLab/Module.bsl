@@ -226,7 +226,7 @@ Procedure Authenticate( Val Credentials, Val Token, Response )
 	If ( NOT ValueIsFilled(Credentials) ) Then
 
 		Response = New HTTPServiceResponse( FindCodeById("NOT_FOUND") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().WEBHOOK_NOT_FOUND, , Response );
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_HANDLER_NOT_FOUND, , Response );
 		Return;
 		
 	EndIf;

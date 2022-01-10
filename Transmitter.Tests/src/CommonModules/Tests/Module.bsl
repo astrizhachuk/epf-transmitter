@@ -359,7 +359,7 @@ EndFunction
 Function GetRecordSet(Val Name, Val RequestHandler, Val CheckoutSHA) Export
 
 	Result = InformationRegisters[ Name ].CreateRecordSet();
-	Result.Filter.Webhook.Set(RequestHandler);
+	Result.Filter.RequestHandler.Set(RequestHandler);
 	Result.Filter.CheckoutSHA.Set(CheckoutSHA);
 	Result.Read();
 	
@@ -370,7 +370,7 @@ EndFunction
 Procedure AddRecord(Val Name, Val RequestHandler, Val CheckoutSHA, Val Data) Export
 
 	RecordManager = InformationRegisters[ Name ].CreateRecordManager();
-	RecordManager.Webhook = RequestHandler.Ref;
+	RecordManager.RequestHandler = RequestHandler.Ref;
 	RecordManager.CheckoutSHA = CheckoutSHA;
 	RecordManager.Data = New ValueStorage(Data);
 	RecordManager.Write();

@@ -15,12 +15,12 @@ Procedure SaveData( Val RequestHandler, Val CheckoutSHA, Val Data ) Export
 	Data = New ValueStorage( Data );
 
 	RecordSet = CreateRecordSet();
-	RecordSet.Filter.Webhook.Set( RequestHandler );
+	RecordSet.Filter.RequestHandler.Set( RequestHandler );
 	RecordSet.Filter.CheckoutSHA.Set( CheckoutSHA );
 
 	Record = RecordSet.Add();
 
-	Record.Webhook = RequestHandler;
+	Record.RequestHandler = RequestHandler;
 	Record.CheckoutSHA = CheckoutSHA;
 	Record.Data = Data;
 	

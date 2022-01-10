@@ -23,13 +23,13 @@ Function FindByURL( Val URL ) Export
 	Query = New Query();
 	Query.SetParameter( "URL", URL );
 	Query.Text = 	"SELECT
-					|	Webhooks.Ref AS Ref,
-					|	Webhooks.SecretToken AS SecretToken
+					|	ExternalRequestHandlers.Ref AS Ref,
+					|	ExternalRequestHandlers.SecretToken AS SecretToken
 					|FROM
-					|	Catalog.ExternalRequestHandlers AS Webhooks
+					|	Catalog.ExternalRequestHandlers AS ExternalRequestHandlers
 					|WHERE
-					|	NOT Webhooks.DeletionMark
-					|	AND Webhooks.ProjectURL = &URL";
+					|	NOT ExternalRequestHandlers.DeletionMark
+					|	AND ExternalRequestHandlers.ProjectURL = &URL";
 	
 	Return Query.Execute().Unload();
 	

@@ -182,8 +182,8 @@ EndProcedure
 &AtClient
 Procedure УстановитьОтборыСписков( Val Ref )
 	
-	SetFilter( ReceivedRequests.Filter, "Webhook", Ref );
-	SetFilter( ExternalFiles.Filter, "Webhook", Ref );
+	SetFilter( ReceivedRequests.Filter, "RequestHandler", Ref );
+	SetFilter( ExternalFiles.Filter, "RequestHandler", Ref );
 	SetFilter( EventsHistory.Filter, "Ссылка", Ref );
 	
 EndProcedure
@@ -208,7 +208,7 @@ EndProcedure
 &AtServerNoContext
 Procedure ResendDataAtServer( Val RecordKey )
 	
-	DataProcessing.RunBackgroundJob( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	DataProcessing.RunBackgroundJob( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 EndProcedure
 
@@ -247,7 +247,7 @@ Function MergeRequestURL( Val RecordKey )
 	Var MergeCommitSHA;
 	Var Result;
 	
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.Webhook, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 	ProjectParams = GitLabAPI.GetProject( RequestData );
 

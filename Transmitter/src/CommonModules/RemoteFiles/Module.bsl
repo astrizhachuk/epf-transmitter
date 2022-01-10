@@ -57,7 +57,7 @@ Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	Var Result;
 	
 	Filter = New Structure();
-	Filter.Insert( "Webhook", RequestHandler );
+	Filter.Insert( "RequestHandler", RequestHandler );
 	Filter.Insert( "CheckoutSHA", CheckoutSHA );
 	
 	Result = InformationRegisters.RemoteFiles.Get(Filter).Data.Get();
