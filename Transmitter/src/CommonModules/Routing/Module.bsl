@@ -2,10 +2,12 @@
 
 // TODO подумать о возвращении отправки по доступным маршрутам, если файл не имеет описания в json
 
+// TODO rewrite desc
+
 // GetFilesByRoutes returns remote files with delivery end-point service URLs.
 // 
 // Parameters:
-// 	Commits - Map - deserialized commits from the GitLab request;
+//	RequestData - Map - deserialized request body;
 // 	Files - ValueTable - files from the GitLab server with its descriptions:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
@@ -14,7 +16,7 @@
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - date of operation on the file;
 // * CommitSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 // Returns:
 // 	Array of Structure:
@@ -96,7 +98,7 @@ EndFunction
 // For custom settings, the priority is higher than for settings from the file.
 // 
 // Parameters:
-// 	Commits - Map - deserialized commits from the GitLab request;
+// 	Commits - Map - deserialized commits from the request body;
 // 	
 // Returns:
 // 	Map - file routes by commits:

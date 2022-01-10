@@ -114,7 +114,7 @@ EndFunction
 // 
 // Parameters:
 // 	RequestData - Map - deserialized request body;
-// 	Files - ValueTable - file metadata:
+// 	Files - ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * FilePath - String - relative path to the file for the remote repository (with the filename);
@@ -122,7 +122,7 @@ EndFunction
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
-// * ErrorInfo - Undefined, ErrorInfo - file upload error;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 Procedure AppendRoutingSettings( RequestData, Val Files ) Export
 	

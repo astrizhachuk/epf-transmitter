@@ -95,8 +95,8 @@ EndFunction
 // RAWFilePath returns the URL-encoded relative path to the RAW file in accordance to the GitLab REST API.
 // 
 // Parameters:
-// 	ProjectId - String - project id;
 // 	FilePath - String - relative path to the file on GitLab, for example "Path/File 1.epf";
+// 	ProjectId - String - project id;
 // 	CommitSHA - String - сommit SHA;
 // 
 // Returns:
@@ -156,7 +156,7 @@ EndFunction
 // GetRAWFiles returns the files from the GitLab server with its descriptions.
 //
 // Parameters:
-// 	GetConnectionParams - (see GetConnectionParams)
+// 	ConnectionParams - Structure - (see GetConnectionParams)
 // 	FilePaths - Array of String - an array of URL-encoded relative paths to the downloaded files, for example
 // 								"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	
@@ -237,7 +237,7 @@ EndFunction
 // DownloadFile returns the file from the GitLab server with its description.
 // 
 // Parameters:
-// 	ConnectionParams - (see GetConnectionParams)
+// 	ConnectionParams - Structure - (see GetConnectionParams)
 // 	FilePath - String - URL-encoded relative path to the RAW file, for example
 // 							"/api/v4/projects/1/repository/files/D0%BA%D0%B0%201.epf/raw?ref=ef3529e5486ff";
 // 	

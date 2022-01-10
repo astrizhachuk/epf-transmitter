@@ -1,7 +1,5 @@
 #Region Public
 
-// TODO покрыть тестом
-
 // SaveData saves the serializable data to the appropriate ValueStorage resource.
 // 
 // Parameters:

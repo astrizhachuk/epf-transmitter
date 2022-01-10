@@ -29,25 +29,23 @@ Function GetFromRemoteVCS( Val ConnectionParams, Val RequestData ) Export
 	
 EndFunction
 
-// TODO mistakes desc (rewrite)
-
 // GetFromIB returns downloaded files from external repositories stored in the infobase. 
 // 
 // Parameters:
-//	Webhook - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+//	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier;
 //
 // Returns:
 // 	- Undefined - no data found;
-//	- ValueTable - remote files description (see GitLab.RemoteFilesWithDescription):
+//	- ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
+// * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	
@@ -81,22 +79,20 @@ Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	
 EndFunction
 
-// TODO mistakes desc (rewrite)
-
-// Dump saves uploaded files from external repositories with their descriptions.
+// Dump saves downloaded files from external repositories with their descriptions.
 //
 // Parameters:
 //	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
 //  CheckoutSHA - String - event identifier;
-// 	Data - ValueTable - uploaded files with descriptions (see GitLab.RemoteFileDescriptions):
+// 	Data - ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
+// * Date - Date - file operation date;
 // * CheckoutSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 Procedure Dump( Val RequestHandler, Val CheckoutSHA, Val Data ) Export
 	
@@ -125,10 +121,10 @@ EndProcedure
 
 #Region Private
 
-// FileMetadata returns an empty table for file metadata from external repositories.
+// FileMetadata returns an empty table for downloaded file metadata from external repositories.
 // 
 // Returns:
-//	ValueTable - metadata:
+//	ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
 // * FilePath - String - relative path to the file for the remote repository (with the filename);
@@ -136,7 +132,7 @@ EndProcedure
 // * Action - String - file operation type: "added", "modified", "removed";
 // * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
-// * ErrorInfo - Undefined, ErrorInfo - file upload error;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 Function FileMetadata()
 	
@@ -210,22 +206,19 @@ Procedure AddCompiledFiles( FileMetadata, Val Commit )
 	
 EndProcedure
 
-// TODO rewrite
-
-// AddRoutingFilesDescription adds a description of files with routing settings.
+// AddRoutingFiles adds a description of the routing settings files.
 // 
 // Parameters:
-// 	Commits - Map - deserialized commits from the GitLab request;
-//	ProjectId - String - project id from the GitLab request;
-// 	FileMetadata - ValueTable - files from the GitLab server with its descriptions:
+// 	FileMetadata - ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
-// * FilePath - String - relative path to the file in remote repository (with the filename);
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
 // * BinaryData - BinaryData - file data;
 // * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - date of operation on the file;
+// * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
-// * ErrorInfo - String - description of an error while processing files;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
+// 	Commits - Map - deserialized commits from the request body;
 //
 Procedure AddRoutingFiles( FileMetadata, Val Commits )
 	

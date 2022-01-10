@@ -80,14 +80,14 @@ Function SendFile( Val Endpoint, Val FileName, Val Data ) Export
 EndFunction
 
 // BackgroundSendFiles returns the result of running a background job to upload files to endpoint infobases.
-// 
+//
 // Parameters:
 // 	Files - Structure - file upload description:
 // * CommitSHA - String - сommit SHA;
-// * FileName - String - file name; 
+// * FileName - String - file name;
 // * BinaryData - BinaryData - file data;
-// * Routes - Undefined, Array of String - list of endpoint service URLs;
-// 	
+// * Routes - Undefined, Array - string list of endpoint service URLs;
+//
 // Returns:
 // 	Array of Structure - file sending result:
 // 	* BackgroundJob - BackgroundJob - the background job;
@@ -114,7 +114,7 @@ Function BackgroundSendFiles( Val Files ) Export
 			ErrorInfo = Undefined;
 			
 			Try
-				Endpoints.SetURL( Endpoint, URL );
+				SetURL( Endpoint, URL );
 				
 				BackgroundJobParams = New Array();
 				BackgroundJobParams.Add( Endpoint );
