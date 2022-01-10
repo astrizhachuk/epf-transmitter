@@ -31,7 +31,7 @@ Procedure CurrentSettings(Framework) Export
 	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
 	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
 	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
-	Constants.DeliveryFileTimeout.Set(Number(Right(TIME, 4))-1);
+	Constants.EndpointTimeout.Set(Number(Right(TIME, 4))-1);
 	
 	// when
 	Result = ServicesSettings.CurrentSettings();
@@ -44,7 +44,7 @@ Procedure CurrentSettings(Framework) Export
 	Framework.AssertEqual(Result.ExternalStorageTimeout, Number(Right(TIME, 4)));		
 	Framework.AssertEqual(Result.EndpointUserName, "UserName" + Right(TIME, 10));
 	Framework.AssertEqual(Result.EndpointUserPassword, "UserPassword" + Right(TIME, 10));
-	Framework.AssertEqual(Result.DeliveryFileTimeout, Number(Right(TIME, 4))-1);		
+	Framework.AssertEqual(Result.EndpointTimeout, Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
@@ -62,7 +62,7 @@ Procedure SetCurrentSettings(Framework) Export
 	Constants.ExternalStorageTimeout.Set(Undefined);
 	Constants.EndpointUserName.Set(Undefined);
 	Constants.EndpointUserPassword.Set(Undefined);
-	Constants.DeliveryFileTimeout.Set(Undefined);
+	Constants.EndpointTimeout.Set(Undefined);
 	Settings = New Structure();
 	Settings.Insert( "HandleRequests", True );
 	Settings.Insert( "RoutingFileName", "FileName" + Right(TIME, 5));
@@ -70,7 +70,7 @@ Procedure SetCurrentSettings(Framework) Export
 	Settings.Insert( "ExternalStorageTimeout", Number(Right(TIME, 4)));
 	Settings.Insert( "EndpointUserName", "UserName" + Right(TIME, 10));
 	Settings.Insert( "EndpointUserPassword", "UserPassword" + Right(TIME, 10));
-	Settings.Insert( "DeliveryFileTimeout", Number(Right(TIME, 4))-1);
+	Settings.Insert( "EndpointTimeout", Number(Right(TIME, 4))-1);
 	
 	// when
 	ServicesSettings.SetCurrentSettings(Settings);
@@ -82,7 +82,7 @@ Procedure SetCurrentSettings(Framework) Export
 	Framework.AssertEqual(Constants.ExternalStorageTimeout.Get(), Number(Right(TIME, 4)));		
 	Framework.AssertEqual(Constants.EndpointUserName.Get(), "UserName" + Right(TIME, 10));
 	Framework.AssertEqual(Constants.EndpointUserPassword.Get(), "UserPassword" + Right(TIME, 10));
-	Framework.AssertEqual(Constants.DeliveryFileTimeout.Get(), Number(Right(TIME, 4))-1);		
+	Framework.AssertEqual(Constants.EndpointTimeout.Get(), Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
@@ -160,14 +160,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure DeliveryFileTimeout(Framework) Export
+Procedure EndpointTimeout(Framework) Export
 
 	// given
 	Timeout = Number(Right(Tests.RandomString(), 4));
-	Constants.DeliveryFileTimeout.Set(Timeout);
+	Constants.EndpointTimeout.Set(Timeout);
 	
 	// when
-	Result = ServicesSettings.DeliveryFileTimeout();
+	Result = ServicesSettings.EndpointTimeout();
 	
 	// then
 	Framework.AssertEqual(Result, Timeout);

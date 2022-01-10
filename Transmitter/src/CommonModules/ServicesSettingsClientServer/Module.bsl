@@ -10,7 +10,7 @@
 // * ExternalStorageTimeout - Number - the connection timeout to external storage;
 // * EndpointUserName - String - endpoint infobase user name;
 // * EndpointUserPassword - String - endpoint infobase user password;
-// * DeliveryFileTimeout - Number - endpoint infobase connection timeout;
+// * EndpointTimeout - Number - endpoint infobase connection timeout;
 // 
 Function Settings() Export
 	
@@ -23,7 +23,7 @@ Function Settings() Export
 	Result.Insert( "ExternalStorageTimeout" );
 	Result.Insert( "EndpointUserName" );
 	Result.Insert( "EndpointUserPassword" );
-	Result.Insert( "DeliveryFileTimeout" );
+	Result.Insert( "EndpointTimeout" );
 	
 	Return Result;
 	

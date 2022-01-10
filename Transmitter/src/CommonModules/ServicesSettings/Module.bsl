@@ -16,7 +16,7 @@ Function CurrentSettings() Export
 	Result.ExternalStorageTimeout = ExternalStorageTimeout();
 	Result.EndpointUserName = EndpointUserName();
 	Result.EndpointUserPassword = EndpointUserPassword();
-	Result.DeliveryFileTimeout = DeliveryFileTimeout();
+	Result.EndpointTimeout = EndpointTimeout();
 	
 	Result = New FixedStructure( Result );
 
@@ -37,7 +37,7 @@ Procedure SetCurrentSettings( Val Settings ) Export
 	Constants.EndpointUserName.Set( Settings.EndpointUserName );
 	Constants.EndpointUserPassword.Set( Settings.EndpointUserPassword );
 	Constants.ExternalStorageTimeout.Set( Settings.ExternalStorageTimeout );
-	Constants.DeliveryFileTimeout.Set( Settings.DeliveryFileTimeout );
+	Constants.EndpointTimeout.Set( Settings.EndpointTimeout );
 	
 EndProcedure
 
@@ -74,16 +74,14 @@ Function EndpointUserPassword() Export
 	
 EndFunction
 
-// TODO rename to EndpointTimeout
-
-// DeliveryFileTimeout returns the connection timeout to the endpoint infobase.
+// EndpointTimeout returns the connection timeout to the endpoint infobase.
 //
 // Returns:
 // 	Number - the connection timeout, sec. (0 - timeout is not set);
 //
-Function DeliveryFileTimeout() Export
+Function EndpointTimeout() Export
 	
-	Return Constants.DeliveryFileTimeout.Get();
+	Return Constants.EndpointTimeout.Get();
 	
 EndFunction
 

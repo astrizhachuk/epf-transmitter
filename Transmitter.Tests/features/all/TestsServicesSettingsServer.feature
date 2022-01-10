@@ -44,9 +44,9 @@ Scenario: EndpointUserPassword
 	| 'TestsServicesSettingsServer.EndpointUserPassword(Context());' |
 
 @OnServer
-Scenario: DeliveryFileTimeout
+Scenario: EndpointTimeout
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.DeliveryFileTimeout(Context());' |
+	| 'TestsServicesSettingsServer.EndpointTimeout(Context());' |
 
 @OnServer
 Scenario: ExternalStorageToken

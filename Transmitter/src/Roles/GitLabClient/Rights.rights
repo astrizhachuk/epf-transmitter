@@ -115,7 +115,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.DeliveryFileTimeout</name>
+		<name>Constant.EndpointTimeout</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

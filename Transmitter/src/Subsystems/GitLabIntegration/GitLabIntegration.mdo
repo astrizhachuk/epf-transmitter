@@ -25,7 +25,7 @@
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.ServicesSettings</content>
   <content>Constant.ExternalStorageTimeout</content>
-  <content>Constant.DeliveryFileTimeout</content>
+  <content>Constant.EndpointTimeout</content>
   <content>Role.GitLabAPI</content>
   <content>CommonForm.CheckingServiceStatus</content>
 </mdclass:Subsystem>

@@ -15,7 +15,7 @@ Function GetConnectionParams() Export
 	Result = New Structure();
 	Result.Insert( "User", ServicesSettings.EndpointUserName() );
 	Result.Insert( "Password", ServicesSettings.EndpointUserPassword() );
-	Result.Insert( "Timeout", ServicesSettings.DeliveryFileTimeout() );
+	Result.Insert( "Timeout", ServicesSettings.EndpointTimeout() );
 	
 	Return Result;
 	

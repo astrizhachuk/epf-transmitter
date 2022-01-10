@@ -10,11 +10,11 @@ Procedure GetConnectionParams(Framework) Export
 	// given
 	UserName = "UserName" + Tests.RandomString();
 	UserPassword = "UserPassword" + Tests.RandomString();
-	DeliveryFileTimeout = Number(Right(Tests.RandomString(), 4));
+	EndpointTimeout = Number(Right(Tests.RandomString(), 4));
 		
 	Constants.EndpointUserName.Set(UserName);
 	Constants.EndpointUserPassword.Set(UserPassword);
-	Constants.DeliveryFileTimeout.Set(DeliveryFileTimeout);
+	Constants.EndpointTimeout.Set(EndpointTimeout);
 	
 	// when
 	Result = Endpoints.GetConnectionParams();
@@ -23,7 +23,7 @@ Procedure GetConnectionParams(Framework) Export
 	Framework.AssertEqual(Result.Count(), 3);
 	Framework.AssertEqual(Result.User, UserName);
 	Framework.AssertEqual(Result.Password, UserPassword);	
-	Framework.AssertEqual(Result.Timeout, DeliveryFileTimeout);
+	Framework.AssertEqual(Result.Timeout, EndpointTimeout);
 	
 EndProcedure
 
@@ -76,7 +76,7 @@ Procedure SendFile4xxError(Framework) Export
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
-	Constants.DeliveryFileTimeout.Set(5);
+	Constants.EndpointTimeout.Set(5);
 	
 	File = Tests.NewFile("", "Файл", "epf");
 
@@ -110,7 +110,7 @@ Procedure SendFile200Ok(Framework) Export
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
-	Constants.DeliveryFileTimeout.Set(5);
+	Constants.EndpointTimeout.Set(5);
 		
 	File = Tests.NewFile("", "Файл", "epf");
 	
@@ -213,7 +213,7 @@ Procedure BackgroundSendFilesMixedResult(Framework) Export
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
-	Constants.DeliveryFileTimeout.Set(5);
+	Constants.EndpointTimeout.Set(5);
 	
 	File = Tests.NewFile("", "Файл", "epf");
 	

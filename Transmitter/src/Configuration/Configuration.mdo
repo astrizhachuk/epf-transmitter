@@ -78,12 +78,12 @@
   <httpServices>HTTPService.GitLab</httpServices>
   <httpServices>HTTPService.Version</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
-  <constants>Constant.DeliveryFileTimeout</constants>
-  <constants>Constant.ExternalStorageToken</constants>
-  <constants>Constant.ExternalStorageTimeout</constants>
-  <constants>Constant.HandleRequests</constants>
+  <constants>Constant.EndpointTimeout</constants>
   <constants>Constant.EndpointUserName</constants>
   <constants>Constant.EndpointUserPassword</constants>
+  <constants>Constant.ExternalStorageTimeout</constants>
+  <constants>Constant.ExternalStorageToken</constants>
+  <constants>Constant.HandleRequests</constants>
   <constants>Constant.RoutingFileName</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>
