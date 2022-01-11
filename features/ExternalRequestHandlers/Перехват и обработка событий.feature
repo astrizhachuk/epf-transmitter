@@ -25,7 +25,7 @@
 
 	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
 
 	Проверка получения файла получателями
 
@@ -39,9 +39,9 @@
 	И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
 	И Я добавляю обработчик событий "Тест обработки запроса фэйк 2" с ключом "gita2"
 
-	И Я отправляю "Push Hook" запрос с ключом "фэйк" и телом "/home/usr1cv8/test/request-epf-push-3.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "фэйк" и телом из файла "/home/usr1cv8/test/request-epf-push-3.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/home/usr1cv8/test/request-epf-push-2.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
 	
 	Проверка записи данных на регистрах
 
@@ -101,7 +101,7 @@
 
 	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
 
 	Тогда в таблице "List" я перехожу к строке:
@@ -124,7 +124,7 @@
 
 	Пусть Я создаю Expectation из файла "/tmp/expectations/endpoints.json"
 	И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 5
 
 	Тогда в таблице "List" я перехожу к строке:

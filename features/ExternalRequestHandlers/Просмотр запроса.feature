@@ -11,8 +11,8 @@
 Контекст:
 	Дано Я подключаю TestClient "Этот клиент" логин "Пользователь" пароль ""
 	И Я очищаю MockServer
-	И Я создаю Expectation из файла "/tmp/expectations/routing.json"
-	И Я создаю Expectation из файла "/tmp/expectations/push.json"
+	И Я создаю Expectation из файла "/test/expectations/routing.json"
+	И Я создаю Expectation из файла "/test/expectations/push.json"
 	И я удаляю все элементы Справочника "ExternalRequestHandlers"
 	И я удаляю все записи РегистрСведений "ExternalRequests"
 	И я удаляю все записи РегистрСведений "RemoteFiles"
@@ -20,17 +20,19 @@
 	И Я заполняю настройки сервиса работы с GitLab тестовыми значениями
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики внешних запросов'
 	Тогда открылось окно 'Обработчики внешних запросов'
-	И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
+	И Я добавляю обработчик событий "Тест обработки запроса" проекта "http://mockserver:1080/root/external-epf" с ключом "Token1"
+	#И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
 
 Сценарий: Я проверяю сохраненный запрос в редакторе JSON
 
-	Пусть Я отправляю "Push Hook" запрос с ключом "gita" и телом "/test/requests/push.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
-	И Я отправляю "Push Hook" запрос с ключом "gita" и телом "/home/usr1cv8/test/request-epf-push-2.json" для "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/events/push"
+	#И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/home/usr1cv8/test/request-epf-push-2.json" для сервиса "/api/ru/hs/gitlab/events/push"
 	И Пауза 2
 
 	Когда в таблице "List" я перехожу к строке:
-		| 'Наименование'            | 'Код'       | 'Секретный ключ' |
-		| 'Тест обработки запроса'  | '000000001' | 'gita'           |
+		| 'Наименование'           | 'Код'       | 'URL'                                      | 'Токен'  |
+		| 'Тест обработки запроса' | '000000001' | 'http://mockserver:1080/root/external-epf' | 'Token1' |
+
 	И в таблице "List" я выбираю текущую строку
 
 	И в таблице "ReceivedRequests" я перехожу к строке:
