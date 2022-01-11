@@ -76,12 +76,6 @@ Function NewError(Val Text) Export
 	
 EndFunction
 
-Function SplitString(Val String) Export
-
-	Return StrSplit(String, "|", False);
-	
-EndFunction
-
 #Region File
 
 Function NewFileName(Name, Ext) Export

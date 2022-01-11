@@ -34,6 +34,21 @@ Scenario: ErrorOnlyEvent
 	| 'TestsLogsServer.ErrorOnlyEvent(Context());' |
 
 @OnServer
+Scenario: InfoWithPrefix
+	And I execute 1C:Enterprise script at server
+	| 'TestsLogsServer.InfoWithPrefix(Context());' |
+
+@OnServer
+Scenario: WarnWithPrefix
+	And I execute 1C:Enterprise script at server
+	| 'TestsLogsServer.WarnWithPrefix(Context());' |
+
+@OnServer
+Scenario: ErrorWithPrefix
+	And I execute 1C:Enterprise script at server
+	| 'TestsLogsServer.ErrorWithPrefix(Context());' |
+
+@OnServer
 Scenario: InfoEventWithObject
 	And I execute 1C:Enterprise script at server
 	| 'TestsLogsServer.InfoEventWithObject(Context());' |
@@ -87,8 +102,3 @@ Scenario: InfoEventWithObjectAndHTTPResponse423WithoutBody
 Scenario: ErrorEventWithObjectAndHTTPResponse500WithBody
 	And I execute 1C:Enterprise script at server
 	| 'TestsLogsServer.ErrorEventWithObjectAndHTTPResponse500WithBody(Context());' |
-
-@OnServer
-Scenario: AddPrefix
-	And I execute 1C:Enterprise script at server
-	| 'TestsLogsServer.AddPrefix(Context());' |

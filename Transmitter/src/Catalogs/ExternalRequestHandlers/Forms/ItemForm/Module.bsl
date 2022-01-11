@@ -247,7 +247,7 @@ Function MergeRequestURL( Val RecordKey )
 	Var MergeCommitSHA;
 	Var Result;
 	
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 	ProjectParams = GitLabAPI.GetProject( RequestData );
 

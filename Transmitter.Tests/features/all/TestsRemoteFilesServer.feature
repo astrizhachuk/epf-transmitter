@@ -32,13 +32,3 @@ Scenario: GetFromIB
 Scenario: GetFromIBNoData
 	And I execute 1C:Enterprise script at server
 	| 'TestsRemoteFilesServer.GetFromIBNoData(Context());' |
-
-@OnServer
-Scenario: Dump
-	And I execute 1C:Enterprise script at server
-	| 'TestsRemoteFilesServer.Dump(Context());' |
-
-@OnServer
-Scenario: DumpException
-	And I execute 1C:Enterprise script at server
-	| 'TestsRemoteFilesServer.DumpException(Context());' |

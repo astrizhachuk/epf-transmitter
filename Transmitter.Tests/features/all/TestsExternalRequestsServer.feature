@@ -34,14 +34,14 @@ Scenario: GetCommitsOrRaiseException
 	| 'TestsExternalRequestsServer.GetCommitsOrRaiseException(Context());' |
 
 @OnServer
-Scenario: GetRequestBody
+Scenario: GetFromIB
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetRequestBody(Context());' |
+	| 'TestsExternalRequestsServer.GetFromIB(Context());' |
 
 @OnServer
-Scenario: GetRequestBodyNoData
+Scenario: GetFromIBNoData
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetRequestBodyNoData(Context());' |
+	| 'TestsExternalRequestsServer.GetFromIBNoData(Context());' |
 
 @OnServer
 Scenario: AppendRoutingSettingsNoData
@@ -52,13 +52,3 @@ Scenario: AppendRoutingSettingsNoData
 Scenario: AppendRoutingSettings
 	And I execute 1C:Enterprise script at server
 	| 'TestsExternalRequestsServer.AppendRoutingSettings(Context());' |
-
-@OnServer
-Scenario: Dump
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.Dump(Context());' |
-
-@OnServer
-Scenario: DumpException
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.DumpException(Context());' |

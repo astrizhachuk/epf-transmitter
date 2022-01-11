@@ -146,7 +146,7 @@ Procedure FillFormValues( Val RecordKey )
 	Var CustomSettings;
 	Var NewRaw;
 	
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 	If ( RequestData = Undefined ) Then
 		
@@ -254,7 +254,7 @@ Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
 	Var Commit;
 	Var DefaultSetting;
 
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 	If ( RequestData = Undefined ) Then
 		
@@ -305,7 +305,7 @@ Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
 	Var RequestData;
 	Var Commit;
 	
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	Commit = FindCommitById( RequestData, CommitSHA );
 	
 	Return ( Commit.Get("custom_settings") <> Undefined );
@@ -334,7 +334,7 @@ Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
 	Var RequestData;
 	
-	RequestData = ExternalRequests.GetRequestBody( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
 	If ( RequestData = Undefined ) Then
 		

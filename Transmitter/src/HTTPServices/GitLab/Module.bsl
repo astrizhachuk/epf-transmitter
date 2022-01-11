@@ -20,7 +20,7 @@ Function EventsPost( Request )
 	Var Credential;
 	Var Response;
 	
-	Logs.Info( Logs.Events().WS_REQUEST_BEGIN, Logs.Messages().REQUEST_RECEIVED );
+	Logs.Info( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_RECEIVED );
 
 	Response = New HTTPServiceResponse( FindCodeById("OK") );
 	
@@ -49,7 +49,7 @@ Function EventsPost( Request )
 		
 	EndIf;	
 	
-	Logs.Info( Logs.Events().WS_REQUEST_END, Logs.Messages().REQUEST_PROCESSED, , Response );
+	Logs.Info( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_PROCESSED, , , Response );
 
 	Return Response;
 	
@@ -112,7 +112,6 @@ Function GetData( Val Request )
 		CommonUseServerCall.AppendCollectionFromStream( Data, "json", Stream );
 		
 		Stream.Close();
-		Logs.Info( Logs.Events().WS_REQUEST, Logs.Messages().DESERIALIZING );
 
 		Return Data;
 		
@@ -136,7 +135,7 @@ Function GetProjectURL( Val Data )
 		
 	Except
 
-		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription( ErrorInfo() ) );
+		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
 		
 		Raise;
 		
@@ -190,7 +189,7 @@ Procedure CheckHeaders( Val Request, Response )
 	If ( NOT ValueIsFilled(Token) ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().KEY_MISSING, , Response );
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().NO_TOKEN, , , Response );
 		Return;
 		
 	EndIf;	
@@ -200,7 +199,7 @@ Procedure CheckHeaders( Val Request, Response )
 	If ( NOT ValueIsFilled(Event) ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_MISSING, , Response );
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().NO_EVENT, , , Response );
 		Return;
 		
 	EndIf;
@@ -208,7 +207,7 @@ Procedure CheckHeaders( Val Request, Response )
 	If ( NOT EventEqualMethodName(Request, Event) ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("BAD_REQUEST") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_WRONG, , Response );
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_WRONG, , , Response );
 		Return;
 				
 	EndIf;
@@ -226,17 +225,19 @@ Procedure Authenticate( Val Credentials, Val Token, Response )
 	If ( NOT ValueIsFilled(Credentials) ) Then
 
 		Response = New HTTPServiceResponse( FindCodeById("NOT_FOUND") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_HANDLER_NOT_FOUND, , Response );
-		Return;
+		Logs.Error( Logs.Events().AUTHENTICATION, Logs.Messages().REQUEST_HANDLER_NOT_FOUND, , , Response );
 		
+		Return;
+
 	EndIf;
 	
 	If ( Credentials.SecretToken <> Token ) Then
-		
+
 		Response = New HTTPServiceResponse( FindCodeById("UNAUTHORIZED") );
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().KEY_NOT_FOUND, , Response );
+		Logs.Error( Logs.Events().AUTHENTICATION, Logs.Messages().SECRET_TOKEN_NOT_FOUND, , , Response );
+		
 		Return;
-										 
+
 	EndIf;
 	
 EndProcedure
@@ -252,8 +253,8 @@ Procedure CheckHandleRequestsEnabled( Response )
 	If ( NOT ServicesSettings.HandleRequests() ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("LOCKED") );
-		Response.Reason = "file upload is disabled";
-		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().LOADING_DISABLED, , Response );
+		Response.Reason = "loading files disabled";
+		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().LOADING_DISABLED, , , Response );
 
 	EndIf;
 
@@ -265,9 +266,9 @@ Procedure CheckCheckoutSHA( Val Data, Val RequestHandler )
 	
 	If ( Data.Get("checkout_sha") = Undefined ) Then
 		
-		Message = Logs.Messages().CHECKOUT_SHA_MISSING;
+		Message = Logs.Messages().NO_CHECKOUT_SHA;
 		
-		Logs.Error( Logs.Events().WS_REQUEST, Message, RequestHandler );
+		Logs.Error( Logs.Events().WS_REQUEST, Message, , RequestHandler );
 			
 		Raise Message;
 			

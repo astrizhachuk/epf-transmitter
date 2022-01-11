@@ -24,9 +24,9 @@ Scenario: StartExceptionActiveJob
 	| 'TestsDataProcessingServer.StartExceptionActiveJob(Context());' |
 
 @OnServer
-Scenario: StartSaveData
+Scenario: StartDumpData
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.StartSaveData(Context());' |
+	| 'TestsDataProcessingServer.StartDumpData(Context());' |
 
 @OnServer
 Scenario: StartProjectDataNotFound

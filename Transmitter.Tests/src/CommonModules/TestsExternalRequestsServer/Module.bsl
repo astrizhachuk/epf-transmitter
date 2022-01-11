@@ -54,7 +54,7 @@ Procedure GetProjectOrRaiseException(Framework) Export
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_POJECT_DESCRIPTION);
+		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_PROJECT);
 	EndTry;
 	
 EndProcedure
@@ -102,7 +102,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetRequestBody(Framework) Export
+Procedure GetFromIB(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
@@ -118,7 +118,7 @@ Procedure GetRequestBody(Framework) Export
 	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Map);
 	
 	// when	
-	Result = ExternalRequests.GetRequestBody(ExternalRequestHandler.Ref, CheckoutSHA);
+	Result = ExternalRequests.GetFromIB(ExternalRequestHandler.Ref, CheckoutSHA);
 	
 	// then
 	Framework.AssertType(Result, "Map");
@@ -131,14 +131,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetRequestBodyNoData(Framework) Export
+Procedure GetFromIBNoData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
 	// when	
-	Result = ExternalRequests.GetRequestBody(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
+	Result = ExternalRequests.GetFromIB(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
 	
 	// then
 	Framework.AssertNotFilled(Result);
@@ -198,54 +198,6 @@ Procedure AppendRoutingSettings(Framework) Export
 	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("text"), FileSettings.FileName);
 	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("json"), FileSettings.Data);
 	Framework.AssertNotFilled(Data.Get("commits")[1].Get("settings"));
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure Dump(Framework) Export
-	
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
-	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
-	CheckoutSHA = Tests.RandomString();
-	Data = "Data" + Tests.RandomString();
-	
-	// when	
-	ExternalRequests.Dump(ExternalRequestHandler.Ref, CheckoutSHA, Data);
-	Result = Tests.GetRecordSet("ExternalRequests", ExternalRequestHandler.Ref, CheckoutSHA);
-	
-	// then
-	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result[0].Data.Get(), Data);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure DumpException(Framework) Export
-	
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
-
-	Data = New HTTPRequest();
-	
-	// when
-	Try
-		ExternalRequests.Dump(Tests.NewExternalRequestHandler().Ref, Tests.RandomString(), Data);
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, "(ValueStorage)");
-	EndTry;	
 	
 EndProcedure
 

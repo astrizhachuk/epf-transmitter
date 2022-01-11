@@ -104,7 +104,7 @@ Procedure GetFilesByRoutesOneRouteBecauseExcludes(Framework) Export
 	WebServices.Add(Tests.NewWebService(URL2, False));
 	WebServices.Add(Tests.NewWebService(URL3, True));
 	EPF = New Array;
-	EPF.Add(Tests.NewEPF(File.FilePath, Tests.SplitString(URL1 + "|" + URL2)));
+	EPF.Add(Tests.NewEPF(File.FilePath, StrSplit(URL1 + "|" + URL2, "|", False)));
 	
 	Settings = Tests.NewRoutes(WebServices, EPF);
 	

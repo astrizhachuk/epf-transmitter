@@ -1,3 +1,4 @@
+// BSLLS-off
 #Region Public
 
 // @unit-test
@@ -78,7 +79,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure StartSaveData(Framework) Export
+Procedure StartDumpData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
@@ -132,7 +133,7 @@ Procedure StartProjectDataNotFound(Framework) Export
 
 	// then
 	Framework.AssertTrue(Result.State = BackgroundJobState.Failed);
-	Framework.AssertStringContains(Result.ErrorInfo.Description, Logs.Messages().NO_POJECT_DESCRIPTION);
+	Framework.AssertStringContains(Result.ErrorInfo.Description, Logs.Messages().NO_PROJECT);
 	
 EndProcedure
 
@@ -161,7 +162,7 @@ Procedure StartCommitsNotFound(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -174,7 +175,7 @@ Procedure StartDownloadFromRemoteVCSNoRouts(Framework) Export
 	Constants.ExternalStorageToken.Set(Connection.Token);
 	
 	RequestHandler = Tests.NewExternalRequestHandler(, Connection.URL);	
-	Files = Tests.SplitString("path/file 1.json|path/file 2.epf|path/file 3.ERF");
+	Files = StrSplit("path/file 1.json|path/file 2.epf|path/file 3.ERF", "|", False);
 	
 	Commits = New Array;
 	Commits.Add(Tests.NewCommit("commit1",

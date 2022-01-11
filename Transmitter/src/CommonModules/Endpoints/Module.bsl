@@ -161,13 +161,13 @@ Procedure Assert( Val Endpoint )
 	
 	If ( TypeOf(Endpoint) <> Type("Structure") ) Then
 		
-		Raise Logs.Messages().ENDPOINT_OPTIONS_MISSING;
+		Raise Logs.Messages().NO_ENDPOINT;
 		
 	EndIf;
 
 	If ( NOT (Endpoint.Property("URL") AND Endpoint.Property("User") AND Endpoint.Property("Password")) ) Then
 	
-		Raise Logs.Messages().ENDPOINT_OPTIONS_MISSING;
+		Raise Logs.Messages().NO_ENDPOINT;
 		
 	EndIf;
 	

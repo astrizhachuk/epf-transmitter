@@ -276,7 +276,7 @@ Function DownloadFile( Val ConnectionParams, Val FilePath )
 		
 	Except
 
-		Message = Logs.Messages().DOWNLOAD_FILE_ERROR;
+		Message = Logs.Messages().DOWNLOAD_ERROR;
 		Message = StrTemplate( Message, URL, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
 		Result.ErrorInfo = CommonUseServerCall.NewErrorInfo( Message );
 		

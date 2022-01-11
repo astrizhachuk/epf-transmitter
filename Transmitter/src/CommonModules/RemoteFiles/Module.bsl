@@ -65,74 +65,16 @@ EndFunction
 // * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
 Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
-	
-	// TODO не всегда нужно логировать (проверить вызовы и создать новый метод без лога
-	// или в менеджер вынести сам процесс получения данных)
-	
+
 	Var Filter;
-	Var Message;
-	Var Result;
 	
 	Filter = New Structure();
 	Filter.Insert( "RequestHandler", RequestHandler );
 	Filter.Insert( "CheckoutSHA", CheckoutSHA );
 	
-	Result = InformationRegisters.RemoteFiles.Get(Filter).Data.Get();
-	
-	Message = Metadata.InformationRegisters.RemoteFiles.FullName();
-	
-	If ( ValueIsFilled(Result) ) Then
-
-		Message = Logs.AddPrefix( Message, CheckoutSHA );
-		Logs.Info( Logs.Events().LOAD_DATA, Message, RequestHandler );
-		
-	Else
-		
-		Logs.Error( Logs.Events().LOAD_DATA, Message, RequestHandler );
-		
-	EndIf;
-	
-	Return Result;
+	Return InformationRegisters.RemoteFiles.Get(Filter).Data.Get();
 	
 EndFunction
-
-// Dump saves files downloaded from external repositories with their descriptions.
-//
-// Parameters:
-//	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
-//  CheckoutSHA - String - event identifier;
-// 	Data - ValueTable - downloaded files metadata:
-// * RAWFilePath - String - relative URL path to the RAW file;
-// * FileName - String - file name;
-// * FilePath - String - relative path to the file for the remote repository (with the filename);
-// * BinaryData - BinaryData - file data;
-// * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - file operation date;
-// * CheckoutSHA - String - сommit SHA;
-// * ErrorInfo - Undefined, ErrorInfo - file download error;
-//
-Procedure Dump( Val RequestHandler, Val CheckoutSHA, Val Data ) Export
-	
-	Var Message;
-
-	Message = Metadata.InformationRegisters.RemoteFiles.FullName();
-	Message = Logs.AddPrefix( Message, CheckoutSHA );
-	
-	Try
-		
-		InformationRegisters.RemoteFiles.SaveData( RequestHandler, CheckoutSHA, Data );
-		
-	Except
-		
-		Logs.Error( Logs.Events().SAVE_DATA, Message, RequestHandler );
-		
-		Raise;
-		
-	EndTry;
-	
-	Logs.Info( Logs.Events().SAVE_DATA, Message, RequestHandler );	
-	
-EndProcedure
 
 #EndRegion
 

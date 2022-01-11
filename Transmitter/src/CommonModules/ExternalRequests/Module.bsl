@@ -35,7 +35,7 @@ Function GetProjectOrRaise( Val RequestData ) Export
 	
 	If ( Result = Undefined ) Then
 		
-		Raise Logs.Messages().NO_POJECT_DESCRIPTION;
+		Raise Logs.Messages().NO_PROJECT;
 		
 	EndIf;
 	
@@ -43,8 +43,7 @@ Function GetProjectOrRaise( Val RequestData ) Export
 	
 EndFunction
 
-// GetCommitsOrRaise returns commits from request body.
-// If the result is undefined, an exception will be thrown.
+// GetCommitsOrRaise returns commits from request body. If the result is undefined, an exception will be thrown.
 // 
 // Parameters:
 //	RequestData - Map - deserialized request body;
@@ -68,7 +67,7 @@ Function GetCommitsOrRaise( Val RequestData ) Export
 	
 EndFunction	
 
-// GetRequestBody returns the deserialized request body stored in the infobase. 
+// GetFromIB returns the deserialized request body stored in the infobase. 
 // 
 // Parameters:
 // 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
@@ -78,35 +77,17 @@ EndFunction
 // 	- Undefined - no data found;
 // 	- Map - deserialized request body;
 // 	
-Function GetRequestBody( Val RequestHandler, Val CheckoutSHA ) Export
-	
-	// TODO не всегда нужно логировать (проверить вызовы и создать новый метод без лога
-	// или в менеджер вынести сам процесс получения данных)
+Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	
 	Var Filter;
-	Var Message;
-	Var Result;
 	
 	Filter = New Structure();
 	Filter.Insert( "RequestHandler", RequestHandler );
 	Filter.Insert( "CheckoutSHA", CheckoutSHA );
 	
-	Result = InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
+	InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
 	
-	Message = Metadata.InformationRegisters.ExternalRequests.FullName();
-	Message = Logs.AddPrefix( Message, CheckoutSHA );
-	
-	If ( ValueIsFilled(Result) ) Then
-	
-		Logs.Info( Logs.Events().LOAD_DATA, Message, RequestHandler );
-		
-	Else
-		
-		Logs.Error( Logs.Events().LOAD_DATA, Message, RequestHandler );
-		
-	EndIf;
-	
-	Return Result;
+	Return InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
 
 EndFunction
 
@@ -154,36 +135,6 @@ Procedure AppendRoutingSettings( RequestData, Val Files ) Export
 	
 	EndDo;	
 	
-EndProcedure
-
-// Dump saves the deserialized request body to the infobase.
-// 
-// Parameters:
-// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
-//  CheckoutSHA - String - event identifier;
-// 	Data - Map - deserialized request body;
-//
-Procedure Dump( Val RequestHandler, Val CheckoutSHA, Val Data ) Export
-	
-	Var Message;
-	
-	Message = Metadata.InformationRegisters.ExternalRequests.FullName();
-	Message = Logs.AddPrefix( Message, CheckoutSHA );
-	
-	Try
-		
-		InformationRegisters.ExternalRequests.SaveData( RequestHandler, CheckoutSHA, Data );
-		
-	Except
-		
-		Logs.Error( Logs.Events().SAVE_DATA, Message, RequestHandler );
-		
-		Raise;
-		
-	EndTry;
-	
-	Logs.Info( Logs.Events().SAVE_DATA, Message, RequestHandler );	
-
 EndProcedure
 
 #EndRegion

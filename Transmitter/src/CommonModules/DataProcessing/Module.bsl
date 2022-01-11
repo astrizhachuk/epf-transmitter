@@ -1,6 +1,6 @@
 #Region Public
 
-Function Start( Val RequestHandler, Val RequestData, Val Files = Undefined, Val DumpData = True ) Export
+Function Start( Val RequestHandler, Val RequestData, Val Files = Undefined, Val Dump = True ) Export
 
 	Var Message;
 	Var CheckoutSHA;
@@ -14,7 +14,7 @@ Function Start( Val RequestHandler, Val RequestData, Val Files = Undefined, Val 
 	BackgroundJobParams.Add( CheckoutSHA );
 	BackgroundJobParams.Add( RequestData );
 	BackgroundJobParams.Add( Files );
-	BackgroundJobParams.Add( DumpData );
+	BackgroundJobParams.Add( Dump );
 	
 	BackgroundJob = Undefined;
 	
@@ -24,8 +24,8 @@ Function Start( Val RequestHandler, Val RequestData, Val Files = Undefined, Val 
 		
 	Except
 		
-		Message = Logs.AddPrefix( ErrorProcessing.DetailErrorDescription(ErrorInfo()), CheckoutSHA );
-		Logs.Error( Logs.Events().JOB_RUNNING, Message, RequestHandler );
+		Message = ErrorProcessing.DetailErrorDescription( ErrorInfo() );
+		Logs.Error( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
 		
 		Raise;
 		
@@ -37,15 +37,15 @@ EndFunction
 
 Function Manual( Val RequestHandler, Val CheckoutSHA ) Export
 	
-	Var Message;
-	
-	Data = ExternalRequests.GetRequestBody( RequestHandler, CheckoutSHA );
+	Var Data;
+	Var Files;
+
+	Data = ExternalRequests.GetFromIB( RequestHandler, CheckoutSHA );
 	Files = RemoteFiles.GetFromIB( RequestHandler, CheckoutSHA );
 	
 	If ( Data = Undefined ) Then
 	
-		Message = Logs.AddPrefix( Logs.Messages().NO_REQUEST_BODY, CheckoutSHA );
-		Logs.Error( Logs.Events().LOAD_DATA, Message, RequestHandler );
+		Logs.Error( Logs.Events().DATA_PROCESSING, Logs.Messages().NO_REQUEST_DATA, CheckoutSHA, RequestHandler );
 		
 		Return Undefined;
 		
@@ -53,16 +53,13 @@ Function Manual( Val RequestHandler, Val CheckoutSHA ) Export
 	
 	If ( Files = Undefined ) Then
 	
-		Message = Logs.AddPrefix( Logs.Messages().NO_SEND_DATA, CheckoutSHA );
-		Logs.Error( Logs.Events().LOAD_DATA, Message, RequestHandler );
+		Logs.Error( Logs.Events().DATA_PROCESSING, Logs.Messages().NO_UPLOAD_DATA, CheckoutSHA, RequestHandler );
 		
 		Return Undefined;
 		
 	EndIf;
 	
-	BackgroundJob = Start( RequestHandler, Data, Files, False );
-	
-	Return BackgroundJob;
+	Return Start( RequestHandler, Data, Files, False );
 	
 EndFunction
 
@@ -70,7 +67,7 @@ EndFunction
 
 #Region Internal
 
-Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, Val DumpData ) Export
+Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, Val Dump ) Export
 
 	Var Project;
 	Var ConnectionParams;
@@ -79,35 +76,33 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 	
 	Project = ExternalRequests.GetProjectOrRaise( RequestData );
 
+	// TODO теперь видно, что надо пробросить URL как можно ближе к загрузке и вызывать GetConnectionParams уже там,
+	// так как гитлаб кроме как в GetFromRemoteVCS не используется
 	ConnectionParams = GitLabAPI.GetConnectionParams( Project.ServerURL );
 	
 	If ( Files = Undefined ) Then
 		
 		Files = RemoteFiles.GetFromRemoteVCS( ConnectionParams, RequestData );
 		LogDownloadResult( Files, RequestHandler, CheckoutSHA );
-		
-		// TODO логирование загрузки файлов куцое, вернуться сюда при создании фунциональных тестов
-		// возможно, что сообщение надо опустить ниже перед SendFile и согласовать с LogDownloadResult
-		Message = Logs.AddPrefix( "???", CheckoutSHA );
-		Logs.Info( Logs.Events().DOWNLOAD_FILE, Message, RequestHandler );
 	
+		// TODO AppendRoutingSettings переместить в GetFromRemoteVCS??? вай нот?
 		ExternalRequests.AppendRoutingSettings( RequestData, Files );
 	
 	EndIf;
 	
 	AssertFiles( Files, RequestHandler, CheckoutSHA );
 	
-	If ( DumpData ) Then
+	If ( Dump ) Then
 		
-		ExternalRequests.Dump( RequestHandler, CheckoutSHA, RequestData );
-		RemoteFiles.Dump( RequestHandler, CheckoutSHA, Files );
+		Dump( "ExternalRequests", RequestHandler, CheckoutSHA, RequestData );
+		Dump( "RemoteFiles", RequestHandler, CheckoutSHA, Files );
 		
 	EndIf;
 	
 	FilesToSend = Routing.GetFilesByRoutes( RequestData, Files );
 	LogRoutingResult( FilesToSend, RequestHandler, CheckoutSHA );
 	
-	FilesToSend = RemoveUnroutedFiles( FilesToSend );
+	FilesToSend = RemoveUnRoutedFiles( FilesToSend );
 
 	Jobs = Endpoints.BackgroundSendFiles( FilesToSend );
 	LogRunBackgroundSendFiles( Jobs, RequestHandler, CheckoutSHA );
@@ -120,33 +115,27 @@ EndProcedure
 
 Procedure AssertFiles( Val Files, Val RequestHandler, Val CheckoutSHA )
 	
-	Var  Message;
-	
 	If ( NOT ValueIsFilled(Files) ) Then
 
-		Message = Logs.AddPrefix( Logs.Messages().NO_SEND_DATA, CheckoutSHA );
-		Logs.Error( Logs.Events().LOAD_DATA, Message, RequestHandler );
-		
-		Raise Message;
+		Raise Logs.Error( Logs.Events().DATA_PROCESSING, Logs.Messages().NO_UPLOAD_DATA, CheckoutSHA, RequestHandler );
 		
 	EndIf;
 	
 EndProcedure
 
-Procedure LogDownloadResult( Val Files, Val RequestHandler, Val CheckoutSHA )
+Procedure LogDownloadResult( Val FilesMetadata, Val RequestHandler, Val CheckoutSHA )
 	
-	Var Message;
-	
-	For Each FileMetadata In Files Do
+	For Each FileMetadata In FilesMetadata Do
 			
 		If ( NOT IsBlankString(FileMetadata.ErrorInfo) ) Then
 			
-			Message = Logs.AddPrefix( FileMetadata.ErrorInfo, CheckoutSHA );
-			Logs.Error( Logs.Events().DOWNLOAD_FILE, Message, RequestHandler );
+			Logs.Error( Logs.Events().DATA_PROCESSING, FileMetadata.ErrorInfo, CheckoutSHA, RequestHandler );
 			
 		EndIf;
 				
 	EndDo;
+
+	Logs.Info( Logs.Events().DATA_PROCESSING, Logs.Messages().DOWNLOADED, CheckoutSHA, RequestHandler );
 	
 EndProcedure
 
@@ -158,8 +147,8 @@ Procedure LogRoutingResult( Val Files, Val RequestHandler, Val CheckoutSHA )
 			
 		If ( File.Routes = Undefined ) Then
 			
-			Message = Logs.AddPrefix( File.CommitSHA + ": " + Logs.Messages().ROUTE_MISSING, CheckoutSHA );
-			Logs.Error( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
+			Message = File.CommitSHA + ": " + Logs.Messages().NO_ROUTE;
+			Logs.Error( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
 			
 		EndIf;
 				
@@ -167,7 +156,36 @@ Procedure LogRoutingResult( Val Files, Val RequestHandler, Val CheckoutSHA )
 	
 EndProcedure
 
-Function RemoveUnroutedFiles( Val Files )
+Procedure LogRunBackgroundSendFiles( Val Jobs, Val RequestHandler, Val CheckoutSHA )
+
+	Var Created;
+	Var Message;
+	
+	Created = 0;
+	
+	For Each Job In Jobs Do
+			
+		If ( Job.BackgroundJob <> Undefined ) Then
+			
+			Created = Created + 1;
+
+		EndIf;
+		
+		If ( Job.ErrorInfo <> Undefined ) Then
+			
+			Message = ErrorProcessing.DetailErrorDescription( Job.ErrorInfo );			
+			Logs.Error( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
+			
+		EndIf;
+				
+	EndDo;
+	
+	Message = StrTemplate( Logs.Messages().UPLOAD_FILE_JOB, Created );
+	Logs.Info( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
+	
+EndProcedure
+
+Function RemoveUnRoutedFiles( Val Files )
 	
 	Var Result;
 	
@@ -189,33 +207,26 @@ Function RemoveUnroutedFiles( Val Files )
 	
 EndFunction
 
-Procedure LogRunBackgroundSendFiles( Val Jobs, Val RequestHandler, Val CheckoutSHA )
-
-	Var Created;
+Procedure Dump( Val Name, Val RequestHandler, Val CheckoutSHA, Val Data )
+	
 	Var Message;
 	
-	Created = 0;
-	
-	For Each Job In Jobs Do
-			
-		If ( Job.BackgroundJob <> Undefined ) Then
-			
-			Created = Created + 1;
+	Try
 
-		EndIf;
+		InformationRegisters[Name].SaveData( RequestHandler, CheckoutSHA, Data );
 		
-		If ( Job.ErrorInfo <> Undefined ) Then
-			
-			Message = Logs.AddPrefix( ErrorProcessing.DetailErrorDescription(Job.ErrorInfo), CheckoutSHA );			
-			Logs.Error( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
-			
-		EndIf;
-				
-	EndDo;
-	
-	Message = StrTemplate( Logs.Messages().UPLOAD_FILE_JOB_CREATED, Created );
-	Message = Logs.AddPrefix( Message, CheckoutSHA );			
-	Logs.Info( Logs.Events().DATA_PROCESSING, Message, RequestHandler );
+	Except
+		
+		Message = Logs.Messages().DUMP_ERROR;
+		Message = StrTemplate( Message, Name, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
+		Logs.Error( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );	
+		
+		Raise;
+		
+	EndTry;
+
+	Message = Metadata.InformationRegisters[Name].FullName() + ": " + Logs.Messages().DUMPED;
+	Logs.Info( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
 	
 EndProcedure
 

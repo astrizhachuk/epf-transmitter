@@ -16,7 +16,7 @@ Procedure GetFromRemoteVCSEmptyData(Framework) Export
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_POJECT_DESCRIPTION);
+		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_PROJECT);
 	EndTry;
 	
 EndProcedure
@@ -168,54 +168,6 @@ Procedure GetFromIBNoData(Framework) Export
 	
 	// then
 	Framework.AssertNotFilled(Result);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure Dump(Framework) Export
-	
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
-	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
-	CheckoutSHA = "CheckoutSHA" + Tests.RandomString();
-	Data = "Data" + Tests.RandomString();
-	
-	// when	
-	RemoteFiles.Dump(ExternalRequestHandler.Ref, CheckoutSHA, Data);
-	Result = Tests.GetRecordSet("RemoteFiles", ExternalRequestHandler.Ref, CheckoutSHA);
-	
-	// then
-	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result[0].Data.Get(), Data);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure DumpException(Framework) Export
-	
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
-
-	Data = New HTTPRequest();
-	
-	// when
-	Try
-		RemoteFiles.Dump(Tests.NewExternalRequestHandler().Ref, Tests.RandomString(), Data);
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, "(ValueStorage)");
-	EndTry;	
 	
 EndProcedure
 

@@ -60,7 +60,7 @@ Procedure SendFileErrorWithoutEndpoint(Framework) Export
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().ENDPOINT_OPTIONS_MISSING);
+		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_ENDPOINT);
 	КонецПопытки;
 	
 EndProcedure
