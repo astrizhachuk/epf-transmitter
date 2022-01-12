@@ -21,12 +21,11 @@
 	И В командном интерфейсе я выбираю 'Интеграция с GitLab' 'Обработчики внешних запросов'
 	Тогда открылось окно 'Обработчики внешних запросов'
 	И Я добавляю обработчик событий "Тест обработки запроса" проекта "http://mockserver:1080/root/external-epf" с ключом "Token1"
-	#И Я добавляю обработчик событий "Тест обработки запроса" с ключом "gita"
 
 Сценарий: Я проверяю сохраненный запрос в редакторе JSON
 
-	Пусть Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/events/push"
-	#И Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/home/usr1cv8/test/request-epf-push-2.json" для сервиса "/api/ru/hs/gitlab/events/push"
+	Пусть Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push-1b9949a2.json" для сервиса "/api/ru/hs/gitlab/events/push"
+	И Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push-2b9949a2.json" для сервиса "/api/ru/hs/gitlab/events/push"
 	И Пауза 2
 
 	Когда в таблице "List" я перехожу к строке:

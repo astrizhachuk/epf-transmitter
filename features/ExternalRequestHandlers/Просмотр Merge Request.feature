@@ -26,7 +26,7 @@
 
 Сценарий: Я проверяю открытие Merge Request в браузере
 
-	Пусть Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
+	Пусть Я отправляю "Push Hook" запрос с токеном "gita" и телом из файла "/test/requests/push-1b9949a2.json" для сервиса "/api/ru/hs/gitlab/webhooks/epf/push"
 	И Пауза 2
 
 	Когда в таблице "List" я перехожу к строке:

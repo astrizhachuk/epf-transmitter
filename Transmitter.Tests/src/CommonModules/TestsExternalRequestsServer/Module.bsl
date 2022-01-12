@@ -26,7 +26,7 @@ EndProcedure
 Procedure GetProjectOrRaise(Framework) Export
 	
 	// given
-	JSON = Tests.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push-1b9949a2.json");
 	Data = HTTPConnector.JsonToObject(JSON);
 
 	// when
@@ -66,7 +66,7 @@ EndProcedure
 Procedure GetCommitsOrRaise(Framework) Export
 	
 	// given
-	JSON = Tests.GetJSON("/test/requests/push.json");
+	JSON = Tests.GetJSON("/test/requests/push-1b9949a2.json");
 	Data = HTTPConnector.JsonToObject(JSON);
 
 	// when
