@@ -85,7 +85,7 @@ Procedure ResendData( Command )
 EndProcedure
 
 &AtClient
-Procedure OpenQueryJSON( Command )
+Procedure OpenRequestJSON( Command )
 	
 	OpenEditorJSON( Items.ReceivedRequests.CurrentRow, Command );
 

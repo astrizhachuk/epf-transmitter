@@ -415,7 +415,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsOpenQueryJSON</name>
+            <name>ReceivedRequestsOpenRequestJSON</name>
             <id>327</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -423,7 +423,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsOpenQueryJSONРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsOpenRequestJSONExtendedTooltip</name>
               <id>328</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -438,7 +438,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenQueryJSON</commandName>
+            <commandName>Form.Command.OpenRequestJSON</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1769,7 +1769,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenQueryJSON</name>
+    <name>OpenRequestJSON</name>
     <title>
       <key>en</key>
       <value>Query JSON</value>
@@ -1784,7 +1784,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenQueryJSON</name>
+        <name>OpenRequestJSON</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

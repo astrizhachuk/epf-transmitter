@@ -48,6 +48,7 @@ Function Messages() Export
 	Result.Insert( "NO_REQUEST_DATA", NStr("ru = 'нет данных запроса';en = 'no request data'") );	
 	Result.Insert( "NO_UPLOAD_DATA", NStr("ru = 'нет данных для отправки';en = 'no data to upload'") );
 	Result.Insert( "NO_COMMITS", NStr("ru = 'нет коммитов';en = 'no commits'") );
+	Result.Insert( "NO_COMMIT", NStr("ru = 'нет коммита';en = 'no commit'") );
 	Result.Insert( "NO_PROJECT", NStr("ru = 'нет данных с описанием проекта';en = 'no project description'") );
 	Result.Insert( "NO_ROUTE", NStr("ru = 'не задан маршрут доставки файла';en = 'file delivery route not specified'") );
 	

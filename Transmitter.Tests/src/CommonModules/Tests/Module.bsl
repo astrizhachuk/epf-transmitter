@@ -353,7 +353,7 @@ EndFunction
 Function GetRecordSet(Val Name, Val RequestHandler, Val CheckoutSHA) Export
 
 	Result = InformationRegisters[ Name ].CreateRecordSet();
-	Result.Filter.RequestHandler.Set(RequestHandler);
+	Result.Filter.RequestHandler.Set(RequestHandler.Ref);
 	Result.Filter.CheckoutSHA.Set(CheckoutSHA);
 	Result.Read();
 	

@@ -12,7 +12,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Commits</segments>
+        <segments>Routing</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <items xsi:type="form:FormField">
@@ -25,7 +25,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Commits.CommitSHA</segments>
+            <segments>Routing.CommitSHA</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -291,7 +291,7 @@
     <name>GroupEditor</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>CommitsRoutingJSON</name>
+      <name>RoutingJSON</name>
       <id>77</id>
       <enabled>true</enabled>
       <userVisible>
@@ -302,7 +302,7 @@
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>CommitsRoutingJSONРасширеннаяПодсказка</name>
+        <name>RoutingJSONExtendedTooltip</name>
         <id>79</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -317,7 +317,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsRoutingJSONКонтекстноеМеню</name>
+        <name>RoutingJSONContextMenu</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -327,7 +327,6 @@
         <autoFill>true</autoFill>
       </contextMenu>
       <type>TextDocumentField</type>
-      <readOnly>true</readOnly>
       <editMode>Enter</editMode>
       <showInHeader>true</showInHeader>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
@@ -342,19 +341,19 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>CommitsQueryJSON</name>
-      <id>71</id>
+      <name>RequestJSON</name>
+      <id>86</id>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Commits.JSON</segments>
+        <segments>RequestJSON</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>CommitsQueryJSONРасширеннаяПодсказка</name>
-        <id>73</id>
+        <name>RequestJSONExtendedTooltip</name>
+        <id>88</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -368,8 +367,8 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>CommitsQueryJSONКонтекстноеМеню</name>
-        <id>72</id>
+        <name>RequestJSONContextMenu</name>
+        <id>87</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -377,21 +376,18 @@
         </userVisible>
         <autoFill>true</autoFill>
       </contextMenu>
-      <type>InputField</type>
-      <readOnly>true</readOnly>
+      <type>TextDocumentField</type>
       <editMode>Enter</editMode>
       <showInHeader>true</showInHeader>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:InputFieldExtInfo">
+      <extInfo xsi:type="form:TextDocFieldExtInfo">
         <width>50</width>
         <autoMaxWidth>true</autoMaxWidth>
         <height>10</height>
         <autoMaxHeight>true</autoMaxHeight>
-        <wrap>true</wrap>
-        <chooseType>true</chooseType>
-        <typeDomainEnabled>true</typeDomainEnabled>
-        <textEdit>true</textEdit>
+        <horizontalStretch>true</horizontalStretch>
+        <verticalStretch>true</verticalStretch>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -407,6 +403,7 @@
       <key>ru</key>
       <value>Группа окно редактора</value>
     </toolTip>
+    <readOnly>true</readOnly>
     <extendedTooltip>
       <name>GroupEditorРасширеннаяПодсказка</name>
       <id>23</id>
@@ -485,15 +482,15 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:Button">
-      <name>SaveJSON</name>
+      <name>Save</name>
       <id>27</id>
       <title>
         <key>en</key>
-        <value>Save JSON</value>
+        <value>Save</value>
       </title>
       <title>
         <key>ru</key>
-        <value>Сохранить JSON</value>
+        <value>Сохранить</value>
       </title>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -501,7 +498,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>SaveJSONРасширеннаяПодсказка</name>
+        <name>SaveExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -516,7 +513,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.ExecuteSaveJSON</commandName>
+      <commandName>Form.Command.SaveSettings</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -580,11 +577,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Commits</name>
-    <title>
-      <key>ru</key>
-      <value>Commits</value>
-    </title>
+    <name>Routing</name>
     <id>2</id>
     <valueType>
       <types>ValueTable</types>
@@ -656,7 +649,7 @@
     </columns>
   </attributes>
   <attributes>
-    <name>IsQuery</name>
+    <name>IsRequest</name>
     <id>4</id>
     <valueType>
       <types>Boolean</types>
@@ -668,15 +661,33 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>RequestJSON</name>
+    <title>
+      <key>ru</key>
+      <value>JSON</value>
+    </title>
+    <id>5</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
-    <name>ExecuteSaveJSON</name>
+    <name>SaveSettings</name>
     <id>1</id>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ExecuteSaveJSON</name>
+        <name>SaveSettings</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

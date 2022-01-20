@@ -1,4 +1,5 @@
 *.epf
 .settings
 .vscode
+reports
 !/test/**/*.epf

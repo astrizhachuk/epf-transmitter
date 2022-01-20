@@ -29,9 +29,6 @@ EndProcedure
 Procedure CommitsIsCustomSettingOnChange( Element )
 	
 	Var CurrentData;
-	Var DeletedData;
-	Var QuestionText;
-	Var Notify;
 	
 	CurrentData = Items.Commits.CurrentData;
 	
@@ -43,15 +40,11 @@ Procedure CommitsIsCustomSettingOnChange( Element )
 	
 	If ( CurrentData.IsCustomSetting ) Then
 		
-		SetAllowEditJSON( CurrentData.IsCustomSetting );
+		SetEditorAccessibility( CurrentData.IsCustomSetting );
 		
 	Else
 		
-		DeletedData = New Structure( "RecordKey, CurrentData", Parameters.RecordKey, CurrentData );
-		Notify = New NotifyDescription( "DoAfterCloseQuestionResetSettings", ThisObject, DeletedData );
-		QuestionText = NStr( "ru = 'Сбросить настройку маршрутизации на значение по умолчанию?';
-							|en = 'Reset Routing Settings to default values?'" );
-		ShowQueryBox( Notify, QuestionText, QuestionDialogMode.YesNo );
+		ResetSettings( CurrentData );
 		
 	EndIf;
 	
@@ -70,7 +63,7 @@ Procedure CommitsOnActivateRow( Element )
 		
 	EndIf;
 	
-	SetAllowEditJSON( Element.CurrentData.IsCustomSetting );
+	SetEditorAccessibility( Element.CurrentData.IsCustomSetting );
 	
 EndProcedure
 
@@ -79,12 +72,9 @@ EndProcedure
 #Region FormCommandsEventHandlers
 
 &AtClient
-Procedure ExecuteSaveJSON( Command )
+Procedure SaveSettings( Command )
 	
 	Var CurrentData;
-	Var StoredData;
-	Var Notify;
-	Var QuestionText;
 	
 	CurrentData = Items.Commits.CurrentData;
 	
@@ -94,39 +84,106 @@ Procedure ExecuteSaveJSON( Command )
 		
 	EndIf;
 
-	StoredData = New Structure( "RecordKey, CurrentData", Parameters.RecordKey, CurrentData );
-	
-	If ( NOT IsCustomSettingsExists( Parameters.RecordKey, CurrentData.CommitSHA ) ) Then
+	Save( SelectedData(CurrentData) );
 		
-		SaveJSON( StoredData );
-		
-	Else
-		
-		Notify = New NotifyDescription( "DoAfterCloseQuestionSaveJSON", ThisObject, StoredData );
-		QuestionText = NStr( "ru = 'Пользовательская настройка уже существуют, перезаписать?';
-							|en = 'Custom Settings already exist, overwrite?'" );
-		ShowQueryBox( Notify, QuestionText, QuestionDialogMode.YesNo );
-		
-	EndIf;
-	
 EndProcedure
 
 #EndRegion
 
 #Region Private
 
+&AtClient
+Function SelectedData( Val CurrentData )
+	
+	Var Result;
+	
+	Result = New Structure();
+	Result.Insert( "RecordKey", Parameters.RecordKey );
+	Result.Insert( "CurrentData", CurrentData );
+	
+	Return Result;
+	
+EndFunction
+
+&AtServer
+Procedure FillRouting( Val RequestData )
+	
+	Var Commits;
+
+	Commits = ExternalRequests.GetCommitsOrRaise( RequestData );
+	
+	For Each Commit In Commits Do
+		
+		AddSettings( Commit );
+		
+	EndDo;
+	
+EndProcedure
+
+&AtServer
+Procedure AddSettings( Val Commit )
+	
+	Var NewRoute;
+
+	NewRoute = Routing.Add();
+	
+	NewRoute.CommitSHA = Commit.Get( "id" );
+	
+	Settings = ExternalRequests.GetCustomSettingsJSON( Commit );
+	
+	If ( Settings <> Undefined ) Then
+		
+		NewRoute.JSON = Settings;
+		NewRoute.IsCustomSetting = True;
+	
+	Else
+		
+		NewRoute.JSON = ExternalRequests.GetDefaultSettingsJSON( Commit );
+		NewRoute.IsCustomSetting = False;
+		
+	EndIf;
+	
+EndProcedure
+
+&AtServer
+Procedure FillFormValues( Val RecordKey )
+	
+	Var RequestData;
+
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	
+	If ( RequestData = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
+	
+	If ( IsRequest ) Then
+		
+		RequestJSON = RequestData.Get( "json" );
+		
+	Else
+		
+		FillRouting( RequestData );
+
+	EndIf;
+
+EndProcedure
+
+#Region Appearance
+
 &AtServer
 Procedure SetFormType( Val CommandName )
 	
-	If ( CommandName = "OpenQueryJSON" ) Then
+	If ( CommandName = "OpenRequestJSON" ) Then
 
-		ThisObject.IsQuery = True;
-		ThisObject.Title = NStr( "ru = 'Запрос';en = 'Query'" );
+		IsRequest = True;
+		Title = NStr( "ru = 'Запрос';en = 'Query'" );
 
 	ElsIf ( CommandName = "OpenRoutingJSON" ) Then
 		
-		ThisObject.IsQuery = False;
-		ThisObject.Title = NStr( "ru = 'Настройка маршрутизации';en = 'Routing Settings'" );
+		IsRequest = False;
+		Title = NStr( "ru = 'Маршрутизация';en = 'Routing'" );
 		
 	Else
 
@@ -137,145 +194,43 @@ Procedure SetFormType( Val CommandName )
 
 EndProcedure
 
-&AtServer
-Procedure FillFormValues( Val RecordKey )
-	
-	Var RequestData;
-	Var QueryCommits;
-	Var Settings;
-	Var CustomSettings;
-	Var NewRaw;
-	
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	
-	If ( RequestData = Undefined ) Then
-		
-		Return;
-		
-	EndIf;
-	
-	If ( ThisObject.IsQuery ) Then
-		
-		NewRaw = ThisObject.Commits.Add();
-		NewRaw.JSON = RequestData.Get( "json" );
-		
-	Else
-
-		QueryCommits = RequestData.Get( "commits" );
-		
-		For Each Commit In QueryCommits Do
-			
-			NewRaw = ThisObject.Commits.Add();
-			NewRaw.CommitSHA = Commit.Get( "id" );
-			
-			CustomSettings = Commit.Get( "custom_settings" );
-			
-			Settings = ?( CustomSettings = Undefined, Commit.Get("settings"),  CustomSettings );
-			
-			If ( Settings = Undefined ) Then
-
-				Continue;
-				
-			EndIf;
-			
-			NewRaw.JSON = Settings.Get( "json" );
-			NewRaw.IsCustomSetting = ( CustomSettings <> Undefined );
-			
-		EndDo;
-
-	EndIf;
-
-EndProcedure
-
 &AtClient
 Procedure SetFormElementsVisibility()
 	
-	If ( ThisObject.IsQuery ) Then
+	Items.GroupCommits.Visible = ( NOT IsRequest );
+	Items.GroupCustomSettings.Visible = ( NOT IsRequest );
+	Items.RequestJSON.Visible = IsRequest;
+	Items.RoutingJSON.Visible = ( NOT IsRequest );
 		
-		Items.GroupCommits.Visible = False;
-		Items.GroupCustomSettings.Visible = False;
-		Items.CommitsQueryJSON.Visible = True;
-		
-	Else
-		
-		Items.CommitsRoutingJSON.Visible = True;
-		
-	EndIf;
-
 EndProcedure
 
 &AtClient
-Procedure SetAllowEditJSON( Val Edit = False )
+Procedure SetEditorAccessibility( Val Edit )
 	
-	Var EditorJSON;
-	
-	If ( ThisObject.IsQuery ) Then
-		
-		EditorJSON  = Items.CommitsQueryJSON;
-		
-	Else
-
-		EditorJSON = Items.CommitsRoutingJSON;
-		
-	EndIf;
-	
-	EditorJSON.ReadOnly = ( NOT Edit );
-	Items.SaveJSON.Enabled = Edit;
+	Items.GroupEditor.ReadOnly = ( NOT Edit );
+	Items.Save.Enabled = Edit;
 		
 EndProcedure
 
-&AtServerNoContext 
-Function FindCommitById( Val RequestData, Val CommitSHA )
-	
-	Var QueryCommits;
+#EndRegion
 
-	QueryCommits = RequestData.Get( "commits" );
-	
-	For Each Commit In QueryCommits Do
+#Region Settings
 
-		If ( Commit.Get("id") <> CommitSHA ) Then
-			
-			Continue;
-			
-		EndIf;
-		
-		Return Commit;
-		
-	EndDo;
+&AtClient
+Procedure ResetSettings( Val CurrentData )
 	
-	Return New Map();
+	Var Data;
+	Var Notify;
+	Var Question;
 	
-EndFunction
-
-&AtServerNoContext
-Procedure DeleteCustomSetting( Val RecordKey, Val CommitSHA, CurrentSetting )
+	Data = SelectedData( CurrentData );
 	
-	Var RequestData;
-	Var Commit;
-	Var DefaultSetting;
-
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	Notify = New NotifyDescription( "DoAfterCloseQuestionResetSettings", ThisObject, Data );
+	Question = NStr( "ru = 'Сбросить настройку маршрутизации на значение по умолчанию?';
+					|en = 'Reset Routing Settings to default values?'" );
 	
-	If ( RequestData = Undefined ) Then
-		
-		Return;
-		
-	EndIf;
-
-	Commit = FindCommitById( RequestData, CommitSHA );
-	DefaultSetting = Commit.Get( "settings" ).Get( "json" );
+	ShowQueryBox( Notify, Question, QuestionDialogMode.YesNo );
 	
-	If ( IsBlankString(DefaultSetting) OR DefaultSetting = CurrentSetting ) Then
-		
-		Return;
-		
-	EndIf;		
-
-	Commit.Delete( "custom_settings" );				
-	ExternalRequests.Dump( RecordKey.RequestHandler, RecordKey.CheckoutSHA, RequestData );
-	
-	CurrentSetting = DefaultSetting; 
-
 EndProcedure
 
 &AtClient
@@ -293,80 +248,40 @@ Procedure DoAfterCloseQuestionResetSettings( QuestionResult, AdditionalParameter
         
 	EndIf;
 
-	DeleteCustomSetting( AdditionalParameters.RecordKey, CurrentData.CommitSHA, CurrentData.JSON );
-	
-	SetAllowEditJSON( False );
+	CurrentData.JSON = RemoveCustomSettings( AdditionalParameters.RecordKey, CurrentData.CommitSHA );
 
+	SetEditorAccessibility( CurrentData.IsCustomSetting );
+	
 EndProcedure
 
 &AtServerNoContext
-Function IsCustomSettingsExists( Val RecordKey, Val CommitSHA )
-
-	Var RequestData;
-	Var Commit;
+Function RemoveCustomSettings( Val RecordKey, Val CommitSHA )
 	
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	Commit = FindCommitById( RequestData, CommitSHA );
-	
-	Return ( Commit.Get("custom_settings") <> Undefined );
+	Return ExternalRequests.RemoveCustomRoutingSettings(RecordKey.RequestHandler, RecordKey.CheckoutSHA, CommitSHA );
 	
 EndFunction
 
-&AtServerNoContext
-Procedure AppendSettings( RequestData, Val CommitSHA, Val JSON )
-	
-	Var Commit;
-	Var CustomSetting;
-	Var Stream;
-	
-	Commit = FindCommitById( RequestData, CommitSHA );
+#EndRegion
 
-	Stream = GetBinaryDataFromString( JSON, TextEncoding.UTF8 ).OpenStreamForRead();
-	CustomSetting = HTTPConnector.JsonToObject( Stream );
-	CommonUseServerCall.AppendCollectionFromStream( CustomSetting, "json", Stream );
-	
-	Commit.Вставить( "custom_settings", CustomSetting );		
-
-EndProcedure
-
-&AtServerNoContext
-Procedure SaveJSONAtServer( Val RecordKey, Val CommitSHA, Val JSON )
-	
-	Var RequestData;
-	
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	
-	If ( RequestData = Undefined ) Then
-		
-		Return;
-		
-	EndIf;
-	
-	AppendSettings( RequestData, CommitSHA, JSON );
-	
-	ExternalRequests.Dump( RecordKey.RequestHandler, RecordKey.CheckoutSHA, RequestData );	
-
-EndProcedure
+#Region Save
 
 &AtClient
-Procedure SaveJSON( Val StoredData )
+Procedure Save( Val Data )
 	
-	Var CurrentData;
 	Var ErrorInfo;
 	Var CauseText;
 	Var Additional; 
 	
 	Try
-		
-		CurrentData = StoredData.CurrentData;
-		SaveJSONAtServer( StoredData.RecordKey, CurrentData.CommitSHA, CurrentData.JSON );
+
+		SaveAtServer( Data.RecordKey, Data.CurrentData.CommitSHA, Data.CurrentData.JSON );
 		
 	Except
 		
 		CauseText = NStr( "ru = 'Непредвиденный символ при чтении JSON';en = 'Unexpected token during JSON reading'" );
 		
 		ErrorInfo = ErrorInfo();
-		
+
 		If ( ErrorInfo.IsErrorOfCategory(ErrorCategory.ScriptRuntimeError)
 			AND ErrorProcessing.BriefErrorDescription(ErrorInfo) = CauseText ) Then
 	
@@ -383,17 +298,25 @@ Procedure SaveJSON( Val StoredData )
 	
 EndProcedure
 
-&AtClient
-Procedure DoAfterCloseQuestionSaveJSON( QuestionResult, AdditionalParameters ) Export
+&AtServerNoContext
+Procedure SaveAtServer( Val RecordKey, Val CommitSHA, Val JSON )
 	
-	If ( QuestionResult = DialogReturnCode.No ) Then
+	Var RequestData;
+	
+	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+	
+	If ( RequestData = Undefined ) Then
 		
-        Return;
-        
-    EndIf;
-
-	SaveJSON( AdditionalParameters );
-
+		Return;
+		
+	EndIf;
+	
+	ExternalRequests.AppendCustomRoutingSettings( RequestData, CommitSHA, JSON );
+	
+	InformationRegisters.ExternalRequests.SaveData( RecordKey.RequestHandler, RecordKey.CheckoutSHA, RequestData );
+	
 EndProcedure
+
+#EndRegion
 
 #EndRegion
