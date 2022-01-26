@@ -148,11 +148,3 @@
 			| 'Наименование1' | '000000001' | 'http://example1.com/path/to/project' | 'Token1' |
 			| 'Наименование2' | '000000002' | 'http://example2.com/path/to/project' | 'Token1' |
 			| 'Наименование2' | '000000003' | 'http://example2.com/path/to/project' | 'Token1' |
-
-# Сценарий: Подготовка данных
-# #		| '{"e1cib/data/Catalog.Webhooks?ref=" + StrReplace(New UUID, "-", "")}' | 'False'        | '000000001' | 'Наименование1' | 8           | 'ProjectServer' | 'Секретный token1' |
-# 	И я проверяю или создаю для справочника "Webhooks" объекты:
-# 		| 'Ref'                                                              | 'DeletionMark' | 'Code'      | 'Description'   | 'ProjectId' | 'ProjectServer' | 'Token' |
-# 		| 'e1cib/data/Catalog.Webhooks?ref=98980242ac16000511ec4d1e7228904e' | 'False'        | '000000001' | 'Наименование1' | 101         | 'example1.com'  | 'Token1'       |
-# 		| 'e1cib/data/Catalog.Webhooks?ref=98980242ac16000511ec4d1e9ad98228' | 'False'        | '000000003' | 'Наименование3' | 103         | 'example3.com'  | 'Ключ3'       |
-# 		| 'e1cib/data/Catalog.Webhooks?ref=98980242ac16000511ec4d1e81db84ba' | 'True'         | '000000002' | 'Наименование2' | 102         | 'example2.com'  | 'Token2'       |

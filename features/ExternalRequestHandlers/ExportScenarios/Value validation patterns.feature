@@ -22,15 +22,15 @@
 		|'{'|
 		|'  \"ws\" : [ {'|
 		|'    \"name\" : \"spb\",'|
-		|'    \"url\" : \"http://mockserver:1080/receiver1\",'|
+		|'    \"url\" : \"http://mockserver:1080/endpoint1\",'|
 		|'    \"enabled\" : true'|
 		|'  }, {'|
 		|'    \"name\" : \"msk\",'|
-		|'    \"url\" : \"http://mockserver:1080/receiver2\",'|
+		|'    \"url\" : \"http://mockserver:1080/endpoint2\",'|
 		|'    \"enabled\" : false'|
 		|'  }, {'|
 		|'    \"name\" : \"szfo\",'|
-		|'    \"url\" : \"http://mockserver:1080/receiver3\",'|
+		|'    \"url\" : \"http://mockserver:1080/endpoint3\",'|
 		|'    \"enabled\" : true'|
 		|'  } ],'|
 		|'  \"epf\" : [ {'|

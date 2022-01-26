@@ -48,6 +48,7 @@
     <languageCode>en</languageCode>
   </languages>
   <commonModules>CommonModule.Tests</commonModules>
+  <commonModules>CommonModule.TestsBackgroundsServer</commonModules>
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.TestsCredentialsServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessingServer</commonModules>

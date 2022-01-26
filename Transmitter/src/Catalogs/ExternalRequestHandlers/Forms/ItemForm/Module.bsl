@@ -154,7 +154,7 @@ Procedure OpenBackgroundJobs( Command )
 	Filter = New Structure();
 	Filter.Insert( "RecordKey", CurrentRow );
 				 
-	OpenForm( "Catalog.ExternalRequestHandlers.Form.BackgroundJobs",
+	OpenForm( "Catalog.ExternalRequestHandlers.Form.Backgrounds",
 			 Filter,
 			 ThisObject,
 			 ,

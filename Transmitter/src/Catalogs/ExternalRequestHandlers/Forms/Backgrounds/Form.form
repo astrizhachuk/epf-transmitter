@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>BackgroundJobs</name>
+    <name>Backgrounds</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,11 +9,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>BackgroundJobs</segments>
+      <segments>BackgroundsList</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsBegin</name>
+      <name>Begin</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -22,11 +22,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.Begin</segments>
+          <segments>BackgroundsList.Begin</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsBeginРасширеннаяПодсказка</name>
+        <name>BeginExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -41,7 +41,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsBeginКонтекстноеМеню</name>
+        <name>BeginContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -65,7 +65,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsEnd</name>
+      <name>End</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -74,11 +74,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.End</segments>
+          <segments>BackgroundsList.End</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsEndРасширеннаяПодсказка</name>
+        <name>EndExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -93,7 +93,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsEndКонтекстноеМеню</name>
+        <name>EndContextMenu</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -117,7 +117,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsMethodName</name>
+      <name>MethodName</name>
       <id>35</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -126,11 +126,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.MethodName</segments>
+          <segments>BackgroundsList.MethodName</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsMethodNameРасширеннаяПодсказка</name>
+        <name>MethodNameExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -145,7 +145,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsMethodNameКонтекстноеМеню</name>
+        <name>MethodNameContextMenu</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -169,7 +169,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsKey</name>
+      <name>Key</name>
       <id>20</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -178,11 +178,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.Key</segments>
+          <segments>BackgroundsList.Key</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsKeyРасширеннаяПодсказка</name>
+        <name>KeyExtendedTooltip</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -197,7 +197,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsKeyКонтекстноеМеню</name>
+        <name>KeyContextMenu</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -221,7 +221,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsState</name>
+      <name>State</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -230,11 +230,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.State</segments>
+          <segments>BackgroundsList.State</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsStateРасширеннаяПодсказка</name>
+        <name>StateExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -249,7 +249,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsStateКонтекстноеМеню</name>
+        <name>StateContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -273,7 +273,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsErrorInfo</name>
+      <name>ErrorDetail</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -282,11 +282,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.ErrorInfo</segments>
+          <segments>BackgroundsList.ErrorDetail</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsErrorInfoРасширеннаяПодсказка</name>
+        <name>ErrorDetailExtendedTooltip</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -301,7 +301,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsErrorInfoКонтекстноеМеню</name>
+        <name>ErrorDetailContextMenu</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -325,7 +325,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BackgroundJobsUUID</name>
+      <name>UUID</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -334,11 +334,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundJobs.UUID</segments>
+          <segments>BackgroundsList.UUID</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BackgroundJobsUUIDРасширеннаяПодсказка</name>
+        <name>UUIDExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -353,7 +353,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsUUIDКонтекстноеМеню</name>
+        <name>UUIDContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -373,7 +373,7 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>BackgroundJobsКоманднаяПанель</name>
+      <name>BackgroundsCommandBar</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -388,10 +388,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundJobsСтрокаПоиска</name>
+      <name>BackgroundsSearchString</name>
       <id>5</id>
       <extendedTooltip>
-        <name>BackgroundJobsСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>BackgroundsSearchStringExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -406,7 +406,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsСтрокаПоискаКонтекстноеМеню</name>
+        <name>BackgroundsSearchStringContextMenu</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -425,10 +425,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundJobsСостояниеПросмотра</name>
+      <name>BackgroundsViewStatus</name>
       <id>8</id>
       <extendedTooltip>
-        <name>BackgroundJobsСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>BackgroundsViewStatusExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -443,7 +443,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsСостояниеПросмотраКонтекстноеМеню</name>
+        <name>BackgroundsViewStatusContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -464,10 +464,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundJobsУправлениеПоиском</name>
+      <name>BackgroundsSearchControl</name>
       <id>11</id>
       <extendedTooltip>
-        <name>BackgroundJobsУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>BackgroundsSearchControlExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -482,7 +482,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundJobsУправлениеПоискомКонтекстноеМеню</name>
+        <name>BackgroundsSearchControlContextMenu</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -497,7 +497,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>BackgroundJobsРасширеннаяПодсказка</name>
+      <name>BackgroundsExtendedTooltip</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -512,10 +512,10 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>BackgroundJobsКонтекстноеМеню</name>
+      <name>BackgroundsContextMenu</name>
       <id>2</id>
       <items xsi:type="form:Button">
-        <name>BackgroundJobsContextMenuRefreshSelected</name>
+        <name>BackgroundsContextMenuRefreshCurrent</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -523,7 +523,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>BackgroundJobsContextMenuRefreshSelectedРасширеннаяПодсказка</name>
+          <name>BackgroundsContextMenuRefreshCurrentExtendedTooltip</name>
           <id>41</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -537,7 +537,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.RefreshSelectedBackgroundJob</commandName>
+        <commandName>Form.Command.RefreshCurrent</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -545,7 +545,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>BackgroundJobsContextMenuKillSelected</name>
+        <name>BackgroundsContextMenuKillCurrent</name>
         <id>48</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -553,7 +553,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>BackgroundJobsContextMenuKillSelectedРасширеннаяПодсказка</name>
+          <name>BackgroundsContextMenuKillCurrentExtendedTooltip</name>
           <id>49</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -567,7 +567,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.KillSelectedBackgroundJob</commandName>
+        <commandName>Form.Command.KillCurrent</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -588,7 +588,6 @@
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
     <autoMaxRowsCount>true</autoMaxRowsCount>
-    <selectionMode>MultiRow</selectionMode>
     <header>true</header>
     <headerHeight>1</headerHeight>
     <footerHeight>1</footerHeight>
@@ -609,7 +608,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>RefreshBackgroundJobs</name>
+      <name>RefreshAll</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -617,7 +616,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>RefreshBackgroundJobsРасширеннаяПодсказка</name>
+        <name>RefreshAllExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -631,7 +630,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.RefreshBackgroundJobs</commandName>
+      <commandName>Form.Command.RefreshAll</commandName>
       <representation>PictureAndText</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -639,10 +638,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>BackgroundJob</name>
+      <name>CurrentRow</name>
       <id>42</id>
       <items xsi:type="form:Button">
-        <name>RefreshSelectedBackgroundJob</name>
+        <name>RefreshCurrent</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -650,7 +649,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>RefreshSelectedBackgroundJobРасширеннаяПодсказка</name>
+          <name>RefreshCurrentExtendedTooltip</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -664,7 +663,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.RefreshSelectedBackgroundJob</commandName>
+        <commandName>Form.Command.RefreshCurrent</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -672,7 +671,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>KillSelectedBackgroundJob</name>
+        <name>KillCurrent</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -680,7 +679,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>KillSelectedBackgroundJobРасширеннаяПодсказка</name>
+          <name>KillCurrentExtendedTooltip</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -694,7 +693,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.KillSelectedBackgroundJob</commandName>
+        <commandName>Form.Command.KillCurrent</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -708,14 +707,14 @@
       </userVisible>
       <title>
         <key>ru</key>
-        <value>Background job</value>
+        <value>Current row</value>
       </title>
       <toolTip>
         <key>ru</key>
         <value>Форма действия задание</value>
       </toolTip>
       <extendedTooltip>
-        <name>BackgroundJobРасширеннаяПодсказка</name>
+        <name>CurrentRowExtendedTooltip</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -754,7 +753,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>BackgroundJobs</name>
+    <name>BackgroundsList</name>
+    <title>
+      <key>ru</key>
+      <value>Backgrounds list</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>ValueTable</types>
@@ -777,8 +780,7 @@
       </title>
       <id>1</id>
       <valueType>
-        <types>String</types>
-        <stringQualifiers/>
+        <types>UUID</types>
       </valueType>
       <view>
         <common>true</common>
@@ -876,7 +878,7 @@
       </edit>
     </columns>
     <columns>
-      <name>ErrorInfo</name>
+      <name>ErrorDetail</name>
       <title>
         <key>en</key>
         <value>Error Info</value>
@@ -921,14 +923,14 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>RefreshBackgroundJobs</name>
+    <name>RefreshAll</name>
     <title>
       <key>en</key>
-      <value>Refresh All Jobs</value>
+      <value>Refresh all</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Обновить все задания</value>
+      <value>Обновить все</value>
     </title>
     <id>1</id>
     <use>
@@ -939,20 +941,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RefreshBackgroundJobs</name>
+        <name>RefreshAll</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>RefreshSelectedBackgroundJob</name>
+    <name>RefreshCurrent</name>
     <title>
       <key>en</key>
-      <value>Refresh Current Job</value>
+      <value>Refresh current</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Обновить текущее задание</value>
+      <value>Обновить текущее</value>
     </title>
     <id>2</id>
     <use>
@@ -960,20 +962,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RefreshSelectedBackgroundJob</name>
+        <name>RefreshCurrent</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>KillSelectedBackgroundJob</name>
+    <name>KillCurrent</name>
     <title>
       <key>en</key>
-      <value>Kill Selected Job</value>
+      <value>Kill сurrent</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Завершить текущее задание</value>
+      <value>Завершить текущее</value>
     </title>
     <id>3</id>
     <use>
@@ -981,7 +983,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>KillSelectedBackgroundJob</name>
+        <name>KillCurrent</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

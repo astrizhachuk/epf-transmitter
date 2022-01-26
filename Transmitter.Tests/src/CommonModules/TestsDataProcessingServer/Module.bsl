@@ -88,11 +88,7 @@ Procedure StartDumpData(Framework) Export
 	CheckoutSHA = Tests.RandomString();
 	RequestHandler = Tests.NewExternalRequestHandler();
 	File = Tests.NewFile("Каталог 2", "test2", "epf");
-
-	Data = New Map;
-	Data.Insert("checkout_sha", CheckoutSHA);
-	Data.Insert("project", Tests.NewProject(1, RequestHandler.ProjectURL));
-	Data.Insert("commits", New Map);
+	Data = NewExternalRequest(RequestHandler, CheckoutSHA, New Map);
 	
 	FilesMetadata = Tests.NewFilesMetadata();
 	Tests.AddFileMetadata(FilesMetadata, File, CheckoutSHA, "modifed", Date(2020, 07, 21, 09, 22, 31));
@@ -188,11 +184,7 @@ Procedure StartDownloadFromRemoteVCSNoRouts(Framework) Export
 							New Array,
 							Files,
 							New Array));
-					
-	Data = New Map;
-	Data.Insert("checkout_sha", Tests.RandomString());
-	Data.Insert("project", Tests.NewProject(1, RequestHandler.ProjectURL));
-	Data.Insert("commits", Commits);
+	Data = NewExternalRequest(RequestHandler, Tests.RandomString(), Commits);
 
 	Tests.ResetMockServer();
 	Tests.SetMockGitLabDownloadFile(Connection, , 404);
@@ -270,11 +262,7 @@ Procedure ManualLoadDataSaccess(Framework) Export
 	RequestHandler = Tests.NewExternalRequestHandler();
 	
 	File = Tests.NewFile("Каталог 2", "test2", "epf");
-
-	Data = New Map;
-	Data.Insert("checkout_sha", CheckoutSHA);
-	Data.Insert("project", Tests.NewProject(1, RequestHandler.ProjectURL));
-	Data.Insert("commits", New Map);
+	Data = NewExternalRequest(RequestHandler, CheckoutSHA, New Map);
 	
 	FilesMetadata = Tests.NewFilesMetadata();
 	Tests.AddFileMetadata(FilesMetadata, File, CheckoutSHA, "modifed", Date(2020, 07, 21, 09, 22, 31));
@@ -300,33 +288,25 @@ Procedure ManualRunCompleted(Framework) Export
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
 	
-	File1 = Tests.NewFile("", "routing", "json");
-	Constants.RoutingFileName.Set(File1.FileName);
-	
+	File1 = NewRoutingFile();
 	File2 = Tests.NewFile("каталог", "file 2", "epf");
-	FilePathes = Tests.GetFilePathes(File1, File2);
 	
 	CheckoutSHA = Tests.RandomString();
 	RequestHandler = Tests.NewExternalRequestHandler();
 	
-	WebServices = New Array;
-	WebServices.Add(Tests.NewWebService("http://endpoint1", True));
-
 	EPF = New Array;
 	EPF.Add(Tests.NewEPF(File2.FilePath));
 	Commit = Tests.NewCommit(CheckoutSHA,
 							Date(2020, 01, 21, 09, 22, 31),
 							New Array,
-							FilePathes,
+							Tests.GetFilePathes(File1, File2),
 							New Array);
+	WebServices = New Array;
+	WebServices.Add(Tests.NewWebService("http://endpoint1", True));
 	Commit.Insert("settings", Tests.NewRoutes(WebServices, EPF));
 	Commits = New Array;
 	Commits.Add(Commit);
-	
-	Data = New Map;
-	Data.Insert("checkout_sha", CheckoutSHA);
-	Data.Insert("project", Tests.NewProject(1, RequestHandler.ProjectURL));
-	Data.Insert("commits", Commits);
+	Data = NewExternalRequest(RequestHandler, CheckoutSHA, Commits);
 	
 	FilesMetadata = Tests.NewFilesMetadata();
 	Tests.AddFileMetadata(FilesMetadata, File1, CheckoutSHA, "", Date(2020, 01, 21, 09, 22, 31));
@@ -343,5 +323,77 @@ Procedure ManualRunCompleted(Framework) Export
 	Framework.AssertTrue(Result.State = BackgroundJobState.Completed);
 	
 EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetBackgroundsByCommit(Framework) Export
+	
+	// given
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
+	
+	File1 = NewRoutingFile();
+	File2 = Tests.NewFile("каталог", "file 2", "epf");
+	
+	CheckoutSHA = Tests.RandomString();
+	RequestHandler = Tests.NewExternalRequestHandler();
+
+	EPF = New Array;
+	EPF.Add(Tests.NewEPF(File2.FilePath));
+	Commit = Tests.NewCommit(CheckoutSHA,
+							Date(2020, 01, 21, 09, 22, 31),
+							New Array,
+							Tests.GetFilePathes(File1, File2),
+							New Array);
+	WebServices = New Array;
+	WebServices.Add(Tests.NewWebService("http://endpoint1", True));
+	Commit.Insert("settings", Tests.NewRoutes(WebServices, EPF));
+	Commits = New Array;
+	Commits.Add(Commit);
+	Data = NewExternalRequest(RequestHandler, CheckoutSHA, Commits);
+	
+	FilesMetadata = Tests.NewFilesMetadata();
+	Tests.AddFileMetadata(FilesMetadata, File1, CheckoutSHA, "", Date(2020, 01, 21, 09, 22, 31));
+	Tests.AddFileMetadata(FilesMetadata, File2, CheckoutSHA, "modified", Date(2020, 01, 21, 09, 22, 31));
+	
+	Tests.AddRecord("ExternalRequests", RequestHandler, CheckoutSHA, Data);
+	Tests.AddRecord("RemoteFiles", RequestHandler, CheckoutSHA, FilesMetadata);
+	
+	DataProcessing.Manual(RequestHandler.Ref, CheckoutSHA).WaitForExecutionCompletion(30);
+	
+	// when
+	Result = DataProcessing.GetBackgroundsByCommit(CheckoutSHA);
+	
+	// then
+	Framework.AssertTrue(StrStartsWith(Result[0].Key, CheckoutSHA));
+	Framework.AssertTrue(StrStartsWith(Result[1].Key, CheckoutSHA));
+	
+EndProcedure
+
+#EndRegion
+
+#Region Private
+
+Function NewRoutingFile()
+
+	Result = Tests.NewFile("", "routing", "json");
+	Constants.RoutingFileName.Set(Result.FileName);
+	
+	Return Result;
+
+EndFunction
+
+Function NewExternalRequest(Val RequestHandler, Val CheckoutSHA, Val Commits )
+
+	Result = New Map;
+	Result.Insert("project", Tests.NewProject(1, RequestHandler.ProjectURL));
+	Result.Insert("checkout_sha", CheckoutSHA);
+	Result.Insert("commits", Commits);
+	
+	Return Result;
+
+EndFunction
 
 #EndRegion

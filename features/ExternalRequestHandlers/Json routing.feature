@@ -11,7 +11,7 @@
 Контекст:
 	Дано Я подключаю TestClient "Этот клиент" логин "Пользователь" пароль ""
 	И Я очищаю MockServer
-	И Я создаю Expectation из файла "/test/expectations/routing.json"
+	И Я создаю Expectation из файла "/test/expectations/routes.json"
 	И я удаляю все элементы Справочника "ExternalRequestHandlers"
 	И я удаляю все записи РегистрСведений "ExternalRequests"
 	И я удаляю все записи РегистрСведений "RemoteFiles"
@@ -24,7 +24,7 @@
 	Тогда открылось окно 'Обработчики внешних запросов'
 	Пусть Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push-1b9949a2.json" для сервиса "/api/ru/hs/gitlab/events/push"
 	И Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push-2b9949a2.json" для сервиса "/api/ru/hs/gitlab/events/push"
-	И Пауза 2
+	И Пауза 1
 	Пусть в таблице "List" я перехожу к строке:
 		| 'Наименование'            | 'Код'       | 'Токен'  |
 		| 'Тест обработки запроса'  | '000000001' | 'Token1' |

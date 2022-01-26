@@ -63,6 +63,29 @@ Function Manual( Val RequestHandler, Val CheckoutSHA ) Export
 	
 EndFunction
 
+// GetBackgroundsByCommit returns an array of BackgroundJob objects containing the commit in the BackgroundJob key.
+// 
+// Parameters:
+// 	CommitSHA - String - сommit SHA;
+// 	
+// Returns:
+// 	Array of BackgroundJob - an array of backgrounds;
+//
+Function GetBackgroundsByCommit( Val CommitSHA ) Export
+	
+	Var SendFileJobs;
+	Var Result;
+	
+	SetPrivilegedMode(True);
+	
+	Result = BackgroundJobs.GetBackgroundJobs( FilterDataProcessingRun(CommitSHA) );
+	SendFileJobs = Backgrounds.GetByKeyPrefix( FilterEndpointsSendFile(), CommitSHA + "|" );
+	CommonUseClientServer.SupplementArray( Result, SendFileJobs );
+	
+	Return Result;
+	
+EndFunction
+
 #EndRegion
 
 #Region Internal
@@ -185,7 +208,7 @@ Procedure LogRunBackgroundSendFiles( Val Jobs, Val RequestHandler, Val CheckoutS
 	
 EndProcedure
 
-Function RemoveUnRoutedFiles( Val Files )
+Function RemoveUnroutedFiles( Val Files )
 	
 	Var Result;
 	
@@ -229,5 +252,38 @@ Procedure Dump( Val Name, Val RequestHandler, Val CheckoutSHA, Val Data )
 	Logs.Info( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
 	
 EndProcedure
+
+#Region Filters
+
+// FilterDataProcessingRun returns a filter for selecting background jobs that process
+// an incoming request from external storage. 
+// 
+// Parameters:
+// 	Key - String - job key;
+// 	
+// Returns:
+// 	Structure - filter:
+// * MethodName - String - method name from a non-global module;
+// * Key - String - job key;
+//
+Function FilterDataProcessingRun( Val Key )
+	
+	Return New Structure( "MethodName, Key", "DataProcessing.Run", Key );
+	
+EndFunction
+
+// FilterEndpointsSendFile returns a filter for selecting background jobs that send files to infobases.
+// 
+// Returns:
+// 	Structure - filter:
+// * MethodName - String - method name from a non-global module;
+//
+Function FilterEndpointsSendFile()
+	
+	Return New Structure( "MethodName", "Endpoints.SendFile" );
+	
+EndFunction
+
+#EndRegion
 
 #EndRegion

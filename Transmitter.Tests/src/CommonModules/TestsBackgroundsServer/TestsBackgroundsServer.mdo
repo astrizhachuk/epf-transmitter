@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="fc65f92d-f43d-4091-8f13-0f6f2626ab9a">
+  <name>TestsBackgroundsServer</name>
+  <synonym>
+    <key>en</key>
+    <value>Backgrounds (server)</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Фоновые (сервер)</value>
+  </synonym>
+  <server>true</server>
+  <serverCall>true</serverCall>
+</mdclass:CommonModule>

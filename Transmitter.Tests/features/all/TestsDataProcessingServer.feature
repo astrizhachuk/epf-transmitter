@@ -62,3 +62,8 @@ Scenario: ManualLoadDataSaccess
 Scenario: ManualRunCompleted
 	And I execute 1C:Enterprise script at server
 	| 'TestsDataProcessingServer.ManualRunCompleted(Context());' |
+
+@OnServer
+Scenario: GetBackgroundsByCommit
+	And I execute 1C:Enterprise script at server
+	| 'TestsDataProcessingServer.GetBackgroundsByCommit(Context());' |
