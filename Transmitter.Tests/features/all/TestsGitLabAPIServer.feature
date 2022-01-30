@@ -69,11 +69,6 @@ Scenario: GetFileActions
 	| 'TestsGitLabAPIServer.GetFileActions(Context());' |
 
 @OnServer
-Scenario: GetMergeRequests
-	And I execute 1C:Enterprise script at server
-	| 'TestsGitLabAPIServer.GetMergeRequests(Context());' |
-
-@OnServer
 Scenario: GetRAWFilesNoRAWFilePaths
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabAPIServer.GetRAWFilesNoRAWFilePaths(Context());' |

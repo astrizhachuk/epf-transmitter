@@ -131,28 +131,6 @@ Function GetFileActions() Export
 	
 EndFunction
 
-// GetMergeRequests returns all deserialized GitLab merge requests by project.
-// 
-// Parameters:
-// 	URL - String - GitLab server URL, for example: "http://www.example.org";
-// 	ProjectId - String - project Id;
-//
-// Returns:
-//   Map, Structure - deserialized merge requests;
-//
-Function GetMergeRequests( Val URL, Val ProjectId ) Export
-	
-	Var MR;
-	Var ConnectionParams;
-	
-	ConnectionParams = GetConnectionParams( URL );
-	
-	MR = ConnectionParams.URL + MergeRequestsPath( ProjectId );
-
-	Return HTTPConnector.GetJson( MR, Undefined, AdditionalParams(ConnectionParams) );
-	
-EndFunction
-
 // GetRAWFiles returns the files from the GitLab server with its descriptions.
 //
 // Parameters:
@@ -283,12 +261,6 @@ Function DownloadFile( Val ConnectionParams, Val FilePath )
 	EndTry;
 
 	Return Result;
-	
-EndFunction
-
-Function MergeRequestsPath( Val ProjectId )
-	
-	Return StrTemplate( "/api/v4/projects/%1/merge_requests", String(ProjectId) );
 	
 EndFunction
 

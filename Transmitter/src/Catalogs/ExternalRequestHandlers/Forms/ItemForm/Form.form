@@ -198,6 +198,40 @@
         <textEdit>true</textEdit>
       </extInfo>
     </items>
+    <items xsi:type="form:Button">
+      <name>OpenRepositoryOnRemote</name>
+      <id>341</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>OpenRepositoryOnRemoteExtendedTooltip</name>
+        <id>342</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <type>Hyperlink</type>
+      <commandName>Form.Command.OpenRepositoryOnRemote</commandName>
+      <representation>Picture</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <picture xsi:type="core:PictureRef">
+        <picture>StdPicture.GotoExternalURL</picture>
+      </picture>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
     <items xsi:type="form:FormField">
       <name>SecretToken</name>
       <id>7</id>
@@ -510,40 +544,6 @@
             </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
-          <items xsi:type="form:Button">
-            <name>ReceivedRequestsOpenMergeRequestRemote</name>
-            <id>341</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>ReceivedRequestsOpenMergeRequestRemoteРасширеннаяПодсказка</name>
-              <id>342</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenMergeRequestRemote</commandName>
-            <representation>PictureAndText</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <picture xsi:type="core:PictureRef">
-              <picture>StdPicture.GotoURL</picture>
-            </picture>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -747,7 +747,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsContextMenuOpenMergeRequestRemote</name>
+            <name>ReceivedRequestsContextMenuOpenRepositoryOnRemote</name>
             <id>347</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -755,7 +755,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsContextMenuOpenMergeRequestRemoteРасширеннаяПодсказка</name>
+              <name>ReceivedRequestsContextMenuOpenRepositoryOnRemoteExtendedTooltip</name>
               <id>348</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -769,7 +769,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.OpenMergeRequestRemote</commandName>
+            <commandName>Form.Command.OpenRepositoryOnRemote</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1857,26 +1857,26 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenMergeRequestRemote</name>
+    <name>OpenRepositoryOnRemote</name>
     <title>
       <key>en</key>
-      <value>Open MR on Remote</value>
+      <value>Open repository on remote</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Открыть удаленный MR</value>
+      <value>Открыть репозиторий на сервере</value>
     </title>
     <id>6</id>
     <toolTip>
       <key>ru</key>
-      <value>Открыть веб-сайт с Merge Request</value>
+      <value>Открыть проект на удаленном сервере</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenMergeRequestRemote</name>
+        <name>OpenRepositoryOnRemote</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

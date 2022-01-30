@@ -99,41 +99,15 @@ Procedure OpenRoutingJSON( Command )
 EndProcedure
 
 &AtClient
-Procedure DoAfterApplicationStart( ReturnCode, AdditionalParameters ) Export
-	// No processing is required.
-EndProcedure
-
-&AtClient
-Procedure OpenMergeRequestRemote( Command )
+Procedure OpenRepositoryOnRemote( Command )
 	
-	Var CurrentRow;
-	Var MergeRequestURL;
-	Var Notify;
-	
-	CurrentRow = Items.ReceivedRequests.CurrentRow;
-	
-	If ( CurrentRow = Undefined ) Then
+	If ( IsBlankString(Object.ProjectURL) ) Then
 		
 		Return;
 		
 	EndIf;
-
-	MergeRequestURL = MergeRequestURL( CurrentRow );
 	
-	If ( NOT IsBlankString(MergeRequestURL) ) Then
-		
-		#If WebClient Then
-			
-			GotoURL( MergeRequestURL );
-			
-		#Else
-			
-			Notify = New NotifyDescription( "DoAfterApplicationStart", ThisObject );
-			BeginRunningApplication( Notify,  MergeRequestURL );
-			
-   		#EndIf
-   				
-	EndIf;
+	GotoURL( Object.ProjectURL );
 	
 EndProcedure
 
@@ -237,49 +211,6 @@ Procedure OpenEditorJSON( Val CurrentRow, Val Command )
 				FormWindowOpeningMode.LockOwnerWindow );
 	
 EndProcedure
-
-&AtServerNoContext
-Function MergeRequestURL( Val RecordKey )
-	
-	Var RequestData;
-	Var ProjectParams;
-	Var MergeRequests;
-	Var MergeCommitSHA;
-	Var Result;
-	
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	
-	ProjectParams = GitLabAPI.GetProject( RequestData );
-
-	// TODO тут необработанное исключение, когда по URL невозможно получить JSON с MR (неверная ссылка или сервер лежит),
-	// подумать, или зарегать в ишузах 
-	MergeRequests = GitLabAPI.GetMergeRequests( ProjectParams.URL, ProjectParams.Id ); 
-
-	Result = "";
-	
-	For Each MergeRequest In MergeRequests Do
-		
-		MergeCommitSHA = MergeRequest.Get( "merge_commit_sha" );
-		
-		If ( MergeCommitSHA = Undefined OR MergeCommitSHA <> RecordKey.CheckoutSHA ) Then
-			
-			Continue;
-			
-		EndIf;
-		
-		Result = MergeRequest.Get( "web_url" );
-		
-		If ( Result <> Undefined ) Then
-			
-			Return Result;
-
-		EndIf;
-
-	EndDo;
-	
-	Return Result;
-
-EndFunction
 
 // TODO проверить, почему это ранее было в общем модуле
 

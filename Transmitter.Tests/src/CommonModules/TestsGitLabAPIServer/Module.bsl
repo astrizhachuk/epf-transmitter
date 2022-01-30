@@ -245,54 +245,6 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetMergeRequests(Framework) Export
-	
-	// given
-	Connection = Tests.NewConnection(Tests.MockURL());
-	Constants.ExternalStorageToken.Set(Connection.Token);
-	Constants.ExternalStorageTimeout.Set(Connection.Timeout);
-	
-	ProjectId = 1;
-	JSON = "[
-			 |	{
-			 |		""project_id"": 1,
-			 |		""merge_commit_sha"": null,
-			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/4""
-			 |	},
-			 |	{
-			 |		""project_id"": 1,
-			 |		""merge_commit_sha"": ""c1775c33f82fcf22b3c2c4a5b4e95e430ef35d89"",
-			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/3""
-			 |	},
-			 |	{
-			 |		""project_id"": 1,
-			 |		""merge_commit_sha"": ""87fc6b2782f1bcadce980cb52941e2bd90974c0f"",
-			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/2""
-			 |	},
-			 |	{
-			 |		""project_id"": 1,
-			 |		""merge_commit_sha"": ""686109dffcee3e8ef51013f2e7702a8590eb5d73"",
-			 |		""web_url"": ""http://gitlab/root/external-epf/-/merge_requests/1""
-			 |	}
-			 |]";
-			 
-	SetMockMergeRequests(Connection, JSON, 200);
-
-	// when
-	Result = GitlabAPI.GetMergeRequests(Connection.URL, ProjectId);
-	
-	// then
-	Framework.AssertEqual(Result.Count(), 4);
-	Framework.AssertEqual(Result[0].Count(), 3);
-	Framework.AssertEqual(Result[0].Get("project_id"), ProjectId);
-	Framework.AssertEqual(Result[0].Get("web_url"), "http://gitlab/root/external-epf/-/merge_requests/4");
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
 Procedure GetRAWFilesNoRAWFilePaths(Framework) Export
 	
 	// given
@@ -384,33 +336,5 @@ Procedure GetRAWFilesMixed(Framework) Export
 	Framework.AssertStringContains(Result[2].ErrorInfo.Description, HTTPStatusCodesClientServerCached.FindIdByCode(404));
 
 EndProcedure
-
-#EndRegion
-
-#Region Private
-
-#Region MockServer
-
-Procedure SetMockMergeRequests(Connection, JSON, StatusCode)
-	
-	Mock = DataProcessors.MockServerClient.Create();
-
-	Mock.Server(Connection.URL, , True)
-		.Когда(
-			Mock.Request()
-				.WithMethod("GET")
-				.WithPath("/api/v4/projects/.*/merge_requests")
-				.Headers()
-					.WithHeader("PRIVATE-TOKEN", Connection.Token)
-		)
-	    .Respond(
-	        Mock.Response()
-	        	.WithStatusCode(StatusCode)
-	        	.WithBody(JSON)
-	    );
-    
-EndProcedure
-
-#EndRegion
 
 #EndRegion
