@@ -9,21 +9,21 @@ Feature: Transmitter.Tests.TestsLogsServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: InfoOnlyEvent
+Scenario: WarnEventWithObject
 	And I execute 1C:Enterprise script at server
-	| 'TestsLogsServer.InfoOnlyEvent(Context());' |
+	| 'TestsLogsServer.WarnEventWithObject(Context());' |
 
 @OnServer
-Scenario: InfoWithPrefix
+Scenario: InfoEventWithObjectAndHTTPResponse200WithoutBody
 	And I execute 1C:Enterprise script at server
-	| 'TestsLogsServer.InfoWithPrefix(Context());' |
+	| 'TestsLogsServer.InfoEventWithObjectAndHTTPResponse200WithoutBody(Context());' |
 
 @OnServer
-Scenario: WarnWithPrefix
+Scenario: GetEventsHistoryStatusCode
 	And I execute 1C:Enterprise script at server
-	| 'TestsLogsServer.WarnWithPrefix(Context());' |
+	| 'TestsLogsServer.GetEventsHistoryStatusCode(Context());' |
 
 @OnServer
-Scenario: ErrorWithPrefix
+Scenario: GetEventsHistoryWithoutStatusCode
 	And I execute 1C:Enterprise script at server
-	| 'TestsLogsServer.ErrorWithPrefix(Context());' |
+	| 'TestsLogsServer.GetEventsHistoryWithoutStatusCode(Context());' |

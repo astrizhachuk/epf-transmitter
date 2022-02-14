@@ -106,7 +106,10 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 	If ( Files = Undefined ) Then
 		
 		Files = RemoteFiles.GetFromRemoteVCS( ConnectionParams, RequestData );
+		
 		LogDownloadResult( Files, RequestHandler, CheckoutSHA );
+		
+		Files = GetFilesWithoutErrors( Files );
 	
 		// TODO AppendRoutingSettings переместить в GetFromRemoteVCS??? вай нот?
 		ExternalRequests.AppendRoutingSettings( RequestData, Files );
@@ -123,11 +126,13 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 	EndIf;
 	
 	FilesToSend = Routing.GetFilesByRoutes( RequestData, Files );
+	
 	LogRoutingResult( FilesToSend, RequestHandler, CheckoutSHA );
 	
 	FilesToSend = RemoveUnRoutedFiles( FilesToSend );
 
 	Jobs = Endpoints.BackgroundSendFiles( FilesToSend );
+	
 	LogRunBackgroundSendFiles( Jobs, RequestHandler, CheckoutSHA );
 	
 EndProcedure
@@ -148,18 +153,22 @@ EndProcedure
 
 Procedure LogDownloadResult( Val FilesMetadata, Val RequestHandler, Val CheckoutSHA )
 	
+	Var ErrorText;
+	
 	For Each FileMetadata In FilesMetadata Do
 			
-		If ( NOT IsBlankString(FileMetadata.ErrorInfo) ) Then
+		If ( FileMetadata.ErrorInfo = Undefined ) Then
 			
-			Logs.Error( Logs.Events().DATA_PROCESSING, FileMetadata.ErrorInfo, CheckoutSHA, RequestHandler );
+			Continue;
 			
 		EndIf;
-				
+		
+		ErrorText = ErrorProcessing.DetailErrorDescription( FileMetadata.ErrorInfo );
+		
+		Logs.Error( Logs.Events().DATA_PROCESSING, ErrorText, CheckoutSHA, RequestHandler );
+		
 	EndDo;
 
-	Logs.Info( Logs.Events().DATA_PROCESSING, Logs.Messages().DOWNLOADED, CheckoutSHA, RequestHandler );
-	
 EndProcedure
 
 Procedure LogRoutingResult( Val Files, Val RequestHandler, Val CheckoutSHA )
@@ -207,6 +216,30 @@ Procedure LogRunBackgroundSendFiles( Val Jobs, Val RequestHandler, Val CheckoutS
 	Logs.Info( Logs.Events().DATA_PROCESSING, Message, CheckoutSHA, RequestHandler );
 	
 EndProcedure
+
+Function GetFilesWithoutErrors( Val FilesMetadata )
+	
+	Var FileWithoutError;
+	Var Result;
+	
+	Result = FilesMetadata.CopyColumns();
+	
+	For Each FileMetadata In FilesMetadata Do
+			
+		If ( FileMetadata.ErrorInfo <> Undefined ) Then
+			
+			Continue;
+			
+		EndIf;
+		
+		FileWithoutError = Result.Add();
+		FillPropertyValues( FileWithoutError, FileMetadata );
+		
+	EndDo;
+	
+	Return Result;
+
+EndFunction
 
 Function RemoveUnroutedFiles( Val Files )
 	

@@ -416,7 +416,7 @@
           <name>ReceivedRequestsКоманднаяПанель</name>
           <id>350</id>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsResendData</name>
+            <name>HandleRequest</name>
             <id>339</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -424,7 +424,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsResendDataРасширеннаяПодсказка</name>
+              <name>HandleRequestExtendedTooltip</name>
               <id>340</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -438,7 +438,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ResendData</commandName>
+            <commandName>Form.Command.HandleRequest</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -449,7 +449,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsOpenRequestJSON</name>
+            <name>OpenRequest</name>
             <id>327</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -457,7 +457,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsOpenRequestJSONExtendedTooltip</name>
+              <name>OpenRequestExtendedTooltip</name>
               <id>328</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -472,7 +472,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenRequestJSON</commandName>
+            <commandName>Form.Command.OpenRequest</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -480,7 +480,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsOpenRoutingJSON</name>
+            <name>OpenRoutingSettings</name>
             <id>329</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -488,7 +488,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsOpenRoutingJSONРасширеннаяПодсказка</name>
+              <name>OpenRoutingSettingsExtendedTooltip</name>
               <id>330</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -503,7 +503,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenRoutingJSON</commandName>
+            <commandName>Form.Command.OpenRoutingSettings</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -511,7 +511,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsOpenBackgroundJobs</name>
+            <name>OpenBackgrounds</name>
             <id>331</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -519,7 +519,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsOpenBackgroundJobsРасширеннаяПодсказка</name>
+              <name>OpenBackgroundsExtendedTooltip</name>
               <id>332</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -534,7 +534,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenBackgroundJobs</commandName>
+            <commandName>Form.Command.OpenBackgrounds</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -687,7 +687,7 @@
           <name>ReceivedRequestsКонтекстноеМеню</name>
           <id>351</id>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsContextMenuResendData</name>
+            <name>ContextMenuResendData</name>
             <id>345</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -695,7 +695,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsContextMenuResendDataРасширеннаяПодсказка</name>
+              <name>ContextMenuResendDataExtendedTooltip</name>
               <id>346</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -709,7 +709,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ResendData</commandName>
+            <commandName>Form.Command.HandleRequest</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -717,7 +717,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsContextMenuOpenBackgroundJobs</name>
+            <name>ContextMenuOpenBackgrounds</name>
             <id>343</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -725,7 +725,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsContextMenuOpenBackgroundJobsРасширеннаяПодсказка</name>
+              <name>ContextMenuOpenBackgroundsExtendedTooltip</name>
               <id>344</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -739,7 +739,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.OpenBackgroundJobs</commandName>
+            <commandName>Form.Command.OpenBackgrounds</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -747,7 +747,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ReceivedRequestsContextMenuOpenRepositoryOnRemote</name>
+            <name>ContextMenuOpenRepositoryOnRemote</name>
             <id>347</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -755,7 +755,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ReceivedRequestsContextMenuOpenRepositoryOnRemoteExtendedTooltip</name>
+              <name>ContextMenuOpenRepositoryOnRemoteExtendedTooltip</name>
               <id>348</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -919,7 +919,9 @@
           <id>336</id>
           <visible>true</visible>
           <enabled>true</enabled>
-          <userVisible/>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
               <segments>EventsHistory.Action</segments>
@@ -1115,21 +1117,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>EventsHistoryEventPresentation</name>
-          <id>231</id>
+          <name>EventsHistoryDataPresentation</name>
+          <id>383</id>
           <visible>true</visible>
           <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>EventsHistory.EventPresentation</segments>
-            </paths>
+          <userVisible/>
+          <dataPath xsi:type="form:DataPath">
+            <segments>EventsHistory.DataPresentation</segments>
           </dataPath>
           <extendedTooltip>
-            <name>EventsHistoryEventPresentationРасширеннаяПодсказка</name>
-            <id>233</id>
+            <name>EventsHistoryDataPresentationExtendedTooltip</name>
+            <id>385</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -1143,8 +1141,8 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>EventsHistoryEventPresentationКонтекстноеМеню</name>
-            <id>232</id>
+            <name>EventsHistoryDataPresentationContextMenu</name>
+            <id>384</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -1507,7 +1505,7 @@
       </userVisible>
       <title>
         <key>en</key>
-        <value>Events History</value>
+        <value>Events history</value>
       </title>
       <title>
         <key>ru</key>
@@ -1674,8 +1672,8 @@
 	EventsHistory.Action,
 	EventsHistory.Level,
 	EventsHistory.Event,
-	EventsHistory.EventPresentation,
 	EventsHistory.HTTPStatusCode,
+	EventsHistory.DataPresentation,
 	EventsHistory.ApplicationPresentation,
 	EventsHistory.UserName,
 	EventsHistory.Comment
@@ -1715,39 +1713,11 @@
       <getInvisibleFieldPresentations>true</getInvisibleFieldPresentations>
     </extInfo>
   </attributes>
-  <attributes>
-    <name>ExternalFiles</name>
-    <title>
-      <key>en</key>
-      <value>External Files</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Внешние файлы</value>
-    </title>
-    <id>5</id>
-    <valueType>
-      <types>DynamicList</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <extInfo xsi:type="form:DynamicListExtInfo">
-      <mainTable>InformationRegister.RemoteFiles</mainTable>
-      <dynamicDataRead>true</dynamicDataRead>
-      <autoFillAvailableFields>true</autoFillAvailableFields>
-      <autoSaveUserSettings>true</autoSaveUserSettings>
-      <getInvisibleFieldPresentations>true</getInvisibleFieldPresentations>
-    </extInfo>
-  </attributes>
   <formCommands>
     <name>LoadEventsHistory</name>
     <title>
       <key>en</key>
-      <value>Load History</value>
+      <value>Load history</value>
     </title>
     <title>
       <key>ru</key>
@@ -1755,8 +1725,12 @@
     </title>
     <id>1</id>
     <toolTip>
+      <key>en</key>
+      <value>Loads the event handler history from the log</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
-      <value>Загружает историю обработчика событий из журнала регистрации.</value>
+      <value>Загружает историю обработчика событий из журнала регистрации</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -1769,14 +1743,14 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenRequestJSON</name>
+    <name>OpenRequest</name>
     <title>
       <key>en</key>
-      <value>Query JSON</value>
+      <value>Request body</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Полученный JSON</value>
+      <value>Тело запроса</value>
     </title>
     <id>2</id>
     <use>
@@ -1784,20 +1758,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenRequestJSON</name>
+        <name>OpenRequest</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenRoutingJSON</name>
+    <name>OpenRoutingSettings</name>
     <title>
       <key>en</key>
-      <value>Routing JSON</value>
+      <value>Routing settings</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Настройка маршрутизации</value>
+      <value>Настройки маршрутизации</value>
     </title>
     <id>3</id>
     <use>
@@ -1805,13 +1779,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenRoutingJSON</name>
+        <name>OpenRoutingSettings</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenBackgroundJobs</name>
+    <name>OpenBackgrounds</name>
     <title>
       <key>en</key>
       <value>Background Jobs</value>
@@ -1821,29 +1795,25 @@
       <value>Фоновые задания</value>
     </title>
     <id>4</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Показать фоновые задания</value>
-    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenBackgroundJobs</name>
+        <name>OpenBackgrounds</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ResendData</name>
+    <name>HandleRequest</name>
     <title>
       <key>en</key>
-      <value>Resend</value>
+      <value>Handle manually</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Отправить повторно</value>
+      <value>Обработать вручную</value>
     </title>
     <id>5</id>
     <use>
@@ -1851,7 +1821,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ResendData</name>
+        <name>HandleRequest</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

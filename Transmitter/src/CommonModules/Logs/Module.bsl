@@ -11,9 +11,9 @@ Function Events() Export
 
 	Result = New Structure();
 	
-	Result.Insert( "WS_REQUEST", NStr("ru = 'ВебСервис';en = 'WebService'") );
+	Result.Insert( "WS_REQUEST", NStr("ru = 'Веб-сервис';en = 'Web-service'") );
 	Result.Insert( "AUTHENTICATION", NStr("ru = 'Аутентификация';en = 'Authentication'") );
-	Result.Insert( "DATA_PROCESSING", NStr("ru = 'ОбработкаДанных';en = 'DataProcessing'") );	
+	Result.Insert( "DATA_PROCESSING", NStr("ru = 'Обработка данных';en = 'Data processing'") );	
 
 	Return Result;
 	
@@ -42,7 +42,6 @@ Function Messages() Export
 	Result.Insert( "EVENT_WRONG", NStr("ru = 'событие запроса не соответствует выбранному методу';en = 'request event does not match the selected method.'") );
 	Result.Insert( "NO_CHECKOUT_SHA", NStr("ru = 'в запросе нет ""checkout_sha""';en = 'the request does not contain ""checkout_sha""'") );
 
-	Result.Insert( "DOWNLOADED", NStr("ru = 'файлы из внешнего хранилища загружены';en = 'files from external storage loaded'") );
 	Result.Insert( "DOWNLOAD_ERROR", NStr("ru = 'ошибка загрузки файла: URL: %1: описание ошибки:" + Chars.LF + "%2';en = 'file download error: URL: %1: error description:" + Chars.LF + "%2'") );
 
 	Result.Insert( "NO_REQUEST_DATA", NStr("ru = 'нет данных запроса';en = 'no request data'") );	
@@ -70,7 +69,7 @@ EndFunction
 // augmented with logged message data for HTTP status codes that support this capability.
 // 
 // Parameters:
-// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Action - String - logged event in format: "Action1.Action2...ActionN";
 // 	Message - String - message text;
 // 	Prefix - String - prefix text;
 //  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
@@ -79,15 +78,15 @@ EndFunction
 // Returns:
 // 	String - text of the added comment;
 //
-Function Info( Val Event, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
+Function Info( Val Action, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
 	
 	Var LogOptions;
 	Var Comment;
 	
 	LogOptions = LogOptions( Object, Response );
 	Comment = AppendPrefix( Message, Prefix );
-	AppendResponseBody( LogOptions, EventLogLevel.Information, Comment);
-	Write( Event, EventLogLevel.Information, Comment, LogOptions );
+	AppendResponseBody( LogOptions, EventLogLevel.Information, Comment );
+	Write( Action, EventLogLevel.Information, Comment, LogOptions );
 	
 	Return Comment;
 
@@ -99,7 +98,7 @@ EndFunction
 // augmented with logged message data for HTTP status codes that support this capability.
 // 
 // Parameters:
-// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Action - String - logged event in format: "Action1.Action2...ActionN";
 // 	Message - String - message text;
 // 	Prefix - String - prefix text;
 //  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
@@ -108,7 +107,7 @@ EndFunction
 // Returns:
 // 	String - text of the added comment;
 //
-Function Warn( Val Event, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
+Function Warn( Val Action, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
 
 	Var LogOptions;
 	Var Comment;
@@ -116,7 +115,7 @@ Function Warn( Val Event, Val Message, Val Prefix = "", Object = Undefined, Resp
 	LogOptions = LogOptions( Object, Response );
 	Comment = AppendPrefix( Message, Prefix );
 	AppendResponseBody( LogOptions, EventLogLevel.Warning, Comment );
-	Write( Event, EventLogLevel.Warning, Comment, LogOptions );
+	Write( Action, EventLogLevel.Warning, Comment, LogOptions );
 	
 	Return Comment;
 
@@ -128,7 +127,7 @@ EndFunction
 // augmented with logged message data for HTTP status codes that support this capability.
 // 
 // Parameters:
-// 	Event - String - logged event in format: "Action.Operation1.Operation2...OperationN";
+// 	Action - String - logged event in format: "Action1.Action2...ActionN";
 // 	Message - String - message text;
 // 	Prefix - String - prefix text;
 //  Object - AnyRef - a ref to an object which metadata needs to be added to the log;
@@ -137,7 +136,7 @@ EndFunction
 // Returns:
 // 	String - text of the added comment;
 //
-Function Error( Val Event, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
+Function Error( Val Action, Val Message, Val Prefix = "", Object = Undefined, Response = Undefined ) Export
 
 	Var LogOptions;
 	Var Comment;
@@ -145,15 +144,135 @@ Function Error( Val Event, Val Message, Val Prefix = "", Object = Undefined, Res
 	LogOptions = LogOptions( Object, Response );
 	Comment = AppendPrefix( Message, Prefix );
 	AppendResponseBody( LogOptions, EventLogLevel.Error, Message );
-	Write( Event, EventLogLevel.Error, Comment, LogOptions );
+	Write( Action, EventLogLevel.Error, Comment, LogOptions );
 	
 	Return Comment;
+
+EndFunction
+
+// GetEventsHistory returns data from the event log by filter.
+// 
+// Parameters:
+// 	Caller - String - synonym for the metadata object for which the log is collected;
+// 	Filter - Structure - event log filter (see global context UnloadEventLog);
+// 	
+// Returns:
+// 	ValueTable - event log data:
+// 	* Date - Date - event date;
+// 	* Level - EventLogLevel - log level;
+// 	* Event - String - event name;
+// 	* Data - Undefined, AnyRef - data;
+// 	* DataPresentation - String - data presentation;
+// 	* UserName - String - user name;
+// 	* ApplicationPresentation - String - application name;
+// 	* Comment - String - comment;
+// 	* Action - String - action from event;
+// 	* HTTPStatusCode - Number - HTTP status code or 0, if code undefined;
+//
+Function GetEventsHistory( Val Caller, Val Filter ) Export
+
+	Var Log;
+	Var Event;
+	Var NewRecord;
+	Var Result;
+	
+	COLUMNS = "Date, Level, Event, Data, DataPresentation, UserName, ApplicationPresentation, Comment";
+
+	Log = New ValueTable();
+	
+	UnloadEventLog( Log, Filter, COLUMNS );
+	
+	Result = EventsHistory( Log );
+	
+	For Each Record In Log Do
+		
+		Event = GetEvent( Record );
+		
+		If ( Event.Context <> Caller ) Then
+			
+			Continue;
+			
+		EndIf;
+
+		NewRecord = Result.Add();
+		
+		FillPropertyValues( NewRecord, Record );
+		FillPropertyValues( NewRecord, Event );
+ 		
+	EndDo;
+	
+	Return Result;
 
 EndFunction
 
 #EndRegion
 
 #Region Private
+
+Function StatusCodeLabel()
+	
+	Return NStr( "ru = 'код состояния: ';en = 'status code: '" );
+	
+EndFunction
+
+Function GetStatusCode( Val Message )
+
+	Var TypeNumber;
+	
+	If ( StrFind(Message, StatusCodeLabel()) = 0 ) Then
+		
+		Return 0;
+		
+	EndIf;
+
+	TypeNumber = New TypeDescription( "Number" );
+	
+	Return TypeNumber.AdjustValue( Mid(Message, StrLen(StatusCodeLabel()) + 1, 3) );
+	
+EndFunction
+
+Function GetStatusCodeMessage( Val StatusCode )
+	
+	Return StatusCodeLabel() + String( StatusCode ) + ": ";
+	
+EndFunction
+
+Function EventsHistory( Val Source )
+	
+	Result = Source.CopyColumns();
+	Result.Columns.Add( "Action", New TypeDescription("String") );
+	Result.Columns.Add( "HTTPStatusCode", New TypeDescription("Number") );
+	
+	Return Result;
+	
+EndFunction
+
+Function GetEvent( Val Record )
+
+	Var Events;
+	Var StatusCode;
+	Var Result;
+
+	Events = StrSplit( Record.Event, "." );
+	StatusCode = GetStatusCode( Record.Comment );
+	
+	Result = New Structure();
+	
+	Result.Insert( "Context", Events[0] );
+
+	If ( Events.Count() = 1 ) Then
+		
+		Return Result;
+		
+	EndIf;
+	
+	Result.Insert( "Action", Events[1] );
+	Result.Insert( "HTTPStatusCode", StatusCode );
+	Result.Insert( "Comment", StrReplace(Record.Comment, GetStatusCodeMessage(StatusCode), "") );
+	
+	Return Result;
+	
+EndFunction
 
 Function LogOptions( Val Object = Undefined, Val Response = Undefined )
 	
@@ -167,18 +286,20 @@ Function LogOptions( Val Object = Undefined, Val Response = Undefined )
 	
 EndFunction
 
-Procedure AppendStatusCode( Event, Val LogOptions )
+Procedure AppendStatusCode( Message, Val LogOptions )
 	
 	Var Response;
 	
 	Response = CommonUseClientServer.StructureProperty( LogOptions, "Response" );
 
-	If ( Response <> Undefined ) Then
-			
-		Event = Event + "." + String( Response.КодСостояния );
+	If ( Response = Undefined ) Then
+		
+		Return;
 		
 	EndIf;
-
+			
+	Message = GetStatusCodeMessage( Response.StatusCode ) + Message;
+		
 EndProcedure
 
 Procedure AppendResponseBody( LogOptions, Val Level, Val Message )
@@ -211,7 +332,7 @@ Procedure AppendResponseBody( LogOptions, Val Level, Val Message )
 	
 EndProcedure
 
-Function AppendPrefix( Message, Val Prefix )
+Function AppendPrefix( Val Message, Val Prefix )
 	
 	If IsBlankString(Prefix) Then
 		
@@ -223,19 +344,19 @@ Function AppendPrefix( Message, Val Prefix )
 
 EndFunction
 
-Procedure Write( Val Event, Val Level, Val Message, Val LogOptions )
+Procedure Write( Val Action, Val Level, Val Message, Val LogOptions )
 	
+	Var Event;
 	Var Object;
 	
-	AppendStatusCode( Event, LogOptions );
-
-	Event = Metadata.Catalogs.ExternalRequestHandlers.Synonym + "." + Event;
-	
+	Event = Metadata.Catalogs.ExternalRequestHandlers.Synonym + "." + Action;
 	Object = CommonUseClientServer.StructureProperty( LogOptions, "Object" );
+	
+	AppendStatusCode( Message, LogOptions );
 
 	If ( Object = Undefined ) Then
 
-		WriteLogEvent( Event, Level, , , Message);
+		WriteLogEvent( Event, Level, , , Message );
 
 	Else
 

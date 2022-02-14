@@ -193,7 +193,8 @@ Procedure StartDownloadFromRemoteVCSNoRouts(Framework) Export
 	Result = DataProcessing.Start(RequestHandler.Ref, Data)
 							.WaitForExecutionCompletion(60);
 	// then
-	Framework.AssertTrue(Result.State = BackgroundJobState.Completed);
+	Framework.AssertTrue(Result.State = BackgroundJobState.Failed);
+	Framework.AssertStringContains(Result.ErrorInfo.Description, Logs.Messages().NO_UPLOAD_DATA);
 
 EndProcedure
 
@@ -324,7 +325,7 @@ Procedure ManualRunCompleted(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //

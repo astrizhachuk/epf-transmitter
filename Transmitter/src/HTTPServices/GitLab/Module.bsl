@@ -21,7 +21,7 @@ Function EventsPost( Request )
 	Var Response;
 	
 	Logs.Info( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_RECEIVED );
-
+	
 	Response = New HTTPServiceResponse( FindCodeById("OK") );
 	
 	CheckHandleRequestsEnabled( Response );

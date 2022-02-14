@@ -65,7 +65,7 @@ Procedure GitLabStatusGet200OkDisabled(Framework) Export
 	
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //

@@ -60,4 +60,4 @@
 	И в таблице "ReceivedRequests" я перехожу к строке:
 		| 'checkout_sha' |
 		| "CheckoutSHA"  |
-	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRoutingJSON'
+	И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'OpenRoutingSettings'

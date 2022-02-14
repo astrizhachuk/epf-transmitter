@@ -102,3 +102,13 @@ Scenario: InfoEventWithObjectAndHTTPResponse423WithoutBody
 Scenario: ErrorEventWithObjectAndHTTPResponse500WithBody
 	And I execute 1C:Enterprise script at server
 	| 'TestsLogsServer.ErrorEventWithObjectAndHTTPResponse500WithBody(Context());' |
+
+@OnServer
+Scenario: GetEventsHistoryStatusCode
+	And I execute 1C:Enterprise script at server
+	| 'TestsLogsServer.GetEventsHistoryStatusCode(Context());' |
+
+@OnServer
+Scenario: GetEventsHistoryWithoutStatusCode
+	And I execute 1C:Enterprise script at server
+	| 'TestsLogsServer.GetEventsHistoryWithoutStatusCode(Context());' |

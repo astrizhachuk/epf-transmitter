@@ -175,12 +175,12 @@ EndProcedure
 &AtServer
 Procedure SetFormType( Val CommandName )
 	
-	If ( CommandName = "OpenRequestJSON" ) Then
+	If ( CommandName = "OpenRequest" ) Then
 
 		IsRequest = True;
 		Title = NStr( "ru = 'Запрос';en = 'Query'" );
 
-	ElsIf ( CommandName = "OpenRoutingJSON" ) Then
+	ElsIf ( CommandName = "OpenRoutingSettings" ) Then
 		
 		IsRequest = False;
 		Title = NStr( "ru = 'Маршрутизация';en = 'Routing'" );

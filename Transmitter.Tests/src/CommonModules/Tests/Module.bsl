@@ -398,7 +398,7 @@ EndFunction
 Function GetEventLog( Val Filter ) Export
 
 	Result = New ValueTable();
-	Columns = "Date, ApplicationName, EventPresentation, MetadataPresentation, DataPresentation, Comment";
+	Columns = "Date, ApplicationName, MetadataPresentation, DataPresentation, Comment";
 	UnloadEventLog(Result, Filter, Columns);
 //	Filter.Delete("ApplicationName");
 //	UnloadEventLog(Result, Filter);

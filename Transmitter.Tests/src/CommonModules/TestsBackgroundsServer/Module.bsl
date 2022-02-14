@@ -1,6 +1,6 @@
 #Region Public
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -17,7 +17,7 @@ Procedure GetJobsByKeyPrefixNoFilter(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //

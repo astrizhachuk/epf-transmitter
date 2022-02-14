@@ -467,7 +467,7 @@ Procedure RemoveCustomRoutingSettings(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -487,7 +487,7 @@ Procedure GetCustomSettingsJSONNoCustomSettings(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -509,7 +509,7 @@ Procedure GetCustomSettingsJSONNoJSON(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -532,7 +532,7 @@ Procedure GetCustomSettingsJSON(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -552,7 +552,7 @@ Procedure GetDefaultSettingsJSONNoSettings(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -574,7 +574,7 @@ Procedure GetDefaultSettingsJSONNoJSON(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //

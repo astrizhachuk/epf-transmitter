@@ -33,14 +33,14 @@ Procedure Messages(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure InfoOnlyEvent(Framework) Export
 
 	// given
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
 	Comment = "InfoOnlyEvent";
 	
 	// when
@@ -58,7 +58,7 @@ EndProcedure
 Procedure WarnOnlyEvent(Framework) Export
 	
 	// given
-	Event = NewEvent(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
 	Comment = "WarnOnlyEvent";
 	
 	// when
@@ -76,7 +76,7 @@ EndProcedure
 Procedure ErrorOnlyEvent(Framework) Export
 	
 	// given
-	Event = NewEvent(NStr("ru = 'Ошибка';en = 'Error'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Ошибка';en = 'Error'"), 3);
 	Comment = "ErrorOnlyEvent";
 	
 	// when
@@ -87,14 +87,14 @@ Procedure ErrorOnlyEvent(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure InfoWithPrefix(Framework) Export
 	
 	// given
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
 	Prefix = Tests.RandomString();
 	Comment = "InfoWithPrefix";
 	
@@ -108,14 +108,14 @@ Procedure InfoWithPrefix(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure WarnWithPrefix(Framework) Export
 	
 	// given
-	Event = NewEvent(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
 	Prefix = Tests.RandomString();
 	Comment = "WarnWithPrefix";
 	
@@ -129,14 +129,14 @@ Procedure WarnWithPrefix(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
 Procedure ErrorWithPrefix(Framework) Export
 	
 	// given
-	Event = NewEvent(NStr("ru = 'Ошибка';en = 'Error'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Ошибка';en = 'Error'"), 3);
 	Prefix = Tests.RandomString();
 	Comment = "ErrorWithPrefix";
 	
@@ -160,7 +160,7 @@ Procedure InfoEventWithObject(Framework) Export
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event);
 	Comment = "InfoEventWithObject";
 
@@ -177,7 +177,7 @@ Procedure InfoEventWithObject(Framework) Export
 
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework
@@ -187,7 +187,7 @@ Procedure WarnEventWithObject(Framework) Export
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 
-	Event = NewEvent(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning");
 	Comment = "WarnEventWithObject";
 	
@@ -214,7 +214,7 @@ Procedure ErrorEventWithObject(Framework) Export
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	
-	Event = NewEvent(NStr("ru = 'Ошибка';en = 'Error'"), 3);
+	Event = NewSeqEvents(NStr("ru = 'Ошибка';en = 'Error'"), 3);
 	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
 	Comment = "ErrorEventWithObject";
 
@@ -231,7 +231,7 @@ Procedure ErrorEventWithObject(Framework) Export
 	
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework
@@ -240,8 +240,8 @@ Procedure InfoEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 200;
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information");
 	Comment = "InfoEventWithObjectAndHTTPResponse200WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -253,7 +253,7 @@ Procedure InfoEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertStringContains(Result[0].Comment, Comment);
+	Framework.AssertStringContains(Result[0].Comment, GetCommentWithStatusCode(StatusCode) + Comment);
 	Framework.AssertEqual(Response.StatusCode, StatusCode);
 	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 	
@@ -268,8 +268,8 @@ Procedure WarnEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 200;
-	Event = NewEvent(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Предупреждение';en = 'Warning'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Warning");
 	Comment = "WarnEventWithObjectAndHTTPResponse200WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -281,7 +281,7 @@ Procedure WarnEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Result[0].Comment, GetCommentWithStatusCode(StatusCode) + Comment);
 	Framework.AssertEqual(Response.StatusCode, StatusCode);
 	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 	
@@ -296,8 +296,8 @@ Procedure ErrorEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 200;
-	Event = NewEvent(NStr("ru = 'Ошибка';en = 'Error'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Ошибка';en = 'Error'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
 	Comment = "ErrorEventWithObjectAndHTTPResponse200WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 
@@ -309,7 +309,7 @@ Procedure ErrorEventWithObjectAndHTTPResponse200WithoutBody(Framework) Export
 
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Result[0].Comment, GetCommentWithStatusCode(StatusCode) + Comment);
 	Framework.AssertEqual(Response.StatusCode, StatusCode);
 	Framework.AssertTrue(IsBlankString(Response.GetBodyAsString()));
 
@@ -324,8 +324,8 @@ Procedure InfoEventWithObjectAndHTTPResponse400WithBody(Framework) Export
 
 	// given
 	StatusCode = 400;
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information");
 	Comment = "InfoEventWithObjectAndHTTPResponse400WithBody";
 	Response = New HTTPServiceResponse(StatusCode);
 		
@@ -337,7 +337,7 @@ Procedure InfoEventWithObjectAndHTTPResponse400WithBody(Framework) Export
 	
 	// then
 	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Result[0].Comment, GetCommentWithStatusCode(StatusCode) + Comment);
 	Framework.AssertEqual(Response.StatusCode, StatusCode);
 	Framework.AssertEqual(Response.Headers.Get("Content-Type"), "application/json");
 	Framework.AssertStringContains(Response.GetBodyAsString(), """message"":");
@@ -354,8 +354,8 @@ Procedure InfoEventWithObjectAndHTTPResponse401WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 401;
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information");
 	Comment = "InfoEventWithObjectAndHTTPResponse401WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -381,8 +381,8 @@ Procedure InfoEventWithObjectAndHTTPResponse404WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 404;
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information");
 	Comment = "InfoEventWithObjectAndHTTPResponse404WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -408,8 +408,8 @@ Procedure InfoEventWithObjectAndHTTPResponse423WithoutBody(Framework) Export
 	
 	// given
 	StatusCode = 423;
-	Event = NewEvent(NStr("ru = 'Информация';en = 'Information'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Информация';en = 'Information'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Information");
 	Comment = "InfoEventWithObjectAndHTTPResponse423WithoutBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -435,8 +435,8 @@ Procedure ErrorEventWithObjectAndHTTPResponse500WithBody(Framework) Export
 	
 	// given
 	StatusCode = 500;
-	Event = NewEvent(NStr("ru = 'Ошибка';en = 'Error'"), 3);
-	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error", StatusCode);
+	Event = NewSeqEvents(NStr("ru = 'Ошибка';en = 'Error'"), 3);
+	EventLogFilterByEvent = EventLogFilterByEvent(Event, "Error");
 	Comment = "ErrorEventWithObjectAndHTTPResponse500WithBody";
 	Response = New HTTPServiceResponse(StatusCode);
 	
@@ -454,11 +454,88 @@ Procedure ErrorEventWithObjectAndHTTPResponse500WithBody(Framework) Export
 
 EndProcedure
 
+// @unit-test:dev
+// @timer
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetEventsHistoryStatusCode(Framework) Export
+	
+	// given
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
+	
+	Date = CurrentSessionDate();
+	Action = Tests.RandomString();
+	Event = GetEvent(NewEvents(Action));
+	Level = EventLogLevel.Information;
+	Comment = Tests.RandomString();
+	StatusCode = 200;
+	
+	ExternalRequestHandler = Tests.NewExternalRequestHandler();
+	
+	// when
+	WriteLogEvent(Event, Level, , ExternalRequestHandler.Ref, GetCommentWithStatusCode(StatusCode) + Comment);
+	Tests.Pause(3);
+	Filter = New Structure();
+	Filter.Insert( "StartDate", Date );
+	Filter.Insert( "EndDate", CurrentSessionDate() );
+	Filter.Insert( "Data", ExternalRequestHandler.Ref );
+	Result = Logs.GetEventsHistory(Metadata.Catalogs.ExternalRequestHandlers.Synonym, Filter);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Level, Level);
+	Framework.AssertEqual(Result[0].Event, Event);
+	Framework.AssertEqual(Result[0].Data, ExternalRequestHandler.Ref);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Result[0].Action, Action);
+	Framework.AssertEqual(Result[0].HTTPStatusCode, StatusCode);
+	
+EndProcedure
+
+// @unit-test:dev
+// @timer
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetEventsHistoryWithoutStatusCode(Framework) Export
+	
+	// given
+	Tests.CatalogCleanUp("ExternalRequestHandlers");
+	Tests.InformationRegisterCleanUp("ExternalRequests, RemoteFiles");
+	
+	Date = CurrentSessionDate();
+	Action = Tests.RandomString();
+	Event = GetEvent(NewEvents(Action));
+	Level = EventLogLevel.Information;
+	Comment = Tests.RandomString();
+	
+	ExternalRequestHandler = Tests.NewExternalRequestHandler();
+	
+	// when
+	WriteLogEvent(Event, Level, , ExternalRequestHandler.Ref, Comment);
+	Tests.Pause(3);
+	Filter = New Structure();
+	Filter.Insert( "StartDate", Date );
+	Filter.Insert( "EndDate", CurrentSessionDate() );
+	Filter.Insert( "Data", ExternalRequestHandler.Ref );
+	Result = Logs.GetEventsHistory(Metadata.Catalogs.ExternalRequestHandlers.Synonym, Filter);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 1);
+	Framework.AssertEqual(Result[0].Level, Level);
+	Framework.AssertEqual(Result[0].Event, Event);
+	Framework.AssertEqual(Result[0].Data, ExternalRequestHandler.Ref);
+	Framework.AssertEqual(Result[0].Comment, Comment);
+	Framework.AssertEqual(Result[0].Action, Action);
+	Framework.AssertEqual(Result[0].HTTPStatusCode, 0);
+	
+EndProcedure
+
 #EndRegion
 
 #Region Private
-
-#Region EventLog
 
 Function NewLog()
 	
@@ -469,7 +546,7 @@ Function NewLog()
 	
 EndFunction
 
-Function NewEvent(Val Value, Val Level)
+Function NewSeqEvents(Val Value, Val Level)
 	
 	Result = New Array();
 	
@@ -485,28 +562,44 @@ Function NewEvent(Val Value, Val Level)
 	
 EndFunction
 
+Function NewEvents(Val Event1, Val Event2 = Undefined)
+	
+	Result = New Array();
+	Result.Add(Event1);
+	If Event2 <> Undefined Then
+		Result.Add(Event2);
+	EndIf;
+
+	Return Result;
+	
+EndFunction
+
 Function ToString(Val Events)
 	
 	Return StrConcat(Events, ".");
 	
 EndFunction
 
-Function EventLogFilterByEvent(Events, Level = "Information", Val StatusCode = 0)
+Function GetEvent(Val Events)
 	
 	Result = NewLog();
 	
 	CommonUseClientServer.SupplementArray(Result, Events);
-
-	If ValueIsFilled(StatusCode) Then
-		
-		Result.Add(StatusCode);
-		
-	EndIf;
-
-	Return Tests.EventLogFilterByEvent(StrConcat(Result, "."), Level, "1CV8C");
+	
+	Return ToString(Result);
 	
 EndFunction
 
-#EndRegion
+Function GetCommentWithStatusCode( Val StatusCode )
+	
+	Return NStr( "ru = 'код состояния: ';en = 'status code: '" ) + StatusCode + ": ";
+	
+EndFunction
+
+Function EventLogFilterByEvent(Events, Level = "Information")
+
+	Return Tests.EventLogFilterByEvent(GetEvent(Events), Level, "1CV8C");
+	
+EndFunction
 
 #EndRegion

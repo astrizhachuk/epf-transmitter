@@ -22,7 +22,7 @@
 	И Я отправляю "Push Hook" запрос с токеном "Token1" и телом из файла "/test/requests/push-2b9949a2.json" для сервиса "/api/ru/hs/gitlab/events/push"
 	И Пауза 1
 
-Сценарий: Я просматриваю полученные и сохраненные запросы в редакторе JSON
+Сценарий: Просмотр полученных запросов в редакторе JSON
 
 	Выбираем обработчик запросов
 
@@ -37,7 +37,7 @@
 		Когда в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '1b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRequestJSON'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'OpenRequest'
 
 		Тогда открылось окно 'Запрос'
 		И элемент формы с именем "GroupCommits" существует и невидим на форме
@@ -53,7 +53,7 @@
 		Когда в таблице "ReceivedRequests" я перехожу к строке:
 			| 'checkout_sha'                             |
 			| '2b9949a21e6c897b3dcb4dd510ddb5f893adae2f' |
-		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'ReceivedRequestsOpenRequestJSON'
+		И в таблице "ReceivedRequests" я нажимаю на кнопку с именем 'OpenRequest'
 
 		Тогда открылось окно 'Запрос'
 		И элемент формы с именем "GroupCommits" существует и невидим на форме
