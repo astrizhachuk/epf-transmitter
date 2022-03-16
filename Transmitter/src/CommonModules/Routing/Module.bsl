@@ -5,7 +5,7 @@
 // GetFilesByRoutes returns downloaded files with the URLs of the delivery endpoint service.
 // 
 // Parameters:
-//	RequestData - Map - deserialized request body;
+//	ExternalRequest - DataProcessorObject.ExternalRequest - external request instance;
 // 	Files - ValueTable - downloaded files metadata:
 // * RAWFilePath - String - relative URL path to the RAW file;
 // * FileName - String - file name;
@@ -23,16 +23,14 @@
 // * BinaryData - BinaryData - file data;
 // * Routes - Array of String - delivery end-point service URLs;
 //
-Function GetFilesByRoutes( Val RequestData, Val Files ) Export
+Function GetFilesByRoutes( Val ExternalRequest, Val Files ) Export
 	
 	Var RoutesByCommits;
 	Var FileToSend;
 	Var Routes;
 	Var Result;
 	
-	Commits = ExternalRequests.GetCommitsOrRaise( RequestData );
-	
-	RoutesByCommits = RoutesByCommits( Commits );
+	RoutesByCommits = FindRoutesByCommits( ExternalRequest );
 	
 	Result = New Array();
 	
@@ -59,6 +57,97 @@ Function GetFilesByRoutes( Val RequestData, Val Files ) Export
 		Result.Add( FileToSend );
 		
 	EndDo;
+	
+	Return Result;
+	
+EndFunction
+
+// FillRoutesFromBinaryData fills routes in JSON format extracted from file metadata.
+// 
+// Parameters:
+// 	ExternalRequest - DataProcessorObject.ExternalRequest - external request instance;
+// 	Files - ValueTable - downloaded files metadata:
+// * RAWFilePath - String - relative URL path to the RAW file;
+// * FileName - String - file name;
+// * FilePath - String - relative path to the file for the remote repository (with the filename);
+// * BinaryData - BinaryData - file data;
+// * Action - String - file operation type: "added", "modified", "removed";
+// * Date - Date - file operation date;
+// * CommitSHA - String - сommit SHA;
+// * ErrorInfo - Undefined, ErrorInfo - file download error;
+//
+Procedure FillRoutesFromBinaryData( ExternalRequest, Val Files ) Export
+	
+	Var FileName;
+	Var FileMetadata;
+	
+	FileName = ServicesSettings.RoutingFileName();
+	
+	For Each Commit In ExternalRequest.GetCommits() Do
+		
+		FileMetadata = Files.FindRows( FilterRouteFile(Commit.Id, FileName) );
+		
+		If ( NOT ValueIsFilled(FileMetadata) ) Then
+			
+			Continue;
+			
+		EndIf;
+		
+		ExternalRequest.AddRoute( Commit.Id, GetStringFromBinaryData(FileMetadata[0].BinaryData) );
+		
+	EndDo;	
+	
+EndProcedure
+
+// AddCustomRoute adds custom route in JSON format with format verify.
+//
+// Parameters:
+// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+// 	CheckoutSHA - String - event identifier;
+// 	Id - String - сommit SHA;
+// 	JSON - String - routes in JSON format;
+//
+Procedure AddCustomRoute( Val RequestHandler, Val CheckoutSHA, Val Id, Val JSON ) Export
+	
+	Var ExternalRequest;
+	
+	CommonUseServerCall.JsonToObject( JSON );
+	
+	ExternalRequest = ExternalRequests.GetObjectFromIB( RequestHandler, CheckoutSHA );
+	
+	If ( ExternalRequest = Undefined ) Then
+		
+		Return;
+		
+	EndIf;
+
+	ExternalRequest.AddRoute( Id, JSON, True );
+	
+	ExternalRequests.SaveObject( RequestHandler, CheckoutSHA, ExternalRequest );
+
+EndProcedure
+
+// RemoveCustomRoute removes the custom route by commit and returns the default route from the external request.
+// 
+// Parameters:
+// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+// 	CheckoutSHA - String - event identifier;
+// 	Id - String - сommit SHA;
+// 	
+// Returns:
+// 	String - default routes in JSON format;
+//
+Function RemoveCustomRoute( Val RequestHandler, Val CheckoutSHA, Val Id ) Export
+	
+	Var Result;
+	
+	ExternalRequest = ExternalRequests.GetObjectFromIB( RequestHandler, CheckoutSHA );
+	
+	Result = ExternalRequest.GetRouteJSON( Id, False );
+	
+	ExternalRequest.RemoveRoute( Id, True );
+
+	ExternalRequests.SaveObject( RequestHandler, CheckoutSHA, ExternalRequest );	
 	
 	Return Result;
 	
@@ -91,44 +180,27 @@ Function FileToSend()
 	
 EndFunction
 
-// RoutesByCommits returns file delivery routes by commits.
-// Routes are taken from the commit's settings file (see ServicesSettings.RoutingFileName) or from custom settings.
-// For custom settings, the priority is higher than for settings from the file.
+// FindRoutesByCommits returns file delivery routes by commits. Custom routes have a higher priority than "default".
 // 
 // Parameters:
-// 	Commits - Map - deserialized commits from the request body;
+// 	ExternalRequest - DataProcessorObject.ExternalRequest - external request instance;
 // 	
 // Returns:
 // 	Map - file routes by commits:
 // 	* Key - String - commit SHA;
 // 	* Value - Map - routes;
 // 	** Key - String - relative path to the file in remote repository (with the filename);
-// 	** Value - Array of String - file delivery end-point services URLs;
+// 	** Value - Array of String - list of file delivery endpoint URLs;
 //
-Function RoutesByCommits( Val Commits )
+Function FindRoutesByCommits( Val ExternalRequest )
 
-	Var Settings;
 	Var Result;
 	
 	Result = New Map();
 	
-	For Each Commit In Commits Do
+	For Each ActualRoute In ExternalRequest.GetActualRoutes() Do
 		
-		Settings = Commit.Get( "custom_settings" );
-		
-		If ( Settings = Undefined ) Then
-			
-			Settings = Commit.Get( "settings" );
-			
-		EndIf;
-		
-		If ( Settings = Undefined ) Then
-			
-			Continue;
-			
-		EndIf;
-		
-		Result.Insert( Commit.Get( "id" ), Routes( Settings ) );
+		Result.Insert( ActualRoute.Key, Routes( ActualRoute.Value.Data ) );
 
 	EndDo;
 	
@@ -259,11 +331,17 @@ Function Routes( Val Settings )
 	Var URLs;
 	Var Result;
 	
+	Result = New Map();
+	
 	EnabledServices = EnabledServices( Settings );
 	
 	Files = Settings.Get( "epf" );
 	
-	Result = New Map();
+	If ( Files = Undefined ) Then
+		
+		Return Result;
+		
+	EndIf;
 	
 	For Each File In Files Do
 		
@@ -283,6 +361,20 @@ Function Routes( Val Settings )
 		
 	EndDo;
 	
+	Return Result;
+	
+EndFunction
+
+Function FilterRouteFile( Val Id, Val FilePath )
+	
+	Var Result;
+	
+	Result = New Structure();
+	Result.Insert( "CommitSHA", Id );
+	Result.Insert( "FilePath", FilePath );
+	Result.Insert( "Action", "" );
+	Result.Insert( "ErrorInfo", Undefined );
+		
 	Return Result;
 	
 EndFunction

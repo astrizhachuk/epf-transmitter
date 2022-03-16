@@ -6,7 +6,7 @@
       "parameters": {
         "Typo": {
             "minWordLength": 3,
-            "userWordsToIgnore": "json,api,sha,gitlab,unrouted"
+            "userWordsToIgnore": "json,api,sha,gitlab,unrouted,коммит"
         }
       }
     }

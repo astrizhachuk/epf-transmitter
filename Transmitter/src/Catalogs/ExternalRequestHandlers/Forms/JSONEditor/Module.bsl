@@ -10,14 +10,14 @@ Procedure OnCreateAtServer( Cancel, StandardProcessing )
 	EndIf;
 	
 	SetFormType( Parameters.CommandName );
-	FillFormValues( Parameters.RecordKey );
+	InitFormValues( Parameters.RecordKey );
 
 EndProcedure
 
 &AtClient
 Procedure OnOpen( Cancel )
 
-	SetFormElementsVisibility();
+	SetVisibility();
 	
 EndProcedure
 
@@ -26,7 +26,7 @@ EndProcedure
 #Region FormHeaderItemsEventHandlers
 
 &AtClient
-Procedure CommitsIsCustomSettingOnChange( Element )
+Procedure CommitsIsCustomOnChange( Element )
 	
 	Var CurrentData;
 	
@@ -38,9 +38,9 @@ Procedure CommitsIsCustomSettingOnChange( Element )
 		
 	EndIf;
 	
-	If ( CurrentData.IsCustomSetting ) Then
+	If ( CurrentData.IsCustom ) Then
 		
-		SetEditorAccessibility( CurrentData.IsCustomSetting );
+		SetEditorAccessibility( CurrentData.IsCustom );
 		
 	Else
 		
@@ -63,7 +63,7 @@ Procedure CommitsOnActivateRow( Element )
 		
 	EndIf;
 	
-	SetEditorAccessibility( Element.CurrentData.IsCustomSetting );
+	SetEditorAccessibility( Element.CurrentData.IsCustom );
 	
 EndProcedure
 
@@ -72,7 +72,7 @@ EndProcedure
 #Region FormCommandsEventHandlers
 
 &AtClient
-Procedure SaveSettings( Command )
+Procedure Save( Command )
 	
 	Var CurrentData;
 	
@@ -84,7 +84,7 @@ Procedure SaveSettings( Command )
 		
 	EndIf;
 
-	Save( SelectedData(CurrentData) );
+	SaveRoutes( GetRecord(CurrentData) );
 		
 EndProcedure
 
@@ -93,7 +93,7 @@ EndProcedure
 #Region Private
 
 &AtClient
-Function SelectedData( Val CurrentData )
+Function GetRecord( Val CurrentData )
 	
 	Var Result;
 	
@@ -106,53 +106,29 @@ Function SelectedData( Val CurrentData )
 EndFunction
 
 &AtServer
-Procedure FillRouting( Val RequestData )
+Procedure SetRoutes( Val ExternalRequest )
 	
-	Var Commits;
-
-	Commits = ExternalRequests.GetCommitsOrRaise( RequestData );
+	Var NewRoute;
 	
-	For Each Commit In Commits Do
+	For Each Commit In ExternalRequest.GetActualRoutes() Do
 		
-		AddSettings( Commit );
+		NewRoute = Routing.Add();
+		NewRoute.Id = Commit.Key;
+		NewRoute.JSON = Commit.Value.JSON;
+		NewRoute.IsCustom = Commit.Value.IsCustom;
 		
 	EndDo;
 	
 EndProcedure
 
 &AtServer
-Procedure AddSettings( Val Commit )
+Procedure InitFormValues( Val RecordKey )
 	
-	Var NewRoute;
+	Var ExternalRequest;
 
-	NewRoute = Routing.Add();
+	ExternalRequest = ExternalRequests.GetObjectFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
 	
-	NewRoute.CommitSHA = Commit.Get( "id" );
-	
-	Settings = ExternalRequests.GetCustomSettingsJSON( Commit );
-	
-	If ( Settings <> Undefined ) Then
-		
-		NewRoute.JSON = Settings;
-		NewRoute.IsCustomSetting = True;
-	
-	Else
-		
-		NewRoute.JSON = ExternalRequests.GetDefaultSettingsJSON( Commit );
-		NewRoute.IsCustomSetting = False;
-		
-	EndIf;
-	
-EndProcedure
-
-&AtServer
-Procedure FillFormValues( Val RecordKey )
-	
-	Var RequestData;
-
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	
-	If ( RequestData = Undefined ) Then
+	If ( ExternalRequest = Undefined ) Then
 		
 		Return;
 		
@@ -160,11 +136,11 @@ Procedure FillFormValues( Val RecordKey )
 	
 	If ( IsRequest ) Then
 		
-		RequestJSON = RequestData.Get( "json" );
+		RequestJSON = ExternalRequest.GetJSON();
 		
 	Else
 		
-		FillRouting( RequestData );
+		SetRoutes( ExternalRequest );
 
 	EndIf;
 
@@ -195,7 +171,7 @@ Procedure SetFormType( Val CommandName )
 EndProcedure
 
 &AtClient
-Procedure SetFormElementsVisibility()
+Procedure SetVisibility()
 	
 	Items.GroupCommits.Visible = ( NOT IsRequest );
 	Items.GroupCustomSettings.Visible = ( NOT IsRequest );
@@ -223,7 +199,7 @@ Procedure ResetSettings( Val CurrentData )
 	Var Notify;
 	Var Question;
 	
-	Data = SelectedData( CurrentData );
+	Data = GetRecord( CurrentData );
 	
 	Notify = New NotifyDescription( "DoAfterCloseQuestionResetSettings", ThisObject, Data );
 	Question = NStr( "ru = 'Сбросить настройку маршрутизации на значение по умолчанию?';
@@ -242,22 +218,22 @@ Procedure DoAfterCloseQuestionResetSettings( QuestionResult, AdditionalParameter
 	
 	If ( QuestionResult = DialogReturnCode.No ) Then
 		
-		CurrentData.IsCustomSetting = True;
+		CurrentData.IsCustom = True;
 		
         Return;
         
 	EndIf;
 
-	CurrentData.JSON = RemoveCustomSettings( AdditionalParameters.RecordKey, CurrentData.CommitSHA );
+	CurrentData.JSON = RemoveCustomRoute( AdditionalParameters.RecordKey, CurrentData.Id );
 
-	SetEditorAccessibility( CurrentData.IsCustomSetting );
+	SetEditorAccessibility( CurrentData.IsCustom );
 	
 EndProcedure
 
 &AtServerNoContext
-Function RemoveCustomSettings( Val RecordKey, Val CommitSHA )
+Function RemoveCustomRoute( Val RecordKey, Val Id )
 	
-	Return ExternalRequests.RemoveCustomRoutingSettings(RecordKey.RequestHandler, RecordKey.CheckoutSHA, CommitSHA );
+	Return Routing.RemoveCustomRoute( RecordKey.RequestHandler, RecordKey.CheckoutSHA, Id );
 	
 EndFunction
 
@@ -266,7 +242,7 @@ EndFunction
 #Region Save
 
 &AtClient
-Procedure Save( Val Data )
+Procedure SaveRoutes( Val Data )
 	
 	Var ErrorInfo;
 	Var CauseText;
@@ -274,7 +250,7 @@ Procedure Save( Val Data )
 	
 	Try
 
-		SaveAtServer( Data.RecordKey, Data.CurrentData.CommitSHA, Data.CurrentData.JSON );
+		AddCustomRoute( Data.RecordKey, Data.CurrentData.Id, Data.CurrentData.JSON );
 		
 	Except
 		
@@ -299,22 +275,27 @@ Procedure Save( Val Data )
 EndProcedure
 
 &AtServerNoContext
-Procedure SaveAtServer( Val RecordKey, Val CommitSHA, Val JSON )
+Procedure AddCustomRoute( Val RecordKey, Val Id, Val JSON )
 	
-	Var RequestData;
+	Routing.AddCustomRoute( RecordKey.RequestHandler, RecordKey.CheckoutSHA, Id, JSON );
 	
-	RequestData = ExternalRequests.GetFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
-	
-	If ( RequestData = Undefined ) Then
-		
-		Return;
-		
-	EndIf;
-	
-	ExternalRequests.AppendCustomRoutingSettings( RequestData, CommitSHA, JSON );
-	
-	InformationRegisters.ExternalRequests.SaveData( RecordKey.RequestHandler, RecordKey.CheckoutSHA, RequestData );
-	
+//	Var ExternalRequest;
+//	
+//	ExternalRequest = ExternalRequests.GetObjectFromIB( RecordKey.RequestHandler, RecordKey.CheckoutSHA );
+//	
+//	If ( ExternalRequest = Undefined ) Then
+//		
+//		Return;
+//		
+//	EndIf;
+//	
+//	CommonUseServerCall.JsonToObject(JSON);
+//	ExternalRequest.AddRoute( Id, JSON, True );
+//	
+////	Routing.AddCustomRoute( ExternalRequest, Id, JSON );
+//	
+//	ExternalRequests.SaveObject( RecordKey.RequestHandler, RecordKey.CheckoutSHA, ExternalRequest );
+
 EndProcedure
 
 #EndRegion

@@ -205,6 +205,46 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure GetModifiedFiles(Framework) Export
+
+	// given
+	Modified = New Array;
+	Modified.Add("file1");
+	Modified.Add("file2.epf");
+	Modified.Add("путь к файлу/file3.ErF");
+	
+	Commit1 = NewCommit("commit1",
+							Date(2020, 07, 21, 09, 22, 31),
+							New Array,
+							New Array,
+							New Array);
+	Commit2 = NewCommit("commit2",
+							Date(2020, 07, 22, 09, 22, 31),
+							New Array,
+							Modified,
+							New Array);
+	Commits = New Array;
+	Commits.Add(Commit1);
+	Commits.Add(Commit2);
+	
+	Data = New Map;
+	Data.Insert("commits", Commits);
+	
+	// when
+	Result = GitLabAPI.GetModifiedFiles(Data);
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 2);
+	Framework.AssertEqual(Result[0].Id, Commit2.Get("id"));
+	Framework.AssertEqual(Result[0].FilePath, Modified[1]);
+	Framework.AssertEqual(Result[1].FilePath, Modified[2]);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 Procedure GetRAWFilePath(Framework) Export
 	
 	// given
@@ -338,3 +378,28 @@ Procedure GetRAWFilesMixed(Framework) Export
 EndProcedure
 
 #EndRegion
+
+#Region Private
+
+ Function NewCommit(Val Id, Val Date = Undefined, Val Added = Undefined, Val Modified = Undefined, Val Removed = Undefined) Export
+	
+ 	Result = New Map;
+ 	Result.Insert("id", Id);
+ 	If Date <> Undefined Then
+ 		Result.Insert("timestamp", Date);
+ 	EndIf;
+ 	If Added <> Undefined Then
+ 		Result.Insert("added", Added);
+ 	EndIf;
+ 	If Modified <> Undefined Then
+ 		Result.Insert("modified", Modified);
+ 	EndIf;
+ 	If Removed <> Undefined Then
+ 		Result.Insert("removed", Removed);
+ 	EndIf;
+	
+ 	Return Result;
+	
+ EndFunction
+ 
+ #EndRegion

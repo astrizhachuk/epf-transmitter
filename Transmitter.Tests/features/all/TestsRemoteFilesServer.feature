@@ -9,19 +9,14 @@ Feature: Transmitter.Tests.TestsRemoteFilesServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetFromRemoteVCSEmptyData
+Scenario: GetFromRemoteVCSGitLabNoModifiedFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsRemoteFilesServer.GetFromRemoteVCSEmptyData(Context());' |
+	| 'TestsRemoteFilesServer.GetFromRemoteVCSGitLabNoModifiedFiles(Context());' |
 
 @OnServer
-Scenario: GetFromRemoteVCSCommitsNoCompiledFiles
+Scenario: GetFromRemoteVCSGitLabModifiedFiles
 	And I execute 1C:Enterprise script at server
-	| 'TestsRemoteFilesServer.GetFromRemoteVCSCommitsNoCompiledFiles(Context());' |
-
-@OnServer
-Scenario: GetFromRemoteVCSGetFileMetadataFromCommits
-	And I execute 1C:Enterprise script at server
-	| 'TestsRemoteFilesServer.GetFromRemoteVCSGetFileMetadataFromCommits(Context());' |
+	| 'TestsRemoteFilesServer.GetFromRemoteVCSGitLabModifiedFiles(Context());' |
 
 @OnServer
 Scenario: GetFromIB

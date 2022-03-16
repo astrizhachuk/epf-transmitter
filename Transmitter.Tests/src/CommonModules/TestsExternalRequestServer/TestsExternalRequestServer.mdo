@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="247f1799-f0a2-4e8b-bc43-603767ac98c8">
+  <name>TestsExternalRequestServer</name>
+  <synonym>
+    <key>ru</key>
+    <value>Tests external request server</value>
+  </synonym>
+  <server>true</server>
+</mdclass:CommonModule>

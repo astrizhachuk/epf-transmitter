@@ -76,6 +76,18 @@ Function NewError(Val Text) Export
 	
 EndFunction
 
+Function JsonToObject( Val JSON ) Export
+		
+	Var ConversionParams;
+		
+	ConversionParams = New Structure();
+	ConversionParams.Insert( "ReadToMap", True );
+	ConversionParams.Insert( "PropertiesNamesWithDateValues", "timestamp" );
+	
+	Return HTTPConnector.JsonToObject( JSON, , ConversionParams );
+	
+EndFunction
+
 #Region File
 
 Function NewFileName(Name, Ext) Export
@@ -231,23 +243,23 @@ Function NewProject(Val Id, Val URL = "") Export
 	
 EndFunction
 
-Function NewCommit(Val Id, Val Date = Undefined, Val Added = Undefined, Val Modified = Undefined, Val Removed = Undefined) Export
+Function NewRoute(Val Id, Val JSON, Val IsCustom) Export
 	
-	Result = New Map;
-	Result.Insert("id", Id);
-	If Date <> Undefined Then
-		Result.Insert("timestamp", Date);
-	EndIf;
-	If Added <> Undefined Then
-		Result.Insert("added", Added);
-	EndIf;
-	If Modified <> Undefined Then
-		Result.Insert("modified", Modified);
-	EndIf;
-	If Removed <> Undefined Then
-		Result.Insert("removed", Removed);
-	EndIf;
+	Result = New Structure;
+	Result.Insert("Id", Id);
+	Result.Insert("JSON", JSON);
+	Result.Insert("IsCustom", IsCustom);
 	
+	Return Result;
+	
+EndFunction
+
+Function NewCommit(Val Id, Val Date) Export
+	
+	Result = New Structure;
+	Result.Insert("Id", Id);
+	Result.Insert("Date", Date);
+
 	Return Result;
 	
 EndFunction
@@ -382,19 +394,6 @@ Function EventLogFilterByEvent( Val Event, Val Level, Val ApplicationName = "Bac
 	
 EndFunction
 
-//TODO check refs
-Function EventLogFilterByComment( Val Comment, Val Level, Val ApplicationName = "BackgroundJob" ) Export
-	
-	Return New Structure("StartDate, Level, ApplicationName, Comment", CurrentSessionDate(), EventLogLevel[Level], ApplicationName, Comment);
-	
-EndFunction
-
-Function EventLogFilterByData( Val Data, Val Level, Val ApplicationName = "BackgroundJob" ) Export
-	
-	Return New Structure("StartDate, Level, ApplicationName, Data", CurrentSessionDate(), EventLogLevel[Level], ApplicationName, Data);
-	
-EndFunction
-
 Function GetEventLog( Val Filter ) Export
 
 	Result = New ValueTable();
@@ -446,6 +445,7 @@ Procedure SetMockGitLabDownloadFile(Connection, File = Undefined, StatusCode) Ex
 	        	.WithStatusCode(StatusCode)
 	        	.Headers()
 	        		.WithHeader("X-Gitlab-File-Name", File.FileNameISO_8859_1)
+	        		.WithHeader("Content-Type", "text/plain; charset=utf-8")
 	        	.WithBody(File.Data)
 	    );
 

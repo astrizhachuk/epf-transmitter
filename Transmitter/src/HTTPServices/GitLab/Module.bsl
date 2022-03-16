@@ -15,7 +15,7 @@ EndFunction
 
 Function EventsPost( Request )
 
-	Var Data;
+	Var ExternalRequest;
 	Var Token;
 	Var Credential;
 	Var Response;
@@ -26,6 +26,7 @@ Function EventsPost( Request )
 	
 	CheckHandleRequestsEnabled( Response );
 
+// TODO заголовки тоже вынести в объект ExternalRequest, правда заголовки проверяются раньше создания объекта... на подумать
 	CheckHeaders( Request, Response );
 	
 	If ( NOT StatusCodes().isOk(Response.StatusCode) ) Then
@@ -34,9 +35,19 @@ Function EventsPost( Request )
 		
 	EndIf;
 	
-	Data = GetData( Request );
-
-	Credential = Credentials.FindByURL( GetProjectURL(Data) );
+	Try
+		
+		ExternalRequest = ExternalRequests.Create( Request.GetBodyAsString(), "gitlab" );
+		ExternalRequest.Validate();
+	
+	Except
+		
+		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
+		Raise;
+		
+	EndTry;
+	
+	Credential = Credentials.FindByURL( ExternalRequest.GetProjectURL() );
 
 	Token = GetHeader( Request, "X-Gitlab-Token" );
 	
@@ -44,8 +55,7 @@ Function EventsPost( Request )
 	
 	If ( StatusCodes().isOk(Response.StatusCode) ) Then
 		
-		CheckCheckoutSHA( Data, Credential.Ref );
-		DataProcessing.Start( Credential.Ref, Data );
+		DataProcessing.Start( Credential.Ref, ExternalRequest );
 		
 	EndIf;	
 	
@@ -92,54 +102,6 @@ Function EventEqualMethodName( Val Request, Val Event )
 	MethodName = Request.URLParameters.Get( "MethodName" );
 	
 	Return ( StrFind(Lower(Event), Lower(MethodName)) <> 0 );
-	
-EndFunction
-
-Function GetData( Val Request )
-		
-	Var Stream;
-	Var ConversionParams;
-
-	Try
-		
-		Stream = Request.GetBodyAsStream();
-		
-		ConversionParams = New Structure();
-		ConversionParams.Insert( "ReadToMap", True );
-		ConversionParams.Insert( "PropertiesWithDateValuesNames", "timestamp" );
-		
-		Data = HTTPConnector.JsonToObject( Stream, , ConversionParams );
-		CommonUseServerCall.AppendCollectionFromStream( Data, "json", Stream );
-		
-		Stream.Close();
-
-		Return Data;
-		
-	Except
-		
-		Stream.Close();
-		
-		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription( ErrorInfo() ) );
-		
-		Raise;
-		
-	EndTry;
-	
-EndFunction
-
-Function GetProjectURL( Val Data )
-	
-	Try
-
-		Return ExternalRequests.GetProjectOrRaise(Data).URL;
-		
-	Except
-
-		Logs.Error( Logs.Events().WS_REQUEST, ErrorProcessing.DetailErrorDescription(ErrorInfo()) );
-		
-		Raise;
-		
-	EndTry;
 	
 EndFunction
 
@@ -258,22 +220,6 @@ Procedure CheckHandleRequestsEnabled( Response )
 
 	EndIf;
 
-EndProcedure
-
-Procedure CheckCheckoutSHA( Val Data, Val RequestHandler )
-	
-	Var Message;
-	
-	If ( Data.Get("checkout_sha") = Undefined ) Then
-		
-		Message = Logs.Messages().NO_CHECKOUT_SHA;
-		
-		Logs.Error( Logs.Events().WS_REQUEST, Message, , RequestHandler );
-			
-		Raise Message;
-			
-	EndIf;
-	
 EndProcedure
 
 #EndRegion

@@ -288,4 +288,11 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.ExternalRequest</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>

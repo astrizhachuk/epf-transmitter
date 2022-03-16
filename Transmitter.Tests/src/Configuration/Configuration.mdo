@@ -53,6 +53,7 @@
   <commonModules>CommonModule.TestsCredentialsServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessingServer</commonModules>
   <commonModules>CommonModule.TestsEndpointsServer</commonModules>
+  <commonModules>CommonModule.TestsExternalRequestServer</commonModules>
   <commonModules>CommonModule.TestsExternalRequestsServer</commonModules>
   <commonModules>CommonModule.TestsGitLabAPIServer</commonModules>
   <commonModules>CommonModule.TestsHTTPRequests</commonModules>

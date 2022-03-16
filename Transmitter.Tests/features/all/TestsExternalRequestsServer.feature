@@ -9,126 +9,36 @@ Feature: Transmitter.Tests.TestsExternalRequestsServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetCheckoutSHA
+Scenario: CreateSourceTypeException
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCheckoutSHA(Context());' |
+	| 'TestsExternalRequestsServer.CreateSourceTypeException(Context());' |
 
 @OnServer
-Scenario: GetProjectOrRaise
+Scenario: CreateFromJSONNoTypeException
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetProjectOrRaise(Context());' |
+	| 'TestsExternalRequestsServer.CreateFromJSONNoTypeException(Context());' |
 
 @OnServer
-Scenario: GetProjectOrRaiseException
+Scenario: CreateFromGitLabJSON
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetProjectOrRaiseException(Context());' |
+	| 'TestsExternalRequestsServer.CreateFromGitLabJSON(Context());' |
 
 @OnServer
-Scenario: GetCommitsOrRaise
+Scenario: CreateFromInstance
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCommitsOrRaise(Context());' |
+	| 'TestsExternalRequestsServer.CreateFromInstance(Context());' |
 
 @OnServer
-Scenario: GetCommitsOrRaiseException
+Scenario: GetObjectFromIB
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCommitsOrRaiseException(Context());' |
+	| 'TestsExternalRequestsServer.GetObjectFromIB(Context());' |
 
 @OnServer
-Scenario: GetCommitOrRaise
+Scenario: GetObjectFromIBNoData
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCommitOrRaise(Context());' |
+	| 'TestsExternalRequestsServer.GetObjectFromIBNoData(Context());' |
 
 @OnServer
-Scenario: GetCommitOrRaiseExceptionCommits
+Scenario: SaveObject
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCommitOrRaiseExceptionCommits(Context());' |
-
-@OnServer
-Scenario: GetCommitOrRaiseExceptionCommit
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCommitOrRaiseExceptionCommit(Context());' |
-
-@OnServer
-Scenario: GetFromIB
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetFromIB(Context());' |
-
-@OnServer
-Scenario: GetFromIBNoData
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetFromIBNoData(Context());' |
-
-@OnServer
-Scenario: AppendRoutingSettingsNoData
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.AppendRoutingSettingsNoData(Context());' |
-
-@OnServer
-Scenario: AppendRoutingSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.AppendRoutingSettings(Context());' |
-
-@OnServer
-Scenario: AppendCustomRoutingSettingsNoData
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.AppendCustomRoutingSettingsNoData(Context());' |
-
-@OnServer
-Scenario: AppendCustomRoutingSettingsCommitNotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.AppendCustomRoutingSettingsCommitNotFound(Context());' |
-
-@OnServer
-Scenario: AppendCustomRoutingSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.AppendCustomRoutingSettings(Context());' |
-
-@OnServer
-Scenario: RemoveCustomRoutingSettingsNoData
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.RemoveCustomRoutingSettingsNoData(Context());' |
-
-@OnServer
-Scenario: RemoveCustomRoutingSettingsCommitNotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.RemoveCustomRoutingSettingsCommitNotFound(Context());' |
-
-@OnServer
-Scenario: RemoveCustomRoutingSettingsNoCustomSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.RemoveCustomRoutingSettingsNoCustomSettings(Context());' |
-
-@OnServer
-Scenario: RemoveCustomRoutingSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.RemoveCustomRoutingSettings(Context());' |
-
-@OnServer
-Scenario: GetCustomSettingsJSONNoCustomSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCustomSettingsJSONNoCustomSettings(Context());' |
-
-@OnServer
-Scenario: GetCustomSettingsJSONNoJSON
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCustomSettingsJSONNoJSON(Context());' |
-
-@OnServer
-Scenario: GetCustomSettingsJSON
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetCustomSettingsJSON(Context());' |
-
-@OnServer
-Scenario: GetDefaultSettingsJSONNoSettings
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetDefaultSettingsJSONNoSettings(Context());' |
-
-@OnServer
-Scenario: GetDefaultSettingsJSONNoJSON
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetDefaultSettingsJSONNoJSON(Context());' |
-
-@OnServer
-Scenario: GetDefaultSettingsJSON
-	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestsServer.GetDefaultSettingsJSON(Context());' |
+	| 'TestsExternalRequestsServer.SaveObject(Context());' |

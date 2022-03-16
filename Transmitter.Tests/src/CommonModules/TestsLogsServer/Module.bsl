@@ -177,7 +177,7 @@ Procedure InfoEventWithObject(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework
@@ -231,7 +231,7 @@ Procedure ErrorEventWithObject(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework
@@ -454,7 +454,7 @@ Procedure ErrorEventWithObjectAndHTTPResponse500WithBody(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework
@@ -494,7 +494,7 @@ Procedure GetEventsHistoryStatusCode(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // @timer
 // Params:
 // 	Framework - TestFramework - Test framework

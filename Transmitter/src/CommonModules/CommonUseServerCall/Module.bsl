@@ -33,6 +33,28 @@ Function NewErrorInfo( Val Message ) Export
 	
 EndFunction
 
+// TODO test ReadToMap and PropertiesNamesWithDateValues
+
+// JsonToObject converts JSON into Object.
+// 
+// Parameters:
+// 	JSON - String - JSON data;
+// 	
+// Returns:
+// 	Arbitrary - deserialized JSON;
+//
+Function JsonToObject( Val JSON ) Export
+		
+	Var ConversionParams;
+		
+	ConversionParams = New Structure();
+	ConversionParams.Insert( "ReadToMap", True );
+	ConversionParams.Insert( "PropertiesNamesWithDateValues", "timestamp" );
+	
+	Return HTTPConnector.JsonToObject( JSON, , ConversionParams );
+
+EndFunction
+
 #Region Stream
 
 // AppendCollectionFromStream adds an item to the collection with the value read from the stream.

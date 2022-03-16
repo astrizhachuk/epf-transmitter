@@ -1,104 +1,44 @@
 #Region Public
 
-// GetCheckoutSHA returns "checkout_sha" from request body.
+// Create returns a new initialized external request object.
 // 
 // Parameters:
-// 	RequestData - Map - deserialized request body;
+//	Source - String, Structure - data source: JSON or deserialized object (see DataProcessor.ExternalRequest.ToCollect);
+// 	Type - String - request source type, only for source with type String;
 // 	
 // Returns:
-// 	- Undefined - no data found;
-// 	- String - checkout_sha;
-// 	
-Function GetCheckoutSHA( Val RequestData ) Export
-	
-	Return GitLabAPI.GetCheckoutSHA( RequestData );
-	
-EndFunction
-
-// GetProjectOrRaise returns the project description from request body.
-// If the result is undefined, an exception will be thrown.
-// 
-// Parameters:
-//	RequestData - Map - deserialized request body;
+// 	DataProcessorObject.ExternalRequest - new external request;
 //
-// Returns:
-// 	Structure - project description:
-// * Id - String - project id;
-// * URL - String - project URL, for example: "http://www.example.org/user/project"; 
-// * ServerURL - String - server URL, for example: "http://www.example.org";
-// 
-Function GetProjectOrRaise( Val RequestData ) Export
+Function Create( Val Source, Val Type = Undefined ) Export
 	
-	Var Result;
-	
-	Result = GitLabAPI.GetProject( RequestData );
-	
-	If ( Result = Undefined ) Then
-		
-		Raise Logs.Messages().NO_PROJECT;
-		
-	EndIf;
-	
-	Return Result;
-	
-EndFunction
+	Var Result;	
 
-// GetCommitsOrRaise returns commits from request body. If the result is undefined, an exception will be thrown.
-// 
-// Parameters:
-//	RequestData - Map - deserialized request body;
-//
-// Returns:
-// 	Array of Map - deserialized commits;
-// 
-Function GetCommitsOrRaise( Val RequestData ) Export
-	
-	Var Result;
-	
-	Result = GitLabAPI.GetCommits( RequestData );
-	
-	If ( Result = Undefined ) Then
-		
-		Raise Logs.Messages().NO_COMMITS;
-		
-	EndIf;
-	
-	Return Result;
-	
-EndFunction
+	Result = DataProcessors.ExternalRequest.Create();
 
-// GetCommitOrRaise returns commit from request body. If the result is undefined, an exception will be thrown.
-// 
-// Parameters:
-//	RequestData - Map - deserialized request body;
-//	CommitSHA - String - сommit SHA;
-//
-// Returns:
-// 	Map - deserialized commit;
-// 
-Function GetCommitOrRaise( Val RequestData, Val CommitSHA ) Export
+	If ( TypeOf(Source) = Type("Structure") ) Then
+		
+		Result.Load( Source );
 	
-	Var Commits;
+		Return Result;
+		
+	Else
 	
-	Commits = GetCommitsOrRaise( RequestData );
+		If ( Upper(Type) = "GITLAB" ) Then
 	
-	For Each Commit In Commits Do
-
-		If ( Commit.Get("id") <> CommitSHA ) Then
+			Result.Type = Enums.RequestSource.GitLab;
+			Result.Fill( Source );
 			
-			Continue;
+			Return Result;
 			
 		EndIf;
-		
-		Return Commit;
-		
-	EndDo;
 	
-	Raise Logs.Messages().NO_COMMIT;
+	EndIf;
 	
-EndFunction	
+	Raise NStr( "ru = 'неизвестный тип источника запроса';en = 'unknown request source type'" );
 
-// GetFromIB returns the deserialized request body stored in the infobase. 
+EndFunction
+
+// GetObjectFromIB returns an instance of the external request stored in the infobase.
 // 
 // Parameters:
 // 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
@@ -106,9 +46,52 @@ EndFunction
 // 	
 // Returns:
 // 	- Undefined - no data found;
-// 	- Map - deserialized request body;
+// 	- DataProcessorObject.ExternalRequest - external request instance;
+//
+Function GetObjectFromIB( Val RequestHandler, Val CheckoutSHA ) Export
+	
+	Var Data;
+	
+	Data = GetDataFromIB( RequestHandler, CheckoutSHA );
+	
+	If ( Data = Undefined ) Then
+		
+		Return Data;
+		
+	EndIf;
+	
+	Return Create( Data );
+
+EndFunction
+
+// SaveObject saves the deserialized external request in the infobase.
+// 
+// Parameters:
+// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+//  CheckoutSHA - String - event identifier;
+// 	ExternalRequest - DataProcessorObject.ExternalRequest - external request instance;
+//
+Procedure SaveObject( Val RequestHandler, Val CheckoutSHA, Val ExternalRequest ) Export
+	
+	InformationRegisters.ExternalRequests.SaveData( RequestHandler,	CheckoutSHA, ExternalRequest.ToCollection() );
+
+EndProcedure
+
+#EndRegion
+
+#Region Private
+
+// GetDataFromIB returns the deserialized request body stored in the infobase. 
+// 
+// Parameters:
+// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
+//  CheckoutSHA - String - event identifier;
 // 	
-Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
+// Returns:
+// 	- Undefined - no data found;
+// 	- Structure - deserialized request body;
+// 	
+Function GetDataFromIB( Val RequestHandler, Val CheckoutSHA )
 	
 	Var Filter;
 	
@@ -116,201 +99,8 @@ Function GetFromIB( Val RequestHandler, Val CheckoutSHA ) Export
 	Filter.Insert( "RequestHandler", RequestHandler );
 	Filter.Insert( "CheckoutSHA", CheckoutSHA );
 	
-	InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
-	
 	Return InformationRegisters.ExternalRequests.Get(Filter).Data.Get();
 
 EndFunction
-
-// AppendRoutingSettings adds JSON-formatted and deserialized routing settings to the request data.
-// 
-// Parameters:
-// 	RequestData - Map - deserialized request body;
-// 	Files - ValueTable - downloaded files metadata:
-// * RAWFilePath - String - relative URL path to the RAW file;
-// * FileName - String - file name;
-// * FilePath - String - relative path to the file for the remote repository (with the filename);
-// * BinaryData - BinaryData - file data;
-// * Action - String - file operation type: "added", "modified", "removed";
-// * Date - Date - file operation date;
-// * CommitSHA - String - сommit SHA;
-// * ErrorInfo - Undefined, ErrorInfo - file download error;
-//
-Procedure AppendRoutingSettings( RequestData, Val Files ) Export
-	
-	Var FileName;
-	Var Commits;
-	Var RoutingFileMetadata;
-	
-	NODE_NAME = "settings";
-	
-	FileName = ServicesSettings.RoutingFileName();
-	
-	Commits = GetCommitsOrRaise( RequestData );
-	
-	For Each Commit In Commits Do
-		
-		RoutingFileMetadata = Files.FindRows( FindFileMetadataFilter(Commit, FileName) );
-		
-		If ( NOT ValueIsFilled(RoutingFileMetadata) ) Then
-			
-			Continue;
-			
-		EndIf;
-		
-		AppendSettings( Commit, NODE_NAME, RoutingFileMetadata[0].BinaryData );
-		
-	EndDo;	
-	
-EndProcedure
-
-// AppendCustomRoutingSettings adds JSON-formatted and deserialized custom routing settings to the request data.
-// 
-// Parameters:
-// 	RequestData - Map - deserialized request body;
-//	CommitSHA - String - сommit SHA;
-// 	JSON - String - routes in JSON format;
-//
-Procedure AppendCustomRoutingSettings( RequestData, Val CommitSHA, Val JSON ) Export
-	
-	Var Commit;
-	Var Data;
-	
-	NODE_NAME = "custom_settings";
-	
-	Commit = GetCommitOrRaise( RequestData, CommitSHA );
-	Data = GetBinaryDataFromString( JSON, TextEncoding.UTF8 );
-	
-	AppendSettings( Commit, NODE_NAME, Data );
-	
-EndProcedure
-
-// RemoveCustomRoutingSettings removes custom routing settings from the request data
-// stored in the infobase and returns the default routes in JSON format.
-// 
-// Parameters:
-// 	RequestHandler - CatalogRef.ExternalRequestHandlers - ref to external request handler;
-//  CheckoutSHA - String - event identifier;
-//	CommitSHA - String - сommit SHA;
-// 	
-// Returns:
-// String - default routing settings in JSON format;
-// 	
-Function RemoveCustomRoutingSettings( Val RequestHandler, Val CheckoutSHA, Val CommitSHA ) Export
-	
-	Var RequestData;
-	Var Commit;
-	Var DefaultJSON;
-	Var CustomJSON;
-
-	CUSTOM = "custom_settings";
-	
-	RequestData = ExternalRequests.GetFromIB( RequestHandler, CheckoutSHA );
-	
-	If ( RequestData = Undefined ) Then
-		
-		Raise Logs.Messages().NO_REQUEST_DATA;
-		
-	EndIf;
-		
-	Commit = GetCommitOrRaise( RequestData, CommitSHA );
-	DefaultJSON = GetDefaultSettingsJSON( Commit );
-	CustomJSON = GetCustomSettingsJSON( Commit );
-	
-	If ( CustomJSON <> Undefined ) Then
-		
-		Commit.Delete( CUSTOM );
-		InformationRegisters.ExternalRequests.SaveData( RequestHandler, CheckoutSHA, RequestData );
-	
-	EndIf;
-
-	Return DefaultJSON;
-	
-EndFunction
-
-// GetCustomSettingsJSON returns custom routes in JSON format.
-// 
-// Parameters:
-// 	Commit - Map - deserialized commit;
-// 	
-// Returns:
-// 	- Undefined - no data found;
-// 	- String - custom routes;
-// 	
-Function GetCustomSettingsJSON( Val Commit ) Export
-
-	CUSTOM = "custom_settings";
-
-	Return GetSettingsJSON( Commit, CUSTOM );
-	
-EndFunction
-
-// GetCustomSettingsJSON returns the default routes in JSON format.
-// 
-// Parameters:
-// 	Commit - Map - deserialized commit;
-// 	
-// Returns:
-// 	- Undefined - no data found;
-// 	- String - default routes;
-// 
-Function GetDefaultSettingsJSON( Val Commit ) Export
-	
-	DEFAULT = "settings";
-	
-	Return GetSettingsJSON( Commit, DEFAULT );
-	
-EndFunction
-
-#EndRegion
-
-#Region Private
-
-Function GetSettingsJSON( Val Commit, Val Source )
-	
-	Var Result;
-
-	JSON = "json";
-	
-	Result = Commit.Get( Source );
-	
-	If ( Result = Undefined ) Then
-		
-		Return Result;
-		
-	EndIf;
-	
-	Return Result.Get( JSON );
-	
-EndFunction
-
-Function FindFileMetadataFilter( Val Commit, Val FilePath )
-	
-	Var Result;
-	
-	Result = New Structure();
-	Result.Insert( "CommitSHA", Commit.Get("id") );
-	Result.Insert( "FilePath", FilePath );
-	Result.Insert( "Action", "" );
-	Result.Insert( "ErrorInfo", Undefined );
-		
-	Return Result;
-	
-EndFunction
-
-Процедура AppendSettings(Commit, Val NodeName, Знач BinaryData )
-	
-	Var Data;
-	Var Settings;
-	
-	JSON = "json";
-	
-	Data = BinaryData.OpenStreamForRead();
-	Settings = HTTPConnector.JsonToObject( Data );
-	CommonUseServerCall.AppendCollectionFromStream( Settings, JSON, Data );
-	
-	Commit.Insert( NodeName, Settings );
-	
-КонецПроцедуры
 
 #EndRegion

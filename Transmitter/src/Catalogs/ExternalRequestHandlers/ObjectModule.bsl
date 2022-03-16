@@ -1,4 +1,4 @@
-#If Server OR ThickClientOrdinaryApplication OR ExternalConnection Тогда
+#If Server OR ThickClientOrdinaryApplication OR ExternalConnection Then
 
 #Region Public
 

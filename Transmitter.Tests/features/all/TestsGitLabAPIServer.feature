@@ -59,6 +59,11 @@ Scenario: GetCommits
 	| 'TestsGitLabAPIServer.GetCommits(Context());' |
 
 @OnServer
+Scenario: GetModifiedFiles
+	And I execute 1C:Enterprise script at server
+	| 'TestsGitLabAPIServer.GetModifiedFiles(Context());' |
+
+@OnServer
 Scenario: GetRAWFilePath
 	And I execute 1C:Enterprise script at server
 	| 'TestsGitLabAPIServer.GetRAWFilePath(Context());' |

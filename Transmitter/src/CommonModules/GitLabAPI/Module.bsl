@@ -92,6 +92,52 @@ Function GetCommits( Val RequestData ) Export
 	
 EndFunction
 
+// GetModifiedFiles returns metadata of modified files from the GitLab request body.
+// 
+// Parameters:
+//	RequestData - Map - deserialized GitLab request body;
+// 	
+// Returns:
+// 	Array of Structure - modified files metadata:
+// 	* Id - String - commit id;
+// 	* FilePath - String - relative path to the file for the remote repository (with the filename);
+//
+Function GetModifiedFiles( Val RequestData ) Export
+
+	Var Id;
+	Var ModifiedFiles;
+	Var FileMetadata;
+	Var Result;
+	
+	Result = New Array();
+	
+	For Each Commit In GetCommits( RequestData )  Do
+		
+		Id = Commit.Get("id");
+		ModifiedFiles = Commit.Get( "modified" );
+
+		For Each FilePath In ModifiedFiles Do
+			
+			If NOT ( HasExtension(FilePath, "EPF") OR HasExtension(FilePath, "ERF") ) Then
+				
+				Continue;
+
+			EndIf;
+			
+			FileMetadata = New Structure();
+			FileMetadata.Insert( "Id", Id );
+			FileMetadata.Insert( "FilePath", FilePath );
+
+			Result.Add( FileMetadata );
+
+		EndDo;		
+		
+	EndDo;
+	
+	Return Result;
+	
+EndFunction
+
 // RAWFilePath returns the URL-encoded relative path to the RAW file in accordance to the GitLab REST API.
 // 
 // Parameters:
@@ -209,6 +255,21 @@ Function AdditionalParams( Val ConnectionParams )
 	Result.Insert( "Timeout", ConnectionParams.Timeout );
 	
 	Return Result;
+	
+EndFunction
+
+// HasExtension returns the result that the file in the path has the specified extension.
+// 
+// Parameters:
+// 	Path - String - path to the file (with the filename);
+//  Ext - String - extension (without dot);
+//
+// Returns:
+// 	Boolean - True - the file contains the specified extension, otherwise - False;
+//
+Function HasExtension( Val Path, Val Ext )
+	
+	Return StrEndsWith( Upper(Path), "." + Upper(Ext) );
 	
 EndFunction
 

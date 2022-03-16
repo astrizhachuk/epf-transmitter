@@ -5,139 +5,80 @@
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetCheckoutSHA(Framework) Export
-
-	// given
-	Data = New Map;
-	Data.Insert("checkout_sha", "value");
-	
-	// when
-	Result = ExternalRequests.GetCheckoutSHA(Data);
-	
-	// then
-	Framework.AssertEqual(Result, "value");
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetProjectOrRaise(Framework) Export
+Procedure CreateSourceTypeException(Framework) Export
 	
 	// given
-	JSON = Tests.GetJSON("/test/requests/push-1b9949a2.json");
-	Data = HTTPConnector.JsonToObject(JSON);
-
-	// when
-	Result = ExternalRequests.GetProjectOrRaise(Data);
-	
-	// then
-	Framework.AssertEqual(Result.Id, 1);
-	Framework.AssertEqual(Result.ServerURL, "http://mockserver:1080");
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetProjectOrRaiseException(Framework) Export
-	
-	// given
-	Data = New Map;
 
 	// when
 	Try
-		ExternalRequests.GetProjectOrRaise(Data);
+		ExternalRequests.Create(New Array);
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_PROJECT);
+		Framework.AssertStringContains(ErrorInfo.Description, NStr("ru = 'неизвестный тип источника запроса';en = 'unknown request source type'"));
 	EndTry;
-	
+
 EndProcedure
 
 // @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetCommitsOrRaise(Framework) Export
+Procedure CreateFromJSONNoTypeException(Framework) Export
 	
 	// given
-	JSON = Tests.GetJSON("/test/requests/push-1b9949a2.json");
-	Data = HTTPConnector.JsonToObject(JSON);
-
-	// when
-	Result = ExternalRequests.GetCommitsOrRaise(Data);
-	
-	// then
-	Framework.AssertFilled(Result);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCommitsOrRaiseException(Framework) Export
-	
-	// given
-	Data = New Map;
 
 	// when
 	Try
-		ExternalRequests.GetCommitsOrRaise(Data);
+		ExternalRequests.Create("");
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMITS);
+		Framework.AssertStringContains(ErrorInfo.Description, NStr("ru = 'неизвестный тип источника запроса';en = 'unknown request source type'"));
 	EndTry;
-	
+
 EndProcedure
 
 // @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetCommitOrRaise(Framework) Export
+Procedure CreateFromGitLabJSON(Framework) Export
 	
 	// given
-	Commit = Tests.NewCommit("commit");
-	Commits = New Array;
-	Commits.Add(Commit);
-	
-	Result = New Map;
-	Result.Insert("commits", Commits);
 
 	// when
-	Result = ExternalRequests.GetCommitOrRaise(Result, Commit.Get("id"));
-	
+	Result = ExternalRequests.Create("{}", "giTlAb");
+
 	// then
-	Framework.AssertEqual(Result.Get("id"), Commit.Get("id"));
-	
+	Framework.AssertEqual(Result.Type, Enums.RequestSource.GitLab);
+	Framework.AssertNotFilled(Result.ProjectId);
+	Framework.AssertNotFilled(Result.Commits);	
+	Framework.AssertNotFilled(Result.ModifiedFiles);
+	Framework.AssertNotFilled(Result.Routes);
+
 EndProcedure
 
 // @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetCommitOrRaiseExceptionCommits(Framework) Export
+Procedure CreateFromInstance(Framework) Export
 	
 	// given
-	Data = New Map;
+	T = NewTest();
 
 	// when
-	Try
-		ExternalRequests.GetCommitOrRaise(Data, "");
-		Framework.AddError("Method Executed");
-	Except
+	Result = ExternalRequests.Create(T.Expectation);
+
 	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMITS);
-	EndTry;
+	Framework.AssertEqual(Result.Type, T.Expectation.Type);
+	Framework.AssertFilled(Result.ProjectId);
+	Framework.AssertFilled(Result.Commits);	
+	Framework.AssertFilled(Result.ModifiedFiles);
+	Framework.AssertFilled(Result.Routes);
 	
 EndProcedure
 
@@ -145,51 +86,25 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetCommitOrRaiseExceptionCommit(Framework) Export
-	
-	// given
-	Commits = New Array;
-	Data = New Map;
-	Data.Insert("commits", Commits);
-
-	// when
-	Try
-		ExternalRequests.GetCommitOrRaise(Data, "");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMIT);
-	EndTry;
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetFromIB(Framework) Export
+Procedure GetObjectFromIB(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Tests.InformationRegisterCleanUp("ExternalRequests");
 	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
-	CheckoutSHA = Tests.RandomString();
-	Data = "Data" + Tests.RandomString();
+	T = NewTest();
 	
-	Map = New Map();
-	Map.Insert("Key", Data);
-	
-	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Map);
+	Tests.AddRecord("ExternalRequests", T.RequestHandler, T.Expectation.CheckoutSHA, T.Expectation);
 	
 	// when	
-	Result = ExternalRequests.GetFromIB(ExternalRequestHandler.Ref, CheckoutSHA);
+	Result = ExternalRequests.GetObjectFromIB(T.RequestHandler.Ref, T.Expectation.CheckoutSHA);
 	
 	// then
-	Framework.AssertType(Result, "Map");
-	Framework.AssertEqual(Result.Count(), 1);
-	Framework.AssertEqual(Result.Get("Key"), Data);
+	Framework.AssertEqual(Result.Type, T.Expectation.Type);
+	Framework.AssertFilled(Result.ProjectId);
+	Framework.AssertFilled(Result.Commits);	
+	Framework.AssertFilled(Result.ModifiedFiles);
+	Framework.AssertFilled(Result.Routes);
 		
 EndProcedure
 
@@ -197,14 +112,16 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetFromIBNoData(Framework) Export
+Procedure GetObjectFromIBNoData(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Tests.InformationRegisterCleanUp("ExternalRequests");
 	
+	T = NewTest();
+	
 	// when	
-	Result = ExternalRequests.GetFromIB(Tests.NewExternalRequestHandler().Ref, Tests.RandomString());
+	Result = ExternalRequests.GetObjectFromIB(T.RequestHandler.Ref, T.Expectation.CheckoutSHA);
 	
 	// then
 	Framework.AssertNotFilled(Result);
@@ -215,386 +132,105 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure AppendRoutingSettingsNoData(Framework) Export
-
-	// given
-	Constants.RoutingFileName.Set(Tests.NewFileName(".ext-epf", "json"));
-
-	// when
-	Try
-		ExternalRequests.AppendRoutingSettings(New Map, New ValueTable());
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMITS);
-	EndTry;	
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure AppendRoutingSettings(Framework) Export
-
-	// given
-	FileEPF = Tests.NewFile("каталог", "файл", "epf");
-	FileSettings = Tests.NewFile("", ".ext-epf", "json");
-	Constants.RoutingFileName.Set(FileSettings.FileName);
-	
-	Commit1 = Tests.NewCommit("commit1");
-	Commit2 = Tests.NewCommit("commit2");
-	Commits = New Array;
-	Commits.Add(Commit1);
-	Commits.Add(Commit2);
-	
-	Data = New Map;
-	Data.Insert("commits", Commits);
-	
-	FilesMetadata = Tests.NewFilesMetadata();
-	Tests.AddFileMetadata(FilesMetadata, FileEPF, Commit1, "added");
-	Tests.AddFileMetadata(FilesMetadata, FileSettings, Commit1, "");
-	Tests.AddFileMetadata(FilesMetadata, FileSettings, Commit2, "", , "any error");	
-
-	// when
-	ExternalRequests.AppendRoutingSettings(Data, FilesMetadata);
-
-	// then
-	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("text"), FileSettings.FileName);
-	Framework.AssertEqual(Data.Get("commits")[0].Get("settings").Get("json"), FileSettings.Data);
-	Framework.AssertNotFilled(Data.Get("commits")[1].Get("settings"));
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure AppendCustomRoutingSettingsNoData(Framework) Export
-
-	// given
-	Result = New Map;
-
-	// when
-	Try
-		ExternalRequests.AppendCustomRoutingSettings(Result, "", "");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMITS);
-	EndTry;		
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure AppendCustomRoutingSettingsCommitNotFound(Framework) Export
-
-	// given
-	Commit = Tests.NewCommit("commit");
-	Commits = New Array;
-	Result = New Map;
-	Result.Insert("commits", Commits);
-
-	// when
-	Try
-		ExternalRequests.AppendCustomRoutingSettings(Result, Commit.Get("id"), "");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMIT);
-	EndTry;	
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure AppendCustomRoutingSettings(Framework) Export
-
-	// given
-	Commit = Tests.NewCommit("commit");
-	Commits = New Array;
-	Commits.Add(Commit);
-	
-	Result = New Map;
-	Result.Insert("commits", Commits);
-	
-	JSON = "{""key"": ""value""}";
-
-	// when
-	ExternalRequests.AppendCustomRoutingSettings(Result, Commit.Get("id"), JSON);
-	
-	// then
-	Framework.AssertEqual(Result.Get("commits").Count(), 1);
-	Framework.AssertFilled(Result.Get("commits")[0].Get("custom_settings"));	
-	Framework.AssertEqual(Result.Get("commits")[0].Get("custom_settings").Get("json"), JSON);	
-	Framework.AssertEqual(Result.Get("commits")[0].Get("custom_settings").Get("key"), "value");	
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure RemoveCustomRoutingSettingsNoData(Framework) Export
-
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests");
-	
-	// when
-	Try
-		ExternalRequests.RemoveCustomRoutingSettings(Tests.NewExternalRequestHandler().Ref, "", "");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_REQUEST_DATA);
-	EndTry;	
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure RemoveCustomRoutingSettingsCommitNotFound(Framework) Export
-
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests");
-	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
-	CheckoutSHA = Tests.RandomString();
-	Data = New Map;
-	Data.Insert("commits", New Array);
-	
-	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Data);
-
-	// when
-	Try
-		ExternalRequests.RemoveCustomRoutingSettings(ExternalRequestHandler.Ref, CheckoutSHA, "");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_COMMIT);
-	EndTry;	
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure RemoveCustomRoutingSettingsNoCustomSettings(Framework) Export
+Procedure SaveObject(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
 	Tests.InformationRegisterCleanUp("ExternalRequests");
 	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
+	T = NewTest();
+	ExternalRequest = NewGitLabExternalRequest();
+	FillInstance(ExternalRequest, T);
 	
-	CheckoutSHA = Tests.RandomString();
-	
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Commit.Insert("settings", Default);
-	Commits = New Array;
-	Commits.Add(Commit);
-	
-	Data = New Map;
-	Data.Insert("commits", Commits);
-	
-	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Data);
-
-	// when
-	Result = ExternalRequests.RemoveCustomRoutingSettings(ExternalRequestHandler.Ref, CheckoutSHA, Commit.Get("id"));
+	// when	
+	ExternalRequests.SaveObject(T.RequestHandler.Ref, T.Expectation.CheckoutSHA, ExternalRequest);
+	Result = Tests.GetRecordSet("ExternalRequests", T.RequestHandler, T.Expectation.CheckoutSHA)[0].Data.Get();
 	
 	// then
-	Framework.AssertEqual(Result, Default.Get("json"));
-
+	Framework.AssertEqual(Result.Type, T.Expectation.Type);
+	Framework.AssertFilled(Result.ProjectId);
+	Framework.AssertFilled(Result.Commits);	
+	Framework.AssertFilled(Result.ModifiedFiles);
+	Framework.AssertFilled(Result.Routes);	
+	
 EndProcedure
 
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure RemoveCustomRoutingSettings(Framework) Export
-	
-	// given
-	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Tests.InformationRegisterCleanUp("ExternalRequests");
-	
-	ExternalRequestHandler = Tests.NewExternalRequestHandler();
-	
-	CheckoutSHA = Tests.RandomString();
-	
-	Commit1 = Tests.NewCommit("commit1");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Custom = New Map;
-	Custom.Insert("json", "{""key"": ""custom""}");
-	Commit1.Insert("settings", Default);
-	Commit1.Insert("custom_settings", Custom);
-	Commit2 = Tests.NewCommit("commit2");
-	Commit2.Insert("custom_settings", New Map);
-	Commits = New Array;
-	Commits.Add(Commit1);
-	Commits.Add(Commit2);
-	
-	Data = New Map;
-	Data.Insert("commits", Commits);
-	
-	Tests.AddRecord("ExternalRequests", ExternalRequestHandler, CheckoutSHA, Data);
+#EndRegion
 
-	// when
-	Result = ExternalRequests.RemoveCustomRoutingSettings(ExternalRequestHandler.Ref, CheckoutSHA, Commit1.Get("id"));
-	StoredData = Tests.GetRecordSet("ExternalRequests", ExternalRequestHandler, CheckoutSHA);
+#Region Private
 
-	// then
-	Framework.AssertEqual(Result, Default.Get("json"));
-	Framework.AssertEqual(StoredData[0].Data.Get().Get("commits")[0].Get("custom_settings"), Undefined);	
-	Framework.AssertType(StoredData[0].Data.Get().Get("commits")[1].Get("custom_settings"), "Map");	
+Function NewGitLabExternalRequest()
+	
+	Result = DataProcessors.ExternalRequest.Create();
+	Result.Type = Enums.RequestSource.GitLab;
+	
+	Return Result;
 
+EndFunction
+
+Function NewModifiedFile(Val Id, Val FilePath)
+	
+	Result = New Structure;
+	Result.Insert("Id", Id);
+	Result.Insert("FilePath", FilePath);
+	
+	Return Result;
+	
+EndFunction
+
+Procedure FillInstance(ExternalRequest, T)
+
+	FillPropertyValues(ExternalRequest, T.Expectation);
+	
+	For Each Commit In T.Expectation.Commits Do
+		NewCommit = ExternalRequest.Commits.Add();
+		FillPropertyValues(NewCommit, Commit);
+	EndDo;
+	
+	For Each ModifiedFile In T.Expectation.ModifiedFiles Do
+		NewModifiedFile = ExternalRequest.ModifiedFiles.Add();
+		FillPropertyValues(NewModifiedFile, ModifiedFile); 
+	EndDo;
+	
+	For Each Route In T.Expectation.Routes Do
+		NewRoute = ExternalRequest.Routes.Add();
+		FillPropertyValues(NewRoute, Route); 
+	EndDo;
+	
 EndProcedure
 
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCustomSettingsJSONNoCustomSettings(Framework) Export
+Function NewTest()
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Commit.Insert("settings", Default);
-
-	// when
-	Result = ExternalRequests.GetCustomSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Undefined);
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCustomSettingsJSONNoJSON(Framework) Export
+	Result = New Structure();
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Custom = New Map;
-	Commit.Insert("settings", Default);
-	Commit.Insert("custom_settings", Custom);
-
-	// when
-	Result = ExternalRequests.GetCustomSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Undefined);
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetCustomSettingsJSON(Framework) Export
+	Result.Insert("RequestHandler", Tests.NewExternalRequestHandler());
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Custom = New Map;
-	Custom.Insert("json", "{""key"": ""custom""}");
-	Commit.Insert("settings", Default);
-	Commit.Insert("custom_settings", Custom);
-
-	// when
-	Result = ExternalRequests.GetCustomSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Custom.Get("json"));
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetDefaultSettingsJSONNoSettings(Framework) Export
+	Expectation = New Structure();
+	Expectation.Insert("Type", Enums.RequestSource.GitLab);
+	Expectation.Insert("ProjectId", "1");
+	Expectation.Insert("CheckoutSHA", Tests.RandomString());
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Custom = New Map;
-	Custom.Insert("json", "{""key"": ""custom""}");
-	Commit.Insert("custom_settings", Custom);
-
-	// when
-	Result = ExternalRequests.GetDefaultSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Undefined);
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetDefaultSettingsJSONNoJSON(Framework) Export
+	CurrentSessionDate = CurrentSessionDate();
+	Commits = New Array();
+	Commits.Add(Tests.NewCommit(Tests.RandomString(), CurrentSessionDate));
+	Commits.Add(Tests.NewCommit(Tests.RandomString(), CurrentSessionDate + 1));
+	Commits.Add(Tests.NewCommit(Tests.RandomString(), CurrentSessionDate + 2));
+	Expectation.Insert("Commits", Commits);
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Custom = New Map;
-	Custom.Insert("json", "{""key"": ""custom""}");
-	Commit.Insert("settings", Default);
-	Commit.Insert("custom_settings", Custom);
+	ModifiedFiles = New Array();
+	ModifiedFiles.Add(NewModifiedFile(Commits[0].Id, "путь/file1.epf"));
+	ModifiedFiles.Add(NewModifiedFile(Commits[1].Id, "путь/file2.epf"));
+	ModifiedFiles.Add(NewModifiedFile(Commits[2].Id, "путь/file3.epf"));
+	Expectation.Insert("ModifiedFiles", ModifiedFiles);
 
-	// when
-	Result = ExternalRequests.GetDefaultSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Undefined);
-
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure GetDefaultSettingsJSON(Framework) Export
+	Routes = New Array();
+	Routes.Add(Tests.NewRoute(Commits[0].Id, "{}", False));
+	Expectation.Insert("Routes", Routes);
 	
-	// given
-	Commit = Tests.NewCommit("commit");
-	Default = New Map;
-	Default.Insert("json", "{""key"": ""default""}");
-	Custom = New Map;
-	Custom.Insert("json", "{""key"": ""custom""}");
-	Commit.Insert("settings", Default);
-	Commit.Insert("custom_settings", Custom);
+	Result.Insert("Expectation", Expectation);
 
-	// when
-	Result = ExternalRequests.GetDefaultSettingsJSON(Commit);
-
-	// then
-	Framework.AssertEqual(Result, Default.Get("json"));
-
-EndProcedure
+	Return Result;
+	
+EndFunction
 
 #EndRegion

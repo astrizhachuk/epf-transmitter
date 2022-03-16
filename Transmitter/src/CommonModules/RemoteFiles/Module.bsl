@@ -1,10 +1,9 @@
 #Region Public
 
-// GetFromRemoteVCS returns files downloaded from external repositories with their descriptions.
+// GetFromRemoteVCS returns downloaded files from external repositories with metadata.
 // 
 // Parameters:
-// 	ConnectionParams - Structure - connection parameters to the GitLab server (see GitLabAPI.GetConnectionParams);
-// 	RequestData - Map - deserialized request body;
+// 	ExternalRequest - DataProcessorObject.ExternalRequest - external request instance;
 // 	
 // Returns:
 //	ValueTable - downloaded files metadata:
@@ -17,32 +16,27 @@
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - Undefined, ErrorInfo - file download error;
 //
-Function GetFromRemoteVCS( Val ConnectionParams, Val RequestData ) Export
+Function GetFromRemoteVCS( Val ExternalRequest ) Export
 	
-	Var Files;
-	Var Project;
-	Var Commits;
+	Var Result;
 	
-	Files = FileMetadata();
+	Result = FileMetadata();
 	
-	Project = ExternalRequests.GetProjectOrRaise( RequestData );
-	Commits = ExternalRequests.GetCommitsOrRaise( RequestData );
-
-	For Each Commit In Commits Do
-
-		AddCompiledFiles( Files, Commit );
+	For Each ModifiedFile In ExternalRequest.GetModifiedFiles() Do
 		
+		AddFileMetadata( Result, ModifiedFile, "modified" );
+
 	EndDo;
 	
-	Files = SliceLastByAction( Files, "modified" );
+	Result = SliceLastByAction( Result, "modified" );
 	
-	AddRoutingFiles( Files, Commits );
+	AddRoutingMetadata( Result, ExternalRequest.GetCommits() );
+	
+	AppendRAWFilePath( Result, ExternalRequest.GetProjectId() );
+	
+	DownloadFromGitLab( Result, ExternalRequest.GetServerURL() );	
 
-	AppendRAWFilePath( Files, Project.Id );
-
-	AppendBinaryData( Files, ConnectionParams );	
-
-	Return Files;
+	Return Result;
 	
 EndFunction
 
@@ -111,62 +105,25 @@ Function FileMetadata()
 	
 EndFunction
 
-// HasExtension returns the result that the file in the path has the specified extension.
-// 
-// Parameters:
-// 	Path - String - path to the file (with the filename);
-//  Ext - String - extension (without dot);
-//
-// Returns:
-// 	Boolean - True - the file contains the specified extension, otherwise - False;
-//
-Function HasExtension( Val Path, Val Ext )
-	
-	Return StrEndsWith( Upper(Path), "." + Upper(Ext) );
-	
-EndFunction
-
-Procedure AddFileMetadata( FileMetadata, Val Commit, Val FileName, Val FilePath, Val Action )
+Procedure AddFileMetadata( FileMetadata, Val File, Val Action )
 	
 	Var NewFile;
 	
 	NewFile = FileMetadata.Add();
-	NewFile.FileName = FileName;
-	NewFile.FilePath = FilePath;
+
+	If File.Property("FileName") Then
+		NewFile.FileName = File.FileName;
+	Else
+		NewFile.FileName = "";
+	EndIf;
+	NewFile.FilePath = File.FilePath;
 	NewFile.Action = Action;
-	NewFile.Date = Commit.Get( "timestamp" );
-	NewFile.CommitSHA = Commit.Get( "id" );
+	NewFile.Date = File.Date;
+	NewFile.CommitSHA = File.Id;
 	
 EndProcedure
 
-Procedure AddCompiledFiles( FileMetadata, Val Commit )
-	
-	Var FileActions;
-	Var FilePaths;
-	
-	FileActions = GitLabAPI.GetFileActions();
-	
-	For Each Action In FileActions Do
-
-		FilePaths = Commit.Get( Action );
-
-		For Each FilePath In FilePaths Do
-			
-			If NOT ( HasExtension(FilePath, "EPF") OR HasExtension(FilePath, "ERF") ) Then
-				
-				Continue;
-
-			EndIf;
-
-			AddFileMetadata( FileMetadata, Commit, "", FilePath, Action );
-
-		EndDo;
-
-	EndDo;
-	
-EndProcedure
-
-// AddRoutingFiles adds a description of the routing settings files.
+// AddRoutingMetadata adds a description of the routing files.
 // 
 // Parameters:
 // 	FileMetadata - ValueTable - downloaded files metadata:
@@ -178,18 +135,25 @@ EndProcedure
 // * Date - Date - file operation date;
 // * CommitSHA - String - сommit SHA;
 // * ErrorInfo - Undefined, ErrorInfo - file download error;
-// 	Commits - Map - deserialized commits from the request body;
+// 	Commits - DataProcessorTabularSection.ExternalRequest.Commits - commits description;
 //
-Procedure AddRoutingFiles( FileMetadata, Val Commits )
+Procedure AddRoutingMetadata( FileMetadata, Val Commits )
 	
+	Var File;
 	Var FilePath;
 	
 	FilePath = ServicesSettings.RoutingFileName();
 	
 	For Each Commit In Commits Do
 		
-		AddFileMetadata( FileMetadata, Commit, FilePath, FilePath, "" );
-		
+		File = New Structure();
+		File.Insert("Id", Commit.Id );
+		File.Insert("Date", Commit.Date );
+		File.Insert("FileName", FilePath );
+		File.Insert("FilePath", FilePath );
+
+		AddFileMetadata( FileMetadata, File, "" );
+
 	EndDo;
 
 EndProcedure
@@ -199,7 +163,7 @@ Procedure AppendRAWFilePath( FileMetadata, Val ProjectId )
 	For Each Record In FileMetadata Do
 		
 		Record.RAWFilePath = GitLabAPI.GetRAWFilePath( Record.FilePath, ProjectId, Record.CommitSHA );
-				
+		
 	EndDo;
 	
 EndProcedure
@@ -234,7 +198,7 @@ Function SliceLastByAction( Val FileMetadata, Val Action )
 		If ( ValueIsFilled(LastFile) ) Then
 
 			FillPropertyValues( Result.Add(), LastFile[0] );
-								
+	
 		EndIf;
 		
 	EndDo;
@@ -243,17 +207,17 @@ Function SliceLastByAction( Val FileMetadata, Val Action )
 	
 EndFunction
 
-Procedure AppendBinaryData( FilesMetadata, Val ConnectionParams )
+Procedure DownloadFromGitLab( FilesMetadata, Val ServerURL )
 
 	Var RAWFilePaths;
-	Var DownloadedFiles;
+	Var Files;
 	Var FileMetadata;
 
 	RAWFilePaths = FilesMetadata.UnloadColumn( "RAWFilePath" );
 	
-	DownloadedFiles = GitlabAPI.GetRAWFiles( ConnectionParams, RAWFilePaths );
+	Files = GitlabAPI.GetRAWFiles( GitLabAPI.GetConnectionParams(ServerURL), RAWFilePaths );
 	
-	For Each File In DownloadedFiles Do
+	For Each File In Files Do
 			
 		FileMetadata = FilesMetadata.Find( File.RAWFilePath, "RAWFilePath" );
 		

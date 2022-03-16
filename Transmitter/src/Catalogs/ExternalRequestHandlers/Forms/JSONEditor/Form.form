@@ -25,7 +25,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Routing.CommitSHA</segments>
+            <segments>Routing.Id</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -442,12 +442,12 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Элементы.Commits.ТекущиеДанные.IsCustomSetting</segments>
+        <segments>Элементы.Commits.ТекущиеДанные.IsCustom</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>CommitsIsCustomSettingOnChange</name>
+        <name>CommitsIsCustomOnChange</name>
       </handlers>
       <extendedTooltip>
         <name>CommitsIsCustomSettingРасширеннаяПодсказка</name>
@@ -513,7 +513,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.SaveSettings</commandName>
+      <commandName>Form.Command.Save</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -589,7 +589,7 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>CommitSHA</name>
+      <name>Id</name>
       <title>
         <key>ru</key>
         <value>commit_sha</value>
@@ -627,7 +627,7 @@
       </edit>
     </columns>
     <columns>
-      <name>IsCustomSetting</name>
+      <name>IsCustom</name>
       <title>
         <key>en</key>
         <value>Custom Setting</value>
@@ -680,14 +680,18 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>SaveSettings</name>
+    <name>Save</name>
+    <title>
+      <key>ru</key>
+      <value>Save</value>
+    </title>
     <id>1</id>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>SaveSettings</name>
+        <name>Save</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

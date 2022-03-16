@@ -1,18 +1,18 @@
 #Region Public
 
-Function Start( Val RequestHandler, Val RequestData, Val Files = Undefined, Val Dump = True ) Export
+Function Start( Val RequestHandler, Val ExternalRequest, Val Files = Undefined, Val Dump = True ) Export
 
 	Var Message;
 	Var CheckoutSHA;
 	Var BackgroundJobParams;
 	Var BackgroundJob;
 	
-	CheckoutSHA = ExternalRequests.GetCheckoutSHA( RequestData );
-	
+	CheckoutSHA = ExternalRequest.GetCheckoutSHA();
+
 	BackgroundJobParams = New Array();
 	BackgroundJobParams.Add( RequestHandler );
 	BackgroundJobParams.Add( CheckoutSHA );
-	BackgroundJobParams.Add( RequestData );
+	BackgroundJobParams.Add( ExternalRequest.ToCollection() );
 	BackgroundJobParams.Add( Files );
 	BackgroundJobParams.Add( Dump );
 	
@@ -37,19 +37,20 @@ EndFunction
 
 Function Manual( Val RequestHandler, Val CheckoutSHA ) Export
 	
-	Var Data;
+	Var ExternalRequest;
 	Var Files;
 
-	Data = ExternalRequests.GetFromIB( RequestHandler, CheckoutSHA );
-	Files = RemoteFiles.GetFromIB( RequestHandler, CheckoutSHA );
+	ExternalRequest = ExternalRequests.GetObjectFromIB( RequestHandler, CheckoutSHA );
 	
-	If ( Data = Undefined ) Then
+	If ( ExternalRequest = Undefined ) Then
 	
 		Logs.Error( Logs.Events().DATA_PROCESSING, Logs.Messages().NO_REQUEST_DATA, CheckoutSHA, RequestHandler );
 		
 		Return Undefined;
 		
 	EndIf;
+	
+	Files = RemoteFiles.GetFromIB( RequestHandler, CheckoutSHA );
 	
 	If ( Files = Undefined ) Then
 	
@@ -59,7 +60,7 @@ Function Manual( Val RequestHandler, Val CheckoutSHA ) Export
 		
 	EndIf;
 	
-	Return Start( RequestHandler, Data, Files, False );
+	Return Start( RequestHandler, ExternalRequest, Files, False );
 	
 EndFunction
 
@@ -92,27 +93,21 @@ EndFunction
 
 Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, Val Dump ) Export
 
-	Var Project;
-	Var ConnectionParams;
 	Var FilesToSend;
 	Var Jobs;
 	
-	Project = ExternalRequests.GetProjectOrRaise( RequestData );
-
-	// TODO теперь видно, что надо пробросить URL как можно ближе к загрузке и вызывать GetConnectionParams уже там,
-	// так как гитлаб кроме как в GetFromRemoteVCS не используется
-	ConnectionParams = GitLabAPI.GetConnectionParams( Project.ServerURL );
+	ExternalRequest = ExternalRequests.Create( RequestData );
 	
 	If ( Files = Undefined ) Then
 		
-		Files = RemoteFiles.GetFromRemoteVCS( ConnectionParams, RequestData );
+		Files = RemoteFiles.GetFromRemoteVCS( ExternalRequest );
 		
 		LogDownloadResult( Files, RequestHandler, CheckoutSHA );
 		
 		Files = GetFilesWithoutErrors( Files );
 	
-		// TODO AppendRoutingSettings переместить в GetFromRemoteVCS??? вай нот?
-		ExternalRequests.AppendRoutingSettings( RequestData, Files );
+		// TODO FillRoutesFromBinaryData переместить в GetFromRemoteVCS??? вай нот?
+		Routing.FillRoutesFromBinaryData( ExternalRequest, Files );
 	
 	EndIf;
 	
@@ -120,12 +115,12 @@ Procedure Run( Val RequestHandler, Val CheckoutSHA, Val RequestData, Val Files, 
 	
 	If ( Dump ) Then
 		
-		Dump( "ExternalRequests", RequestHandler, CheckoutSHA, RequestData );
+		Dump( "ExternalRequests", RequestHandler, CheckoutSHA, ExternalRequest.ToCollection() );
 		Dump( "RemoteFiles", RequestHandler, CheckoutSHA, Files );
 		
 	EndIf;
 	
-	FilesToSend = Routing.GetFilesByRoutes( RequestData, Files );
+	FilesToSend = Routing.GetFilesByRoutes( ExternalRequest, Files );
 	
 	LogRoutingResult( FilesToSend, RequestHandler, CheckoutSHA );
 	

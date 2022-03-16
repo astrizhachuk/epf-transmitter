@@ -9,19 +9,19 @@ Feature: Transmitter.Tests.TestsRoutingServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetFilesByRoutesNoData
+Scenario: FillRoutesFromBinaryData
 	And I execute 1C:Enterprise script at server
-	| 'TestsRoutingServer.GetFilesByRoutesNoData(Context());' |
+	| 'TestsRoutingServer.FillRoutesFromBinaryData(Context());' |
 
 @OnServer
-Scenario: GetFilesByRoutesRoutingSettingsNotFound
+Scenario: GetFilesByRoutesNoRouteFile
 	And I execute 1C:Enterprise script at server
-	| 'TestsRoutingServer.GetFilesByRoutesRoutingSettingsNotFound(Context());' |
+	| 'TestsRoutingServer.GetFilesByRoutesNoRouteFile(Context());' |
 
 @OnServer
-Scenario: GetFilesByRoutesSkipRoutingSettingsFile
+Scenario: GetFilesByRoutesSkipRouteFile
 	And I execute 1C:Enterprise script at server
-	| 'TestsRoutingServer.GetFilesByRoutesSkipRoutingSettingsFile(Context());' |
+	| 'TestsRoutingServer.GetFilesByRoutesSkipRouteFile(Context());' |
 
 @OnServer
 Scenario: GetFilesByRoutesOneRouteBecauseExcludes
@@ -37,3 +37,23 @@ Scenario: GetFilesByRoutesTwoRoutes
 Scenario: GetFilesByRoutesNoFileInSettings
 	And I execute 1C:Enterprise script at server
 	| 'TestsRoutingServer.GetFilesByRoutesNoFileInSettings(Context());' |
+
+@OnServer
+Scenario: AddCustomRoute
+	And I execute 1C:Enterprise script at server
+	| 'TestsRoutingServer.AddCustomRoute(Context());' |
+
+@OnServer
+Scenario: AddCustomRouteException
+	And I execute 1C:Enterprise script at server
+	| 'TestsRoutingServer.AddCustomRouteException(Context());' |
+
+@OnServer
+Scenario: RemoveCustomRoute
+	And I execute 1C:Enterprise script at server
+	| 'TestsRoutingServer.RemoveCustomRoute(Context());' |
+
+@OnServer
+Scenario: RemoveCustomRouteNotFound
+	And I execute 1C:Enterprise script at server
+	| 'TestsRoutingServer.RemoveCustomRouteNotFound(Context());' |

@@ -29,34 +29,24 @@ Scenario: StartDumpData
 	| 'TestsDataProcessingServer.StartDumpData(Context());' |
 
 @OnServer
-Scenario: StartProjectDataNotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.StartProjectDataNotFound(Context());' |
-
-@OnServer
-Scenario: StartCommitsNotFound
-	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.StartCommitsNotFound(Context());' |
-
-@OnServer
 Scenario: StartDownloadFromRemoteVCSNoRouts
 	And I execute 1C:Enterprise script at server
 	| 'TestsDataProcessingServer.StartDownloadFromRemoteVCSNoRouts(Context());' |
 
 @OnServer
-Scenario: ManualRunErrorLoadDataRequestBodyNotFound
+Scenario: ManualRunLoadDataErrorRequestBodyNotFound
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.ManualRunErrorLoadDataRequestBodyNotFound(Context());' |
+	| 'TestsDataProcessingServer.ManualRunLoadDataErrorRequestBodyNotFound(Context());' |
 
 @OnServer
-Scenario: ManualRunErrorLoadDataRemoteFilesNotFound
+Scenario: ManualRunLoadDataErrorRemoteFilesNotFound
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.ManualRunErrorLoadDataRemoteFilesNotFound(Context());' |
+	| 'TestsDataProcessingServer.ManualRunLoadDataErrorRemoteFilesNotFound(Context());' |
 
 @OnServer
-Scenario: ManualLoadDataSaccess
+Scenario: ManualRunLoadDataSuccess
 	And I execute 1C:Enterprise script at server
-	| 'TestsDataProcessingServer.ManualLoadDataSaccess(Context());' |
+	| 'TestsDataProcessingServer.ManualRunLoadDataSuccess(Context());' |
 
 @OnServer
 Scenario: ManualRunCompleted

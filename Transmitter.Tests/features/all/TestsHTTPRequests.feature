@@ -24,46 +24,46 @@ Scenario: GitLabStatusGet200OkDisabled
 	| 'TestsHTTPRequests.GitLabStatusGet200OkDisabled(Context());' |
 
 @OnServer
-Scenario: EventsPostPush200Ok
+Scenario: EventsPostPushGitLab200Ok
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush200Ok(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab200Ok(Context());' |
 
 @OnServer
-Scenario: EventsPostPush400BadRequestWithoutToken
+Scenario: EventsPostPushGitLab400BadRequestWithoutToken
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush400BadRequestWithoutToken(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab400BadRequestWithoutToken(Context());' |
 
 @OnServer
-Scenario: EventsPostPush400BadRequestWithoutEvent
+Scenario: EventsPostPushGitLab400BadRequestWithoutEvent
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush400BadRequestWithoutEvent(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab400BadRequestWithoutEvent(Context());' |
 
 @OnServer
-Scenario: EventsPostPush400BadRequestWrongEventMethod
+Scenario: EventsPostPushGitLab400BadRequestWrongEventMethod
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush400BadRequestWrongEventMethod(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab400BadRequestWrongEventMethod(Context());' |
 
 @OnServer
-Scenario: EventsPostPush401Unauthorized
+Scenario: EventsPostPushGitLab401Unauthorized
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush401Unauthorized(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab401Unauthorized(Context());' |
 
 @OnServer
-Scenario: EventsPostPush404NotFound
+Scenario: EventsPostPushGitLab404NotFound
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush404NotFound(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab404NotFound(Context());' |
 
 @OnServer
-Scenario: EventsPostPush423Locked
+Scenario: EventsPostPushGitLab423Locked
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush423Locked(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab423Locked(Context());' |
 
 @OnServer
-Scenario: EventsPostPush500InternalServerErrorWrongBodyFormat
+Scenario: EventsPostPushGitLab500InternalServerErrorWrongBodyFormat
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush500InternalServerErrorWrongBodyFormat(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab500InternalServerErrorWrongBodyFormat(Context());' |
 
 @OnServer
-Scenario: EventsPostPush500InternalServerErrorCheckoutSHAMissed
+Scenario: EventsPostPushGitLab500InternalServerErrorCheckoutSHAMissed
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPRequests.EventsPostPush500InternalServerErrorCheckoutSHAMissed(Context());' |
+	| 'TestsHTTPRequests.EventsPostPushGitLab500InternalServerErrorCheckoutSHAMissed(Context());' |

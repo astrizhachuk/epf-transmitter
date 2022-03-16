@@ -89,6 +89,8 @@
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>
   <catalogs>Catalog.ExternalRequestHandlers</catalogs>
+  <enums>Enum.RequestSource</enums>
+  <dataProcessors>DataProcessor.ExternalRequest</dataProcessors>
   <informationRegisters>InformationRegister.ExternalRequests</informationRegisters>
   <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
 </mdclass:Configuration>
