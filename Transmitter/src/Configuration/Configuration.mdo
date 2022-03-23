@@ -65,6 +65,8 @@
   <commonModules>CommonModule.Credentials</commonModules>
   <commonModules>CommonModule.DataProcessing</commonModules>
   <commonModules>CommonModule.Endpoints</commonModules>
+  <commonModules>CommonModule.EndpointsClientServer</commonModules>
+  <commonModules>CommonModule.EndpointsServerCall</commonModules>
   <commonModules>CommonModule.ExternalRequests</commonModules>
   <commonModules>CommonModule.GitLabAPI</commonModules>
   <commonModules>CommonModule.HTTPConnector</commonModules>
@@ -79,6 +81,7 @@
   <httpServices>HTTPService.GitLab</httpServices>
   <httpServices>HTTPService.Version</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
+  <commonCommands>CommonCommand.TestServiceStatus</commonCommands>
   <constants>Constant.EndpointTimeout</constants>
   <constants>Constant.EndpointUserName</constants>
   <constants>Constant.EndpointUserPassword</constants>
@@ -89,6 +92,7 @@
   <commonForms>CommonForm.ServicesSettings</commonForms>
   <commonForms>CommonForm.CheckingServiceStatus</commonForms>
   <catalogs>Catalog.ExternalRequestHandlers</catalogs>
+  <catalogs>Catalog.Endpoints</catalogs>
   <enums>Enum.RequestSource</enums>
   <dataProcessors>DataProcessor.ExternalRequest</dataProcessors>
   <informationRegisters>InformationRegister.ExternalRequests</informationRegisters>

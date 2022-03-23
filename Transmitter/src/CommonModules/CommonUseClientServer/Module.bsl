@@ -118,6 +118,26 @@ Function AddCompositionItem(AreaToAdd,
 	
 EndFunction
 
+// HasObjectAttributeOrProperty verifies existence of an attribute or property
+// of an arbitrary object without access to metadata.
+//
+// Parameters:
+//  Object - Arbitrary - verified object;
+//  Name - String - attribute or property name;
+//
+// Returns:
+//  Boolean - True, if exists.
+//
+Function HasObjectAttributeOrProperty(Object, Name) Export
+	
+	UUID = New UUID;
+	Structure = New Structure(Name, UUID);
+	FillPropertyValues(Structure, Object);
+	
+	Return Structure[Name] <> UUID;
+	
+EndFunction
+
 // BSLLS-on
 
 #EndRegion

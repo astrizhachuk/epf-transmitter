@@ -1,7 +1,7 @@
 {
     "httpRequest": {
         "method": "GET",
-        "path": "/basicAuth",
+        "path": ".*/basicAuth",
         "headers": {
             "Authorization": ["Basic VXNlcjE6UGFzc3dvcmQx"]
         }

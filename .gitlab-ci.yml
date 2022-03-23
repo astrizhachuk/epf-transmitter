@@ -425,7 +425,6 @@ sonarqube on tag:
 
 
 
-
 # prepare:
 #   stage: .pre
 #   before_script:

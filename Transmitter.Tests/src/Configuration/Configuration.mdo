@@ -52,6 +52,7 @@
   <commonModules>CommonModule.TestsCommonUseServer</commonModules>
   <commonModules>CommonModule.TestsCredentialsServer</commonModules>
   <commonModules>CommonModule.TestsDataProcessingServer</commonModules>
+  <commonModules>CommonModule.TestsEndpointsClient</commonModules>
   <commonModules>CommonModule.TestsEndpointsServer</commonModules>
   <commonModules>CommonModule.TestsExternalRequestServer</commonModules>
   <commonModules>CommonModule.TestsExternalRequestsServer</commonModules>

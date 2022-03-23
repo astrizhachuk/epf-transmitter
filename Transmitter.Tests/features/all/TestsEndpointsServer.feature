@@ -14,6 +14,11 @@ Scenario: GetConnectionParams
 	| 'TestsEndpointsServer.GetConnectionParams(Context());' |
 
 @OnServer
+Scenario: GetEndpointParams
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetEndpointParams(Context());' |
+
+@OnServer
 Scenario: SetURL
 	And I execute 1C:Enterprise script at server
 	| 'TestsEndpointsServer.SetURL(Context());' |
@@ -52,3 +57,38 @@ Scenario: BackgroundSendFilesJobError
 Scenario: BackgroundSendFilesMixedResult
 	And I execute 1C:Enterprise script at server
 	| 'TestsEndpointsServer.BackgroundSendFilesMixedResult(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusException
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusException(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusURL
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusURL(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusConcat
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusConcat(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusURLInlineAuth
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusURLInlineAuth(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusBaseURLInlineAuth
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusBaseURLInlineAuth(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusGlobalSettingsFailedAuth
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusGlobalSettingsFailedAuth(Context());' |
+
+@OnServer
+Scenario: GetServiceStatusGlobalSettings
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.GetServiceStatusGlobalSettings(Context());' |

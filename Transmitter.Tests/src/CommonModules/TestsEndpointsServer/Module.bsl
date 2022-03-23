@@ -6,6 +6,31 @@
 // 	Framework - TestFramework - Test framework
 //
 Procedure GetConnectionParams(Framework) Export
+	
+	// given
+	
+	// when
+	Result = EndpointsClientServer.GetConnectionParams();
+	
+	// then
+	Framework.AssertEqual(Result.Count(), 8);
+	Framework.AssertEqual(Result.URL, "");
+	Framework.AssertEqual(Result.BaseURL, "");
+	Framework.AssertEqual(Result.Operation, "/status");
+	Framework.AssertFalse(Result.UseGlobalSettings);
+	Framework.AssertEqual(Result.User, "");
+	Framework.AssertEqual(Result.Password, "");
+	Framework.AssertEqual(Result.Timeout, Undefined);	
+
+EndProcedure
+
+// TODO кандидат на удаление?
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetEndpointParams(Framework) Export
 
 	// given
 	UserName = "UserName" + Tests.RandomString();
@@ -61,7 +86,7 @@ Procedure SendFileErrorWithoutEndpoint(Framework) Export
 	// then
 		ErrorInfo = ErrorInfo();
 		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_ENDPOINT);
-	КонецПопытки;
+	EndTry;
 	
 EndProcedure
 
@@ -73,6 +98,7 @@ Procedure SendFile4xxError(Framework) Export
 
 	// given
 	Endpoint = NewEndpoint();
+	Endpoint.URL = Endpoint.UploadFileURL;
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -90,7 +116,7 @@ Procedure SendFile4xxError(Framework) Export
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Endpoint.URL);
+		Framework.AssertStringContains(ErrorInfo.Description, Endpoint.UploadFileURL);
 		Framework.AssertStringContains(ErrorInfo.Description, File.FileName);
 		Framework.AssertStringContains(ErrorInfo.Description, StatusCode);
 		Framework.AssertStringContains(ErrorInfo.Description, File.Data);		
@@ -107,6 +133,7 @@ Procedure SendFile200Ok(Framework) Export
 
 	// given
 	Endpoint = NewEndpoint();
+	Endpoint.URL = Endpoint.UploadFileURL;
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -121,7 +148,7 @@ Procedure SendFile200Ok(Framework) Export
 	Result = Endpoints.SendFile(Endpoint, File.FileName, GetBinaryDataFromString(File.Data));
 	
 	// then
-	Framework.AssertStringContains(Result, Endpoint.URL);
+	Framework.AssertStringContains(Result, Endpoint.UploadFileURL);
 	Framework.AssertStringContains(Result, File.FileName);
 	Framework.AssertStringContains(Result, StatusCode);
 	Framework.AssertStringContains(Result, File.Data);
@@ -155,7 +182,7 @@ Procedure BackgroundSendFilesActiveJob(Framework) Export
 	Endpoint = NewEndpoint();
 	CommitSHA = Tests.RandomString();
 	Routes = New Array;
-	Routes.Add(Endpoint.URL);
+	Routes.Add(Endpoint.UploadFileURL);
 	File = Tests.NewFile("", "Файл", "epf");
 	
 	FileToSend1 = NewFileToSend(CommitSHA, File, Routes);
@@ -213,7 +240,7 @@ Procedure BackgroundSendFilesMixedResult(Framework) Export
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
-	Constants.EndpointTimeout.Set(5);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
 	
 	File = Tests.NewFile("", "Файл", "epf");
 	
@@ -221,8 +248,8 @@ Procedure BackgroundSendFilesMixedResult(Framework) Export
 	SetMockUploadFile(Endpoint, File, StatusCode);
 
 	Routes = New Array;
-	Routes.Add(Endpoint.URL);
-	Routes.Add(Endpoint.URL);
+	Routes.Add(Endpoint.UploadFileURL);
+	Routes.Add(Endpoint.UploadFileURL);
 
 	NotFoundURL = Endpoint.ServerURL + "/NotFound";
 	NotFoundStatusCode = 404;
@@ -252,6 +279,257 @@ Procedure BackgroundSendFilesMixedResult(Framework) Export
 
 EndProcedure
 
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusException(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", "" );
+	Connection.Insert( "BaseURL", "" );
+	Connection.Insert( "RootURL", "" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", Endpoint.User );
+	Connection.Insert( "Password", Endpoint.Password );
+	Connection.Insert( "Timeout", Undefined );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, -1);
+	Framework.AssertStringContains(Result.ResponseBody, "or missing URL");
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusURL(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
+	Connection.Insert( "BaseURL", "" );
+	Connection.Insert( "RootURL", "" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", Endpoint.User );
+	Connection.Insert( "Password", Endpoint.Password );
+	Connection.Insert( "Timeout", Undefined );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, StatusCode);
+	Framework.AssertEqual(Result.ResponseBody, Body);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusConcat(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", "" );
+	Connection.Insert( "BaseURL", Endpoint.ServerURL );
+	Connection.Insert( "RootURL", "/epf" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", Endpoint.User );
+	Connection.Insert( "Password", Endpoint.Password );
+	Connection.Insert( "Timeout", Undefined );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, StatusCode);
+	Framework.AssertEqual(Result.ResponseBody, Body);
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusURLInlineAuth(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", "http://" + Endpoint.User + ":" + Endpoint.Password + "@mockserver:1080/epf/status" );
+	Connection.Insert( "BaseURL", "" );
+	Connection.Insert( "RootURL", "/epf" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", "" );
+	Connection.Insert( "Password", "" );
+	Connection.Insert( "Timeout", Undefined );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, StatusCode);
+	Framework.AssertEqual(Result.ResponseBody, Body);
+
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusBaseURLInlineAuth(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", "" );
+	Connection.Insert( "BaseURL", "http://" + Endpoint.User + ":" + Endpoint.Password + "@mockserver:1080" );
+	Connection.Insert( "RootURL", "/epf" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", "" );
+	Connection.Insert( "Password", "" );
+	Connection.Insert( "Timeout", Undefined );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, StatusCode);
+	Framework.AssertEqual(Result.ResponseBody, Body);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusGlobalSettingsFailedAuth(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, , StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
+	Connection.Insert( "BaseURL", "" );
+	Connection.Insert( "RootURL", "" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", False );
+	Connection.Insert( "User", Tests.RandomString() );
+	Connection.Insert( "Password", Tests.RandomString() );
+	Connection.Insert( "Timeout", 0 );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, 404);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure GetServiceStatusGlobalSettings(Framework) Export
+	
+	// given
+	Endpoint = NewEndpoint();
+	
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	StatusCode = 200;
+	Body = "{""message"":""загрузка файлов включена""}";
+	SetMockStatus(Endpoint, Body, StatusCode);
+	
+	Connection = New Structure();
+	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
+	Connection.Insert( "BaseURL", "" );
+	Connection.Insert( "RootURL", "" );
+	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "UseGlobalSettings", True );
+	Connection.Insert( "User", Tests.RandomString() );
+	Connection.Insert( "Password", Tests.RandomString() );
+	Connection.Insert( "Timeout", 0 );
+	
+	// when
+	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, StatusCode);
+	Framework.AssertEqual(Result.ResponseBody, Body);
+
+EndProcedure
+
 #EndRegion
 
 #Region Private
@@ -273,8 +551,10 @@ Function NewEndpoint()
 	URL = "http://mockserver:1080";
 	
 	Result = New Structure();
+	Result.Insert("URL");	
 	Result.Insert("ServerURL", URL);	
-	Result.Insert("URL", URL + "/epf/uploadFile");
+	Result.Insert("UploadFileURL", URL + "/epf/uploadFile");
+	Result.Insert("ServiceStatusURL", URL + "/epf/status");
 	Result.Insert("User", "User" + Tests.RandomString());
 	Result.Insert("Password", "Password" + Tests.RandomString());
 	Result.Insert("Timeout", 5);
@@ -303,6 +583,28 @@ Procedure SetMockUploadFile(Val Endpoint, Val File, Val StatusCode)
 				.WithHeader("Content-Type", "text/plain; charset=utf-8")
 	        	.WithBody(File.Data)
 	    );
+    
+EndProcedure
+
+Procedure SetMockStatus(Val Endpoint, Val Body = "", Val StatusCode)
+	
+	Base64 = GetBase64StringFromBinaryData(GetBinaryDataFromString(Endpoint.User + ":" + Endpoint.Password));
+	
+	Mock = DataProcessors.MockServerClient.Create();
+	Mock.Server(Endpoint.ServerURL, , True)
+		.When(
+			Mock.Request()
+				.WithMethod("GET")
+				.WithPath("/epf/status")
+				.Headers()
+					.WithHeader("Authorization", "Basic " + Base64)
+		)
+	    .Respond(
+	        Mock.Response()
+	        	.WithStatusCode(StatusCode)
+				.WithHeader("Content-Type", "application/json; charset=utf-8")
+	        	.WithBody(Body)
+    );
     
 EndProcedure
 

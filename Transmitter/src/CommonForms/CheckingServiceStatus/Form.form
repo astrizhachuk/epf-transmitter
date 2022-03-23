@@ -4,7 +4,7 @@
     <name>GroupRequest</name>
     <id>9</id>
     <items xsi:type="form:FormField">
-      <name>URL</name>
+      <name>ServiceURL</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -17,7 +17,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>URLExtendedTooltip</name>
+        <name>ServiceURLExtendedTooltip</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +32,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>URLContextMenu</name>
+        <name>ServiceURLContextMenu</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -55,71 +55,17 @@
         <textEdit>true</textEdit>
       </extInfo>
     </items>
-    <items xsi:type="form:FormField">
-      <name>StatusCode</name>
-      <id>33</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>StatusCode</segments>
-      </dataPath>
-      <titleLocation>None</titleLocation>
-      <extendedTooltip>
-        <name>StatusCodeExtendedTooltip</name>
-        <id>35</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>StatusCodeContextMenu</name>
-        <id>34</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>LabelField</type>
-      <editMode>Enter</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:LabelFieldExtInfo">
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <font xsi:type="core:FontRef">
-          <font>Style.NormalTextFont</font>
-          <bold>true</bold>
-          <italic>false</italic>
-          <underline>false</underline>
-          <strikeout>false</strikeout>
-        </font>
-      </extInfo>
-    </items>
     <items xsi:type="form:Button">
-      <name>CheckServiceStatus</name>
-      <id>13</id>
+      <name>CommonCommandTestServiceStatus</name>
+      <id>41</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>CheckServiceStatusExtendedTooltip</name>
-        <id>14</id>
+        <name>CommonCommandTestServiceStatusExtendedTooltip</name>
+        <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -133,7 +79,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.CheckServiceStatus</commandName>
+      <commandName>CommonCommand.TestServiceStatus</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -171,7 +117,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>UseAuthFromSettings</name>
+    <name>UseGlobalSettings</name>
     <id>36</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -179,11 +125,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>UseAuthFromSettings</segments>
+      <segments>UseGlobalSettings</segments>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>UseAuthFromSettingsExtendedTooltip</name>
+      <name>UseGlobalSettingsExtendedTooltip</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -198,7 +144,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>UseAuthFromSettingsContextMenu</name>
+      <name>UseGlobalSettingsContextMenu</name>
       <id>37</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -216,24 +162,136 @@
   </items>
   <items xsi:type="form:FormGroup">
     <name>GroupResponse</name>
-    <id>31</id>
-    <items xsi:type="form:FormField">
-      <name>ResponseBody</name>
-      <id>28</id>
+    <id>46</id>
+    <items xsi:type="form:FormGroup">
+      <name>GroupResponseBrief</name>
+      <id>48</id>
+      <items xsi:type="form:FormField">
+        <name>StatusCode</name>
+        <id>33</id>
+        <title>
+          <key>en</key>
+          <value>Status code</value>
+        </title>
+        <title>
+          <key>ru</key>
+          <value>Код ответа</value>
+        </title>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <dataPath xsi:type="form:DataPath">
+          <segments>StatusCode</segments>
+        </dataPath>
+        <titleLocation>Left</titleLocation>
+        <extendedTooltip>
+          <name>StatusCodeExtendedTooltip</name>
+          <id>35</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <contextMenu>
+          <name>StatusCodeContextMenu</name>
+          <id>34</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>InputField</type>
+        <readOnly>true</readOnly>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:InputFieldExtInfo">
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <wrap>true</wrap>
+          <chooseType>true</chooseType>
+          <typeDomainEnabled>true</typeDomainEnabled>
+          <textEdit>true</textEdit>
+          <font xsi:type="core:FontRef">
+            <font>Style.NormalTextFont</font>
+            <bold>true</bold>
+            <italic>false</italic>
+            <underline>false</underline>
+            <strikeout>false</strikeout>
+          </font>
+        </extInfo>
+      </items>
+      <items xsi:type="form:FormField">
+        <name>FileUploadStatus</name>
+        <id>43</id>
+        <title>
+          <key>en</key>
+          <value>Upload enabled</value>
+        </title>
+        <title>
+          <key>ru</key>
+          <value>Загрузка включена</value>
+        </title>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <dataPath xsi:type="form:DataPath">
+          <segments>FileUploadStatus</segments>
+        </dataPath>
+        <extendedTooltip>
+          <name>FileUploadStatusExtendedTooltip</name>
+          <id>45</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <contextMenu>
+          <name>FileUploadStatusContextMenu</name>
+          <id>44</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>CheckBoxField</type>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+      </items>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ResponseBody</segments>
-        </paths>
-      </dataPath>
-      <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ResponseBodyExtendedTooltip</name>
-        <id>30</id>
+        <name>GroupResponseBriefExtendedTooltip</name>
+        <id>49</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -246,29 +304,112 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <contextMenu>
-        <name>ResponseBodyContextMenu</name>
-        <id>29</id>
+      <type>UsualGroup</type>
+      <extInfo xsi:type="form:UsualGroupExtInfo">
+        <group>AlwaysHorizontal</group>
+        <showLeftMargin>true</showLeftMargin>
+        <united>true</united>
+        <throughAlign>Auto</throughAlign>
+        <currentRowUse>Auto</currentRowUse>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormGroup">
+      <name>GroupResponseBody</name>
+      <id>31</id>
+      <items xsi:type="form:FormField">
+        <name>ResponseBody</name>
+        <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>TextDocumentField</type>
-      <readOnly>true</readOnly>
-      <editMode>Enter</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:TextDocFieldExtInfo">
-        <width>50</width>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ResponseBody</segments>
+          </paths>
+        </dataPath>
+        <titleLocation>None</titleLocation>
+        <extendedTooltip>
+          <name>ResponseBodyExtendedTooltip</name>
+          <id>30</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <contextMenu>
+          <name>ResponseBodyContextMenu</name>
+          <id>29</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>TextDocumentField</type>
+        <readOnly>true</readOnly>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:TextDocFieldExtInfo">
+          <width>50</width>
+          <autoMaxWidth>true</autoMaxWidth>
+          <height>10</height>
+          <autoMaxHeight>true</autoMaxHeight>
+          <horizontalStretch>true</horizontalStretch>
+          <verticalStretch>true</verticalStretch>
+        </extInfo>
+      </items>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <title>
+        <key>en</key>
+        <value>Response</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Ответ</value>
+      </title>
+      <extendedTooltip>
+        <name>GroupResponseBodyExtendedTooltip</name>
+        <id>32</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
         <autoMaxWidth>true</autoMaxWidth>
-        <height>10</height>
         <autoMaxHeight>true</autoMaxHeight>
-        <horizontalStretch>true</horizontalStretch>
-        <verticalStretch>true</verticalStretch>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <type>UsualGroup</type>
+      <extInfo xsi:type="form:UsualGroupExtInfo">
+        <group>HorizontalIfPossible</group>
+        <behavior>Collapsible</behavior>
+        <collapsed>true</collapsed>
+        <controlRepresentation>Picture</controlRepresentation>
+        <representation>WeakSeparation</representation>
+        <showLeftMargin>true</showLeftMargin>
+        <united>true</united>
+        <showTitle>true</showTitle>
+        <throughAlign>Auto</throughAlign>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -276,17 +417,9 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <title>
-      <key>en</key>
-      <value>Response</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Тело ответа</value>
-    </title>
     <extendedTooltip>
       <name>GroupResponseExtendedTooltip</name>
-      <id>32</id>
+      <id>47</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -301,14 +434,10 @@
     </extendedTooltip>
     <type>UsualGroup</type>
     <extInfo xsi:type="form:UsualGroupExtInfo">
-      <group>HorizontalIfPossible</group>
-      <behavior>Collapsible</behavior>
-      <collapsed>true</collapsed>
-      <controlRepresentation>Picture</controlRepresentation>
-      <representation>WeakSeparation</representation>
+      <group>Vertical</group>
+      <representation>NormalSeparation</representation>
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
-      <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
@@ -397,14 +526,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>UseAuthFromSettings</name>
+    <name>UseGlobalSettings</name>
     <title>
       <key>en</key>
-      <value>Use authentication from settings</value>
+      <value>Use authentication from global settings</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Использовать аутентификацию из настроек</value>
+      <value>Использовать аутентификацию из глобальных настроек</value>
     </title>
     <id>10</id>
     <valueType>
@@ -417,31 +546,23 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>UseAuthFromSettings</segments>
+      <segments>UseGlobalSettings</segments>
     </settingsSavedData>
     <savedData>true</savedData>
   </attributes>
-  <formCommands>
-    <name>CheckServiceStatus</name>
-    <title>
-      <key>en</key>
-      <value>Test</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Проверить</value>
-    </title>
-    <id>1</id>
-    <use>
+  <attributes>
+    <name>FileUploadStatus</name>
+    <id>11</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
       <common>true</common>
-    </use>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>CheckServiceStatus</name>
-      </handler>
-    </action>
-    <currentRowUse>DontUse</currentRowUse>
-  </formCommands>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <commandInterface>
     <navigationPanel/>
     <commandBar/>

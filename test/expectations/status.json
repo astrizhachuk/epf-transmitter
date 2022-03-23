@@ -1,0 +1,16 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*/status"
+    },
+    "httpResponse": {
+        "body": {
+            "type": "JSON",
+            "json": {"message":"загрузка файлов включена"},
+            "contentType": "text/plain; charset=utf-8"
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}
