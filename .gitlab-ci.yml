@@ -22,13 +22,12 @@ variables:
   # Compose configuration files (docker-compose -f) and
   # project name (docker-compose -p) for containers, volumes, and network prefix
   DEPLOY_CONFIG: "production.yml"
-
   DEPLOY_NAME: "$CI_PROJECT_NAME-production"
   DEPLOY_NETWORK: "$CI_PROJECT_NAME-production"
-
-  # production and review app endpoints
   DEPLOY_SERVER: "http://127.0.0.1"
   DEPLOY_PORT: "8090"
+
+  REVIEW_CONFIG: "review.yml"
   REVIEW_PORT: "8091"
 
   EDT_PROJECT_DIR: "Transmitter" # EDT src
@@ -99,6 +98,7 @@ include:
   - TAG_REGEX="^review-"
   - if [[ $CI_COMMIT_TAG =~ $TAG_REGEX ]];
     then
+      DEPLOY_CONFIG=$REVIEW_CONFIG
       DEPLOY_NETWORK=$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG;
       DEPLOY_NAME=$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG;
       DEPLOY_PORT=$REVIEW_PORT;
@@ -229,6 +229,7 @@ srv up:
 review srv up:
   stage: srv
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -311,6 +312,7 @@ update:
 review update:
   stage: update
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -352,6 +354,7 @@ init db:
 review init db:
   stage: init
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -394,6 +397,7 @@ stop_review:
   stage: .post
   variables:
     GIT_STRATEGY: none
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT

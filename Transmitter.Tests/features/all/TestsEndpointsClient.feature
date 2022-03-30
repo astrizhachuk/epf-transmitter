@@ -8,10 +8,10 @@ Feature: Transmitter.Tests.TestsEndpointsClient
 	I want the returns value to be equal to expected value
 	That I can guarantee the execution of the method
 
-Scenario: GetConnectionParams
+Scenario: Connector
 	And I execute 1C:Enterprise script
-	| 'TestsEndpointsClient.GetConnectionParams(Context());' |
+	| 'TestsEndpointsClient.Connector(Context());' |
 
-Scenario: GetServiceStatusException
+Scenario: GetStatusServiceException
 	And I execute 1C:Enterprise script
-	| 'TestsEndpointsClient.GetServiceStatusException(Context());' |
+	| 'TestsEndpointsClient.GetStatusServiceException(Context());' |

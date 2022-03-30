@@ -311,7 +311,7 @@ Function DownloadFile( Val ConnectionParams, Val FilePath )
 		EndIf;
 
 		Result.FileName = Response.Headers.Get( "X-Gitlab-File-Name" );
-		Result.BinaryData = Response.Body;
+		Result.BinaryData = HTTPConnector.AsBinaryData(Response);
 		
 	Except
 

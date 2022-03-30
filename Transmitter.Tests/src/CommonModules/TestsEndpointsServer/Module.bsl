@@ -5,87 +5,42 @@
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetConnectionParams(Framework) Export
+Procedure Connector(Framework) Export
 	
 	// given
 	
 	// when
-	Result = EndpointsClientServer.GetConnectionParams();
+	Result = EndpointsClientServer.Connector();
 	
 	// then
-	Framework.AssertEqual(Result.Count(), 8);
+	Framework.AssertEqual(Result.Count(), 9);
 	Framework.AssertEqual(Result.URL, "");
 	Framework.AssertEqual(Result.BaseURL, "");
-	Framework.AssertEqual(Result.Operation, "/status");
+	Framework.AssertEqual(Result.StatusOperation, "/status");
+	Framework.AssertEqual(Result.UploadFileOperation, "/uploadFile");
 	Framework.AssertFalse(Result.UseGlobalSettings);
 	Framework.AssertEqual(Result.User, "");
 	Framework.AssertEqual(Result.Password, "");
-	Framework.AssertEqual(Result.Timeout, Undefined);	
+	Framework.AssertEqual(Result.Timeout, 5);	
 
 EndProcedure
 
-// TODO кандидат на удаление?
-
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetEndpointParams(Framework) Export
-
-	// given
-	UserName = "UserName" + Tests.RandomString();
-	UserPassword = "UserPassword" + Tests.RandomString();
-	EndpointTimeout = Number(Right(Tests.RandomString(), 4));
-		
-	Constants.EndpointUserName.Set(UserName);
-	Constants.EndpointUserPassword.Set(UserPassword);
-	Constants.EndpointTimeout.Set(EndpointTimeout);
-	
-	// when
-	Result = Endpoints.GetConnectionParams();
-	
-	// then
-	Framework.AssertEqual(Result.Count(), 3);
-	Framework.AssertEqual(Result.User, UserName);
-	Framework.AssertEqual(Result.Password, UserPassword);	
-	Framework.AssertEqual(Result.Timeout, EndpointTimeout);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SetURL(Framework) Export
-
-	// given
-	URL = "http://url";
-	Endpoint = New Structure();
-	
-	// when
-	Endpoints.SetURL(Endpoint, URL);
-	
-	// then
-	Framework.AssertEqual(Endpoint.URL, URL);
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
-Procedure SendFileErrorWithoutEndpoint(Framework) Export
+Procedure SendFileExceptionEmptyURL(Framework) Export
 
 	// given
 
 	// when
 	Try
-		Endpoints.SendFile(New Structure(), Tests.NewFileName("Файл", "epf"), GetBinaryDataFromString("Data"));
+		Endpoints.SendFile("", Tests.NewFileName("Файл", "epf"), GetBinaryDataFromString("Data"));
 		Framework.AddError("Method Executed");
 	Except
 	// then
 		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Logs.Messages().NO_ENDPOINT);
+		Framework.AssertStringContains(ErrorInfo.Description, "or missing URL");
 	EndTry;
 	
 EndProcedure
@@ -97,7 +52,7 @@ EndProcedure
 Procedure SendFile4xxError(Framework) Export
 
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	Endpoint.URL = Endpoint.UploadFileURL;
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
@@ -111,7 +66,7 @@ Procedure SendFile4xxError(Framework) Export
 
 	// when
 	Try
-		Endpoints.SendFile(Endpoint, File.FileName, GetBinaryDataFromString(File.Data));
+		Endpoints.SendFile(Endpoint.UploadFileURL, File.FileName, GetBinaryDataFromString(File.Data));
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -125,14 +80,14 @@ Procedure SendFile4xxError(Framework) Export
 	
 EndProcedure
 
-// @unit-test
+// @unit-test:dev
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure SendFile200Ok(Framework) Export
+Procedure SendFile200OkNoEndpoint(Framework) Export
 
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	Endpoint.URL = Endpoint.UploadFileURL;
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
@@ -145,7 +100,7 @@ Procedure SendFile200Ok(Framework) Export
 	SetMockUploadFile(Endpoint, File, StatusCode);
 
 	// when
-	Result = Endpoints.SendFile(Endpoint, File.FileName, GetBinaryDataFromString(File.Data));
+	Result = Endpoints.SendFile(Endpoint.UploadFileURL, File.FileName, GetBinaryDataFromString(File.Data));
 	
 	// then
 	Framework.AssertStringContains(Result, Endpoint.UploadFileURL);
@@ -154,6 +109,75 @@ Procedure SendFile200Ok(Framework) Export
 	Framework.AssertStringContains(Result, File.Data);
 
 EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SendFileExceptionDublicateEndpointBaseURL(Framework) Export
+	
+	// given
+	ERROR = NStr( "ru = 'Дублирование URL не поддерживается';en = 'Duplicate URL is not supported'" );
+	
+	Tests.CatalogCleanUp("Endpoints");
+	
+	Endpoint = NewTest();
+	Constants.EndpointUserName.Set(Endpoint.User);
+	Constants.EndpointUserPassword.Set(Endpoint.Password);
+	Constants.EndpointTimeout.Set(Endpoint.Timeout);
+	
+	Tests.NewEndpoint("Endpoint", Endpoint.ServerURL);
+	Tests.NewEndpoint("Endpoint", Endpoint.ServerURL);
+	
+	File = Tests.NewFile("", "Файл", "epf");
+
+	// when
+	Try
+		Endpoints.SendFile(Endpoint.ServerURL, File.FileName, GetBinaryDataFromString(File.Data));
+		Framework.AddError("Method Executed");
+	Except
+	// then
+		ErrorInfo = ErrorInfo();
+		Framework.AssertStringContains(ErrorInfo.Description, ERROR);
+	EndTry;
+	
+EndProcedure
+
+// @unit-test:dev
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure SendFile200OkEndpointBaseURL(Framework) Export
+	
+	// given
+	Tests.CatalogCleanUp("Endpoints");
+	
+	Test = NewTest();
+	Constants.EndpointUserName.Set(Test.User);
+	Constants.EndpointUserPassword.Set(Test.Password);
+	Constants.EndpointTimeout.Set(Test.Timeout);
+	
+	Tests.NewEndpoint("Endpoint", Test.ServerURL).SetDeletionMark(True);
+	Endpoint = Tests.NewEndpoint("Endpoint", Test.ServerURL);
+	Test.User = Endpoint.User;
+	Test.Password = Endpoint.Password;
+	Test.Timeout = Endpoint.Timeout;
+	
+	File = Tests.NewFile("", "Файл", "epf");
+	
+	StatusCode = 200;
+	SetMockUploadFile(Test, File, StatusCode);
+	
+	// when
+	Result = Endpoints.SendFile(Test.ServerURL, File.FileName, GetBinaryDataFromString(File.Data));
+	
+	// then
+	Framework.AssertStringContains(Result, Test.UploadFileURL);
+	Framework.AssertStringContains(Result, File.FileName);
+	Framework.AssertStringContains(Result, StatusCode);
+	Framework.AssertStringContains(Result, File.Data);
+	
+EndProcedure	
 
 // @unit-test
 // Params:
@@ -179,7 +203,7 @@ EndProcedure
 Procedure BackgroundSendFilesActiveJob(Framework) Export
 
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	CommitSHA = Tests.RandomString();
 	Routes = New Array;
 	Routes.Add(Endpoint.UploadFileURL);
@@ -236,7 +260,7 @@ EndProcedure
 Procedure BackgroundSendFilesMixedResult(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -283,10 +307,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusException(Framework) Export
+Procedure GetStatusServiceException(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -300,14 +324,15 @@ Procedure GetServiceStatusException(Framework) Export
 	Connection.Insert( "URL", "" );
 	Connection.Insert( "BaseURL", "" );
 	Connection.Insert( "RootURL", "" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", Endpoint.User );
 	Connection.Insert( "Password", Endpoint.Password );
 	Connection.Insert( "Timeout", Undefined );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, -1);
@@ -319,10 +344,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusURL(Framework) Export
+Procedure GetStatusServiceURL(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -336,14 +361,15 @@ Procedure GetServiceStatusURL(Framework) Export
 	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
 	Connection.Insert( "BaseURL", "" );
 	Connection.Insert( "RootURL", "" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", Endpoint.User );
 	Connection.Insert( "Password", Endpoint.Password );
 	Connection.Insert( "Timeout", Undefined );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, StatusCode);
@@ -355,10 +381,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusConcat(Framework) Export
+Procedure GetStatusServiceConcat(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -372,14 +398,15 @@ Procedure GetServiceStatusConcat(Framework) Export
 	Connection.Insert( "URL", "" );
 	Connection.Insert( "BaseURL", Endpoint.ServerURL );
 	Connection.Insert( "RootURL", "/epf" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", Endpoint.User );
 	Connection.Insert( "Password", Endpoint.Password );
 	Connection.Insert( "Timeout", Undefined );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, StatusCode);
@@ -391,10 +418,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusURLInlineAuth(Framework) Export
+Procedure GetStatusServiceURLInlineAuth(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -408,14 +435,15 @@ Procedure GetServiceStatusURLInlineAuth(Framework) Export
 	Connection.Insert( "URL", "http://" + Endpoint.User + ":" + Endpoint.Password + "@mockserver:1080/epf/status" );
 	Connection.Insert( "BaseURL", "" );
 	Connection.Insert( "RootURL", "/epf" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", "" );
 	Connection.Insert( "Password", "" );
 	Connection.Insert( "Timeout", Undefined );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, StatusCode);
@@ -427,10 +455,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusBaseURLInlineAuth(Framework) Export
+Procedure GetStatusServiceBaseURLInlineAuth(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -444,14 +472,15 @@ Procedure GetServiceStatusBaseURLInlineAuth(Framework) Export
 	Connection.Insert( "URL", "" );
 	Connection.Insert( "BaseURL", "http://" + Endpoint.User + ":" + Endpoint.Password + "@mockserver:1080" );
 	Connection.Insert( "RootURL", "/epf" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", "" );
 	Connection.Insert( "Password", "" );
 	Connection.Insert( "Timeout", Undefined );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, StatusCode);
@@ -463,10 +492,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusGlobalSettingsFailedAuth(Framework) Export
+Procedure GetStatusServiceGlobalSettingsFailedAuth(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -480,14 +509,15 @@ Procedure GetServiceStatusGlobalSettingsFailedAuth(Framework) Export
 	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
 	Connection.Insert( "BaseURL", "" );
 	Connection.Insert( "RootURL", "" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", False );
 	Connection.Insert( "User", Tests.RandomString() );
 	Connection.Insert( "Password", Tests.RandomString() );
 	Connection.Insert( "Timeout", 0 );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, 404);
@@ -498,10 +528,10 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetServiceStatusGlobalSettings(Framework) Export
+Procedure GetStatusServiceGlobalSettings(Framework) Export
 	
 	// given
-	Endpoint = NewEndpoint();
+	Endpoint = NewTest();
 	
 	Constants.EndpointUserName.Set(Endpoint.User);
 	Constants.EndpointUserPassword.Set(Endpoint.Password);
@@ -515,14 +545,15 @@ Procedure GetServiceStatusGlobalSettings(Framework) Export
 	Connection.Insert( "URL", Endpoint.ServiceStatusURL );
 	Connection.Insert( "BaseURL", "" );
 	Connection.Insert( "RootURL", "" );
-	Connection.Insert( "Operation", "/status" );
+	Connection.Insert( "StatusOperation", "/status" );
+	Connection.Insert( "UploadFileOperation", "/uploadFile" );
 	Connection.Insert( "UseGlobalSettings", True );
 	Connection.Insert( "User", Tests.RandomString() );
 	Connection.Insert( "Password", Tests.RandomString() );
 	Connection.Insert( "Timeout", 0 );
 	
 	// when
-	Result = EndpointsServerCall.GetServiceStatus(Connection);
+	Result = EndpointsServerCall.GetStatusService(Connection);
 	
 	// then
 	Framework.AssertEqual(Result.StatusCode, StatusCode);
@@ -546,7 +577,7 @@ Function NewFileToSend(Val CommitSHA, File, Routes)
 	
 EndFunction
 
-Function NewEndpoint()
+Function NewTest()
 	
 	URL = "http://mockserver:1080";
 	

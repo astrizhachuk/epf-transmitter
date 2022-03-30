@@ -76,14 +76,14 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="ed8ffcfd-0e12-4c49-968c-7edff41de5d9">
-    <name>Operation</name>
+    <name>StatusOperation</name>
     <synonym>
       <key>en</key>
-      <value>Operation ID</value>
+      <value>Status service</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Операция</value>
+      <value>Сервис статуса</value>
     </synonym>
     <type>
       <types>String</types>
@@ -95,6 +95,30 @@
     <fillFromFillingValue>true</fillFromFillingValue>
     <fillValue xsi:type="core:StringValue">
       <value>/status</value>
+    </fillValue>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <attributes uuid="502de38c-f6fc-4a90-b018-7ff1302929e3">
+    <name>UploadFileOperation</name>
+    <synonym>
+      <key>en</key>
+      <value>Upload file service</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Сервис загрузки файла</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>25</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+    <fillFromFillingValue>true</fillFromFillingValue>
+    <fillValue xsi:type="core:StringValue">
+      <value>/uploadFile</value>
     </fillValue>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>

@@ -8,6 +8,8 @@
 
 Контекст:
 	Дано Я подключаю TestClient "Этот клиент" логин "Пользователь" пароль ""
+	И Я очищаю MockServer
+	И Я создаю Expectation из файла "/test/expectations/raw-epf.json"
 	И я удаляю все элементы Справочника "ExternalRequestHandlers"
 	И я удаляю все записи РегистрСведений "ExternalRequests"
 	И я удаляю все записи РегистрСведений "RemoteFiles"

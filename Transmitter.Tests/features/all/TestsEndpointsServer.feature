@@ -9,24 +9,14 @@ Feature: Transmitter.Tests.TestsEndpointsServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetConnectionParams
+Scenario: Connector
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetConnectionParams(Context());' |
+	| 'TestsEndpointsServer.Connector(Context());' |
 
 @OnServer
-Scenario: GetEndpointParams
+Scenario: SendFileExceptionEmptyURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetEndpointParams(Context());' |
-
-@OnServer
-Scenario: SetURL
-	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SetURL(Context());' |
-
-@OnServer
-Scenario: SendFileErrorWithoutEndpoint
-	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFileErrorWithoutEndpoint(Context());' |
+	| 'TestsEndpointsServer.SendFileExceptionEmptyURL(Context());' |
 
 @OnServer
 Scenario: SendFile4xxError
@@ -34,9 +24,19 @@ Scenario: SendFile4xxError
 	| 'TestsEndpointsServer.SendFile4xxError(Context());' |
 
 @OnServer
-Scenario: SendFile200Ok
+Scenario: SendFile200OkNoEndpoint
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.SendFile200Ok(Context());' |
+	| 'TestsEndpointsServer.SendFile200OkNoEndpoint(Context());' |
+
+@OnServer
+Scenario: SendFileExceptionDublicateEndpointBaseURL
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.SendFileExceptionDublicateEndpointBaseURL(Context());' |
+
+@OnServer
+Scenario: SendFile200OkEndpointBaseURL
+	And I execute 1C:Enterprise script at server
+	| 'TestsEndpointsServer.SendFile200OkEndpointBaseURL(Context());' |
 
 @OnServer
 Scenario: BackgroundSendFilesEmptyFiles
@@ -59,36 +59,36 @@ Scenario: BackgroundSendFilesMixedResult
 	| 'TestsEndpointsServer.BackgroundSendFilesMixedResult(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusException
+Scenario: GetStatusServiceException
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusException(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceException(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusURL
+Scenario: GetStatusServiceURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusURL(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceURL(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusConcat
+Scenario: GetStatusServiceConcat
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusConcat(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceConcat(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusURLInlineAuth
+Scenario: GetStatusServiceURLInlineAuth
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusURLInlineAuth(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceURLInlineAuth(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusBaseURLInlineAuth
+Scenario: GetStatusServiceBaseURLInlineAuth
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusBaseURLInlineAuth(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceBaseURLInlineAuth(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusGlobalSettingsFailedAuth
+Scenario: GetStatusServiceGlobalSettingsFailedAuth
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusGlobalSettingsFailedAuth(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceGlobalSettingsFailedAuth(Context());' |
 
 @OnServer
-Scenario: GetServiceStatusGlobalSettings
+Scenario: GetStatusServiceGlobalSettings
 	And I execute 1C:Enterprise script at server
-	| 'TestsEndpointsServer.GetServiceStatusGlobalSettings(Context());' |
+	| 'TestsEndpointsServer.GetStatusServiceGlobalSettings(Context());' |

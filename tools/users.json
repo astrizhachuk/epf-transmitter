@@ -12,7 +12,7 @@
         {
             "name": "$WS_USER",
             "roles": [
-                "GitLabHTTPService"
+                "GitLabAPI"
             ],
             "password": "$WS_PASSWORD",
             "lang": "ru"

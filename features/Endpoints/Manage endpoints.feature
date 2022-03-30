@@ -27,7 +27,8 @@
 		И элемент формы с именем "Description" стал равен ''
 		И элемент формы с именем "BaseURL" стал равен ''
 		И элемент формы с именем "RootURL" стал равен '/hs/epf'
-		И элемент формы с именем "Operation" стал равен '/status'
+		И элемент формы с именем "StatusOperation" стал равен '/status'
+		И элемент формы с именем "UploadFileOperation" стал равен '/uploadFile'
 		И элемент формы с именем "User" стал равен ''
 		И элемент формы с именем "Password" стал равен ''
 		И элемент формы с именем "Timeout" стал равен '5'
@@ -57,14 +58,14 @@
 		Затем я жду закрытия окна 'Обработчики внешних запросов (создание)' в течение 2 секунд
 
 		Тогда таблица "List" стала равной:
-			| 'Наименование' | 'Код'      | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Операция' | 'Таймаут соединения, сек' |
-			| 'New Endpoint' | 'endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'  | '3'                       |
+			| 'Наименование' | 'Код'      | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Сервис статуса' | 'Сервис загрузки файла' | 'Таймаут соединения, сек' |
+			| 'New Endpoint' | 'endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'        | '/uploadFile'           | '3'                       |
 
 Сценарий: Редактирование элемента справочника
 
 	Дано Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'     | 'Description'  | 'BaseURL'    | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b685' | 'False'        | 'endpoint' | 'New Endpoint' | 'http://url' | '/hs/epf' | '/status'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'     | 'Description'  | 'BaseURL'    | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b685' | 'False'        | 'endpoint' | 'New Endpoint' | 'http://url' | '/hs/epf' | '/status'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И В командном интерфейсе я выбираю 'Главное' 'Потребители'
 	Тогда открылось окно 'Потребители'
 
@@ -84,8 +85,8 @@
 		И я жду закрытия окна 'Edit Endpoint (Потребители) *' в течение 2 секунд
 
 		Тогда таблица "List" стала равной:
-			| 'Наименование'  | 'Код'           | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Операция' | 'Таймаут соединения, сек' |
-			| 'Edit Endpoint' | 'edit endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'  | '3'                       |
+			| 'Наименование'  | 'Код'           | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Сервис статуса' | 'Сервис загрузки файла' | 'Таймаут соединения, сек' |
+			| 'Edit Endpoint' | 'edit endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'        | '/uploadFile'           | '3'                       |
 
 	Отсутствие сообщения о дублировании при повторной записи элемента справочника
 
@@ -97,8 +98,8 @@
 		И я нажимаю на кнопку 'Записать и закрыть'
 
 		Тогда таблица "List" стала равной:
-			| 'Наименование'  | 'Код'           | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Операция' | 'Таймаут соединения, сек' |
-			| 'Edit Endpoint' | 'edit endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'  | '3'                       |
+			| 'Наименование'  | 'Код'           | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Сервис статуса' | 'Сервис загрузки файла' | 'Таймаут соединения, сек' |
+			| 'Edit Endpoint' | 'edit endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'        | '/uploadFile'           | '3'                       |
 
 	Запрет на дублирование элементов справочника
 
@@ -141,13 +142,13 @@
 Сценарий: Отсутствие возможности полного удаления элемента справочника "Обработчики внешних запросов"
 	
 	Дано Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'     | 'Description'  | 'BaseURL'    | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b686' | 'False'        | 'endpoint' | 'New Endpoint' | 'http://url' | '/hs/epf' | '/status'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'     | 'Description'  | 'BaseURL'    | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b686' | 'False'        | 'endpoint' | 'New Endpoint' | 'http://url' | '/hs/epf' | '/status'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И В командном интерфейсе я выбираю 'Главное' 'Потребители'
 	Тогда открылось окно 'Потребители'
 
 	И в таблице "List" я удаляю строку
 
 	Тогда таблица "List" стала равной:
-		| 'Наименование' | 'Код'      | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Операция' | 'Таймаут соединения, сек' |
-		| 'New Endpoint' | 'endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'  | '3'                       |
+		| 'Наименование' | 'Код'      | 'URL'        | 'Имя пользователя' | 'Корневой URL' | 'Сервис статуса' | 'Сервис загрузки файла' | 'Таймаут соединения, сек' |
+		| 'New Endpoint' | 'endpoint' | 'http://url' | 'endpoint user'    | '/hs/epf'      | '/status'        | '/uploadFile'           | '3'                       |

@@ -339,26 +339,49 @@ EndFunction
 
 Function NewExternalRequestHandler(Val Name = "", Val ProjectURL = "", Val SecretToken = "") Export
 	
-		Item = Catalogs.ExternalRequestHandlers.CreateItem();
-		Item.DataExchange.Load = True;
-		If IsBlankString(Name) Then
-			Item.Description = "Test" + RandomString();
-		Else
-			Item.Description = Name;
-		EndIf;
-		If IsBlankString(ProjectURL) Then
-			Item.ProjectURL = NewURL();
-		Else
-			Item.ProjectURL = ProjectURL;
-		EndIf;
-		If IsBlankString(SecretToken) Then
-			Item.SecretToken = NewToken();
-		Else
-			Item.SecretToken = SecretToken;
-		EndIf;
-		Item.Write();
-		
-		Return Item;
+	Item = Catalogs.ExternalRequestHandlers.CreateItem();
+	Item.DataExchange.Load = True;
+	If IsBlankString(Name) Then
+		Item.Description = "Test" + RandomString();
+	Else
+		Item.Description = Name;
+	EndIf;
+	If IsBlankString(ProjectURL) Then
+		Item.ProjectURL = NewURL();
+	Else
+		Item.ProjectURL = ProjectURL;
+	EndIf;
+	If IsBlankString(SecretToken) Then
+		Item.SecretToken = NewToken();
+	Else
+		Item.SecretToken = SecretToken;
+	EndIf;
+	Item.Write();
+	
+	Return Item;
+	
+EndFunction
+
+Function NewEndpoint(Val Name, Val BaseURL = "") Export
+	
+	Item = Catalogs.Endpoints.CreateItem();
+	Item.DataExchange.Load = True;
+	Item.Code = Name;
+	Item.Description = Name;
+	If IsBlankString(BaseURL) Then
+		Item.BaseURL = NewURL();
+	Else
+		Item.BaseURL = BaseURL;
+	EndIf;
+	Item.RootURL = "/epf";
+	Item.StatusOperation = "/status";
+	Item.UploadFileOperation = "/uploadFile";
+	Item.User = "User" + Name;
+	Item.Password = "Password" + Name;
+	Item.Timeout = 5;
+	Item.Write();
+	
+	Return Item;
 	
 EndFunction
 

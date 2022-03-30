@@ -16,8 +16,8 @@
 Сценарий: Предупреждение при незаполненном URL
 	
 	Дано Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И я закрыл все окна клиентского приложения
 	
 	Выбор потребителя для редактирования
@@ -43,8 +43,8 @@
 Сценарий: Отображение отсутствия подключения к сервису по несуществующему URL
 	
 	Дано Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И я закрыл все окна клиентского приложения
 	
 	Выбор потребителя для редактирования
@@ -71,8 +71,8 @@
 	Дано Я очищаю MockServer
 	И Я создаю Expectation из файла "./test/expectations/noAuth.json"
 	И Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b681' | 'False'        | 'noAuth' | 'noAuth'      | 'http://mockserver:1080' | '/hs/epf' | '/noAuth'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b681' | 'False'        | 'noAuth' | 'noAuth'      | 'http://mockserver:1080' | '/hs/epf' | '/noAuth'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И я закрыл все окна клиентского приложения
 	
 	Выбор потребителя для редактирования
@@ -99,8 +99,8 @@
 	И Я создаю Expectation из файла "./test/expectations/basicAuth-200.json"
 	И Я создаю Expectation из файла "./test/expectations/basicAuth-405.json"
 	И Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'      | 'Description' | 'BaseURL'                | 'RootURL' | 'Operation'  | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b682' | 'False'        | 'basicAuth' | 'basicAuth'   | 'http://mockserver:1080' | '/hs/epf' | '/basicAuth' | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'      | 'Description' | 'BaseURL'                | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b682' | 'False'        | 'basicAuth' | 'basicAuth'   | 'http://mockserver:1080' | '/hs/epf' | '/basicAuth'      | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И я закрыл все окна клиентского приложения
 
 	Выбор потребителя для редактирования
@@ -174,8 +174,8 @@
 	Дано Я очищаю MockServer
 	И Я создаю Expectation из файла "./test/expectations/status.json"
 	И Я проверяю или создаю для справочника "Endpoints" объекты:
-		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'Operation' | 'User'          | 'Password'          | 'Timeout' |
-		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'   | 'endpoint user' | 'endpoint password' | 3         |
+		| 'Ref'                                                               | 'DeletionMark' | 'Code'   | 'Description' | 'BaseURL'                | 'RootURL' | 'StatusOperation' | 'UploadFileOperation' | 'User'          | 'Password'          | 'Timeout' |
+		| 'e1cib/data/Catalog.Endpoints?ref=9b870242ac16000311eca5ea9319b680' | 'False'        | 'status' | 'status'      | 'http://mockserver:1080' | '/hs/epf' | '/status'         | '/uploadFile'         | 'endpoint user' | 'endpoint password' | 3         |
 	И я закрыл все окна клиентского приложения
 	
 	Выбор потребителя для редактирования

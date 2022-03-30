@@ -54,8 +54,6 @@ Function Messages() Export
 	Result.Insert( "DUMPED", NStr("ru = 'данные сохранены';en = 'data dumped'") );
 	Result.Insert( "DUMP_ERROR", NStr("ru = 'ошибка сохранения данных: %1: описание ошибки:" + Chars.LF + "%2';en = 'dump error: %1: error description:" + Chars.LF + "%2'") );
 
-	Result.Insert( "NO_ENDPOINT", NStr("ru = 'нет параметров доставки файла';en = 'no file delivery options'") );
-
 	Result.Insert( "UPLOAD_FILE_JOB", NStr("ru = 'заданий на отправку файла: %1';en = 'file upload jobs: %1'") );
 	// BSLLS:LineLength-on
 	

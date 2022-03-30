@@ -3,9 +3,9 @@
 // Contract.
 //
 // Any form. The connection parameters are taken first from the Object, if it exists, and then from the form items.
-// Parameter matching is performed by name (see EndpointsClientServer.GetConnectionParams).
+// Parameter matching is performed by name (see EndpointsClientServer.Connector).
 // Connection.URL is overwritten by Form.ServiceURL. The service response is displayed on the form items:
-// StatusCode, ResponseBody, and FileUploadStatus (see EndpointsServerCall.GetServiceStatus).
+// StatusCode, ResponseBody, and FileUploadStatus (see EndpointsServerCall.GetStatusService).
 //
 // If there are no elements on the form, no exception is thrown.
 
@@ -29,11 +29,11 @@ Procedure CommandProcessing(CommandParameter, CommandExecuteParameters)
 
 	EndIf;
 	
-	Connector = EndpointsClientServer.GetConnectionParams();
+	Connector = EndpointsClientServer.Connector();
 	
 	Fill( Connector, Form );
 	
-	SetResult( Form, EndpointsServerCall.GetServiceStatus(Connector) );
+	SetResult( Form, EndpointsServerCall.GetStatusService(Connector) );
 
 EndProcedure
 
