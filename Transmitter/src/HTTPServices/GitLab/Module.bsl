@@ -38,7 +38,7 @@ Function EventsPost( Request )
 	Try
 		
 		ExternalRequest = ExternalRequests.Create( Request.GetBodyAsString(), "gitlab" );
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 	
 	Except
 		

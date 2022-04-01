@@ -29,34 +29,34 @@ Scenario: Load
 	| 'TestsExternalRequestServer.Load(Context());' |
 
 @OnServer
-Scenario: Validate
+Scenario: Verify
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.Validate(Context());' |
+	| 'TestsExternalRequestServer.Verify(Context());' |
 
 @OnServer
-Scenario: ValidateJSON
+Scenario: VerifyJSON
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.ValidateJSON(Context());' |
+	| 'TestsExternalRequestServer.VerifyJSON(Context());' |
 
 @OnServer
-Scenario: ValidateProjectId
+Scenario: VerifyProjectId
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.ValidateProjectId(Context());' |
+	| 'TestsExternalRequestServer.VerifyProjectId(Context());' |
 
 @OnServer
-Scenario: ValidateCheckoutSHA
+Scenario: VerifyCheckoutSHA
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.ValidateCheckoutSHA(Context());' |
+	| 'TestsExternalRequestServer.VerifyCheckoutSHA(Context());' |
 
 @OnServer
-Scenario: ValidateProjectURL
+Scenario: VerifyProjectURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.ValidateProjectURL(Context());' |
+	| 'TestsExternalRequestServer.VerifyProjectURL(Context());' |
 
 @OnServer
-Scenario: ValidateServerURL
+Scenario: VerifyServerURL
 	And I execute 1C:Enterprise script at server
-	| 'TestsExternalRequestServer.ValidateServerURL(Context());' |
+	| 'TestsExternalRequestServer.VerifyServerURL(Context());' |
 
 @OnServer
 Scenario: GetJSON

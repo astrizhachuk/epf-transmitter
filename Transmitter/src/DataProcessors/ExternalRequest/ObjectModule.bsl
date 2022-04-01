@@ -49,8 +49,9 @@ Procedure Load( Val Instance ) Export
 	
 EndProcedure
 
-// TODO desc
-Procedure Validate() Export
+// Verify checks the filling of the object fields. Throws an exception.
+// 
+Procedure Verify() Export
 	
 	If ( IsBlankString(JSON) ) Then
 		

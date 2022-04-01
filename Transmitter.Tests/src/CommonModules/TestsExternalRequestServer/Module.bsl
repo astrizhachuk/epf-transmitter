@@ -84,7 +84,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure Validate(Framework) Export
+Procedure Verify(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -92,7 +92,7 @@ Procedure Validate(Framework) Export
 	FillInstance(ExternalRequest, T);
 
 	// when
-	ExternalRequest.Validate();
+	ExternalRequest.Verify();
 
 	// then
 	AssertInstance(Framework, ExternalRequest, T);
@@ -103,7 +103,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ValidateJSON(Framework) Export
+Procedure VerifyJSON(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -113,7 +113,7 @@ Procedure ValidateJSON(Framework) Export
 
 	// when
 	Try
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -127,7 +127,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ValidateProjectId(Framework) Export
+Procedure VerifyProjectId(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -137,7 +137,7 @@ Procedure ValidateProjectId(Framework) Export
 
 	// when
 	Try
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -151,7 +151,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ValidateCheckoutSHA(Framework) Export
+Procedure VerifyCheckoutSHA(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -161,7 +161,7 @@ Procedure ValidateCheckoutSHA(Framework) Export
 
 	// when
 	Try
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -175,7 +175,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ValidateProjectURL(Framework) Export
+Procedure VerifyProjectURL(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -185,7 +185,7 @@ Procedure ValidateProjectURL(Framework) Export
 
 	// when
 	Try
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 		Framework.AddError("Method Executed");
 	Except
 	// then
@@ -199,7 +199,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ValidateServerURL(Framework) Export
+Procedure VerifyServerURL(Framework) Export
 	
 	// given
 	T = NewTest();
@@ -209,7 +209,7 @@ Procedure ValidateServerURL(Framework) Export
 
 	// when
 	Try
-		ExternalRequest.Validate();
+		ExternalRequest.Verify();
 		Framework.AddError("Method Executed");
 	Except
 	// then
