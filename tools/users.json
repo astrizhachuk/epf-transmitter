@@ -12,7 +12,8 @@
         {
             "name": "$WS_USER",
             "roles": [
-                "GitLabAPI"
+                "GitLabAPI",
+                "ManualAPI"
             ],
             "password": "$WS_PASSWORD",
             "lang": "ru"

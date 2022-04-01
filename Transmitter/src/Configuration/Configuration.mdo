@@ -59,6 +59,7 @@
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>
   <roles>Role.GitLabAPI</roles>
+  <roles>Role.ManualAPI</roles>
   <commonModules>CommonModule.Backgrounds</commonModules>
   <commonModules>CommonModule.CommonUseClientServer</commonModules>
   <commonModules>CommonModule.CommonUseServerCall</commonModules>
@@ -80,6 +81,7 @@
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <httpServices>HTTPService.Version</httpServices>
+  <httpServices>HTTPService.Manual</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
   <commonCommands>CommonCommand.TestServiceStatus</commonCommands>
   <constants>Constant.EndpointTimeout</constants>
