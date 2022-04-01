@@ -3,11 +3,11 @@
   <name>GitLab</name>
   <synonym>
     <key>en</key>
-    <value>GitLab-services</value>
+    <value>GitLab services</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>GitLab services</value>
+    <value>Сервисы GitLab</value>
   </synonym>
   <comment>Сервисы GitLab</comment>
   <rootURL>gitlab</rootURL>
