@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="26d71729-bb45-4346-8163-e23599991126">
-  <name>Manual</name>
+  <name>Custom</name>
   <synonym>
     <key>ru</key>
-    <value>Ручные операции</value>
+    <value>Пользовательские операции</value>
   </synonym>
-  <rootURL>manual</rootURL>
+  <rootURL>custom</rootURL>
   <reuseSessions>AutoUse</reuseSessions>
   <sessionMaxAge>20</sessionMaxAge>
   <urlTemplates uuid="fb999397-5be2-4c63-bbde-87b26a21715d">

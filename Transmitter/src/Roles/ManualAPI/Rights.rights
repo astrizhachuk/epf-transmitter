@@ -11,14 +11,14 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.Manual.URLTemplate.Send.Method.Post</name>
+		<name>HTTPService.Custom.URLTemplate.Send.Method.Post</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.Manual.URLTemplate.Status.Method.Get</name>
+		<name>HTTPService.Custom.URLTemplate.Status.Method.Get</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

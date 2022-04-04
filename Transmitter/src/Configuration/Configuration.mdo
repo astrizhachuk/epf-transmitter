@@ -81,7 +81,7 @@
   <commonModules>CommonModule.StringsClientServer</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
   <httpServices>HTTPService.Version</httpServices>
-  <httpServices>HTTPService.Manual</httpServices>
+  <httpServices>HTTPService.Custom</httpServices>
   <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
   <commonCommands>CommonCommand.TestServiceStatus</commonCommands>
   <constants>Constant.EndpointTimeout</constants>
