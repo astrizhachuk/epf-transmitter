@@ -91,6 +91,40 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure IsHandleCustomRequestsTrue(Framework) Export
+
+	// given
+	Constants.HandleCustomRequests.Set(True);
+	
+	// when
+	Result = ServicesSettings.IsHandleCustomRequests();
+	
+	// then
+	Framework.AssertTrue(Result);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure IsHandleCustomRequestsFalse(Framework) Export
+
+	// given
+	Constants.HandleCustomRequests.Set(False);
+	
+	// when
+	Result = ServicesSettings.IsHandleCustomRequests();
+	
+	// then
+	Framework.AssertFalse(Result);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 Procedure IsHandleGitLabRequestsTrue(Framework) Export
 
 	// given

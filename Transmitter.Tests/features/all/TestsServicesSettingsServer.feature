@@ -24,6 +24,16 @@ Scenario: SetCurrentSettings
 	| 'TestsServicesSettingsServer.SetCurrentSettings(Context());' |
 
 @OnServer
+Scenario: IsHandleCustomRequestsTrue
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.IsHandleCustomRequestsTrue(Context());' |
+
+@OnServer
+Scenario: IsHandleCustomRequestsFalse
+	And I execute 1C:Enterprise script at server
+	| 'TestsServicesSettingsServer.IsHandleCustomRequestsFalse(Context());' |
+
+@OnServer
 Scenario: IsHandleGitLabRequestsTrue
 	And I execute 1C:Enterprise script at server
 	| 'TestsServicesSettingsServer.IsHandleGitLabRequestsTrue(Context());' |

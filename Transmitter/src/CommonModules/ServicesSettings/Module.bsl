@@ -41,6 +41,17 @@ Procedure SetCurrentSettings( Val Settings ) Export
 	
 EndProcedure
 
+// IsHandleCustomRequests returns true if custom requests should be handled, otherwise false.
+// 
+// Returns:
+// 	Boolean - True - to handle requests, otherwise - False;
+//
+Function IsHandleCustomRequests() Export
+
+	Return Constants.HandleCustomRequests.Get();
+
+EndFunction
+
 // IsHandleGitLabRequests returns true if GitLab requests should be handled, otherwise false.
 // 
 // Returns:
