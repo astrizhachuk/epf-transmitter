@@ -12,7 +12,7 @@ servers:
 tags:
   - name: default
   - name: gitlab
-  - name: custom
+  - name: manual
 paths:
   /version:
     get:
@@ -104,14 +104,15 @@ paths:
                     вызове метода контекста (ReadJSON)
       security:
         - api_key: []
-  /custom/status:
+  /manual/status:
     get:
       tags:
-        - custom
-      summary: Статус функциональности обработки произвольных запросов
+        - manual
+      summary: Статус функциональности обработки пользовательских запросов
       description: |
-        Показывает текущий статус функциональности обработки произвольных запросов
-      operationId: custom_status
+        Показывает текущий статус функциональности обработки
+        пользовательских запросов
+      operationId: manual_status
       responses:
         "200":
           description: Текущий статус
