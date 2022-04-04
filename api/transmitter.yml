@@ -5,13 +5,14 @@ info:
     Распределение внешних обработок по информационным базам
   contact:
     email: a.strizhachuk@yandex.ru
-  version: 2.0.0
+  version: 2.1.0
 servers:
   - url: http://transmitter/api/hs
     description: develop
 tags:
   - name: default
   - name: gitlab
+  - name: custom
 paths:
   /version:
     get:
@@ -32,11 +33,11 @@ paths:
     get:
       tags:
         - gitlab
-      summary: Статус функциональности обработки запросов
+      summary: Статус функциональности обработки запросов GitLab
       description: |
         Показывает текущий статус функциональности обработки запросов
-        внешних хранилищ (репозиториев)
-      operationId: status
+        от внешних хранилищ (репозиториев) на сервере GitLab
+      operationId: gitlab_status
       responses:
         "200":
           description: Текущий статус
@@ -103,6 +104,30 @@ paths:
                     вызове метода контекста (ReadJSON)
       security:
         - api_key: []
+  /custom/status:
+    get:
+      tags:
+        - custom
+      summary: Статус функциональности обработки произвольных запросов
+      description: |
+        Показывает текущий статус функциональности обработки произвольных запросов
+      operationId: custom_status
+      responses:
+        "200":
+          description: Текущий статус
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+              examples:
+                enabled:
+                  summary: Включено
+                  value:
+                    message: обработка запросов включена
+                disabled:
+                  summary: Отключено
+                  value:
+                    message: обработка запросов отключена
 components:
   schemas:
     message:
