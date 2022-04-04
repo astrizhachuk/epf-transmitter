@@ -69,6 +69,50 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure CustomStatusGet200OkEnabled(Framework) Export
+	
+	// given
+	Constants.HandleCustomRequests.Set(True);
+
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/custom/status";
+		
+	// when
+	Result = HTTPConnector.Get(URL);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, 200);
+	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
+	Framework.AssertStringContains(Body, """message"":");
+	Framework.AssertStringContains(Body, NStr("ru = 'включена';en = 'enabled'" ));
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure CustomStatusGet200OkDisabled(Framework) Export
+	
+	// given
+	Constants.HandleCustomRequests.Set(False);
+	
+	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/custom/status";
+	
+	// when
+	Result = HTTPConnector.Get(URL);
+	
+	// then
+	Framework.AssertEqual(Result.StatusCode, 200);
+	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
+	Framework.AssertStringContains(Body, """message"":");
+	Framework.AssertStringContains(Body, NStr("ru = 'отключена';en = 'disabled'" ));
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 // unit-test:fast
 Procedure EventsPostPushGitLab200Ok(Framework) Export
 	

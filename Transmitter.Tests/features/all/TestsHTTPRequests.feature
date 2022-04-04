@@ -24,6 +24,16 @@ Scenario: GitLabStatusGet200OkDisabled
 	| 'TestsHTTPRequests.GitLabStatusGet200OkDisabled(Context());' |
 
 @OnServer
+Scenario: CustomStatusGet200OkEnabled
+	And I execute 1C:Enterprise script at server
+	| 'TestsHTTPRequests.CustomStatusGet200OkEnabled(Context());' |
+
+@OnServer
+Scenario: CustomStatusGet200OkDisabled
+	And I execute 1C:Enterprise script at server
+	| 'TestsHTTPRequests.CustomStatusGet200OkDisabled(Context());' |
+
+@OnServer
 Scenario: EventsPostPushGitLab200Ok
 	And I execute 1C:Enterprise script at server
 	| 'TestsHTTPRequests.EventsPostPushGitLab200Ok(Context());' |
