@@ -18,7 +18,7 @@
   <content>Role.GitLabClient</content>
   <content>HTTPService.GitLab</content>
   <content>Constant.HandleGitLabRequests</content>
-  <content>FunctionalOption.HandleRequests</content>
+  <content>FunctionalOption.HandleGitLabRequests</content>
   <content>Constant.RoutingFileName</content>
   <content>Constant.GitLabToken</content>
   <content>Catalog.ExternalRequestHandlers</content>
