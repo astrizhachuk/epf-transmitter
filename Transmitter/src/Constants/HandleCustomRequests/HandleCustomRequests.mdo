@@ -5,7 +5,7 @@
     <valueManagerType typeId="eb1c3005-f367-437e-a119-77f09bf9c7dd" valueTypeId="5c6eca7d-1fea-4300-988f-74a35db4e82a"/>
     <valueKeyType typeId="01493f00-b4b6-4d7a-989a-0eba22e0ab15" valueTypeId="93206545-0d29-4610-abde-0ce44aa9e993"/>
   </producedTypes>
-  <name>CustomRequests</name>
+  <name>HandleCustomRequests</name>
   <synonym>
     <key>en</key>
     <value>Handle custom requests</value>

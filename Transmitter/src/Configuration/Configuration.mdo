@@ -84,12 +84,12 @@
   <httpServices>HTTPService.Custom</httpServices>
   <functionalOptions>FunctionalOption.HandleGitLabRequests</functionalOptions>
   <commonCommands>CommonCommand.TestServiceStatus</commonCommands>
-  <constants>Constant.CustomRequests</constants>
   <constants>Constant.EndpointTimeout</constants>
   <constants>Constant.EndpointUserName</constants>
   <constants>Constant.EndpointUserPassword</constants>
   <constants>Constant.GitLabTimeout</constants>
   <constants>Constant.GitLabToken</constants>
+  <constants>Constant.HandleCustomRequests</constants>
   <constants>Constant.HandleGitLabRequests</constants>
   <constants>Constant.RoutingFileName</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
