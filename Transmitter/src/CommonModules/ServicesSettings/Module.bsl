@@ -32,12 +32,12 @@ EndFunction
 Procedure SetCurrentSettings( Val Settings ) Export
 
 	Constants.HandleGitLabRequests.Set( Settings.HandleGitLabRequests );
-	Constants.GitLabToken.Set( Settings.GetGitLabToken );
-	Constants.GitLabTimeout.Set( Settings.GetGitLabTimeout );
-	Constants.RoutingFileName.Set( Settings.GetRoutingFileName );
-	Constants.EndpointUserName.Set( Settings.GetEndpointUserName );
-	Constants.EndpointUserPassword.Set( Settings.GetEndpointUserPassword );
-	Constants.EndpointTimeout.Set( Settings.GetEndpointTimeout );
+	Constants.GitLabToken.Set( Settings.GitLabToken );
+	Constants.GitLabTimeout.Set( Settings.GitLabTimeout );
+	Constants.RoutingFileName.Set( Settings.RoutingFileName );
+	Constants.EndpointUserName.Set( Settings.EndpointUserName );
+	Constants.EndpointUserPassword.Set( Settings.EndpointUserPassword );
+	Constants.EndpointTimeout.Set( Settings.EndpointTimeout );
 	
 EndProcedure
 

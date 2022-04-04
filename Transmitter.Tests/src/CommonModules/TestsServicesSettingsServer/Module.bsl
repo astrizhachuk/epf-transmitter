@@ -1,3 +1,4 @@
+// BSLLS-off
 #Region Public
 
 // @unit-test
@@ -37,14 +38,14 @@ Procedure CurrentSettings(Framework) Export
 	Result = ServicesSettings.GetCurrentSettings();
 	
 	// then
-	Framework.AssertEqual(Result.Количество(), 7);
-	Framework.AssertTrue(Result.IsHandleGitLabRequests);
-	Framework.AssertEqual(Result.GetRoutingFileName, "FileName" + Right(TIME, 5));
-	Framework.AssertEqual(Result.GetGitLabToken, "StorageToken" + Right(TIME, 8));		
-	Framework.AssertEqual(Result.GetGitLabTimeout, Number(Right(TIME, 4)));		
-	Framework.AssertEqual(Result.GetEndpointUserName, "UserName" + Right(TIME, 10));
-	Framework.AssertEqual(Result.GetEndpointUserPassword, "UserPassword" + Right(TIME, 10));
-	Framework.AssertEqual(Result.GetEndpointTimeout, Number(Right(TIME, 4))-1);		
+	Framework.AssertEqual(Result.Count(), 7);
+	Framework.AssertTrue(Result.HandleGitLabRequests);
+	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
+	Framework.AssertEqual(Result.GitLabToken, "StorageToken" + Right(TIME, 8));		
+	Framework.AssertEqual(Result.GitLabTimeout, Number(Right(TIME, 4)));		
+	Framework.AssertEqual(Result.EndpointUserName, "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Result.EndpointUserPassword, "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Result.EndpointTimeout, Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
