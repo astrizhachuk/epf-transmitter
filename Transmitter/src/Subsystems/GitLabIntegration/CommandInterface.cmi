@@ -2,11 +2,11 @@
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
   <commandsVisibility>
     <visibilityFragments>
-      <command>Constant.ExternalStorageToken.StandardCommand.Open</command>
+      <command>Constant.GitLabToken.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.HandleRequests.StandardCommand.Open</command>
+      <command>Constant.HandleGitLabRequests.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
@@ -14,7 +14,7 @@
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.ExternalStorageTimeout.StandardCommand.Open</command>
+      <command>Constant.GitLabTimeout.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>

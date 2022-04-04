@@ -24,14 +24,14 @@ Scenario: SetCurrentSettings
 	| 'TestsServicesSettingsServer.SetCurrentSettings(Context());' |
 
 @OnServer
-Scenario: HandleRequestsTrue
+Scenario: IsHandleGitLabRequestsTrue
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.HandleRequestsTrue(Context());' |
+	| 'TestsServicesSettingsServer.IsHandleGitLabRequestsTrue(Context());' |
 
 @OnServer
-Scenario: HandleRequestsFalse
+Scenario: IsHandleGitLabRequestsFalse
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.HandleRequestsFalse(Context());' |
+	| 'TestsServicesSettingsServer.IsHandleGitLabRequestsFalse(Context());' |
 
 @OnServer
 Scenario: EndpointUserName
@@ -49,14 +49,14 @@ Scenario: EndpointTimeout
 	| 'TestsServicesSettingsServer.EndpointTimeout(Context());' |
 
 @OnServer
-Scenario: ExternalStorageToken
+Scenario: GitLabToken
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.ExternalStorageToken(Context());' |
+	| 'TestsServicesSettingsServer.GitLabToken(Context());' |
 
 @OnServer
-Scenario: ExternalStorageTimeout
+Scenario: GetGitLabTimeout
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.ExternalStorageTimeout(Context());' |
+	| 'TestsServicesSettingsServer.GetGitLabTimeout(Context());' |
 
 @OnServer
 Scenario: RoutingFileName

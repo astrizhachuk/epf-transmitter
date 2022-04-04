@@ -17,14 +17,14 @@
   <content>CommonModule.HTTPServices</content>
   <content>Role.GitLabClient</content>
   <content>HTTPService.GitLab</content>
-  <content>Constant.HandleRequests</content>
+  <content>Constant.HandleGitLabRequests</content>
   <content>FunctionalOption.HandleRequests</content>
   <content>Constant.RoutingFileName</content>
-  <content>Constant.ExternalStorageToken</content>
+  <content>Constant.GitLabToken</content>
   <content>Catalog.ExternalRequestHandlers</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.ServicesSettings</content>
-  <content>Constant.ExternalStorageTimeout</content>
+  <content>Constant.GitLabTimeout</content>
   <content>Constant.EndpointTimeout</content>
   <content>Role.GitLabAPI</content>
   <content>CommonForm.CheckingServiceStatus</content>

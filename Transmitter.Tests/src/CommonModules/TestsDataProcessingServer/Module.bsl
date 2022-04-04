@@ -126,7 +126,7 @@ Procedure StartDownloadFromRemoteVCSNoRouts(Framework) Export
 	ExternalRequest = NewGitLabExternalRequest();
 	FillInstance(ExternalRequest, T);
 	
-	Constants.ExternalStorageToken.Set(T.Connection.Token);
+	Constants.GitLabToken.Set(T.Connection.Token);
 
 	// when
 	Result = DataProcessing.Start(T.RequestHandler.Ref, ExternalRequest).WaitForExecutionCompletion(60);

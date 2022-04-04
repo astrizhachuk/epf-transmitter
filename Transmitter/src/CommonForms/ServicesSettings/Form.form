@@ -32,7 +32,7 @@
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <items xsi:type="form:FormField">
-    <name>HandleRequests</name>
+    <name>HandleGitLabRequests</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -41,12 +41,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>HandleRequests</segments>
+        <segments>HandleGitLabRequests</segments>
       </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>HandleRequestsExtendedTooltip</name>
+      <name>HandleGitLabRequestsExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -61,7 +61,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>HandleRequestsContextMenu</name>
+      <name>HandleGitLabRequestsContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -130,10 +130,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupExternalStorageSettings</name>
+    <name>GroupGitLabSettings</name>
     <id>24</id>
     <items xsi:type="form:FormField">
-      <name>ExternalStorageToken</name>
+      <name>GitLabToken</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -142,7 +142,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ExternalStorageToken</segments>
+          <segments>GitLabToken</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -155,7 +155,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ExternalStorageTokenExtendedTooltip</name>
+        <name>GitLabTokenExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -170,7 +170,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ExternalStorageTokenContextMenu</name>
+        <name>GitLabTokenContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -194,7 +194,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ExternalStorageTimeout</name>
+      <name>GitLabTimeout</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -203,7 +203,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ExternalStorageTimeout</segments>
+          <segments>GitLabTimeout</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -216,7 +216,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>ExternalStorageTimeoutExtendedTooltip</name>
+        <name>GitLabTimeoutExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -231,7 +231,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ExternalStorageTimeoutContextMenu</name>
+        <name>GitLabTimeoutContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -268,10 +268,10 @@
     </title>
     <title>
       <key>ru</key>
-      <value>Внешнее хранилище</value>
+      <value>Внешнее хранилище GitLab</value>
     </title>
     <extendedTooltip>
-      <name>GroupExternalStorageSettingsExtendedTooltip</name>
+      <name>GroupGitLabSettingsExtendedTooltip</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -612,14 +612,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>HandleRequests</name>
+    <name>HandleGitLabRequests</name>
     <title>
       <key>en</key>
-      <value>Handle external storage requests</value>
+      <value>Handle GitLab requests</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Обрабатывать запросы внешнего хранилища</value>
+      <value>Обрабатывать запросы GitLab</value>
     </title>
     <id>1</id>
     <valueType>
@@ -633,7 +633,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ExternalStorageToken</name>
+    <name>GitLabToken</name>
     <title>
       <key>en</key>
       <value>Token</value>
@@ -681,7 +681,7 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>ExternalStorageTimeout</name>
+    <name>GitLabTimeout</name>
     <title>
       <key>en</key>
       <value>Connection timeout, sec</value>

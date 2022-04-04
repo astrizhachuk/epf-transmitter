@@ -119,7 +119,7 @@ Function GetHandleRequestsStatus()
 	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
 	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
 	
-	If ( ServicesSettings.HandleRequests() ) Then
+	If ( ServicesSettings.IsHandleGitLabRequests() ) Then
 		
 		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
 		
@@ -212,7 +212,7 @@ Procedure CheckHandleRequestsEnabled( Response )
 		
 	EndIf;
 	
-	If ( NOT ServicesSettings.HandleRequests() ) Then
+	If ( NOT ServicesSettings.IsHandleGitLabRequests() ) Then
 		
 		Response = New HTTPServiceResponse( FindCodeById("LOCKED") );
 		Response.Reason = "loading files disabled";

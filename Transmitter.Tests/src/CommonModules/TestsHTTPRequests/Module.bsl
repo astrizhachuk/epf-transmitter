@@ -28,7 +28,7 @@ EndProcedure
 Procedure GitLabStatusGet200OkEnabled(Framework) Export
 	
 	// given
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab/status";
 		
@@ -50,7 +50,7 @@ EndProcedure
 Procedure GitLabStatusGet200OkDisabled(Framework) Export
 	
 	// given
-	Constants.HandleRequests.Set(False);
+	Constants.HandleGitLabRequests.Set(False);
 	
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab/status";
 	
@@ -74,7 +74,7 @@ Procedure EventsPostPushGitLab200Ok(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 
@@ -96,7 +96,7 @@ Procedure EventsPostPushGitLab400BadRequestWithoutToken(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 	Options = Options(Stub.Push, Stub.Token);
@@ -120,7 +120,7 @@ Procedure EventsPostPushGitLab400BadRequestWithoutEvent(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 	Options = Options(Stub.Push, Stub.Token);
@@ -145,7 +145,7 @@ Procedure EventsPostPushGitLab400BadRequestWrongEventMethod(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 
@@ -167,7 +167,7 @@ Procedure EventsPostPushGitLab401Unauthorized(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 
@@ -189,7 +189,7 @@ Procedure EventsPostPushGitLab404NotFound(Framework) Export
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();	
 	Stub.JSON = StrReplace(Stub.JSON, """web_url"": ""http://mockserver:1080/root/external-epf""", """web_url"": ""fake""");
@@ -212,7 +212,7 @@ Procedure EventsPostPushGitLab423Locked(Framework) Export
 
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(False);
+	Constants.HandleGitLabRequests.Set(False);
 	
 	Stub = StubGitLabExternalRequest();	
 
@@ -234,7 +234,7 @@ Procedure EventsPostPushGitLab500InternalServerErrorWrongBodyFormat(Framework) E
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 	Stub.JSON = "wrong data, there must be JSON";
@@ -257,7 +257,7 @@ Procedure EventsPostPushGitLab500InternalServerErrorCheckoutSHAMissed(Framework)
 	
 	// given
 	Tests.CatalogCleanUp("ExternalRequestHandlers");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	Stub = StubGitLabExternalRequest();
 	Stub.JSON = StrReplace(Stub.JSON, """checkout_sha"": ", """checkout_sha_missed"": ");

@@ -17,8 +17,8 @@ Function GetConnectionParams( Val URL ) Export
 	
 	Result = New Structure();
 	Result.Insert( "URL", URL );
-	Result.Insert( "Token", ServicesSettings.ExternalStorageToken() );
-	Result.Insert( "Timeout", ServicesSettings.ExternalStorageTimeout() );
+	Result.Insert( "Token", ServicesSettings.GetGitLabToken() );
+	Result.Insert( "Timeout", ServicesSettings.GetGitLabTimeout() );
 	
 	Return Result;
 	

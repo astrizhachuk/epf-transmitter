@@ -10,10 +10,10 @@ Function CurrentSettings() Export
 	Var Result;
 
 	Result = ServicesSettingsClientServer.Settings();
-	Result.HandleRequests = HandleRequests();
+	Result.HandleGitLabRequests = IsHandleGitLabRequests();
 	Result.RoutingFileName = RoutingFileName();
-	Result.ExternalStorageToken = ExternalStorageToken();
-	Result.ExternalStorageTimeout = ExternalStorageTimeout();
+	Result.GitLabToken = GetGitLabToken();
+	Result.GitLabTimeout = GetGitLabTimeout();
 	Result.EndpointUserName = EndpointUserName();
 	Result.EndpointUserPassword = EndpointUserPassword();
 	Result.EndpointTimeout = EndpointTimeout();
@@ -31,24 +31,46 @@ EndFunction
 //
 Procedure SetCurrentSettings( Val Settings ) Export
 
-	Constants.HandleRequests.Set( Settings.HandleRequests );
-	Constants.ExternalStorageToken.Set( Settings.ExternalStorageToken );
+	Constants.HandleGitLabRequests.Set( Settings.HandleGitLabRequests );
+	Constants.GitLabToken.Set( Settings.GetGitLabToken );
+	Constants.GitLabTimeout.Set( Settings.GetGitLabTimeout );
 	Constants.RoutingFileName.Set( Settings.RoutingFileName );
 	Constants.EndpointUserName.Set( Settings.EndpointUserName );
 	Constants.EndpointUserPassword.Set( Settings.EndpointUserPassword );
-	Constants.ExternalStorageTimeout.Set( Settings.ExternalStorageTimeout );
 	Constants.EndpointTimeout.Set( Settings.EndpointTimeout );
 	
 EndProcedure
 
-// HandleRequests returns true if external storage requests should be handled, otherwise false.
+// IsHandleGitLabRequests returns true if GitLab requests should be handled, otherwise false.
 // 
 // Returns:
 // 	Boolean - True - to handle requests, otherwise - False;
 //
-Function HandleRequests() Export
+Function IsHandleGitLabRequests() Export
 
-	Return Constants.HandleRequests.Get();
+	Return Constants.HandleGitLabRequests.Get();
+
+EndFunction
+
+// GetGitLabToken returns a token to connect to external storage on GitLab server.
+//
+// Returns:
+// 	String - a token (max. 50 chars);
+// 
+Function GetGitLabToken() Export
+	
+	Return Constants.GitLabToken.Get();
+	
+EndFunction
+
+// GetGitLabTimeout returns the connection timeout to external storage on GitLab server.
+//
+// Returns:
+// 	Number - the connection timeout, sec. (0 - timeout is not set);
+//
+Function GetGitLabTimeout() Export
+	
+	Return Constants.GitLabTimeout.Get();
 
 EndFunction
 
@@ -83,28 +105,6 @@ Function EndpointTimeout() Export
 	
 	Return Constants.EndpointTimeout.Get();
 	
-EndFunction
-
-// ExternalStorageToken returns a token to connect to external storage (see GitLab API).
-//
-// Returns:
-// 	String - a token (max. 50 chars);
-// 
-Function ExternalStorageToken() Export
-	
-	Return Constants.ExternalStorageToken.Get();
-	
-EndFunction
-
-// ExternalStorageTimeout returns the connection timeout to external storage (GitLab etc.).
-//
-// Returns:
-// 	Number - the connection timeout, sec. (0 - timeout is not set);
-//
-Function ExternalStorageTimeout() Export
-	
-	Return Constants.ExternalStorageTimeout.Get();
-
 EndFunction
 
 // RoutingFileName returns the name of the routing settings file.

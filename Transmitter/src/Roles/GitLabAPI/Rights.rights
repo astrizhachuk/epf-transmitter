@@ -4,14 +4,14 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>Constant.ExternalStorageTimeout</name>
+		<name>Constant.GitLabTimeout</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Constant.ExternalStorageToken</name>
+		<name>Constant.GitLabToken</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -43,7 +43,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.HandleRequests</name>
+		<name>Constant.HandleGitLabRequests</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>

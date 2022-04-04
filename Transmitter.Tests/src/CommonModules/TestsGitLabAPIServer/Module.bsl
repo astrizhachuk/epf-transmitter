@@ -8,8 +8,8 @@ Procedure GetConnectionParams(Framework) Export
 	
 	// given
 	Connection = Tests.NewConnection(, , Number(Right(Tests.RandomString(), 4)));
-	Constants.ExternalStorageToken.Set(Connection.Token);
-	Constants.ExternalStorageTimeout.Set(Connection.Timeout);
+	Constants.GitLabToken.Set(Connection.Token);
+	Constants.GitLabTimeout.Set(Connection.Timeout);
 	
 	// when
 	Result = GitlabAPI.GetConnectionParams(Connection.URL);

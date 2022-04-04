@@ -19,9 +19,9 @@
 	Тогда открылось окно 'Настройки сервисов'
 
 	И я устанавливаю флаг с именем 'HandleRequests'
-	И в поле с именем "ExternalStorageToken" я ввожу текст "-U2ssrBsM4rmx85HXzZ1"
+	И в поле с именем "GitLabToken" я ввожу текст "-U2ssrBsM4rmx85HXzZ1"
 	И в поле с именем "RoutingFileName" я ввожу текст ".ext-epf.json"
-	И в поле с именем "ExternalStorageTimeout" я ввожу текст '5'
+	И в поле с именем "GitLabTimeout" я ввожу текст '5'
 	И в поле с именем "EndpointUserName" я ввожу текст 'User1'
 	И в поле с именем "EndpointUserPassword" я ввожу текст 'Password1'	
 	И в поле с именем "EndpointTimeout" я ввожу текст '5'
@@ -31,9 +31,9 @@
 
 Сценарий: Я программно заполняю настройки сервиса работы с GitLab тестовыми значениями
 
-	И я перезаполняю константу "ExternalStorageToken" значением "-U2ssrBsM4rmx85HXzZ1"
+	И я перезаполняю константу "GitLabToken" значением "-U2ssrBsM4rmx85HXzZ1"
 	И я перезаполняю константу "RoutingFileName" значением ".ext-epf.json"
-	И я перезаполняю константу "ExternalStorageTimeout" значением "5"
+	И я перезаполняю константу "GitLabTimeout" значением "5"
 	И я перезаполняю константу "HandleRequests" значением "True"
 	И я перезаполняю константу "EndpointUserName" значением "User1"
 	И я перезаполняю константу "EndpointUserPassword" значением "Password1"

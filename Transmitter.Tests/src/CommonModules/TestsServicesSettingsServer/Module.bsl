@@ -25,10 +25,10 @@ Procedure CurrentSettings(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	Constants.RoutingFileName.Set("FileName" + Right(TIME, 5));
-	Constants.ExternalStorageToken.Set("StorageToken" + Right(TIME, 8));
-	Constants.ExternalStorageTimeout.Set(Number(Right(TIME, 4)));
+	Constants.GitLabToken.Set("StorageToken" + Right(TIME, 8));
+	Constants.GitLabTimeout.Set(Number(Right(TIME, 4)));
 	Constants.EndpointUserName.Set("UserName" + Right(TIME, 10));
 	Constants.EndpointUserPassword.Set("UserPassword" + Right(TIME, 10));
 	Constants.EndpointTimeout.Set(Number(Right(TIME, 4))-1);
@@ -38,10 +38,10 @@ Procedure CurrentSettings(Framework) Export
 	
 	// then
 	Framework.AssertEqual(Result.Количество(), 7);
-	Framework.AssertTrue(Result.HandleRequests);
+	Framework.AssertTrue(Result.IsHandleGitLabRequests);
 	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
-	Framework.AssertEqual(Result.ExternalStorageToken, "StorageToken" + Right(TIME, 8));		
-	Framework.AssertEqual(Result.ExternalStorageTimeout, Number(Right(TIME, 4)));		
+	Framework.AssertEqual(Result.GetGitLabToken, "StorageToken" + Right(TIME, 8));		
+	Framework.AssertEqual(Result.GetGitLabTimeout, Number(Right(TIME, 4)));		
 	Framework.AssertEqual(Result.EndpointUserName, "UserName" + Right(TIME, 10));
 	Framework.AssertEqual(Result.EndpointUserPassword, "UserPassword" + Right(TIME, 10));
 	Framework.AssertEqual(Result.EndpointTimeout, Number(Right(TIME, 4))-1);		
@@ -56,18 +56,18 @@ Procedure SetCurrentSettings(Framework) Export
 
 	// given
 	TIME = StrReplace(String(CurrentUniversalDateInMilliseconds()), " ", "");
-	Constants.HandleRequests.Set(Undefined);
+	Constants.HandleGitLabRequests.Set(Undefined);
 	Constants.RoutingFileName.Set(Undefined);
-	Constants.ExternalStorageToken.Set(Undefined);
-	Constants.ExternalStorageTimeout.Set(Undefined);
+	Constants.GitLabToken.Set(Undefined);
+	Constants.GitLabTimeout.Set(Undefined);
 	Constants.EndpointUserName.Set(Undefined);
 	Constants.EndpointUserPassword.Set(Undefined);
 	Constants.EndpointTimeout.Set(Undefined);
 	Settings = New Structure();
-	Settings.Insert( "HandleRequests", True );
+	Settings.Insert( "HandleGitLabRequests", True );
 	Settings.Insert( "RoutingFileName", "FileName" + Right(TIME, 5));
-	Settings.Insert( "ExternalStorageToken", "StorageToken" + Right(TIME, 8));
-	Settings.Insert( "ExternalStorageTimeout", Number(Right(TIME, 4)));
+	Settings.Insert( "GitLabToken", "StorageToken" + Right(TIME, 8));
+	Settings.Insert( "GitLabTimeout", Number(Right(TIME, 4)));
 	Settings.Insert( "EndpointUserName", "UserName" + Right(TIME, 10));
 	Settings.Insert( "EndpointUserPassword", "UserPassword" + Right(TIME, 10));
 	Settings.Insert( "EndpointTimeout", Number(Right(TIME, 4))-1);
@@ -76,10 +76,10 @@ Procedure SetCurrentSettings(Framework) Export
 	ServicesSettings.SetCurrentSettings(Settings);
 	
 	// then
-	Framework.AssertTrue(Constants.HandleRequests.Get());
+	Framework.AssertTrue(Constants.HandleGitLabRequests.Get());
 	Framework.AssertEqual(Constants.RoutingFileName.Get(), "FileName" + Right(TIME, 5));
-	Framework.AssertEqual(Constants.ExternalStorageToken.Get(), "StorageToken" + Right(TIME, 8));		
-	Framework.AssertEqual(Constants.ExternalStorageTimeout.Get(), Number(Right(TIME, 4)));		
+	Framework.AssertEqual(Constants.GitLabToken.Get(), "StorageToken" + Right(TIME, 8));		
+	Framework.AssertEqual(Constants.GitLabTimeout.Get(), Number(Right(TIME, 4)));		
 	Framework.AssertEqual(Constants.EndpointUserName.Get(), "UserName" + Right(TIME, 10));
 	Framework.AssertEqual(Constants.EndpointUserPassword.Get(), "UserPassword" + Right(TIME, 10));
 	Framework.AssertEqual(Constants.EndpointTimeout.Get(), Number(Right(TIME, 4))-1);		
@@ -90,13 +90,13 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure HandleRequestsTrue(Framework) Export
+Procedure IsHandleGitLabRequestsTrue(Framework) Export
 
 	// given
-	Constants.HandleRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	// when
-	Result = ServicesSettings.HandleRequests();
+	Result = ServicesSettings.IsHandleGitLabRequests();
 	
 	// then
 	Framework.AssertTrue(Result);
@@ -107,13 +107,13 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure HandleRequestsFalse(Framework) Export
+Procedure IsHandleGitLabRequestsFalse(Framework) Export
 
 	// given
-	Constants.HandleRequests.Set(False);
+	Constants.HandleGitLabRequests.Set(False);
 	
 	// when
-	Result = ServicesSettings.HandleRequests();
+	Result = ServicesSettings.IsHandleGitLabRequests();
 	
 	// then
 	Framework.AssertFalse(Result);
@@ -178,14 +178,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ExternalStorageToken(Framework) Export
+Procedure GitLabToken(Framework) Export
 
 	// given
 	Token = "Token" + Tests.RandomString();			
-	Constants.ExternalStorageToken.Set(Token);
+	Constants.GitLabToken.Set(Token);
 	
 	// when
-	Result = ServicesSettings.ExternalStorageToken();
+	Result = ServicesSettings.GetGitLabToken();
 	
 	// then
 	Framework.AssertEqual(Result, Token);
@@ -196,14 +196,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure ExternalStorageTimeout(Framework) Export
+Procedure GetGitLabTimeout(Framework) Export
 
 	// given
 	Timeout = Number(Right(Tests.RandomString(), 4));
-	Constants.ExternalStorageTimeout.Set(Timeout);
+	Constants.GitLabTimeout.Set(Timeout);
 	
 	// when
-	Result = ServicesSettings.ExternalStorageTimeout();
+	Result = ServicesSettings.GetGitLabTimeout();
 	
 	// then
 	Framework.AssertEqual(Result, Timeout);

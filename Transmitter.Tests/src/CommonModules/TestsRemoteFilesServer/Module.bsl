@@ -11,7 +11,7 @@ Procedure GetFromRemoteVCSGitLabNoModifiedFiles(Framework) Export
 	// given
 	T = NewTest();
 	Constants.RoutingFileName.Set(T.FileRoutes.FileName);
-	Constants.ExternalStorageToken.Set(T.Connection.Token);
+	Constants.GitLabToken.Set(T.Connection.Token);
 	
 	ExternalRequest = NewGitLabExternalRequest();
 	FillInstance(ExternalRequest, T);
@@ -40,7 +40,7 @@ Procedure GetFromRemoteVCSGitLabModifiedFiles(Framework) Export
 	// given
 	T = NewTest();
 	Constants.RoutingFileName.Set(T.FileRoutes.FileName);
-	Constants.ExternalStorageToken.Set(T.Connection.Token);
+	Constants.GitLabToken.Set(T.Connection.Token);
 	
 	ExternalRequest = NewGitLabExternalRequest();
 	
