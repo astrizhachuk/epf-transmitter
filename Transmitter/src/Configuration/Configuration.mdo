@@ -52,9 +52,10 @@
     </synonym>
     <languageCode>en</languageCode>
   </languages>
+  <subsystems>Subsystem.CustomRequests</subsystems>
+  <subsystems>Subsystem.ExternalDependencies</subsystems>
   <subsystems>Subsystem.GitLabIntegration</subsystems>
   <subsystems>Subsystem.Log</subsystems>
-  <subsystems>Subsystem.ExternalDependencies</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>

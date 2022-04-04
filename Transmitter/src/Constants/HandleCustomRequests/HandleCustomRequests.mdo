@@ -18,6 +18,10 @@
     <types>Boolean</types>
   </type>
   <useStandardCommands>true</useStandardCommands>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Обрабатывать запросы</value>
+  </extendedPresentation>
   <minValue xsi:type="core:UndefinedValue"/>
   <maxValue xsi:type="core:UndefinedValue"/>
   <dataLockControlMode>Managed</dataLockControlMode>

@@ -28,4 +28,5 @@
   <content>Constant.EndpointTimeout</content>
   <content>Role.GitLabAPI</content>
   <content>CommonForm.CheckingServiceStatus</content>
+  <content>Catalog.Endpoints</content>
 </mdclass:Subsystem>
