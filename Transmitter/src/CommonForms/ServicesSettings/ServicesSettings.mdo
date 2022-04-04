@@ -3,11 +3,11 @@
   <name>ServicesSettings</name>
   <synonym>
     <key>en</key>
-    <value>Services Settings</value>
+    <value>Settings</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Настройки сервисов</value>
+    <value>Настройки</value>
   </synonym>
   <usePurposes>PersonalComputer</usePurposes>
   <usePurposes>MobileDevice</usePurposes>
