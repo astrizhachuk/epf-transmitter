@@ -1,22 +1,22 @@
 #Region Public
 
-// CurrentSettings returns all the current settings.
+// GetCurrentSettings returns all the current settings.
 // 
 // Returns:
 // FixedStructure - (see ServicesSettingsClientServer.Settings);
 //
-Function CurrentSettings() Export
+Function GetCurrentSettings() Export
 	
 	Var Result;
 
 	Result = ServicesSettingsClientServer.Settings();
 	Result.HandleGitLabRequests = IsHandleGitLabRequests();
-	Result.RoutingFileName = RoutingFileName();
+	Result.RoutingFileName = GetRoutingFileName();
 	Result.GitLabToken = GetGitLabToken();
 	Result.GitLabTimeout = GetGitLabTimeout();
-	Result.EndpointUserName = EndpointUserName();
-	Result.EndpointUserPassword = EndpointUserPassword();
-	Result.EndpointTimeout = EndpointTimeout();
+	Result.EndpointUserName = GetEndpointUserName();
+	Result.EndpointUserPassword = GetEndpointUserPassword();
+	Result.EndpointTimeout = GetEndpointTimeout();
 	
 	Result = New FixedStructure( Result );
 
@@ -34,10 +34,10 @@ Procedure SetCurrentSettings( Val Settings ) Export
 	Constants.HandleGitLabRequests.Set( Settings.HandleGitLabRequests );
 	Constants.GitLabToken.Set( Settings.GetGitLabToken );
 	Constants.GitLabTimeout.Set( Settings.GetGitLabTimeout );
-	Constants.RoutingFileName.Set( Settings.RoutingFileName );
-	Constants.EndpointUserName.Set( Settings.EndpointUserName );
-	Constants.EndpointUserPassword.Set( Settings.EndpointUserPassword );
-	Constants.EndpointTimeout.Set( Settings.EndpointTimeout );
+	Constants.RoutingFileName.Set( Settings.GetRoutingFileName );
+	Constants.EndpointUserName.Set( Settings.GetEndpointUserName );
+	Constants.EndpointUserPassword.Set( Settings.GetEndpointUserPassword );
+	Constants.EndpointTimeout.Set( Settings.GetEndpointTimeout );
 	
 EndProcedure
 
@@ -74,45 +74,45 @@ Function GetGitLabTimeout() Export
 
 EndFunction
 
-// EndpointUserName returns the user name to connect to the endpoint infobase.
+// GetEndpointUserName returns the user name to connect to the endpoint infobase.
 // 
 // Returns:
 // 	String - user name (max. 256 chars);
 //
-Function EndpointUserName() Export
+Function GetEndpointUserName() Export
 	
 	Return Constants.EndpointUserName.Get();
 	
 EndFunction
 
-// EndpointUserPassword returns the user password to connect to the endpoint infobase.
+// GetEndpointUserPassword returns the user password to connect to the endpoint infobase.
 // 
 // Returns:
 // 	String - user password (max. 256 chars);
 //
-Function EndpointUserPassword() Export
+Function GetEndpointUserPassword() Export
 	
 	Return Constants.EndpointUserPassword.Get();
 	
 EndFunction
 
-// EndpointTimeout returns the connection timeout to the endpoint infobase.
+// GetEndpointTimeout returns the connection timeout to the endpoint infobase.
 //
 // Returns:
 // 	Number - the connection timeout, sec. (0 - timeout is not set);
 //
-Function EndpointTimeout() Export
+Function GetEndpointTimeout() Export
 	
 	Return Constants.EndpointTimeout.Get();
 	
 EndFunction
 
-// RoutingFileName returns the name of the routing settings file.
+// GetRoutingFileName returns the name of the routing settings file.
 //
 // Returns:
 // 	String - file name (max. 50 chars);
 //
-Function RoutingFileName() Export
+Function GetRoutingFileName() Export
 	
 	Return Constants.RoutingFileName.Get();
 	

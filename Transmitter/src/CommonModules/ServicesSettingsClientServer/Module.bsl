@@ -4,7 +4,7 @@
 // 
 // Returns:
 // 	Structure - description:
-// * HandleGitLabRequests - Boolean - True - to handle external storage requests, otherwise - False;
+// * HandleGitLabRequests - Boolean - True - to handle GitLab requests, otherwise - False;
 // * RoutingFileName - String - the name of the routing settings file;
 // * GitLabToken - String - a token for connecting to external storage on GitLab server;
 // * GitLabTimeout - Number - the connection timeout to external storage on GitLab server;

@@ -34,24 +34,24 @@ Scenario: IsHandleGitLabRequestsFalse
 	| 'TestsServicesSettingsServer.IsHandleGitLabRequestsFalse(Context());' |
 
 @OnServer
-Scenario: EndpointUserName
+Scenario: GetEndpointUserName
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.EndpointUserName(Context());' |
+	| 'TestsServicesSettingsServer.GetEndpointUserName(Context());' |
 
 @OnServer
-Scenario: EndpointUserPassword
+Scenario: GetEndpointUserPassword
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.EndpointUserPassword(Context());' |
+	| 'TestsServicesSettingsServer.GetEndpointUserPassword(Context());' |
 
 @OnServer
-Scenario: EndpointTimeout
+Scenario: GetEndpointTimeout
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.EndpointTimeout(Context());' |
+	| 'TestsServicesSettingsServer.GetEndpointTimeout(Context());' |
 
 @OnServer
-Scenario: GitLabToken
+Scenario: GetGitLabToken
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.GitLabToken(Context());' |
+	| 'TestsServicesSettingsServer.GetGitLabToken(Context());' |
 
 @OnServer
 Scenario: GetGitLabTimeout
@@ -59,6 +59,6 @@ Scenario: GetGitLabTimeout
 	| 'TestsServicesSettingsServer.GetGitLabTimeout(Context());' |
 
 @OnServer
-Scenario: RoutingFileName
+Scenario: GetRoutingFileName
 	And I execute 1C:Enterprise script at server
-	| 'TestsServicesSettingsServer.RoutingFileName(Context());' |
+	| 'TestsServicesSettingsServer.GetRoutingFileName(Context());' |

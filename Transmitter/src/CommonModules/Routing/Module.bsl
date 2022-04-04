@@ -81,7 +81,7 @@ Procedure FillRoutesFromBinaryData( ExternalRequest, Val Files ) Export
 	Var FileName;
 	Var FileMetadata;
 	
-	FileName = ServicesSettings.RoutingFileName();
+	FileName = ServicesSettings.GetRoutingFileName();
 	
 	For Each Commit In ExternalRequest.GetCommits() Do
 		

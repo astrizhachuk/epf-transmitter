@@ -245,8 +245,8 @@ Procedure AppendAuthentication( Params, Val Connector )
 	
 	If ( Connector.UseGlobalSettings ) Then
 		
-		Authentication.User = ServicesSettings.EndpointUserName();
-		Authentication.Password = ServicesSettings.EndpointUserPassword();
+		Authentication.User = ServicesSettings.GetEndpointUserName();
+		Authentication.Password = ServicesSettings.GetEndpointUserPassword();
 		
 	EndIf;
 	
@@ -260,7 +260,7 @@ Procedure AppendTimeout( Params, Val Connector )
 	
 	If ( Connector.UseGlobalSettings ) Then
 		
-		Timeout = ServicesSettings.EndpointTimeout();
+		Timeout = ServicesSettings.GetEndpointTimeout();
 		
 	Else
 		

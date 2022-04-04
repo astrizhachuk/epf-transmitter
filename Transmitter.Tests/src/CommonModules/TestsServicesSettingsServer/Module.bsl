@@ -34,17 +34,17 @@ Procedure CurrentSettings(Framework) Export
 	Constants.EndpointTimeout.Set(Number(Right(TIME, 4))-1);
 	
 	// when
-	Result = ServicesSettings.CurrentSettings();
+	Result = ServicesSettings.GetCurrentSettings();
 	
 	// then
 	Framework.AssertEqual(Result.Количество(), 7);
 	Framework.AssertTrue(Result.IsHandleGitLabRequests);
-	Framework.AssertEqual(Result.RoutingFileName, "FileName" + Right(TIME, 5));
+	Framework.AssertEqual(Result.GetRoutingFileName, "FileName" + Right(TIME, 5));
 	Framework.AssertEqual(Result.GetGitLabToken, "StorageToken" + Right(TIME, 8));		
 	Framework.AssertEqual(Result.GetGitLabTimeout, Number(Right(TIME, 4)));		
-	Framework.AssertEqual(Result.EndpointUserName, "UserName" + Right(TIME, 10));
-	Framework.AssertEqual(Result.EndpointUserPassword, "UserPassword" + Right(TIME, 10));
-	Framework.AssertEqual(Result.EndpointTimeout, Number(Right(TIME, 4))-1);		
+	Framework.AssertEqual(Result.GetEndpointUserName, "UserName" + Right(TIME, 10));
+	Framework.AssertEqual(Result.GetEndpointUserPassword, "UserPassword" + Right(TIME, 10));
+	Framework.AssertEqual(Result.GetEndpointTimeout, Number(Right(TIME, 4))-1);		
 
 EndProcedure
 
@@ -124,14 +124,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure EndpointUserName(Framework) Export
+Procedure GetEndpointUserName(Framework) Export
 
 	// given
 	UserName = "UserName" + Tests.RandomString();			
 	Constants.EndpointUserName.Set(UserName);
 	
 	// when
-	Result = ServicesSettings.EndpointUserName();
+	Result = ServicesSettings.GetEndpointUserName();
 	
 	// then
 	Framework.AssertEqual(Result, UserName);
@@ -142,14 +142,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure EndpointUserPassword(Framework) Export
+Procedure GetEndpointUserPassword(Framework) Export
 
 	// given
 	UserPassword = "UserPassword" + Tests.RandomString();			
 	Constants.EndpointUserPassword.Set(UserPassword);
 	
 	// when
-	Result = ServicesSettings.EndpointUserPassword();
+	Result = ServicesSettings.GetEndpointUserPassword();
 	
 	// then
 	Framework.AssertEqual(Result, UserPassword);
@@ -160,14 +160,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure EndpointTimeout(Framework) Export
+Procedure GetEndpointTimeout(Framework) Export
 
 	// given
 	Timeout = Number(Right(Tests.RandomString(), 4));
 	Constants.EndpointTimeout.Set(Timeout);
 	
 	// when
-	Result = ServicesSettings.EndpointTimeout();
+	Result = ServicesSettings.GetEndpointTimeout();
 	
 	// then
 	Framework.AssertEqual(Result, Timeout);
@@ -178,7 +178,7 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GitLabToken(Framework) Export
+Procedure GetGitLabToken(Framework) Export
 
 	// given
 	Token = "Token" + Tests.RandomString();			
@@ -214,14 +214,14 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure RoutingFileName(Framework) Export
+Procedure GetRoutingFileName(Framework) Export
 
 	// given
 	RoutingFileName = "RoutingFileName" + Tests.RandomString();			
 	Constants.RoutingFileName.Set(RoutingFileName);
 	
 	// when
-	Result = ServicesSettings.RoutingFileName();
+	Result = ServicesSettings.GetRoutingFileName();
 	
 	// then
 	Framework.AssertEqual(Result, RoutingFileName);

@@ -142,7 +142,7 @@ Procedure AddRoutingMetadata( FileMetadata, Val Commits )
 	Var File;
 	Var FilePath;
 	
-	FilePath = ServicesSettings.RoutingFileName();
+	FilePath = ServicesSettings.GetRoutingFileName();
 	
 	For Each Commit In Commits Do
 		
