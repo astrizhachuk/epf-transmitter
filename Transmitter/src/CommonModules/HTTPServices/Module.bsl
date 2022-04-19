@@ -1,7 +1,23 @@
 #Region Public
 
-// GetHandleRequestsStatus returns the current setting state for handling requests as a message object.
+Function StatusCodes() Export
+	
+	Возврат HTTPStatusCodesClientServerCached;
+	
+EndFunction
+
+Function FindStatusCodeById( Val Id ) Export
+	
+	Return StatusCodes().FindCodeById( Id );
+	
+EndFunction
+
+// GetHandleRequestsStatus returns the current handling requests status as a message object.
+// Throws an exception on invalid request source.
 // 
+// Parameters:
+// 	RequestSource - EnumRef.RequestSource - request source type;
+// 	
 // Returns:
 // 	Structure - message object:
 // * message - String - message text;
