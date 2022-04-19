@@ -1,45 +1,33 @@
 #Region Public
 
+// StatusCodes returns HTTPStatusCodesClientServerCached lib manager.
+// 
+// Returns:
+// 	CommonModule.HTTPStatusCodesClientServerCached - status codes manager;
+//
 Function StatusCodes() Export
 	
-	Возврат HTTPStatusCodesClientServerCached;
+	Return HTTPStatusCodesClientServerCached;
 	
 EndFunction
 
-Function FindStatusCodeById( Val Id ) Export
-	
-	Return StatusCodes().FindCodeById( Id );
-	
-EndFunction
-
-// GetHandleRequestsStatus returns the current handling requests status as a message object.
-// Throws an exception on invalid request source.
+// GetHandleRequestStatus returns the current handle request status as an HTTP response
+// with body in JSON format. Throws an exception on invalid request source.
 // 
 // Parameters:
 // 	RequestSource - EnumRef.RequestSource - request source type;
 // 	
 // Returns:
-// 	Structure - message object:
-// * message - String - message text;
+// 	HTTPServiceResponse - HTTP response with handle request status;
 //
-Function GetHandleRequestsStatus( Val RequestSource ) Export
+Function GetHandleRequestStatus( Val RequestSource ) Export
 	
-	Var Result;
+	Var Response;
 	
-	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
-	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
+	Response = New HTTPServiceResponse( StatusCodes().FindCodeById("OK") );
+	HTTPServices.SetBodyAsJSON( Response, GetHandleRequestStatusMessage(RequestSource) );
 	
-	If ( HandleRequestEnabled(RequestSource) ) Then
-		
-		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
-		
-	Else
-		
-		Result = HTTPServices.CreateMessage( MESSAGE_DISABLED );
-		
-	EndIf;
-	
-	Return Result;
+	Return Response;
 	
 EndFunction
 
@@ -120,6 +108,37 @@ Function HandleRequestEnabled( Val RequestSource )
 		Raise NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
 		
 	EndIf;
+	
+EndFunction
+
+// GetHandleRequestStatusMessage returns the current handle request status as a message object.
+// Throws an exception on invalid request source.
+// 
+// Parameters:
+// 	RequestSource - EnumRef.RequestSource - request source type;
+// 	
+// Returns:
+// 	Structure - message object:
+// * message - String - message text;
+//
+Function GetHandleRequestStatusMessage( Val RequestSource )
+	
+	Var Result;
+	
+	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
+	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
+	
+	If ( HandleRequestEnabled(RequestSource) ) Then
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
+		
+	Else
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_DISABLED );
+		
+	EndIf;
+	
+	Return Result;
 	
 EndFunction
 

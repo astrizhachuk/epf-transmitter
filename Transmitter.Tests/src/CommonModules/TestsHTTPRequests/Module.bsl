@@ -29,6 +29,7 @@ Procedure GitLabStatusGet200OkEnabled(Framework) Export
 	
 	// given
 	Constants.HandleGitLabRequests.Set(True);
+	Constants.HandleCustomRequests.Set(False);
 
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab/status";
 		
@@ -51,6 +52,7 @@ Procedure GitLabStatusGet200OkDisabled(Framework) Export
 	
 	// given
 	Constants.HandleGitLabRequests.Set(False);
+	Constants.HandleCustomRequests.Set(True);
 	
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/gitlab/status";
 	
@@ -73,6 +75,7 @@ Procedure CustomStatusGet200OkEnabled(Framework) Export
 	
 	// given
 	Constants.HandleCustomRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(False);
 
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/custom/status";
 		
@@ -95,6 +98,7 @@ Procedure CustomStatusGet200OkDisabled(Framework) Export
 	
 	// given
 	Constants.HandleCustomRequests.Set(False);
+	Constants.HandleGitLabRequests.Set(True);
 	
 	URL = "http://transmitter/api/" + CurrentLanguage().LanguageCode + "/hs/custom/status";
 	

@@ -4,12 +4,7 @@
 
 Function StatusGet(Request)
 	
-	Var Response;
-	
-	Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("OK") );
-	HTTPServices.SetBodyAsJSON( Response, HTTPServices.GetHandleRequestsStatus(Enums.RequestSource.GitLab) );
-	
-	Return Response;
+	Return HTTPServices.GetHandleRequestStatus( Enums.RequestSource.GitLab );
 	
 EndFunction
 
@@ -22,7 +17,7 @@ Function EventsPost( Request )
 	
 	Logs.Info( Logs.Events().WS_REQUEST, Logs.Messages().REQUEST_RECEIVED );
 	
-	Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("OK") );
+	Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("OK") );
 	
 	CheckHandleRequestsEnabled( Response );
 
@@ -110,7 +105,7 @@ Procedure CheckHeaders( Val Request, Response )
 	
 	If ( NOT ValueIsFilled(Token) ) Then
 		
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("BAD_REQUEST") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().NO_TOKEN, , , Response );
 		Return;
 		
@@ -120,7 +115,7 @@ Procedure CheckHeaders( Val Request, Response )
 	
 	If ( NOT ValueIsFilled(Event) ) Then
 		
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("BAD_REQUEST") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().NO_EVENT, , , Response );
 		Return;
 		
@@ -128,7 +123,7 @@ Procedure CheckHeaders( Val Request, Response )
 	
 	If ( NOT EventEqualMethodName(Request, Event) ) Then
 		
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("BAD_REQUEST") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("BAD_REQUEST") );
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().EVENT_WRONG, , , Response );
 		Return;
 				
@@ -146,7 +141,7 @@ Procedure Authenticate( Val Credentials, Val Token, Response )
 	
 	If ( NOT ValueIsFilled(Credentials) ) Then
 
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("NOT_FOUND") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("NOT_FOUND") );
 		Logs.Error( Logs.Events().AUTHENTICATION, Logs.Messages().REQUEST_HANDLER_NOT_FOUND, , , Response );
 		
 		Return;
@@ -155,7 +150,7 @@ Procedure Authenticate( Val Credentials, Val Token, Response )
 	
 	If ( Credentials.SecretToken <> Token ) Then
 
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("UNAUTHORIZED") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("UNAUTHORIZED") );
 		Logs.Error( Logs.Events().AUTHENTICATION, Logs.Messages().SECRET_TOKEN_NOT_FOUND, , , Response );
 		
 		Return;
@@ -174,7 +169,7 @@ Procedure CheckHandleRequestsEnabled( Response )
 	
 	If ( NOT ServicesSettings.IsHandleGitLabRequests() ) Then
 		
-		Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("LOCKED") );
+		Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("LOCKED") );
 		Response.Reason = "loading files disabled";
 		Logs.Error( Logs.Events().WS_REQUEST, Logs.Messages().LOADING_DISABLED, , , Response );
 

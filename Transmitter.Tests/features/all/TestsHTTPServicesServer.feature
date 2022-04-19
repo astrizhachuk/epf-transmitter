@@ -9,9 +9,9 @@ Feature: Transmitter.Tests.TestsHTTPServicesServer
 	That I can guarantee the execution of the method
 
 @OnServer
-Scenario: GetHandleRequestsStatusException
+Scenario: GetHandleRequestStatusException
 	And I execute 1C:Enterprise script at server
-	| 'TestsHTTPServicesServer.GetHandleRequestsStatusException(Context());' |
+	| 'TestsHTTPServicesServer.GetHandleRequestStatusException(Context());' |
 
 @OnServer
 Scenario: CreateMessage

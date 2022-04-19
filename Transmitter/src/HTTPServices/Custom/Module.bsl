@@ -4,12 +4,7 @@
 
 Function StatusGet(Request)
 	
-	Var Response;
-	
-	Response = New HTTPServiceResponse( HTTPServices.FindStatusCodeById("OK") );
-	HTTPServices.SetBodyAsJSON( Response, HTTPServices.GetHandleRequestsStatus(Enums.RequestSource.Custom) );
-	
-	Return Response;
+	Return HTTPServices.GetHandleRequestStatus( Enums.RequestSource.Custom );
 	
 EndFunction
 
