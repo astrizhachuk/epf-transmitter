@@ -9,6 +9,11 @@ Feature: Transmitter.Tests.TestsHTTPServicesServer
 	That I can guarantee the execution of the method
 
 @OnServer
+Scenario: GetHandleRequestsStatusException
+	And I execute 1C:Enterprise script at server
+	| 'TestsHTTPServicesServer.GetHandleRequestsStatusException(Context());' |
+
+@OnServer
 Scenario: CreateMessage
 	And I execute 1C:Enterprise script at server
 	| 'TestsHTTPServicesServer.CreateMessage(Context());' |

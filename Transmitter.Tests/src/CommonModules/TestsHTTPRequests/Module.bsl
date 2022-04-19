@@ -39,7 +39,7 @@ Procedure GitLabStatusGet200OkEnabled(Framework) Export
 	Framework.AssertEqual(Result.StatusCode, 200);
 	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
 	Framework.AssertStringContains(Body, """message"":");
-	Framework.AssertStringContains(Body, NStr("ru = 'включена';en = 'enabled'" ));
+	Framework.AssertStringContains(Body, NStr("ru = 'обработка запросов включена';en = 'request handler enabled'"));
 	
 EndProcedure
 
@@ -61,7 +61,7 @@ Procedure GitLabStatusGet200OkDisabled(Framework) Export
 	Framework.AssertEqual(Result.StatusCode, 200);
 	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
 	Framework.AssertStringContains(Body, """message"":");
-	Framework.AssertStringContains(Body, NStr("ru = 'отключена';en = 'disabled'" ));
+	Framework.AssertStringContains(Body, NStr("ru = 'обработка запросов отключена';en = 'request handler disabled'"));
 	
 EndProcedure
 
@@ -83,7 +83,7 @@ Procedure CustomStatusGet200OkEnabled(Framework) Export
 	Framework.AssertEqual(Result.StatusCode, 200);
 	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
 	Framework.AssertStringContains(Body, """message"":");
-	Framework.AssertStringContains(Body, NStr("ru = 'включена';en = 'enabled'" ));
+	Framework.AssertStringContains(Body, NStr("ru = 'обработка запросов включена';en = 'request handler enabled'"));
 	
 EndProcedure
 
@@ -105,7 +105,7 @@ Procedure CustomStatusGet200OkDisabled(Framework) Export
 	Framework.AssertEqual(Result.StatusCode, 200);
 	Body = HTTPConnector.AsText(Result, TextEncoding.UTF8);
 	Framework.AssertStringContains(Body, """message"":");
-	Framework.AssertStringContains(Body, NStr("ru = 'отключена';en = 'disabled'" ));
+	Framework.AssertStringContains(Body, NStr("ru = 'обработка запросов отключена';en = 'request handler disabled'"));
 	
 EndProcedure
 

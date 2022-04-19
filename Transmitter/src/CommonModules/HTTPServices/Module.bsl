@@ -1,5 +1,32 @@
 #Region Public
 
+// GetHandleRequestsStatus returns the current setting state for handling requests as a message object.
+// 
+// Returns:
+// 	Structure - message object:
+// * message - String - message text;
+//
+Function GetHandleRequestsStatus( Val RequestSource ) Export
+	
+	Var Result;
+	
+	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
+	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
+	
+	If ( HandleRequestEnabled(RequestSource) ) Then
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
+		
+	Else
+		
+		Result = HTTPServices.CreateMessage( MESSAGE_DISABLED );
+		
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
+
 // CreateMessage creates a message object.
 // 
 // Parameters:
@@ -59,6 +86,24 @@ Function GetJSON( Val Data )
 	Result = JSONWrite.Close();
 
 	Return Result;
+	
+EndFunction
+
+Function HandleRequestEnabled( Val RequestSource )
+	
+	If ( RequestSource = Enums.RequestSource.GitLab ) Then
+		
+		Return ServicesSettings.IsHandleGitLabRequests();
+		
+	ElsIf ( RequestSource = Enums.RequestSource.Custom ) Then
+		
+		Return ServicesSettings.IsHandleCustomRequests();
+		
+	Else
+		
+		Raise NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
+		
+	EndIf;
 	
 EndFunction
 

@@ -7,7 +7,7 @@ Function StatusGet(Request)
 	Var Response;
 	
 	Response = New HTTPServiceResponse( FindCodeById("OK") );
-	HTTPServices.SetBodyAsJSON( Response, GetHandleRequestsStatus() );
+	HTTPServices.SetBodyAsJSON( Response, HTTPServices.GetHandleRequestsStatus(Enums.RequestSource.GitLab) );
 	
 	Return Response;
 	
