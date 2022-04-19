@@ -23,4 +23,11 @@
       <value>GitLab</value>
     </synonym>
   </enumValues>
+  <enumValues uuid="d938d2fb-674a-44f8-b5e4-29b545868b23">
+    <name>Custom</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользовательский запрос</value>
+    </synonym>
+  </enumValues>
 </mdclass:Enum>
