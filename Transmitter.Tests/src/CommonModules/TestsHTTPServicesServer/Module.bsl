@@ -5,27 +5,6 @@
 // Params:
 // 	Framework - TestFramework - Test framework
 //
-Procedure GetHandleRequestStatusException(Framework) Export
-
-	// given
-	Error = NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
-	
-	// when
-	Try
-		HTTPServices.GetHandleRequestStatus("");
-		Framework.AddError("Method Executed");
-	Except
-	// then
-		ErrorInfo = ErrorInfo();
-		Framework.AssertStringContains(ErrorInfo.Description, Error);
-	EndTry;
-	
-EndProcedure
-
-// @unit-test
-// Params:
-// 	Framework - TestFramework - Test framework
-//
 Procedure CreateMessage(Framework) Export
 
 	// given

@@ -91,6 +91,63 @@ EndProcedure
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure IsHandleRequestsException(Framework) Export
+
+	// given
+	Error = NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
+	
+	// when
+	Try
+		ServicesSettings.IsHandleRequests("");
+		Framework.AddError("Method Executed");
+	Except
+	// then
+		ErrorInfo = ErrorInfo();
+		Framework.AssertStringContains(ErrorInfo.Description, Error);
+	EndTry;
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure IsHandleRequestsCustom(Framework) Export
+
+	// given
+	Constants.HandleCustomRequests.Set(True);
+	Constants.HandleGitLabRequests.Set(False);
+	
+	// when
+	Result = ServicesSettings.IsHandleRequests(Enums.RequestSource.Custom);
+	
+	// then
+	Framework.AssertTrue(Result);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure IsHandleRequestsGitLab(Framework) Export
+
+	// given
+	Constants.HandleGitLabRequests.Set(True);
+	Constants.HandleCustomRequests.Set(False);
+	
+	// when
+	Result = ServicesSettings.IsHandleRequests(Enums.RequestSource.GitLab);
+	
+	// then
+	Framework.AssertTrue(Result);
+
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 Procedure IsHandleCustomRequestsTrue(Framework) Export
 
 	// given
