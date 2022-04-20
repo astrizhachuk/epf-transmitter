@@ -1,6 +1,6 @@
 #Region Public
 
-// StatusCodes returns HTTPStatusCodesClientServerCached lib manager.
+// StatusCodes returns HTTPStatusCodesClientServerCached manager.
 // 
 // Returns:
 // 	CommonModule.HTTPStatusCodesClientServerCached - status codes manager;
