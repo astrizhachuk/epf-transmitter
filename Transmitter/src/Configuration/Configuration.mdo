@@ -57,6 +57,7 @@
   <subsystems>Subsystem.GitLabIntegration</subsystems>
   <subsystems>Subsystem.Log</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
+  <commonPictures>CommonPicture.CustomRequest</commonPictures>
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>
   <roles>Role.GitLabAPI</roles>
