@@ -44,7 +44,7 @@ Function EventsPost( Request )
 	
 	Credential = Credentials.FindByURL( ExternalRequest.GetProjectURL() );
 
-	Token = GetHeader( Request, "X-Gitlab-Token" );
+	Token = HTTPServices.FindHeader( Request, "X-Gitlab-Token" );
 	
 	Authenticate( Credential, Token, Response );
 	
@@ -61,22 +61,6 @@ Function EventsPost( Request )
 EndFunction
 
 #EndRegion
-
-Function GetHeader( Val Request, Val Key )
-	
-	Var Result;
-	
-	Result = Request.Headers.Get( Key );
-	
-	If ( Result = Undefined ) Then
-		
-		Result = Request.Headers.Get( Lower(Key) );
-		
-	EndIf;
-	
-	Return Result;
-	
-EndFunction
 
 Function EventEqualMethodName( Val Request, Val Event )
 	
@@ -101,7 +85,7 @@ Procedure CheckHeaders( Val Request, Response )
 		
 	EndIf;
 	
-	Token = GetHeader( Request, "X-Gitlab-Token" );
+	Token = HTTPServices.FindHeader( Request, "X-Gitlab-Token" );
 	
 	If ( NOT ValueIsFilled(Token) ) Then
 		
@@ -111,7 +95,7 @@ Procedure CheckHeaders( Val Request, Response )
 		
 	EndIf;	
 	
-	Event = GetHeader( Request, "X-Gitlab-Event" );
+	Event = HTTPServices.FindHeader( Request, "X-Gitlab-Event" );
 	
 	If ( NOT ValueIsFilled(Event) ) Then
 		

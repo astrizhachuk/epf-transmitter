@@ -25,7 +25,7 @@ Procedure Connector(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -80,7 +80,7 @@ Procedure SendFile4xxError(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -110,7 +110,7 @@ Procedure SendFile200OkNoEndpoint(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -143,7 +143,7 @@ Procedure SendFileExceptionDublicateEndpointBaseURL(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -414,7 +414,7 @@ Procedure GetStatusServiceConcat(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -451,7 +451,7 @@ Procedure GetStatusServiceURLInlineAuth(Framework) Export
 
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //

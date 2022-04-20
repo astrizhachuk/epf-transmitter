@@ -5,6 +5,66 @@
 // Params:
 // 	Framework - TestFramework - Test framework
 //
+Procedure FindHeaderLower(Framework) Export
+
+	// given
+	Text = "test";
+	Headers = New Map;
+	Headers.Insert("content-type", Text);	
+	Request = New HTTPRequest("localhost", Headers);
+	
+	// when
+	Result = HTTPServices.FindHeader(Request, "Content-Type");
+	
+	// then
+	Framework.AssertEqual(Result, Text);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure FindHeaderUpper(Framework) Export
+
+	// given
+	Text = "test";
+	Headers = New Map;
+	Headers.Insert("CONTENT-TYPE", Text);	
+	Request = New HTTPRequest("localhost", Headers);
+	
+	// when
+	Result = HTTPServices.FindHeader(Request, "Content-Type");
+	
+	// then
+	Framework.AssertEqual(Result, Text);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
+Procedure FindHeader(Framework) Export
+
+	// given
+	Text = "test";
+	Headers = New Map;
+	Headers.Insert("Content-Type", Text);	
+	Request = New HTTPRequest("localhost", Headers);
+	
+	// when
+	Result = HTTPServices.FindHeader(Request, "Content-Type");
+	
+	// then
+	Framework.AssertEqual(Result, Text);
+	
+EndProcedure
+
+// @unit-test
+// Params:
+// 	Framework - TestFramework - Test framework
+//
 Procedure CreateMessage(Framework) Export
 
 	// given

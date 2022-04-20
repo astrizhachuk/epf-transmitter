@@ -1,5 +1,38 @@
 #Region Public
 
+// FindHeader looks up the HTTP request header by key.
+// Used to solve a problem with clients that convert headers to uppercase or lowercase.
+// 
+// Parameters:
+// 	Request - HTTPServiceRequest - HTTP request;
+// 	Key - String - header key;
+// 	
+// Returns:
+//	- Undefined - header not found;
+//	- Arbitrary - value;
+// 	
+Function FindHeader( Val Request, Val Key ) Export
+	
+	Var Result;
+	
+	Result = Request.Headers.Get( Key );
+	
+	If ( Result = Undefined ) Then
+		
+		Result = Request.Headers.Get( Lower(Key) );
+		
+	EndIf;
+	
+	If ( Result = Undefined ) Then
+		
+		Result = Request.Headers.Get( Upper(Key) );
+		
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
+
 // StatusCodes returns HTTPStatusCodesClientServerCached manager.
 // 
 // Returns:

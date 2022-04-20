@@ -216,7 +216,7 @@ Procedure GetFilesByRoutesNoFileInSettings(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -240,7 +240,7 @@ Procedure AddCustomRoute(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -263,7 +263,7 @@ Procedure AddCustomRouteException(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //
@@ -292,7 +292,7 @@ Procedure RemoveCustomRoute(Framework) Export
 	
 EndProcedure
 
-// @unit-test:dev
+// @unit-test
 // Params:
 // 	Framework - TestFramework - Test framework
 //

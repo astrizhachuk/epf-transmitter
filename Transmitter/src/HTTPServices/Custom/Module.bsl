@@ -13,7 +13,10 @@ EndFunction
 #EndRegion
 
 Function SendPost(Request)
-	Response = New HTTPServiceResponse(200);
+	
+	Var Response;
+	
+	Response = New HTTPServiceResponse( HTTPServices.StatusCodes().FindCodeById("OK") );
 	
 //	
 //	Файлы = Новый Массив;

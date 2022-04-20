@@ -57,7 +57,7 @@
   <commonModules>CommonModule.TestsExternalRequestServer</commonModules>
   <commonModules>CommonModule.TestsExternalRequestsServer</commonModules>
   <commonModules>CommonModule.TestsGitLabAPIServer</commonModules>
-  <commonModules>CommonModule.TestsHTTPRequests</commonModules>
+  <commonModules>CommonModule.TestsHTTPRequestsServer</commonModules>
   <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
   <commonModules>CommonModule.TestsLogsServer</commonModules>
   <commonModules>CommonModule.TestsRemoteFilesServer</commonModules>
