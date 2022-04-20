@@ -47,13 +47,9 @@ paths:
                 $ref: "#/components/schemas/message"
               examples:
                 enabled:
-                  summary: Включено
-                  value:
-                    message: обработка запросов включена
+                  $ref: '#/components/examples/enabled'
                 disabled:
-                  summary: Отключено
-                  value:
-                    message: обработка запросов отключена
+                  $ref: '#/components/examples/disabled'
   /gitlab/events/push:
     post:
       tags:
@@ -122,13 +118,34 @@ paths:
                 $ref: "#/components/schemas/message"
               examples:
                 enabled:
-                  summary: Включено
-                  value:
-                    message: обработка запросов включена
+                  $ref: '#/components/examples/enabled'
                 disabled:
-                  summary: Отключено
-                  value:
-                    message: обработка запросов отключена
+                  $ref: '#/components/examples/disabled'
+  /custom/send:
+    post:
+      tags:
+        - custom
+      summary: Отправка данных
+      description: |
+        Отправка данных по маршрутам
+      operationId: send
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                endpoint:
+                  $ref: "#/components/schemas/endpoint"
+                data:
+                  type: string
+                  format: binary
+              required:
+                - endpoint
+                - data
+      responses:
+        "200":
+          description: Результат отправки данных
 components:
   schemas:
     message:
@@ -136,6 +153,24 @@ components:
       properties:
         message:
           type: string
+    endpoint:
+      type: object
+      properties:
+        filename:
+          type: string
+        endpoint:
+          type: array
+          items:
+            type: string
+  examples:
+    enabled:
+      summary: Включено
+      value:
+        message: обработка запросов включена
+    disabled:
+      summary: Отключено
+      value:
+        message: обработка запросов отключена
   securitySchemes:
     api_key:
       type: apiKey
