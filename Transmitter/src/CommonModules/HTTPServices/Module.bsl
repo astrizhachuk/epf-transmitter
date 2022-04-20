@@ -11,8 +11,8 @@ Function StatusCodes() Export
 	
 EndFunction
 
-// GetHandleRequestStatus returns the current handle request status as an HTTP response
-// with body in JSON format. Throws an exception on invalid request source.
+// GetHandleRequestStatus returns the current handle request status by request source as an HTTP response
+// with body in JSON format. If the request source is invalid, then an exception is thrown.
 // 
 // Parameters:
 // 	RequestSource - EnumRef.RequestSource - request source type;
@@ -30,6 +30,14 @@ Function GetHandleRequestStatus( Val RequestSource ) Export
 	Return Response;
 	
 EndFunction
+
+//Function GetMultipartMessage() Export
+//	
+//	ыыы = New DataReader("");
+//	
+//	Return "";
+//	
+//EndFunction
 
 // CreateMessage creates a message object.
 // 
@@ -93,26 +101,8 @@ Function GetJSON( Val Data )
 	
 EndFunction
 
-Function HandleRequestEnabled( Val RequestSource )
-	
-	If ( RequestSource = Enums.RequestSource.GitLab ) Then
-		
-		Return ServicesSettings.IsHandleGitLabRequests();
-		
-	ElsIf ( RequestSource = Enums.RequestSource.Custom ) Then
-		
-		Return ServicesSettings.IsHandleCustomRequests();
-		
-	Else
-		
-		Raise NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
-		
-	EndIf;
-	
-EndFunction
-
-// GetHandleRequestStatusMessage returns the current handle request status as a message object.
-// Throws an exception on invalid request source.
+// GetHandleRequestStatusMessage returns the current handle request status by request source as a message object.
+// If the request source is invalid, then an exception is thrown.
 // 
 // Parameters:
 // 	RequestSource - EnumRef.RequestSource - request source type;
@@ -128,7 +118,7 @@ Function GetHandleRequestStatusMessage( Val RequestSource )
 	MESSAGE_ENABLED = NStr( "ru = 'обработка запросов включена';en = 'request handler enabled'" );
 	MESSAGE_DISABLED = NStr( "ru = 'обработка запросов отключена';en = 'request handler disabled'" );
 	
-	If ( HandleRequestEnabled(RequestSource) ) Then
+	If ( ServicesSettings.IsHandleRequests(RequestSource) ) Then
 		
 		Result = HTTPServices.CreateMessage( MESSAGE_ENABLED );
 		

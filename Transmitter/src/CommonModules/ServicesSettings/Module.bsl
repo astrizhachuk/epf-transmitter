@@ -41,6 +41,35 @@ Procedure SetCurrentSettings( Val Settings ) Export
 	
 EndProcedure
 
+// IsHandleRequests returns the current handle request status by request source.
+// If the request source is invalid, then an exception is thrown.
+// 
+// Parameters:
+// 	RequestSource - EnumRef.RequestSource - request source type;
+// 	
+// Returns:
+// 	Boolean - True - enabled, False - disabled;
+//
+Function IsHandleRequests( Val RequestSource ) Export
+	
+	If ( RequestSource = Enums.RequestSource.GitLab ) Then
+		
+		Return ServicesSettings.IsHandleGitLabRequests();
+		
+	ElsIf ( RequestSource = Enums.RequestSource.Custom ) Then
+		
+		Return ServicesSettings.IsHandleCustomRequests();
+		
+	Else
+		
+		Raise NStr( "ru = 'неверный тип запроса';en = 'invalid request type'" );
+		
+	EndIf;
+	
+EndFunction
+
+// TODO now IsHandleCustomRequests and IsHandleGitLabRequests maybe private (see IsHandleRequests)
+
 // IsHandleCustomRequests returns true if custom requests should be handled, otherwise false.
 // 
 // Returns:
