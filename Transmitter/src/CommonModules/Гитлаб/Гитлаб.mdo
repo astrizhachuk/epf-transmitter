@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="75e322a7-8740-4984-af83-d2f040effff7">
+  <name>Гитлаб</name>
+  <synonym>
+    <key>ru</key>
+    <value>Программный интерфейс GitLab</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>GitLab API</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

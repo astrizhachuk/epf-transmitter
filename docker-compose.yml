@@ -12,7 +12,24 @@ services:
       - ./tools/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
       - "80:80"
-      - "1090:1080" # для доступа к mockserver (не обязательно)
+      #- "1090:1080" # для доступа к mockserver (не обязательно)
+    networks:
+      - back_net
+
+  mkdocs:
+    image: squidfunk/mkdocs-material:latest
+    container_name: mkdocs
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      LIVE_RELOAD_SUPPORT: 'true'
+      FAST_MODE: 'true'
+      DOCS_DIRECTORY: 'docs'
+    volumes:
+      - ./:/mkdocs
+    working_dir: /mkdocs
+    command: serve --dev-addr=0.0.0.0:8000
     networks:
       - back_net
 
@@ -42,8 +59,11 @@ services:
     image: mockserver/mockserver:mockserver-5.11.2
     container_name: mockserver
     command: -logLevel DEBUG -serverPort 1080
+    ports:
+      - "1080:1080"
     volumes:
-      - ./api/endpoint.yml:/tmp/endpoint.yml
+      # file extension 'yml' doesn't work
+      - ./api/endpoint.yml:/tmp/endpoint.yaml
     networks:
       - back_net
 
@@ -62,7 +82,10 @@ services:
       - srv_log:/var/log/1C
       - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
       - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
-      - ./test:/home/usr1cv8/test # чтобы не передавать данные с клиента на сервер в самом тесте
+      - ./test:/home/usr1cv8/test # чтобы не передавать данные с клиента на сервер в самом тесте (todo удалить после оптимизации!!!)
+      - ./test/requests:/test/requests
+      - ./:/project
+      #- ./test/expectations:/tmp/expectations
     networks:
       - back_net
 
@@ -70,7 +93,7 @@ services:
     image: $DOCKER_USERNAME/server:$ONEC_VERSION
     depends_on:
       - srv
-    entrypoint: /opt/1C/v8.3/x86_64/ras
+    entrypoint: /opt/1cv8/current/ras
     command: "cluster srv:1540"
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
@@ -144,7 +167,21 @@ services:
     networks:
       - back_net
 
+  client:
+    image: $DOCKER_USERNAME/client-vnc:$ONEC_VERSION
+    ports:
+      - "5900:5900"
+    volumes:
+      - client_data:/home/usr1cv8/.1cv8
+      - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
+      - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
+      - ./test/empty.dt:/home/usr1cv8/empty.dt
+    networks:
+      - back_net
+
 volumes:
+  client_data:
   srv_data:
   srv_log:
   db_data:

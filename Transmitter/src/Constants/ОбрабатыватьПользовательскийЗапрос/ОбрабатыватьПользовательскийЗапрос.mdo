@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="be8c1e72-328b-4167-9fca-527f86d27a5c">
+  <producedTypes>
+    <managerType typeId="d63216b3-0d95-4548-9130-37b4ba43f4f8" valueTypeId="0c06f7a1-280a-4237-b52a-f625a6a2961c"/>
+    <valueManagerType typeId="eb1c3005-f367-437e-a119-77f09bf9c7dd" valueTypeId="5c6eca7d-1fea-4300-988f-74a35db4e82a"/>
+    <valueKeyType typeId="01493f00-b4b6-4d7a-989a-0eba22e0ab15" valueTypeId="93206545-0d29-4610-abde-0ce44aa9e993"/>
+  </producedTypes>
+  <name>ОбрабатыватьПользовательскийЗапрос</name>
+  <synonym>
+    <key>en</key>
+    <value>Обрабатывать пользовательский запрос</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Обрабатывать пользовательский запрос</value>
+  </synonym>
+  <type>
+    <types>Boolean</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

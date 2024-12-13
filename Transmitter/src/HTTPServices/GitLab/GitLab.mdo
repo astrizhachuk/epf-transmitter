@@ -2,51 +2,56 @@
 <mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="670fae95-e5d3-4f55-a705-aa3422f1a821">
   <name>GitLab</name>
   <synonym>
-    <key>en</key>
-    <value>GitLab-services</value>
+    <key>ru</key>
+    <value>Сервисы GitLab</value>
   </synonym>
   <synonym>
-    <key>ru</key>
-    <value>GitLab-services</value>
+    <key>en</key>
+    <value>GitLab Services</value>
   </synonym>
-  <comment>Работа с сервисами GitLab</comment>
+  <comment>Сервисы GitLab</comment>
   <rootURL>gitlab</rootURL>
   <reuseSessions>AutoUse</reuseSessions>
   <sessionMaxAge>20</sessionMaxAge>
   <urlTemplates uuid="160aae0f-93ea-4931-addd-a2cfc0a3ea84">
-    <name>Webhooks</name>
+    <name>Events</name>
+    <synonym>
+      <key>en</key>
+      <value>Events</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Webhooks</value>
+      <value>События</value>
     </synonym>
-    <comment>Обработка webhooks GitLab</comment>
-    <template>/webhooks/{RepositoryType}/{MethodName}</template>
+    <template>/events/{ИмяМетода}</template>
     <methods uuid="dac1c217-fb98-4ec1-9b24-e99a308236de">
-      <name>POST</name>
+      <name>Post</name>
       <synonym>
         <key>ru</key>
-        <value>POST</value>
+        <value>Post</value>
       </synonym>
-      <comment>Обработка события &quot;push events&quot;</comment>
       <httpMethod>POST</httpMethod>
-      <handler>WebhooksPOST</handler>
+      <handler>EventsPost</handler>
     </methods>
   </urlTemplates>
-  <urlTemplates uuid="74a26fe0-749a-491a-8507-f3a2613b49b5">
-    <name>Services</name>
+  <urlTemplates uuid="cf81fd6b-7e78-482c-80b4-e6d54302f156">
+    <name>Status</name>
+    <synonym>
+      <key>en</key>
+      <value>Status</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Services</value>
+      <value>Статус</value>
     </synonym>
-    <comment>Описание сервисов из метаданных</comment>
-    <template>/services</template>
-    <methods uuid="02939f82-2346-4338-ba0f-1badb42b5fdd">
-      <name>GET</name>
+    <template>/status</template>
+    <methods uuid="8cc8114d-e9b4-428a-ae5b-66f6a0659cf3">
+      <name>Get</name>
       <synonym>
         <key>ru</key>
-        <value>GET</value>
+        <value>Get</value>
       </synonym>
-      <handler>ServicesGET</handler>
+      <handler>StatusGet</handler>
     </methods>
   </urlTemplates>
 </mdclass:HTTPService>

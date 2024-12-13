@@ -1,0 +1,67 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": "/api/v4/projects/.*/repository/files/.ext-epf.json/raw",
+        "queryStringParameters": {
+            "ref": [
+                "[a-z0-9]+"
+            ]
+        },
+        "headers": {
+            "PRIVATE-TOKEN": [
+                "-U2ssrBsM4rmx85HXzZ1"
+            ]
+        }
+    },
+    "httpResponse": {
+        "headers": {
+            "X-Gitlab-File-Name": [
+                ".ext-epf.json"
+            ]
+        },
+        "body": {
+            "type": "JSON",
+            "json": {
+                "ws": [
+                    {
+                        "name": "spb",
+                        "url": "http://mockserver:1080/endpoint1",
+                        "enabled": true
+                    },
+                    {
+                        "name": "msk",
+                        "url": "http://mockserver:1080/endpoint2",
+                        "enabled": false
+                    },
+                    {
+                        "name": "szfo",
+                        "url": "http://mockserver:1080/endpoint3",
+                        "enabled": true
+                    }
+                ],
+                "epf": [
+                    {
+                        "name": "Каталог 1/test1.epf",
+                        "exclude": [
+                            "spb",
+                            "msk"
+                        ]
+                    },
+                    {
+                        "name": "Каталог 2/test2.epf"
+                    },
+                    {
+                        "name": "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
+                    },
+                    {
+                        "name": "Нет такого файла.epf"
+                    }
+                ]
+            },
+            "contentType": "text/plain; charset=utf-8"
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

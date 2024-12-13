@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1c7744fe-c975-4131-9098-0551bdc2f749">
+  <producedTypes>
+    <refType typeId="fa01f301-2b63-48e3-8534-78d9ba596723" valueTypeId="c5334d96-17fe-4209-919f-ce7319cfae3a"/>
+    <listType typeId="260e7c61-2586-4cdf-b962-506be03e849e" valueTypeId="33de0469-a4aa-4424-9329-b45070228d6b"/>
+    <managerType typeId="91702650-17bc-4849-b7ff-1ba8a6e2af98" valueTypeId="912e7536-c99f-4ce7-a32f-da1c71a372eb"/>
+  </producedTypes>
+  <name>ИсточникЗапроса</name>
+  <synonym>
+    <key>ru</key>
+    <value>Источник запроса</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Request source</value>
+  </synonym>
+  <comment>Перечень сервисов со своими форматами передачи данных</comment>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="64f64a59-a7ce-400d-90cd-7453fe9d8acf">
+    <name>Гитлаб</name>
+    <synonym>
+      <key>ru</key>
+      <value>Гитлаб</value>
+    </synonym>
+  </enumValues>
+</mdclass:Enum>

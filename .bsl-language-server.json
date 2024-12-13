@@ -1,0 +1,13 @@
+{
+    "$schema": "https://1c-syntax.github.io/bsl-language-server/configuration/schema.json",
+    "language": "ru",
+    "diagnostics": {
+      "computeTrigger": "onType",
+      "parameters": {
+        "Typo": {
+            "minWordLength": 3,
+            "userWordsToIgnore": "json, gitlab, коммит, Коммите, Гитлаб, Логировать"
+        }
+      }
+    }
+  }

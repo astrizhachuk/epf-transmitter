@@ -1,3 +1,6 @@
 *.epf
 .settings
+.vscode
+build
+reports
 !/test/**/*.epf

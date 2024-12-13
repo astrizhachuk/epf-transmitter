@@ -1,3 +1,5 @@
+// @strict-types
+
 #Region FormEventHandlers
 
 &AtServer
@@ -5,12 +7,12 @@ Procedure OnCreateAtServer( Cancel, StandardProcessing )
 	
 	Var CurrentSettings;
 	
-	CurrentSettings = ServicesSettings.CurrentSettings();
+	CurrentSettings = НастройкиСервисов.ПолучитьНастройкиСервисаОбработкиЗапросаГитлаб();
 	FillPropertyValues( ThisObject, CurrentSettings );
 
 EndProcedure
 
-#EndRegion
+#КонецОбласти
 
 #Region FormCommandsEventHandlers
 
@@ -33,26 +35,29 @@ Procedure WriteAndClose( Command )
 EndProcedure
 
 &AtClient
-Procedure TestConnections( Command )
+Procedure CheckServiceStatus( Command )
 	
-	OpenForm( "CommonForm.TestConnections", , , , , , , FormWindowOpeningMode.Independent );
+	OpenForm( "CommonForm.CheckingServiceStatus", , , , , , , FormWindowOpeningMode.Independent );
 
 EndProcedure
 
-#EndRegion
+#КонецОбласти
 
-#Region Private
+#Область СлужебныеПроцедурыИФункции
 
 &AtClient
 Function WriteDataForm()
 	
+	Var Settings;
 	Var Result;
 
 	Result = False;
 	
 	If ( CheckFilling() ) Then
 		
-		WriteAtServer();
+		Settings = НастройкиСервисовКлиентСервер.НастройкиСервисаОбработкиЗапросаГитлаб();
+		FillPropertyValues( Settings, ThisObject );
+		SaveSettings( Settings );
 		RefreshInterface();
 		
 		Result = True;
@@ -63,20 +68,11 @@ Function WriteDataForm()
 	
 EndFunction
 
-&AtServer
-Procedure WriteAtServer()
+&AtServerNoContext
+Procedure SaveSettings( Val Settings )
 	
-	SetPrivilegedMode( True );
-	
-	Constants.HandleRequests.Set( ThisObject.HandleRequests );
-	Constants.TokenGitLab.Set( ThisObject.TokenGitLab );
-	Constants.RoutingFileName.Set( ThisObject.RoutingFileName );
-	Constants.TokenReceiver.Set( ThisObject.TokenReceiver );
-	Constants.TimeoutGitLab.Set( ThisObject.TimeoutGitLab );
-	Constants.TimeoutDeliveryFile.Set( ThisObject.TimeoutDeliveryFile );
-	
-	SetPrivilegedMode( False );
+	НастройкиСервисов.УстановитьНастройкиСервисаОбработкиЗапросаГитлаб( Settings );
 	
 EndProcedure
 
-#EndRegion
+#КонецОбласти

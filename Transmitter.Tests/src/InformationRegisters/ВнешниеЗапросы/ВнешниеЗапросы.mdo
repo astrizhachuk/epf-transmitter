@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="4e8d201a-fdeb-489d-9159-5f4ef6cd4923" extendedConfigurationObject="0f493aac-a55c-4297-b77f-b63ab42dc37e">
+  <producedTypes>
+    <selectionType typeId="e18f1cbe-a428-4f1a-b276-97c545464bc5" valueTypeId="d47355f2-5f34-4310-9842-0f9dbf0b42a3"/>
+    <listType typeId="3cf7380f-e456-4262-8101-1b148c115427" valueTypeId="66287c3d-b72a-4ea2-b07d-0f3101697b4c"/>
+    <managerType typeId="47804c71-fcb7-472d-8c67-05cce299c6c4" valueTypeId="b7fd13b6-4fbb-4401-85af-aa58f33f378b"/>
+    <recordSetType typeId="bdae4615-4d56-4fa0-88e9-ab7f56d78732" valueTypeId="0c14fb29-58c6-40b5-9d18-3d5836931a0f"/>
+    <recordKeyType typeId="a27e471a-4336-4393-b8ba-e78346e1890e" valueTypeId="9602bd8c-2317-4ec1-be3b-9564e5427d2b"/>
+    <recordType typeId="6d3b631d-d296-4cce-95ba-7e76e9299b65" valueTypeId="40cf28a0-e28f-4e28-b248-ba1005bce4a8"/>
+    <recordManagerType typeId="219b6725-c275-4a22-9d94-533dfdcfe718" valueTypeId="0b704cf0-ce2d-4847-be1d-9e4a9041c384"/>
+  </producedTypes>
+  <name>ВнешниеЗапросы</name>
+  <objectBelonging>Adopted</objectBelonging>
+  <extension xsi:type="mdclassExtension:InformationRegisterExtension">
+    <extendedConfigurationObject>Checked</extendedConfigurationObject>
+    <informationRegisterPeriodicity>Checked</informationRegisterPeriodicity>
+    <writeMode>Checked</writeMode>
+    <managerModule>Extended</managerModule>
+  </extension>
+  <useStandardCommands>true</useStandardCommands>
+  <resources uuid="04777baf-6adb-4d64-b398-704ff42a6dbb" extendedConfigurationObject="4773d106-7e31-4ba1-8475-b868984cedf4">
+    <name>Data</name>
+    <objectBelonging>Adopted</objectBelonging>
+    <extension xsi:type="mdclassExtension:BasicFeatureExtension">
+      <extendedConfigurationObject>Checked</extendedConfigurationObject>
+      <type>Checked</type>
+    </extension>
+    <type>
+      <types>ValueStorage</types>
+    </type>
+  </resources>
+  <dimensions uuid="2e875891-851e-461b-8a2b-8a60a2fcee41" extendedConfigurationObject="c9166ddb-3b90-4103-a795-5b301304f6d4">
+    <name>RequestHandler</name>
+    <objectBelonging>Adopted</objectBelonging>
+    <extension xsi:type="mdclassExtension:BasicFeatureExtension">
+      <extendedConfigurationObject>Checked</extendedConfigurationObject>
+      <type>Checked</type>
+    </extension>
+    <type>
+      <types>CatalogRef.ОбработчикиВнешнихЗапросов</types>
+    </type>
+  </dimensions>
+  <dimensions uuid="a723e4dd-0888-4a46-bb6a-6e2347e44691" extendedConfigurationObject="228bede1-2c6c-4420-9c89-db095fa86a11">
+    <name>CheckoutSHA</name>
+    <objectBelonging>Adopted</objectBelonging>
+    <extension xsi:type="mdclassExtension:BasicFeatureExtension">
+      <extendedConfigurationObject>Checked</extendedConfigurationObject>
+      <type>Checked</type>
+    </extension>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>40</length>
+      </stringQualifiers>
+    </type>
+  </dimensions>
+</mdclass:InformationRegister>

@@ -19,9 +19,10 @@
   <configurationExtensionCompatibilityMode>8.3.17</configurationExtensionCompatibilityMode>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
+  <scriptVariant>Russian</scriptVariant>
   <defaultRoles>Role.FullRights</defaultRoles>
   <vendor>Alexander Strizhachuk</vendor>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <requiredMobileApplicationPermissions>
     <permission>AllowOSBackup</permission>
     <use>true</use>
@@ -34,7 +35,7 @@
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
-  <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
+  <synchronousPlatformExtensionAndAddInCallUseMode>UseWithWarnings</synchronousPlatformExtensionAndAddInCallUseMode>
   <compatibilityMode>8.3.17</compatibilityMode>
   <languages uuid="c6c2ae86-2d14-4c59-8acb-8919a72352b1">
     <name>Русский</name>
@@ -52,38 +53,57 @@
     </synonym>
     <languageCode>en</languageCode>
   </languages>
-  <subsystems>Subsystem.GitLabIntegration</subsystems>
-  <subsystems>Subsystem.Logging</subsystems>
+  <subsystems>Subsystem.CustomRequests</subsystems>
   <subsystems>Subsystem.ExternalDependencies</subsystems>
+  <subsystems>Subsystem.GitLabIntegration</subsystems>
+  <subsystems>Subsystem.Логирование</subsystems>
   <commonPictures>CommonPicture.GitLab</commonPictures>
+  <commonPictures>CommonPicture.CustomRequest</commonPictures>
   <roles>Role.FullRights</roles>
   <roles>Role.GitLabClient</roles>
-  <roles>Role.GitLabHTTPService</roles>
-  <commonModules>CommonModule.HTTPConnector</commonModules>
-  <commonModules>CommonModule.HTTPStatusCodesClientServerCached</commonModules>
-  <commonModules>CommonModule.CommonUseClientServer</commonModules>
-  <commonModules>CommonModule.CommonUseServerCall</commonModules>
-  <commonModules>CommonModule.DataProcessing</commonModules>
-  <commonModules>CommonModule.GitLab</commonModules>
-  <commonModules>CommonModule.GitLabCached</commonModules>
-  <commonModules>CommonModule.HTTPServices</commonModules>
-  <commonModules>CommonModule.Logging</commonModules>
-  <commonModules>CommonModule.Receivers</commonModules>
-  <commonModules>CommonModule.Routing</commonModules>
-  <commonModules>CommonModule.ServicesSettings</commonModules>
-  <commonModules>CommonModule.StringsClientServer</commonModules>
-  <commonModules>CommonModule.Webhooks</commonModules>
+  <roles>Role.GitLabAPI</roles>
+  <roles>Role.ManualAPI</roles>
+  <commonModules>CommonModule.ВнешниеЗапросы</commonModules>
+  <commonModules>CommonModule.Гитлаб</commonModules>
+  <commonModules>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</commonModules>
+  <commonModules>CommonModule.КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.Конфигурация</commonModules>
+  <commonModules>CommonModule.Логи</commonModules>
+  <commonModules>CommonModule.Маршрутизация</commonModules>
+  <commonModules>CommonModule.НастройкиСервисов</commonModules>
+  <commonModules>CommonModule.НастройкиСервисовКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОбработкаДанных</commonModules>
+  <commonModules>CommonModule.ОбщегоНазначения</commonModules>
+  <commonModules>CommonModule.ОбщегоНазначенияВызовСервера</commonModules>
+  <commonModules>CommonModule.ОбщегоНазначенияКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОбщегоНазначенияСлужебныйКлиентСервер</commonModules>
+  <commonModules>CommonModule.Получатели</commonModules>
+  <commonModules>CommonModule.ПолучателиВызовСервера</commonModules>
+  <commonModules>CommonModule.ПолучателиКлиентСервер</commonModules>
+  <commonModules>CommonModule.СервисыHTTP</commonModules>
+  <commonModules>CommonModule.СтрокиКлиентСервер</commonModules>
+  <commonModules>CommonModule.УчетныеДанные</commonModules>
+  <commonModules>CommonModule.ФайлыВнешнегоХранилища</commonModules>
+  <commonModules>CommonModule.Фоновые</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
-  <functionalOptions>FunctionalOption.HandleRequests</functionalOptions>
-  <constants>Constant.HandleRequests</constants>
-  <constants>Constant.RoutingFileName</constants>
-  <constants>Constant.TokenGitLab</constants>
-  <constants>Constant.TimeoutGitLab</constants>
-  <constants>Constant.TimeoutDeliveryFile</constants>
-  <constants>Constant.TokenReceiver</constants>
+  <httpServices>HTTPService.Version</httpServices>
+  <httpServices>HTTPService.Custom</httpServices>
+  <functionalOptions>FunctionalOption.HandleGitLabRequest</functionalOptions>
+  <commonCommands>CommonCommand.TestServiceStatus</commonCommands>
+  <constants>Constant.ИмяФайлаСхемыМаршрута</constants>
+  <constants>Constant.ОбрабатыватьГитлабЗапрос</constants>
+  <constants>Constant.ОбрабатыватьПользовательскийЗапрос</constants>
+  <constants>Constant.ПарольВнешнегоСервиса</constants>
+  <constants>Constant.ПользовательВнешнегоСервиса</constants>
+  <constants>Constant.ТаймаутВнешнегоСервиса</constants>
+  <constants>Constant.ТаймаутГитлаб</constants>
+  <constants>Constant.ТокенГитлаб</constants>
   <commonForms>CommonForm.ServicesSettings</commonForms>
-  <commonForms>CommonForm.TestConnections</commonForms>
-  <catalogs>Catalog.Webhooks</catalogs>
-  <informationRegisters>InformationRegister.QueryData</informationRegisters>
-  <informationRegisters>InformationRegister.RemoteFiles</informationRegisters>
+  <commonForms>CommonForm.CheckingServiceStatus</commonForms>
+  <catalogs>Catalog.ОбработчикиВнешнихЗапросов</catalogs>
+  <catalogs>Catalog.Получатели</catalogs>
+  <enums>Enum.ИсточникЗапроса</enums>
+  <dataProcessors>DataProcessor.ВнешнийЗапрос</dataProcessors>
+  <informationRegisters>InformationRegister.ВнешниеЗапросы</informationRegisters>
+  <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>
 </mdclass:Configuration>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
+  <title>
+    <key>en</key>
+    <value>Services settings</value>
+  </title>
   <items xsi:type="form:Button">
-    <name>FormTestConnections</name>
+    <name>CheckServiceStatus</name>
     <id>37</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,7 +13,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>FormTestConnectionsExtendedTooltip</name>
+      <name>CheckServiceStatusExtendedTooltip</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -24,7 +28,7 @@
       </extInfo>
     </extendedTooltip>
     <type>Hyperlink</type>
-    <commandName>Form.Command.TestConnections</commandName>
+    <commandName>Form.Command.CheckServiceStatus</commandName>
     <representation>Auto</representation>
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
@@ -32,7 +36,7 @@
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <items xsi:type="form:FormField">
-    <name>FormHandleRequests</name>
+    <name>HandleGitLabRequest</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -41,12 +45,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>HandleRequests</segments>
+        <segments>HandleGitLabRequest</segments>
       </paths>
     </dataPath>
     <titleLocation>Right</titleLocation>
     <extendedTooltip>
-      <name>FormHandleRequestsExtendedTooltip</name>
+      <name>HandleGitLabRequestExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -61,7 +65,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>FormHandleRequestsContextMenu</name>
+      <name>HandleGitLabRequestContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -78,7 +82,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>FormRoutingFileName</name>
+    <name>RoutingFileName</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -91,7 +95,7 @@
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>FormRoutingFileNameExtendedTooltip</name>
+      <name>RoutingFileNameExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -106,7 +110,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>FormRoutingFileNameContextMenu</name>
+      <name>RoutingFileNameContextMenu</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -130,10 +134,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupSettingsGitLab</name>
+    <name>GroupGitLabSettings</name>
     <id>24</id>
     <items xsi:type="form:FormField">
-      <name>FormTokenGitLab</name>
+      <name>GitLabToken</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -142,7 +146,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>TokenGitLab</segments>
+          <segments>GitLabToken</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -155,7 +159,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormTokenGitLabExtendedTooltip</name>
+        <name>GitLabTokenExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -170,7 +174,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormTokenGitLabContextMenu</name>
+        <name>GitLabTokenContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -194,7 +198,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>FormTimeoutGitLab</name>
+      <name>GitLabTimeout</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -203,20 +207,20 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>TimeoutGitLab</segments>
+          <segments>GitLabTimeout</segments>
         </paths>
       </dataPath>
       <toolTip>
-        <key>en</key>
-        <value>0 - timeout is not set</value>
+        <key>ru</key>
+        <value>0 - таймаут не установлен, сек</value>
       </toolTip>
       <toolTip>
-        <key>ru</key>
-        <value>0 - таймаут не установлен</value>
+        <key>en</key>
+        <value>0 - timeout is not set, sec</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormTimeoutGitLabExtendedTooltip</name>
+        <name>GitLabTimeoutExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -231,7 +235,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormTimeoutGitLabContextMenu</name>
+        <name>GitLabTimeoutContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -264,18 +268,14 @@
     </userVisible>
     <title>
       <key>en</key>
-      <value>GitLab</value>
+      <value>External Storage</value>
     </title>
     <title>
       <key>ru</key>
-      <value>GitLab</value>
+      <value>Внешнее хранилище GitLab</value>
     </title>
-    <toolTip>
-      <key>ru</key>
-      <value>Группа настройки сервера git lab</value>
-    </toolTip>
     <extendedTooltip>
-      <name>GroupSettingsGitLabExtendedTooltip</name>
+      <name>GroupGitLabSettingsExtendedTooltip</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -301,33 +301,22 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupSettingsReceiver</name>
+    <name>GroupEndpointSettings</name>
     <id>22</id>
     <items xsi:type="form:FormField">
-      <name>FormTokenReceiver</name>
-      <id>13</id>
+      <name>EndpointUserName</name>
+      <id>39</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>TokenReceiver</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>EndpointUserName</segments>
       </dataPath>
-      <toolTip>
-        <key>en</key>
-        <value>See OpenAPI web service for updating external reports and processing</value>
-      </toolTip>
-      <toolTip>
-        <key>ru</key>
-        <value>См. OpenAPI веб-сервиса обновления внешних отчетов и обработок</value>
-      </toolTip>
-      <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormTokenReceiverExtendedTooltip</name>
-        <id>15</id>
+        <name>EndpointUserNameExtendedTooltip</name>
+        <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -341,8 +330,8 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormTokenReceiverContextMenu</name>
-        <id>14</id>
+        <name>EndpointUserNameContextMenu</name>
+        <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -351,7 +340,7 @@
         <autoFill>true</autoFill>
       </contextMenu>
       <type>InputField</type>
-      <editMode>EnterOnInput</editMode>
+      <editMode>Enter</editMode>
       <showInHeader>true</showInHeader>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
@@ -359,14 +348,64 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
-        <passwordMode>false</passwordMode>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>FormTimeoutDeliveryFile</name>
+      <name>EndpointUserPassword</name>
+      <id>42</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>EndpointUserPassword</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>EndpointUserPasswordExtendedTooltip</name>
+        <id>44</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>EndpointUserPasswordContextMenu</name>
+        <id>43</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <passwordMode>true</passwordMode>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>EndpointTimeout</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -375,7 +414,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>TimeoutDeliveryFile</segments>
+          <segments>EndpointTimeout</segments>
         </paths>
       </dataPath>
       <toolTip>
@@ -384,7 +423,7 @@
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>FormTimeoutDeliveryFileExtendedTooltip</name>
+        <name>EndpointTimeoutExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -399,7 +438,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>FormTimeoutDeliveryFileContextMenu</name>
+        <name>EndpointTimeoutContextMenu</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -432,14 +471,14 @@
     </userVisible>
     <title>
       <key>en</key>
-      <value>Receivers</value>
+      <value>Endpoints</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Информационные базы получателей</value>
+      <value>Информационные базы-получатели</value>
     </title>
     <extendedTooltip>
-      <name>GroupSettingsReceiverExtendedTooltip</name>
+      <name>GroupEndpointSettingsExtendedTooltip</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -468,7 +507,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>FormWriteAndClose</name>
+      <name>WriteAndClose</name>
       <id>35</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -476,7 +515,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>FormWriteAndCloseExtendedTooltip</name>
+        <name>WriteAndCloseExtendedTooltip</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -499,7 +538,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>FormWrite</name>
+      <name>Write</name>
       <id>20</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -507,7 +546,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>FormWriteExtendedTooltip</name>
+        <name>WriteExtendedTooltip</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -529,7 +568,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>FormCancel</name>
+      <name>Cancel</name>
       <id>18</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -537,7 +576,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>FormCancelExtendedTooltip</name>
+        <name>CancelExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -577,14 +616,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>HandleRequests</name>
+    <name>HandleGitLabRequest</name>
     <title>
       <key>en</key>
-      <value>Handle external storage requests</value>
+      <value>Handle GitLab request</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Обрабатывать запросы внешнего хранилища</value>
+      <value>Обрабатывать запрос GitLab</value>
     </title>
     <id>1</id>
     <valueType>
@@ -598,38 +637,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>TokenReceiver</name>
+    <name>GitLabToken</name>
     <title>
       <key>en</key>
-      <value>Receiver Access Token</value>
+      <value>Token</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Receiver Access Token</value>
-    </title>
-    <id>3</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers>
-        <length>20</length>
-      </stringQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>TokenGitLab</name>
-    <title>
-      <key>en</key>
-      <value>Personal Access Token</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Personal Access Token</value>
+      <value>Токен</value>
     </title>
     <id>4</id>
     <valueType>
@@ -670,10 +685,10 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>TimeoutGitLab</name>
+    <name>GitLabTimeout</name>
     <title>
       <key>en</key>
-      <value>Connection Timeout, sec</value>
+      <value>Connection timeout, sec</value>
     </title>
     <title>
       <key>ru</key>
@@ -695,14 +710,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>TimeoutDeliveryFile</name>
+    <name>EndpointTimeout</name>
     <title>
       <key>en</key>
       <value>File delivery timeout, sec</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Таймаут доставки файла, сек</value>
+      <value>Таймаут соединения, сек</value>
     </title>
     <id>7</id>
     <valueType>
@@ -711,6 +726,54 @@
         <precision>4</precision>
         <nonNegative>true</nonNegative>
       </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>EndpointUserName</name>
+    <title>
+      <key>en</key>
+      <value>User</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Имя пользователя</value>
+    </title>
+    <id>8</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers>
+        <length>256</length>
+      </stringQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>EndpointUserPassword</name>
+    <title>
+      <key>en</key>
+      <value>Password</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Пароль</value>
+    </title>
+    <id>9</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers>
+        <length>256</length>
+      </stringQualifiers>
     </valueType>
     <view>
       <common>true</common>
@@ -762,14 +825,14 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>TestConnections</name>
+    <name>CheckServiceStatus</name>
     <title>
       <key>en</key>
-      <value>Test connections</value>
+      <value>Checking service status</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Проверить подключения</value>
+      <value>Проверка статуса сервиса</value>
     </title>
     <id>3</id>
     <use>
@@ -777,7 +840,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>TestConnections</name>
+        <name>CheckServiceStatus</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

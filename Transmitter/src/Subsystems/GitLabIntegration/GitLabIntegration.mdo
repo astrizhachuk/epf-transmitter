@@ -14,19 +14,19 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.GitLab</picture>
   </picture>
-  <content>CommonModule.HTTPServices</content>
+  <content>CommonModule.СервисыHTTP</content>
   <content>Role.GitLabClient</content>
   <content>HTTPService.GitLab</content>
-  <content>Constant.HandleRequests</content>
-  <content>FunctionalOption.HandleRequests</content>
-  <content>Constant.RoutingFileName</content>
-  <content>Constant.TokenGitLab</content>
-  <content>Catalog.Webhooks</content>
+  <content>Constant.ОбрабатыватьГитлабЗапрос</content>
+  <content>FunctionalOption.HandleGitLabRequest</content>
+  <content>Constant.ИмяФайлаСхемыМаршрута</content>
+  <content>Constant.ТокенГитлаб</content>
+  <content>Catalog.ОбработчикиВнешнихЗапросов</content>
   <content>CommonPicture.GitLab</content>
   <content>CommonForm.ServicesSettings</content>
-  <content>Constant.TimeoutGitLab</content>
-  <content>Constant.TimeoutDeliveryFile</content>
-  <content>Role.GitLabHTTPService</content>
-  <content>Constant.TokenReceiver</content>
-  <content>CommonForm.TestConnections</content>
+  <content>Constant.ТаймаутГитлаб</content>
+  <content>Constant.ТаймаутВнешнегоСервиса</content>
+  <content>Role.GitLabAPI</content>
+  <content>CommonForm.CheckingServiceStatus</content>
+  <content>Catalog.Получатели</content>
 </mdclass:Subsystem>

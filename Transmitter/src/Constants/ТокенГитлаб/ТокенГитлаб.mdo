@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="13f061c4-d8d4-42b6-b904-eb58f4daf0ad">
+  <producedTypes>
+    <managerType typeId="c8f0e996-7a71-44ca-9577-eb8af3426768" valueTypeId="01d364ac-25c1-446a-b6fc-85b55d91f79e"/>
+    <valueManagerType typeId="dba82ae9-3607-4c48-a195-d0db3423b430" valueTypeId="02239c2a-c14f-4651-b101-a5e1d27bc5da"/>
+    <valueKeyType typeId="dea259f9-10fc-5525-b6ed-05c4f184a170" valueTypeId="4750277b-9590-5260-8fd2-290d3ccd8926"/>
+  </producedTypes>
+  <name>ТокенГитлаб</name>
+  <synonym>
+    <key>ru</key>
+    <value>Toкен доступа (для сервера GitLab)</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Token (GitLab server)</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>50</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <explanation>
+    <key>ru</key>
+    <value>См. персональные настройки пользователя на сервере GitLab в разделе User Settings → Access Tokens → Personal Access Tokens</value>
+  </explanation>
+  <explanation>
+    <key>en</key>
+    <value>See personal user settings on the GitLab server: User Settings → Access Tokens → Personal Access Tokens</value>
+  </explanation>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

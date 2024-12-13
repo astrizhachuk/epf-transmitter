@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>Constant.TimeoutGitLab</name>
+		<name>Constant.ТаймаутГитлаб</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -23,14 +23,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.GitLab.URLTemplate.Services.Method.GET</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Constant.TokenGitLab</name>
+		<name>Constant.ТокенГитлаб</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -49,14 +42,14 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.TestConnections</name>
+		<name>CommonForm.CheckingServiceStatus</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Catalog.Webhooks</name>
+		<name>Catalog.ОбработчикиВнешнихЗапросов</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -103,7 +96,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.RoutingFileName</name>
+		<name>Constant.ИмяФайлаСхемыМаршрута</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -122,7 +115,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.TimeoutDeliveryFile</name>
+		<name>Constant.ТаймаутВнешнегоСервиса</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -141,7 +134,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.HandleRequests</name>
+		<name>Constant.ОбрабатыватьГитлабЗапрос</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -167,26 +160,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Constant.TokenReceiver</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Update</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Edit</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>HTTPService.GitLab.URLTemplate.Webhooks.Method.POST</name>
+		<name>HTTPService.GitLab.URLTemplate.Events.Method.Post</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -247,7 +221,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.QueryData</name>
+		<name>InformationRegister.ВнешниеЗапросы</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -262,7 +236,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.RemoteFiles</name>
+		<name>InformationRegister.ВнешниеФайлы</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -273,6 +247,105 @@
 		</right>
 		<right>
 			<name>Update</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.ПользовательВнешнегоСервиса</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Constant.ПарольВнешнегоСервиса</name>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.ВнешнийЗапрос</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Catalog.Получатели</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Insert</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Update</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Delete</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Edit</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>InputByString</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>InteractiveInsert</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>InteractiveSetDeletionMark</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>InteractiveClearDeletionMark</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>InteractiveDeleteMarked</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonCommand.TestServiceStatus</name>
+		<right>
+			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>

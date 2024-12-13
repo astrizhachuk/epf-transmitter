@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8c7a3dc8-d0c2-4de3-9539-7a555ad2c35c">
+  <producedTypes>
+    <managerType typeId="bc871edd-1241-45ac-8a4b-60a59ddba206" valueTypeId="03764ae1-2fbf-4673-8cf6-a4745f06982c"/>
+    <valueManagerType typeId="2f0d450c-7912-4c55-8dba-23f506b8dd54" valueTypeId="1b5be132-53f2-484b-8e68-111210a309f3"/>
+    <valueKeyType typeId="64301aab-7c09-4a74-8205-3e343373cf8f" valueTypeId="3413e5ef-f27b-4146-bbbb-2a153cfadf2e"/>
+  </producedTypes>
+  <name>ПользовательВнешнегоСервиса</name>
+  <synonym>
+    <key>en</key>
+    <value>User</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Пользователь</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>256</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:StringValue">
+    <value>0</value>
+  </minValue>
+  <maxValue xsi:type="core:StringValue">
+    <value>3600</value>
+  </maxValue>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

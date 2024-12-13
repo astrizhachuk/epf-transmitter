@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="b4084715-0adc-4886-b78c-423191d3343b">
+  <producedTypes>
+    <managerType typeId="6c2f5f2b-cd60-4bce-af75-19140a20c89d" valueTypeId="ed952b59-67e2-46e3-af00-b920e1e4c305"/>
+    <valueManagerType typeId="1eeb038d-f802-4aac-9fc0-c8be23dc004f" valueTypeId="e094cca0-2039-45c6-8e48-b20d7b05e8b4"/>
+    <valueKeyType typeId="44ac243c-802b-5718-9952-e6f6cb55f03b" valueTypeId="80ec4c18-aa46-510d-bf2c-844dbb9e248a"/>
+  </producedTypes>
+  <name>ОбрабатыватьГитлабЗапрос</name>
+  <synonym>
+    <key>en</key>
+    <value>Handle GitLab request</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Обрабатывать запрос с сервера Гитлаб</value>
+  </synonym>
+  <type>
+    <types>Boolean</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

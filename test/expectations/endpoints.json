@@ -1,0 +1,36 @@
+{
+    "httpRequest": {
+        "method": "POST",
+        "path": "/endpoint.*"
+    },
+    "httpResponse": {
+        "body": {
+            "type": "JSON",
+            "json": {
+                "uploaded": [
+                  {
+                    "guid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "filename": "Внешняя Обработка 1.epf",
+                    "comment": "Размер: такой-то... для Внешняя Обработка 1.epf"
+                  },
+                  {
+                    "guid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "table": "Принадлежность",
+                    "line": 1,
+                    "filename": "Внешняя Обработка 1.epf",
+                    "comment": "Размер: такой-то... для Внешняя Обработка 1.epf"
+                  }
+                ],
+                "errors": []
+              },
+            "contentType": "text/plain; charset=utf-8"
+        },
+        "delay": {
+            "timeUnit": "SECONDS",
+            "value": 3
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

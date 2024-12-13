@@ -1,0 +1,12 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*/noAuth"
+    },
+    "httpResponse": {
+        "body": "noAuth body"
+    },
+    "times": {
+        "unlimited": true
+    }
+}

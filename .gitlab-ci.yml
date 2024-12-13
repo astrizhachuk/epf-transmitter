@@ -22,13 +22,12 @@ variables:
   # Compose configuration files (docker-compose -f) and
   # project name (docker-compose -p) for containers, volumes, and network prefix
   DEPLOY_CONFIG: "production.yml"
-
   DEPLOY_NAME: "$CI_PROJECT_NAME-production"
   DEPLOY_NETWORK: "$CI_PROJECT_NAME-production"
-
-  # production and review app endpoints
   DEPLOY_SERVER: "http://127.0.0.1"
   DEPLOY_PORT: "8090"
+
+  REVIEW_CONFIG: "review.yml"
   REVIEW_PORT: "8091"
 
   EDT_PROJECT_DIR: "Transmitter" # EDT src
@@ -44,6 +43,29 @@ variables:
   # init ib (users, roles)
   INIT_DB_PATH: "https://github.com/astrizhachuk/Init-db-1c/releases/download"
   INIT_DB_VERSION: "2.0.0"
+
+
+
+
+
+
+
+
+    # allure
+  ALLURE_LAUNCH_NAME: "$CI_PROJECT_NAME - $CI_COMMIT_SHORT_SHA"
+  ALLURE_LAUNCH_TAGS: "$CI_COMMIT_REF_NAME, $CI_COMMIT_TAG"
+  ALLURE_RESULTS: "reports/allure"
+  ALLURE_TESTPLAN_PATH: ./testplan.json
+
+  # va
+  # VA: "va.epf"
+  # VA_VERSION: "1.2.038.1"
+
+  PLATFORM_1C: "C:\\Program Files (x86)\\1cv8\\8.3.10.2667\\bin\\1cv8.exe"
+  CLIENT_1C: "C:\\Program Files (x86)\\1cv8\\8.3.10.2667\\bin\\1cv8c.exe"
+
+  INIT_DB_LOCAL: "C:\\deploying-db-1c\\epf\\InitDB.epf"
+  VA: "C:\\deploying-db-1c\\epf\\vanessa-automation-single.epf"
 
 workflow:
   rules:
@@ -76,6 +98,7 @@ include:
   - TAG_REGEX="^review-"
   - if [[ $CI_COMMIT_TAG =~ $TAG_REGEX ]];
     then
+      DEPLOY_CONFIG=$REVIEW_CONFIG
       DEPLOY_NETWORK=$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG;
       DEPLOY_NAME=$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG;
       DEPLOY_PORT=$REVIEW_PORT;
@@ -206,6 +229,7 @@ srv up:
 review srv up:
   stage: srv
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -288,6 +312,7 @@ update:
 review update:
   stage: update
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -329,6 +354,7 @@ init db:
 review init db:
   stage: init
   variables:
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -371,6 +397,7 @@ stop_review:
   stage: .post
   variables:
     GIT_STRATEGY: none
+    DEPLOY_CONFIG: $REVIEW_CONFIG
     DEPLOY_NETWORK: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_NAME: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
     DEPLOY_PORT: $REVIEW_PORT
@@ -387,7 +414,7 @@ stop_review:
 sonarqube on merge request:
   extends: .sonarqube
   script:
-    - PROJECT_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" $EDT_PROJECT_DIR/src/Configuration/Configuration.mdo)
+    - PROJECT_VERSION=$(grep '<version>' "$EDT_PROJECT_DIR/src/Configuration/Configuration.mdo" | cut -d'>' -f2 | cut -d'<' -f1)
     - !reference [.on_merge_request, script]
   rules:
     - if: $CI_MERGE_REQUEST_IID
@@ -398,3 +425,80 @@ sonarqube on tag:
     - .on_tag
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+
+
+
+# prepare:
+#   stage: .pre
+#   before_script:
+#     - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
+#     - chmod +x ./allurectl
+#   script:
+#     - mkdir .allure
+#     - ./allurectl job-run start
+#   artifacts:
+#     paths:
+#       - .allure
+#     expire_in: 1 day
+#   allow_failure: true
+#   tags:
+#     - udocker02
+#   rules:
+#     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+# .run_test:
+#   stage: test
+#   before_script:
+#     - Invoke-Expression '[Console]::OutputEncoding = [Text.Encoding]::Utf8'
+#     - Invoke-Expression '[Console]::InputEncoding = [Text.Encoding]::Utf8'
+#     - chcp
+# #    - Invoke-WebRequest https://github.com/Pr-Mex/vanessa-automation/releases/download/$VA_VERSION/vanessa-automation-single.$VA_VERSION.zip -OutFile $VA
+#     - Start-Process -FilePath "oscript" -ArgumentList ".\tools\onescript\Compile.os .\features\" -NoNewWindow -Wait
+#   script:
+#     - Start-Process -FilePath $PLATFORM_1C -ArgumentList "CREATEINFOBASE File=$IB /Out $LOG_GREATE" -NoNewWindow -Wait
+#     - Start-Process -FilePath $PLATFORM_1C -ArgumentList "DESIGNER /F $IB /LoadConfigFromFiles xml /Out $LOG_UPDATE /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs" -NoNewWindow -Wait
+#     - Start-Process -FilePath $CLIENT_1C -ArgumentList "ENTERPRISE /F $IB /Execute $INIT_DB_LOCAL /C file=tools/users.json /Out $LOG_USER_INIT /DisableStartupMessages /DisableStartupDialogs" -NoNewWindow -Wait
+#     - Start-Process -FilePath $CLIENT_1C -ArgumentList "ENTERPRISE /F $IB /NАдминистратор /TestManager /Execute $VA /C`"StartFeaturePlayer;ClearCacheSteps;QuietInstallVanessaExt;VAParams=$VA_PARAMS_PATH;WorkspaceRoot=$CI_PROJECT_DIR`" /DisableStartupMessages /DisableStartupDialogs" -NoNewWindow -Wait
+#   artifacts:
+#     paths:
+#       - $ALLURE_RESULTS
+#       - ./*.log
+#     expire_in: 7 day
+#     when: always
+#   tags:
+#     - std-dtrm08
+
+# run unit test:
+#   extends: .run_test
+#   variables:
+#     IB: "build/unit"
+#     LOG_GREATE: "unit-create.log"
+#     LOG_UPDATE: "unit-update.log"
+#     LOG_USER_INIT: "unit-user-init.log"
+#     VA_PARAMS_PATH: "tools/VAParams.json"
+#   rules:
+#     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+# # run func test:
+# #   extends: .run_test
+# #   variables:
+# #     IB: "build/func"
+# #     LOG_GREATE: "func-create.log"
+# #     LOG_UPDATE: "func-update.log"
+# #     LOG_USER_INIT: "func-user-init.log"
+# #     VA_PARAMS_PATH: "tools/va/func.json"
+
+# post:
+#   stage: .post
+#   before_script:
+#     - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
+#     - chmod +x ./allurectl
+#   script:
+#     - ./allurectl upload $ALLURE_RESULTS
+#   variables:
+#     ALLURE_JOB_RUN_CHILD: "true"
+#   tags:
+#     - udocker02
+#   rules:
+#     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/

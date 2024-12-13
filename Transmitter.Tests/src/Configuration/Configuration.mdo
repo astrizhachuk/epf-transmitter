@@ -22,11 +22,12 @@
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="e734b06e-e5d8-4087-b052-20afbf354603"/>
   <containedObjects classId="fb282519-d103-4dd3-bc12-cb271d631dfc" objectId="434f5624-3283-4d8e-ae77-30b8b828ae67"/>
   <keepMappingToExtendedConfigurationObjectsByIDs>true</keepMappingToExtendedConfigurationObjectsByIDs>
-  <namePrefix>Тест_</namePrefix>
+  <namePrefix>ОМ_</namePrefix>
   <configurationExtensionCompatibilityMode>8.3.17</configurationExtensionCompatibilityMode>
   <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
+  <scriptVariant>Russian</scriptVariant>
   <defaultLanguage>Language.English</defaultLanguage>
   <modalityUseMode>DontUse</modalityUseMode>
   <compatibilityMode>8.3.17</compatibilityMode>
@@ -47,16 +48,41 @@
     </extension>
     <languageCode>en</languageCode>
   </languages>
-  <commonModules>CommonModule.TestsCommonUseServer</commonModules>
-  <commonModules>CommonModule.TestsDataProcessing</commonModules>
-  <commonModules>CommonModule.TestsGitlabServer</commonModules>
-  <commonModules>CommonModule.TestsHTTPServicesServer</commonModules>
-  <commonModules>CommonModule.TestsReceiversServer</commonModules>
-  <commonModules>CommonModule.TestsRoutingServer</commonModules>
-  <commonModules>CommonModule.TestsServicesSettingsServer</commonModules>
-  <commonModules>CommonModule.TestsStringsClient</commonModules>
-  <commonModules>CommonModule.TestsStringsServer</commonModules>
-  <commonModules>CommonModule.TestsWebhooksServer</commonModules>
-  <commonModules>CommonModule.TestsLoggingServer</commonModules>
-  <dataProcessors>DataProcessor.MockServerClient</dataProcessors>
+  <commonModules>CommonModule.ВнешниеЗапросы</commonModules>
+  <commonModules>CommonModule.КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.Логи</commonModules>
+  <commonModules>CommonModule.Маршрутизация</commonModules>
+  <commonModules>CommonModule.Обр_ВнешнийЗапрос_МО</commonModules>
+  <commonModules>CommonModule.ОбработкаДанных</commonModules>
+  <commonModules>CommonModule.ОМ_ВнешниеЗапросы</commonModules>
+  <commonModules>CommonModule.ОМ_Гитлаб</commonModules>
+  <commonModules>CommonModule.ОМ_Конфигурация</commonModules>
+  <commonModules>CommonModule.ОМ_Логи</commonModules>
+  <commonModules>CommonModule.ОМ_Маршрутизация</commonModules>
+  <commonModules>CommonModule.ОМ_НастройкиСервисов</commonModules>
+  <commonModules>CommonModule.ОМ_НастройкиСервисовКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОМ_ОбработкаДанных</commonModules>
+  <commonModules>CommonModule.ОМ_ОбщегоНазначенияВызовСервера</commonModules>
+  <commonModules>CommonModule.ОМ_Получатели</commonModules>
+  <commonModules>CommonModule.ОМ_ПолучателиВызовСервера</commonModules>
+  <commonModules>CommonModule.ОМ_ПолучателиКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОМ_СервисыHTTP</commonModules>
+  <commonModules>CommonModule.ОМ_СтрокиКлиентСервер</commonModules>
+  <commonModules>CommonModule.ОМ_ТестовыеДанные</commonModules>
+  <commonModules>CommonModule.ОМ_Тесты</commonModules>
+  <commonModules>CommonModule.ОМ_УчетныеДанные</commonModules>
+  <commonModules>CommonModule.ОМ_ФайлыВнешнегоХранилища</commonModules>
+  <commonModules>CommonModule.ОМ_Фоновые</commonModules>
+  <commonModules>CommonModule.Получатели</commonModules>
+  <commonModules>CommonModule.РС_ВнешниеЗапросы_ММ</commonModules>
+  <commonModules>CommonModule.РС_ВнешниеФайлы_ММ</commonModules>
+  <commonModules>CommonModule.Спр_ОбработчикиВнешнихЗапросов_ММ</commonModules>
+  <commonModules>CommonModule.Спр_ОбработчикиВнешнихЗапросов_МО</commonModules>
+  <commonModules>CommonModule.Спр_Получатели_ММ</commonModules>
+  <commonModules>CommonModule.Удалить_TestsHTTPRequestsServer</commonModules>
+  <commonModules>CommonModule.ФайлыВнешнегоХранилища</commonModules>
+  <catalogs>Catalog.ОбработчикиВнешнихЗапросов</catalogs>
+  <dataProcessors>DataProcessor.ВнешнийЗапрос</dataProcessors>
+  <informationRegisters>InformationRegister.ВнешниеЗапросы</informationRegisters>
+  <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>
 </mdclass:Configuration>

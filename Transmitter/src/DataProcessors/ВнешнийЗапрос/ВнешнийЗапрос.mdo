@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="791ec208-0e02-4b79-ad36-831432d745ec">
+  <producedTypes>
+    <objectType typeId="8600f6db-397e-4ebf-8de7-ce6b36c67950" valueTypeId="acdb6899-fcfd-4be6-a760-fe35a3bb4986"/>
+    <managerType typeId="d987645d-c2d7-4dbc-a6e4-87310d67cfd0" valueTypeId="872e6c98-1e7f-4d54-943f-7aba627017ff"/>
+  </producedTypes>
+  <name>ВнешнийЗапрос</name>
+  <synonym>
+    <key>ru</key>
+    <value>Внешний запрос</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>External request</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <attributes uuid="6ce6a395-e7eb-4532-a8c6-f272d1cde9f4">
+    <name>Type</name>
+    <synonym>
+      <key>en</key>
+      <value>Type</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Тип</value>
+    </synonym>
+    <type>
+      <types>EnumRef.ИсточникЗапроса</types>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="811cf5be-de30-4671-8ebd-c5b62634525d">
+    <name>JSON</name>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="2fb5bda4-ec2b-482f-8644-d0ea9aa665a0">
+    <name>ProjectId</name>
+    <synonym>
+      <key>en</key>
+      <value>Project Id</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Идентификатор проекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>10</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="24194221-33c0-478c-8b79-731916f84c3e">
+    <name>ProjectURL</name>
+    <synonym>
+      <key>en</key>
+      <value>Project URL</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>URL проекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>250</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="1e9a6d09-a483-4832-acb3-e5d4a7afe1a0">
+    <name>ServerURL</name>
+    <synonym>
+      <key>en</key>
+      <value>Server URL</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>URL сервера</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>250</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="aac22d05-fff8-48a6-8c69-69f18a61ef5d">
+    <name>CheckoutSHA</name>
+    <synonym>
+      <key>en</key>
+      <value>checkout_sha</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>checkout_sha</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>40</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <tabularSections uuid="dbfdc40a-ef86-4101-b04f-d2bd3029fc60">
+    <producedTypes>
+      <objectType typeId="2d4ce3a4-2986-4604-9a2b-be2d34c31895" valueTypeId="526d7051-5417-4493-857c-f2c423706ba3"/>
+      <rowType typeId="ee1543bb-d05c-4077-bf1f-aab9e39c8654" valueTypeId="18c80ba3-ae12-44a9-9fae-15d0b9a91993"/>
+    </producedTypes>
+    <name>ModifiedFiles</name>
+    <synonym>
+      <key>en</key>
+      <value>Modified files</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Измененные файлы</value>
+    </synonym>
+    <attributes uuid="46207363-6cbb-4fd5-a29e-d7a309b39e7d">
+      <name>Id</name>
+      <synonym>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>40</length>
+        </stringQualifiers>
+      </type>
+      <fillChecking>ShowError</fillChecking>
+    </attributes>
+    <attributes uuid="3acc6ecf-acb7-4578-9e2d-0df56f603e9c">
+      <name>FilePath</name>
+      <synonym>
+        <key>ru</key>
+        <value>Путь к файлу</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers/>
+      </type>
+      <toolTip>
+        <key>ru</key>
+        <value>Относительный путь к файлу внешнего репозитория, например, &quot;Каталог с отчетами и обработками/Внешняя Обработка 1.epf&quot;.</value>
+      </toolTip>
+    </attributes>
+  </tabularSections>
+  <tabularSections uuid="e18daf9c-8dd9-4eb8-9ebd-12f83d84243d">
+    <producedTypes>
+      <objectType typeId="6ea5c727-0fd6-48d6-915c-9f6203a301e9" valueTypeId="fb91ca73-d647-44fd-849c-a9717d4794ec"/>
+      <rowType typeId="05695c83-59fa-41ec-b165-d6c9f2b45efd" valueTypeId="fe1a3478-bb9c-4d20-8888-02398d2411f7"/>
+    </producedTypes>
+    <name>Commits</name>
+    <synonym>
+      <key>ru</key>
+      <value>Коммиты</value>
+    </synonym>
+    <attributes uuid="a0192a2b-6a74-4d44-9fda-c6a7a3d98c7f">
+      <name>Id</name>
+      <synonym>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>40</length>
+        </stringQualifiers>
+      </type>
+      <fillChecking>ShowError</fillChecking>
+    </attributes>
+    <attributes uuid="f0a94bf8-879e-4c9b-ac2d-da9031906ca2">
+      <name>Date</name>
+      <synonym>
+        <key>ru</key>
+        <value>Дата</value>
+      </synonym>
+      <type>
+        <types>Date</types>
+        <dateQualifiers/>
+      </type>
+      <fillChecking>ShowError</fillChecking>
+    </attributes>
+  </tabularSections>
+  <tabularSections uuid="835911a3-fbeb-40a0-b350-b196e75c6378">
+    <producedTypes>
+      <objectType typeId="10d1d53e-04de-4c9f-a60c-d09b0c9af80d" valueTypeId="decf7b1c-efc1-4349-acd1-0720dc11e66b"/>
+      <rowType typeId="bafce92b-6715-4753-8120-bc6af6b6888f" valueTypeId="b920d193-fa15-402f-b4ef-0514780e01b6"/>
+    </producedTypes>
+    <name>Routes</name>
+    <synonym>
+      <key>ru</key>
+      <value>Маршруты</value>
+    </synonym>
+    <attributes uuid="0bd85c05-a375-4122-86bf-9172050f868d">
+      <name>Id</name>
+      <synonym>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>40</length>
+        </stringQualifiers>
+      </type>
+      <fillChecking>ShowError</fillChecking>
+    </attributes>
+    <attributes uuid="47984d02-dfb5-4651-88dd-e0722b04e854">
+      <name>JSON</name>
+      <synonym>
+        <key>ru</key>
+        <value>JSON</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers/>
+      </type>
+      <fillChecking>ShowError</fillChecking>
+    </attributes>
+    <attributes uuid="f07250ad-5880-4c92-b3ca-a3d51baecfe3">
+      <name>IsCustom</name>
+      <synonym>
+        <key>ru</key>
+        <value>Пользовательский вариант</value>
+      </synonym>
+      <type>
+        <types>Boolean</types>
+      </type>
+    </attributes>
+  </tabularSections>
+</mdclass:DataProcessor>

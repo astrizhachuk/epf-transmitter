@@ -6,15 +6,17 @@
             "roles": [
                 "FullRights",
                 "GitLabClient"
-            ]
+            ],
+            "lang": "ru"
         },
         {
             "name": "$WS_USER",
             "roles": [
-                "GitLabHTTPService"
+                "GitLabAPI",
+                "ManualAPI"
             ],
             "password": "$WS_PASSWORD",
-            "lang": "en"
+            "lang": "ru"
         }
     ]
 }

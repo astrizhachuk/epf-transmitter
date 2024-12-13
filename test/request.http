@@ -1,2 +1,14 @@
-GET http://transmitter/api/hs/gitlab/services
+GET http://transmitter/api/hs/version
 #Authorization: Basic site:12345
+
+###
+GET http://transmitter/api/hs/gitlab/status
+
+###
+GET http://transmitter/api/ru/hs/gitlab/status
+
+###
+POST http://transmitter/api/ru/hs/gitlab/events/push
+Content-Type: application/json
+X-Gitlab-Event: Push Hook
+X-Gitlab-Token: token

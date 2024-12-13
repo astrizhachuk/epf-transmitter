@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="e7fe4e19-0b1a-4051-ac1c-4b89a7a75cbd">
+  <producedTypes>
+    <managerType typeId="3ba810df-0783-414a-b95b-0b98ca649f63" valueTypeId="dd0e70c2-621b-429e-848d-dc223152682e"/>
+    <valueManagerType typeId="7de467cc-b1d9-4847-9495-b7115247bfe6" valueTypeId="072f1626-5b7a-4420-883f-14d3fceb689b"/>
+    <valueKeyType typeId="520f5a05-7994-4b2e-8eb4-a7a37c94e90a" valueTypeId="9bbb82f7-c615-4d4e-9a38-4cc21228ffdb"/>
+  </producedTypes>
+  <name>ПарольВнешнегоСервиса</name>
+  <synonym>
+    <key>en</key>
+    <value>Password</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Пароль</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>256</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <passwordMode>true</passwordMode>
+  <minValue xsi:type="core:StringValue">
+    <value>0</value>
+  </minValue>
+  <maxValue xsi:type="core:StringValue">
+    <value>3600</value>
+  </maxValue>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

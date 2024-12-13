@@ -1,0 +1,15 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*/basicAuth",
+        "headers" : {
+            "?Authorization": ["!Basic VXNlcjE6UGFzc3dvcmQx"]
+          }
+    },
+    "httpResponse": {
+        "statusCode": 405
+    },
+    "times": {
+        "unlimited": true
+    }
+}

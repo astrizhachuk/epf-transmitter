@@ -1,0 +1,27 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": "/api/v4/projects/.*/repository/files/.*.epf/raw",
+        "queryStringParameters": {
+            "ref": [
+                "[a-z0-9]+"
+            ]
+        },
+        "headers": {
+            "PRIVATE-TOKEN": [
+                "-U2ssrBsM4rmx85HXzZ1"
+            ]
+        }
+    },
+    "httpResponse": {
+        "headers": {
+            "X-Gitlab-File-Name": [
+                "ÐÐ½ÐµÑÐ½ÑÑ ÐÐ±ÑÐ°Ð±Ð¾ÑÐºÐ° 1.epf"
+            ]
+        },
+        "body": "some_response_body"
+    },
+    "times": {
+        "unlimited": true
+    }
+}

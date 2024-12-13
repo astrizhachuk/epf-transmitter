@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="9274fefc-11ac-404b-a4bd-6ef32d968bbf">
+  <name>Маршрутизация</name>
+  <synonym>
+    <key>ru</key>
+    <value>Маршрутизация</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Routing</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

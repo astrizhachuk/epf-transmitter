@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="f0f2e6b8-2480-4154-8322-4b91cabef2f7">
-  <name>TestsGitlabServer</name>
-  <server>true</server>
-  <serverCall>true</serverCall>
-</mdclass:CommonModule>

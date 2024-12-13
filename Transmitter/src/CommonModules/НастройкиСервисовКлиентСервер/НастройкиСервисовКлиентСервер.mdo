@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="50ee661e-024e-4c28-abd6-028ae111987b">
+  <name>НастройкиСервисовКлиентСервер</name>
+  <synonym>
+    <key>en</key>
+    <value>Services Settings (client-server)</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Настройки сервисов (клиент-сервер)</value>
+  </synonym>
+  <clientManagedApplication>true</clientManagedApplication>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

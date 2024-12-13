@@ -10,6 +10,6 @@
     <value>Внешние зависимости</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
-  <content>CommonModule.HTTPStatusCodesClientServerCached</content>
-  <content>CommonModule.HTTPConnector</content>
+  <content>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</content>
+  <content>CommonModule.КоннекторHTTP</content>
 </mdclass:Subsystem>

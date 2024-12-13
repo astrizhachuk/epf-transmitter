@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Внешние обработки (endpoint)
-  description: Управление внешними отчетами и обработками через HTTP сервис (REST).
+  description: Управление внешними отчетами и обработками через HTTP сервис (REST)
   contact:
     email: a.strizhachuk@yandex.ru
   version: 2.3.0
@@ -16,7 +16,7 @@ paths:
       summary: Сведения об информационной базе
       operationId: infobase
       responses:
-        '200':
+        "200":
           description: Текущие сведения
           content:
             application/json:
@@ -37,16 +37,17 @@ paths:
     get:
       tags:
         - epf
-      summary: Текущий статус функционала загрузки файлов
-      description: Показывает текущий статус функционала загрузки файлов внешних обработок
+      summary: Статус функциональности загрузки внешних обработок
+      description: |
+        Показывает текущий статус функциональности загрузки внешних обработок
       operationId: status
       responses:
-        '200':
-          description: Текущий статус загрузки
+        "200":
+          description: Текущий статус
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/message'
+                $ref: "#/components/schemas/message"
               examples:
                 enabled:
                   summary: Включено
@@ -61,14 +62,14 @@ paths:
       tags:
         - epf
       summary: Найти внешнюю обработку по GUID
-      description: >-
+      description: |
         Найти и вывести информацию о месте хранения файлов внешней обработки по
         его GUID
       operationId: findByGuid
       parameters:
         - name: guid
           in: path
-          description: >-
+          description: |
             GUID элемента, в котором хранится файл внешней обработки с его
             описанием
           required: true
@@ -76,16 +77,16 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
+        "200":
           description: Результат успешного поиска
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/details'
-        '404':
+                $ref: "#/components/schemas/details"
+        "404":
           description: Не найдено
           content: {}
-        '500':
+        "500":
           description: Ошибка сервера
           content:
             text/plain:
@@ -93,8 +94,8 @@ paths:
                 type: string
               examples:
                 bad GUID:
-                  summary: Плохой GUID
-                  value: >-
+                  summary: Ошибка выполнения
+                  value: |
                     {HTTPСервис.ExternalDataProcessors.Модуль(10)}: Ошибка при
                     вызове конструктора (УникальныйИдентификатор)
   /epf/findByFilename:
@@ -114,7 +115,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Результат успешного поиска
           content:
             application/json:
@@ -122,12 +123,12 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/file_attribute'
-                    - $ref: '#/components/schemas/file_table'
-        '400':
+                    - $ref: "#/components/schemas/file_attribute"
+                    - $ref: "#/components/schemas/file_table"
+        "400":
           description: Ошибочный запрос
           content: {}
-        '404':
+        "404":
           description: Не найдено
           content: {}
   /epf/switch:
@@ -145,18 +146,18 @@ paths:
           schema:
             type: string
             enum:
-              - 'on'
-              - 'off'
+              - "on"
+              - "off"
       requestBody:
         content: {}
         required: false
       responses:
-        '200':
+        "200":
           description: Результат операции
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/message'
+                $ref: "#/components/schemas/message"
               examples:
                 enabled:
                   summary: Включено
@@ -166,7 +167,7 @@ paths:
                   summary: Отключено
                   value:
                     message: загрузка файлов отключена
-        '400':
+        "400":
           description: Ошибочный запрос
           content: {}
   /epf/uploadFile:
@@ -185,13 +186,13 @@ paths:
       requestBody:
         description: Внешний отчет или обработка в двоичном формате
         content:
-          application/x-www-form-urlencoded:
+          application/octet-stream:
             schema:
               type: string
               format: binary
         required: true
       responses:
-        '200':
+        "200":
           description: Результат загрузки файла
           content:
             application/json:
@@ -202,8 +203,8 @@ paths:
                     type: array
                     items:
                       oneOf:
-                        - $ref: '#/components/schemas/file_attribute'
-                        - $ref: '#/components/schemas/file_table'
+                        - $ref: "#/components/schemas/file_attribute"
+                        - $ref: "#/components/schemas/file_table"
                   errors:
                     type: array
                     items:
@@ -216,15 +217,15 @@ paths:
                             Индекс находится за границами массива
                         error:
                           oneOf:
-                            - $ref: '#/components/schemas/file_attribute'
-                            - $ref: '#/components/schemas/file_table'
-        '400':
+                            - $ref: "#/components/schemas/file_attribute"
+                            - $ref: "#/components/schemas/file_table"
+        "400":
           description: Ошибочный запрос
           content: {}
-        '404':
+        "404":
           description: Не найдено куда загружать
           content: {}
-        '423':
+        "423":
           description: Функционал отключен
           content: {}
 components:
@@ -245,11 +246,11 @@ components:
           example: ЭтоОбработка1.epf
         comment:
           type: string
-          example: 'Размер: такой-то... для ЭтоОбработка1.epf'
+          example: "Размер: такой-то... для ЭтоОбработка1.epf"
         tables:
           type: array
           items:
-            $ref: '#/components/schemas/file_table'
+            $ref: "#/components/schemas/file_table"
     file_attribute:
       properties:
         guid:
@@ -260,7 +261,7 @@ components:
           example: ЭтоОбработка2.epf
         comment:
           type: string
-          example: 'Размер: такой-то... для ЭтоОбработка2.epf'
+          example: "Размер: такой-то... для ЭтоОбработка2.epf"
     file_table:
       properties:
         guid:
@@ -277,7 +278,7 @@ components:
           example: ЭтоОбработка2.epf
         comment:
           type: string
-          example: 'Размер: такой-то... для ЭтоОбработка2.epf'
+          example: "Размер: такой-то... для ЭтоОбработка2.epf"
   securitySchemes:
     basic_auth:
       type: http

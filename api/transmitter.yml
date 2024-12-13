@@ -1,0 +1,194 @@
+openapi: 3.0.3
+info:
+  title: Внешние обработки (transmitter)
+  description: |
+    Распределение внешних обработок по информационным базам
+  contact:
+    email: a.strizhachuk@yandex.ru
+  version: 2.1.0
+servers:
+  - url: http://transmitter/api/hs
+    description: develop
+tags:
+  - name: default
+  - name: gitlab
+  - name: custom
+paths:
+  /version:
+    get:
+      summary: Версия конфигурации
+      operationId: version
+      responses:
+        "200":
+          description: Текущая версия
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: 1.0.0
+  /gitlab/status:
+    get:
+      tags:
+        - gitlab
+      summary: Статус функциональности обработки запросов GitLab
+      description: |
+        Показывает текущий статус функциональности обработки запросов
+        от внешних хранилищ (репозиториев) на сервере GitLab
+      operationId: gitlab_status
+      responses:
+        "200":
+          description: Текущий статус
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+              examples:
+                enabled:
+                  $ref: '#/components/examples/enabled'
+                disabled:
+                  $ref: '#/components/examples/disabled'
+  /gitlab/events/push:
+    post:
+      tags:
+        - gitlab
+      summary: Событие "push events"
+      description: |
+        Обработка запроса GitLab с событием "push events"
+      operationId: gitlabPush
+      parameters:
+        - name: X-Gitlab-Event
+          in: header
+          description: X-Gitlab-Event
+          required: true
+          schema:
+            type: string
+            enum:
+              - Push Hook
+      responses:
+        "200":
+          description: Успех
+          content: {}
+        "400":
+          description: Ошибочный запрос
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+        "401":
+          $ref: "#/components/responses/unauthorized"
+        "404":
+          description: Обработчик события не найден
+          content: {}
+        "423":
+          description: Функционал отключен
+          content: {}
+        "500":
+          description: Ошибка сервера
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                runtime error:
+                  summary: Ошибка выполнения
+                  value: |
+                    {CommonModule.HTTPConnector.Module(764)}: Ошибка при
+                    вызове метода контекста (ReadJSON)
+      security:
+        - gitlab_token: []
+  /custom/status:
+    get:
+      tags:
+        - custom
+      summary: Статус функциональности обработки пользовательских запросов
+      description: |
+        Показывает текущий статус функциональности обработки
+        пользовательских запросов
+      operationId: custom_status
+      responses:
+        "200":
+          description: Текущий статус
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+              examples:
+                enabled:
+                  $ref: '#/components/examples/enabled'
+                disabled:
+                  $ref: '#/components/examples/disabled'
+  /custom/send:
+    post:
+      tags:
+        - custom
+      summary: Отправка данных
+      description: |
+        Отправка данных по маршрутам
+      operationId: send
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                endpoints:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/endpoint"
+                file:
+                  type: string
+                  format: binary
+              required:
+                - endpoints
+                - file
+      responses:
+        "200":
+          description: Результат отправки данных
+        "401":
+          $ref: "#/components/responses/unauthorized"
+        "423":
+          description: Функционал отключен
+          content: {}
+      security:
+        - custom_token: []
+components:
+  schemas:
+    message:
+      type: object
+      properties:
+        message:
+          type: string
+    endpoint:
+      type: object
+      properties:
+        filename:
+          type: string
+        url:
+          type: array
+          items:
+            type: string
+  examples:
+    enabled:
+      summary: Включено
+      value:
+        message: обработка запросов включена
+    disabled:
+      summary: Отключено
+      value:
+        message: обработка запросов отключена
+  responses:
+    unauthorized:
+      description: Аутентификация не пройдена
+      content: {}
+  securitySchemes:
+    gitlab_token:
+      type: apiKey
+      name: X-Gitlab-Token
+      in: header
+    custom_token:
+      type: apiKey
+      name: X-Custom-Token
+      in: header

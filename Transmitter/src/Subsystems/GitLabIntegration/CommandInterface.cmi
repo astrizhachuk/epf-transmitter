@@ -2,28 +2,36 @@
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
   <commandsVisibility>
     <visibilityFragments>
-      <command>Constant.TokenGitLab.StandardCommand.Open</command>
+      <command>Constant.ТокенГитлаб.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.HandleRequests.StandardCommand.Open</command>
+      <command>Constant.ОбрабатыватьГитлабЗапрос.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.RoutingFileName.StandardCommand.Open</command>
+      <command>Constant.ИмяФайлаСхемыМаршрута.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.TimeoutGitLab.StandardCommand.Open</command>
+      <command>Constant.ТаймаутГитлаб.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
     <visibilityFragments>
-      <command>Constant.TimeoutDeliveryFile.StandardCommand.Open</command>
-      <visible/>
-    </visibilityFragments>
-    <visibilityFragments>
-      <command>Constant.TokenReceiver.StandardCommand.Open</command>
+      <command>Constant.ТаймаутВнешнегоСервиса.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>
   </commandsVisibility>
+  <commandsPlacement>
+    <placementFragments>
+      <group>NavigationPanelImportant</group>
+      <commands>Catalog.ОбработчикиВнешнихЗапросов.StandardCommand.OpenList</commands>
+    </placementFragments>
+  </commandsPlacement>
+  <commandsOrder>
+    <orderFragments>
+      <group>NavigationPanelImportant</group>
+      <commands>Catalog.ОбработчикиВнешнихЗапросов.StandardCommand.OpenList</commands>
+    </orderFragments>
+  </commandsOrder>
 </cmi:CommandInterface>
