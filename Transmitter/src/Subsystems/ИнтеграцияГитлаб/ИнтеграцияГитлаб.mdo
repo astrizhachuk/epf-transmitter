@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c59104da-5d46-4f7f-9ba3-868f44236268">
+  <name>ИнтеграцияГитлаб</name>
+  <synonym>
+    <key>en</key>
+    <value>GitLab Integration</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Интеграция с GitLab</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.Гитлаб</picture>
+  </picture>
+  <content>CommonModule.СервисыHTTP</content>
+  <content>Role.ГитлабКлиент</content>
+  <content>HTTPService.GitLab</content>
+  <content>Constant.ОбрабатыватьГитлабЗапрос</content>
+  <content>FunctionalOption.ОбрабатыватьГитлабЗапрос</content>
+  <content>Constant.ИмяФайлаСхемыМаршрута</content>
+  <content>Constant.ТокенГитлаб</content>
+  <content>Catalog.ОбработчикиВнешнихЗапросов</content>
+  <content>CommonPicture.Гитлаб</content>
+  <content>CommonForm.НастройкиСервисов</content>
+  <content>Constant.ТаймаутГитлаб</content>
+  <content>Constant.ТаймаутВнешнегоСервиса</content>
+  <content>Role.ГитлабИнтерфейс</content>
+  <content>CommonForm.ПроверкаВнешнегоСервиса</content>
+  <content>Catalog.Получатели</content>
+  <content>DefinedType.Таймаут</content>
+  <content>DefinedType.ИдентификаторКоммита</content>
+  <content>DefinedType.Пароль</content>
+  <content>DefinedType.Пользователь</content>
+  <content>InformationRegister.ВнешниеЗапросы</content>
+  <content>InformationRegister.ВнешниеФайлы</content>
+</mdclass:Subsystem>

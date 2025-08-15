@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="ru.biatech.edt.junit.launcher.v8.launchConfigurationType">
-    <stringAttribute key="ru.biatech.edt.junit.launcher.ATTR_USED_LAUNCH_CONFIGURATION" value="Transmitter Тонкий клиент (srv)"/>
     <booleanAttribute key="ru.biatech.edt.junit.launcher.LOGGING_TO_CONSOLE" value="false"/>
-    <stringAttribute key="ru.biatech.edt.junit.launcher.PROJECT_PATH" value="/"/>
+    <stringAttribute key="ru.biatech.edt.junit.launcher.PROJECT_PATH" value=""/>
     <stringAttribute key="ru.biatech.edt.junit.launcher.TEST_EXTENSION" value="Transmitter.Tests"/>
+    <stringAttribute key="ru.biatech.edt.junit.launcher.USED_LAUNCH_CONFIGURATION" value="Transmitter Тонкий клиент (Администратор)"/>
+    <booleanAttribute key="ru.biatech.edt.junit.launcher.USE_REMOTE_LAUNCH" value="false"/>
 </launchConfiguration>

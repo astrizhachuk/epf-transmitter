@@ -135,6 +135,7 @@ include:
       $PARAMS_ADMIN_USER
       /LoadConfigFromFiles /build/xml -Format Hierarchical /UpdateDBCfg
       /DisableStartupMessages /DisableStartupDialogs
+      /UseHwLicenses+
       /out /build/load.log"
 
 .init_ib: &init_ib
@@ -201,7 +202,7 @@ srv up:
   stage: srv
   environment:
     name: production
-    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/gitlab/services
+    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/version
     on_stop: stop_production
   script:
     - if [[ $CHECK_NEW_INSTANCE == "true" ]]; then
@@ -235,7 +236,7 @@ review srv up:
     DEPLOY_PORT: $REVIEW_PORT
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/gitlab/services
+    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/version
     on_stop: stop_review
   script:
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME down -v

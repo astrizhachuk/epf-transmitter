@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="7d3c2990-2ebd-48ba-bd65-ab922b284370">
+  <name>Библиотеки</name>
+  <synonym>
+    <key>ru</key>
+    <value>Внешние зависимости</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>External Dependencies</value>
+  </synonym>
+  <comment>Библиотеки</comment>
+  <includeHelpInContents>true</includeHelpInContents>
+  <content>CommonModule.КодыСостоянияHTTPКлиентСерверПовтИсп</content>
+  <content>CommonModule.КоннекторHTTP</content>
+</mdclass:Subsystem>

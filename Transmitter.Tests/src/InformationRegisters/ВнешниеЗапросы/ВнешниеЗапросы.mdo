@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="4e8d201a-fdeb-489d-9159-5f4ef6cd4923" extendedConfigurationObject="0f493aac-a55c-4297-b77f-b63ab42dc37e">
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="4e8d201a-fdeb-489d-9159-5f4ef6cd4923" extendedConfigurationObject="0f493aac-a55c-4297-b77f-b63ab42dc37e">
   <producedTypes>
     <selectionType typeId="e18f1cbe-a428-4f1a-b276-97c545464bc5" valueTypeId="d47355f2-5f34-4310-9842-0f9dbf0b42a3"/>
     <listType typeId="3cf7380f-e456-4262-8101-1b148c115427" valueTypeId="66287c3d-b72a-4ea2-b07d-0f3101697b4c"/>
@@ -29,8 +29,20 @@
       <types>ValueStorage</types>
     </type>
   </resources>
+  <attributes uuid="ae4635a7-07c9-44ec-bbc4-5cb2716f92f0" extendedConfigurationObject="4a606aac-354d-403b-acec-f6d099ce300a">
+    <name>Сообщение</name>
+    <objectBelonging>Adopted</objectBelonging>
+    <extension xsi:type="mdclassExtension:BasicFeatureExtension">
+      <extendedConfigurationObject>Checked</extendedConfigurationObject>
+      <type>Checked</type>
+    </extension>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+  </attributes>
   <dimensions uuid="2e875891-851e-461b-8a2b-8a60a2fcee41" extendedConfigurationObject="c9166ddb-3b90-4103-a795-5b301304f6d4">
-    <name>RequestHandler</name>
+    <name>Обработчик</name>
     <objectBelonging>Adopted</objectBelonging>
     <extension xsi:type="mdclassExtension:BasicFeatureExtension">
       <extendedConfigurationObject>Checked</extendedConfigurationObject>
@@ -41,17 +53,17 @@
     </type>
   </dimensions>
   <dimensions uuid="a723e4dd-0888-4a46-bb6a-6e2347e44691" extendedConfigurationObject="228bede1-2c6c-4420-9c89-db095fa86a11">
-    <name>CheckoutSHA</name>
+    <name>Идентификатор</name>
     <objectBelonging>Adopted</objectBelonging>
     <extension xsi:type="mdclassExtension:BasicFeatureExtension">
       <extendedConfigurationObject>Checked</extendedConfigurationObject>
       <type>Checked</type>
     </extension>
     <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>40</length>
-      </stringQualifiers>
+      <types>DefinedType.ИдентификаторКоммита</types>
     </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
   </dimensions>
 </mdclass:InformationRegister>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DefinedType xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="903cd6d1-f060-4092-b224-1f434e4564f8">
+  <producedTypes>
+    <containerType typeId="359c5812-190e-4259-99f1-46f509439509" valueTypeId="2b7b2116-b2ea-4930-bdd3-7367ba812fe3"/>
+  </producedTypes>
+  <name>КраткийИдентификаторКоммита</name>
+  <synonym>
+    <key>ru</key>
+    <value>Идентификатор фиксации изменений (краткий)</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Commit SHA (short)</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>8</length>
+      <fixed>true</fixed>
+    </stringQualifiers>
+  </type>
+</mdclass:DefinedType>

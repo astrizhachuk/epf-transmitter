@@ -5,13 +5,13 @@
 &AtServer
 Procedure OnCreateAtServer( Cancel, StandardProcessing )
 
-	If ( Parameters.RecordKey.IsEmpty() ) Then
+	If ( Parameters.КлючЗаписи.IsEmpty() ) Then
 		
 		Return;
 		
 	EndIf;
 
-	FillBackgroundsList( Parameters.RecordKey );
+	FillBackgroundsList( Parameters.КлючЗаписи );
 
 EndProcedure
 
@@ -22,7 +22,7 @@ EndProcedure
 &AtClient
 Procedure RefreshAll( Command )
 	
-	FillBackgroundsList( Parameters.RecordKey );
+	FillBackgroundsList( Parameters.КлючЗаписи );
 	
 EndProcedure
 
@@ -82,7 +82,7 @@ EndProcedure
 #Область СлужебныеПроцедурыИФункции
 
 &AtServer
-Procedure FillBackgroundsList( Val RecordKey )
+Procedure FillBackgroundsList( Val КлючЗаписи )
 	
 	Var List;
 	Var Jobs;
@@ -91,7 +91,7 @@ Procedure FillBackgroundsList( Val RecordKey )
 
 	List.Clear();
 
-	Jobs = ОбработкаДанных.ПолучитьФоновыеЗаданияПоИдентификатору( RecordKey.CheckoutSHA );
+	Jobs = ОбработкаДанных.ПолучитьФоновыеЗаданияПоИдентификатору( КлючЗаписи.Идентификатор );
 
 	For Each Job In Jobs Do
 		

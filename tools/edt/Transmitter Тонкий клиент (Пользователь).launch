@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com._1c.g5.v8.dt.launching.core.RuntimeClient">
+    <booleanAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_APPLICATION_USE_DEFAULT" value="true"/>
     <intAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_DEBUG_SERVER_PORT" value="-1"/>
     <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_PROJECT_NAME" value="Transmitter"/>
-    <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_RUNTIME_INSTALLATION" value="com._1c.g5.v8.dt.platform.services.core.resolvableInstallations.environments:com._1c.g5.v8.dt.platform.services.core.runtimeType.EnterprisePlatform=8.3.17"/>
+    <booleanAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_RUNTIME_INSTALLATION_USE_AUTO" value="true"/>
     <stringAttribute key="com._1c.g5.v8.dt.debug.core.ATTR_USE_LOCAL_DEBUG_SERVER" value="AUTO"/>
-    <booleanAttribute key="com._1c.g5.v8.dt.debug.core.INFOBASE_USE_DEFAULT" value="true"/>
-    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_ASSOCIATE_AFTER_DEPLOY" value="true"/>
+    <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_AUTOMATED_TESTING_PORT_NUMBER" value="1538"/>
     <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CALL_DELAY" value="100"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CLIENT_AUTO_SELECT" value="false"/>
     <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_CLIENT_TYPE" value="com._1c.g5.v8.dt.platform.services.core.componentTypes.ThinClient"/>
     <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DATA_RECEIVING_DELAY" value="15"/>
     <intAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DATA_SENDING_DELAY" value="45"/>
-    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DEPLOY_BEFORE_LAUNCH" value="true"/>
-    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DEPLOY_FULL_CONFIGURATION" value="false"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DO_NOT_CLEAR_LOG" value="false"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_DO_NOT_DISPLAY_WARNINGS" value="true"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_EMULATE_DELAY" value="false"/>
     <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_INTERFACE_LANGUAGE" value="ru"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_OS_INFOBASE_ACCESS" value="false"/>
+    <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_PWA_APP_NAME" value=""/>
     <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_USER_NAME" value="Пользователь"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_LAUNCH_USER_USE_INFOBASE_ACCESS" value="false"/>
-    <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_NEED_INFOBASE_PUBLICATION" value="false"/>
-    <stringAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SESSION_LOCALE" value="ru"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SHOW_ALL_FUNCTIONS" value="true"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SHOW_PERFORMANCE" value="true"/>
     <booleanAttribute key="com._1c.g5.v8.dt.launching.core.ATTR_SLOW_CONNECTION" value="false"/>
-    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/Transmitter"/>
-    </listAttribute>
-    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-        <listEntry value="4"/>
-    </listAttribute>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
     <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="IBM866"/>
-    <stringAttribute key="process_factory_id" value="com._1c.g5.v8.dt.debug.core.RunimeProcessFactory"/>
+    <stringAttribute key="process_factory_id" value="com._1c.g5.v8.dt.debug.core.RuntimeProcessFactory"/>
 </launchConfiguration>

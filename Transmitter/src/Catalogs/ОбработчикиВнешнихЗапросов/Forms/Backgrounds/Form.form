@@ -989,7 +989,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <parameters>
-    <name>RecordKey</name>
+    <name>КлючЗаписи</name>
     <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>

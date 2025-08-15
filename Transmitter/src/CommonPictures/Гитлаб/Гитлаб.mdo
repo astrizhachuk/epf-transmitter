@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="7b96e024-8936-4831-a879-6a35d8f39829">
+  <name>Гитлаб</name>
+  <synonym>
+    <key>ru</key>
+    <value>Гитлаб</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>GitLab</value>
+  </synonym>
+</mdclass:CommonPicture>

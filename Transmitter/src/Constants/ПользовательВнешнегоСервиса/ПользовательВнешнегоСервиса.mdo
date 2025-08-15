@@ -15,17 +15,10 @@
     <value>Пользователь</value>
   </synonym>
   <type>
-    <types>String</types>
-    <stringQualifiers>
-      <length>256</length>
-    </stringQualifiers>
+    <types>DefinedType.Пользователь</types>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <minValue xsi:type="core:StringValue">
-    <value>0</value>
-  </minValue>
-  <maxValue xsi:type="core:StringValue">
-    <value>3600</value>
-  </maxValue>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
   <dataLockControlMode>Managed</dataLockControlMode>
 </mdclass:Constant>

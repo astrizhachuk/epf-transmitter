@@ -22,10 +22,6 @@
   </type>
   <useStandardCommands>true</useStandardCommands>
   <explanation>
-    <key>ru</key>
-    <value>См. персональные настройки пользователя на сервере GitLab в разделе User Settings → Access Tokens → Personal Access Tokens</value>
-  </explanation>
-  <explanation>
     <key>en</key>
     <value>See personal user settings on the GitLab server: User Settings → Access Tokens → Personal Access Tokens</value>
   </explanation>

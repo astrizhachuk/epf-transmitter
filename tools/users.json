@@ -1,19 +1,19 @@
 {
-    "full-rights": "FullRights",
+    "full-rights": "ПолныеПрава",
     "users": [
         {
             "name": "Администратор",
             "roles": [
-                "FullRights",
-                "GitLabClient"
+                "ПолныеПрава",
+                "ГитлабКлиент"
             ],
             "lang": "ru"
         },
         {
             "name": "$WS_USER",
             "roles": [
-                "GitLabAPI",
-                "ManualAPI"
+                "ГитлабИнтерфейс",
+                "УниверсальныеЗапросыИнтерфейс"
             ],
             "password": "$WS_PASSWORD",
             "lang": "ru"

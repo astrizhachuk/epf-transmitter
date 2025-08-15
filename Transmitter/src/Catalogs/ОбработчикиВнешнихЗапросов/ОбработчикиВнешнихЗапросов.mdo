@@ -9,12 +9,12 @@
   </producedTypes>
   <name>ОбработчикиВнешнихЗапросов</name>
   <synonym>
-    <key>en</key>
+    <key>ru</key>
     <value>Обработчики внешних запросов</value>
   </synonym>
   <synonym>
-    <key>ru</key>
-    <value>Обработчики внешних запросов</value>
+    <key>en</key>
+    <value>External Request Handlers</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <inputByString>Catalog.ОбработчикиВнешнихЗапросов.StandardAttribute.Description</inputByString>
@@ -112,14 +112,14 @@
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.ОбработчикиВнешнихЗапросов.Form.ФормаЭлемента</defaultObjectForm>
   <attributes uuid="ccba447a-b38a-407b-bf57-3d0295644b1c">
-    <name>ProjectURL</name>
-    <synonym>
-      <key>en</key>
-      <value>URL</value>
-    </synonym>
+    <name>АдресПроекта</name>
     <synonym>
       <key>ru</key>
-      <value>URL</value>
+      <value>URL проекта</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Адрес проекта</value>
     </synonym>
     <type>
       <types>String</types>
@@ -131,16 +131,12 @@
       <key>en</key>
       <value>Project URL</value>
     </toolTip>
-    <toolTip>
-      <key>ru</key>
-      <value>URL проекта</value>
-    </toolTip>
     <fillChecking>ShowError</fillChecking>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="55455e9c-9afd-4878-ad8f-a14d78247c46">
-    <name>Token</name>
+    <name>Токен</name>
     <synonym>
       <key>en</key>
       <value>Token</value>
@@ -309,12 +305,12 @@
     <attributes uuid="35b10b16-1313-48bb-92d3-1a8158b57f93">
       <name>ИмяПользователя</name>
       <synonym>
-        <key>en</key>
+        <key>ru</key>
         <value>Имя пользователя</value>
       </synonym>
       <synonym>
-        <key>ru</key>
-        <value>Имя пользователя</value>
+        <key>en</key>
+        <value>User name</value>
       </synonym>
       <type>
         <types>String</types>
@@ -376,7 +372,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="73a4b558-dde7-418a-b9db-eeaff642abda">
-    <name>JSONEditor</name>
+    <name>РедакторМаршрутов</name>
     <synonym>
       <key>en</key>
       <value>JSON Editor</value>
@@ -397,6 +393,19 @@
     <synonym>
       <key>ru</key>
       <value>Фоновые задания</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="31c19ee1-4bdf-4c9f-9ed2-813cffaac3cf">
+    <name>ТелоЗапроса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тело запроса</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Request Body</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

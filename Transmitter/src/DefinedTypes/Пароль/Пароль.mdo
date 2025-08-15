@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DefinedType xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d61e3d1e-deb6-457f-82c2-fe485ef86520">
+  <producedTypes>
+    <containerType typeId="dab5b489-b29b-4d43-a4ab-1718dd1475b9" valueTypeId="6d2195bd-c458-4ffd-90f9-62bf0cdc7fa4"/>
+  </producedTypes>
+  <name>Пароль</name>
+  <synonym>
+    <key>ru</key>
+    <value>Пароль</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>256</length>
+    </stringQualifiers>
+  </type>
+</mdclass:DefinedType>

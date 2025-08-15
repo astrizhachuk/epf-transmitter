@@ -8,7 +8,7 @@
       <visibility>
         <common>true</common>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>
@@ -108,7 +108,7 @@
       <visibility>
         <common>true</common>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>
@@ -216,7 +216,7 @@
       <visibility>
         <common>true</common>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>
@@ -318,7 +318,7 @@
       <height>10</height>
       <visibility>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>
@@ -424,7 +424,7 @@
       <height>10</height>
       <visibility>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>
@@ -536,7 +536,7 @@
       <visibility>
         <common>true</common>
         <for>
-          <role>Role.FullRights</role>
+          <role>Role.ПолныеПрава</role>
         </for>
         <for>
           <role>101a4eb3-cdda-47af-8c69-615a6920347a</role>

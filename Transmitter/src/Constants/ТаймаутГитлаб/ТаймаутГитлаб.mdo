@@ -7,25 +7,17 @@
   </producedTypes>
   <name>ТаймаутГитлаб</name>
   <synonym>
-    <key>ru</key>
-    <value>Таймаут соединения (для сервера GitLab)</value>
-  </synonym>
-  <synonym>
     <key>en</key>
     <value>Connection timeout (GitLab server)</value>
   </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Таймаут соединения (сервер GitLab)</value>
+  </synonym>
   <type>
-    <types>Number</types>
-    <numberQualifiers>
-      <precision>4</precision>
-      <nonNegative>true</nonNegative>
-    </numberQualifiers>
+    <types>DefinedType.Таймаут</types>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <explanation>
-    <key>ru</key>
-    <value>0 - таймаут не установлен, сек</value>
-  </explanation>
   <explanation>
     <key>en</key>
     <value>0 - timeout is not set, sec</value>

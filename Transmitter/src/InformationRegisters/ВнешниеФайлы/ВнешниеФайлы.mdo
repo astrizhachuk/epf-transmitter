@@ -74,7 +74,7 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
   <dimensions uuid="23fd0284-a34a-47b1-ad27-33c89c29b187">
-    <name>RequestHandler</name>
+    <name>Обработчик</name>
     <synonym>
       <key>en</key>
       <value>External request handler</value>
@@ -97,29 +97,24 @@
     <mainFilter>true</mainFilter>
   </dimensions>
   <dimensions uuid="09c826ae-6dde-4da1-96e9-0082ef97f3fa">
-    <name>CheckoutSHA</name>
-    <synonym>
-      <key>en</key>
-      <value>checkout_sha</value>
-    </synonym>
+    <name>Идентификатор</name>
     <synonym>
       <key>ru</key>
-      <value>checkout_sha</value>
+      <value>Идентификатор события</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Event Id</value>
     </synonym>
     <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>40</length>
-      </stringQualifiers>
+      <types>DefinedType.ИдентификаторКоммита</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <denyIncompleteValues>true</denyIncompleteValues>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
-    <fillValue xsi:type="core:StringValue">
-      <value></value>
-    </fillValue>
+    <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
   </dimensions>
 </mdclass:InformationRegister>

@@ -94,6 +94,22 @@
   <createOnInput>Use</createOnInput>
   <dataLockControlMode>Managed</dataLockControlMode>
   <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Получатель</value>
+  </objectPresentation>
+  <objectPresentation>
+    <key>en</key>
+    <value>Endpoint</value>
+  </objectPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Получатели</value>
+  </listPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>Endpoints</value>
+  </listPresentation>
   <levelCount>2</levelCount>
   <foldersOnTop>true</foldersOnTop>
   <codeLength>25</codeLength>
@@ -104,28 +120,42 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.Получатели.Form.ItemForm</defaultObjectForm>
+  <defaultObjectForm>Catalog.Получатели.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultListForm>Catalog.Получатели.Form.ФормаСписка</defaultListForm>
   <attributes uuid="635d6da9-533c-413b-98ce-e2923da84870">
-    <name>BaseURL</name>
+    <name>АдресИнформационнойБазы</name>
     <synonym>
       <key>ru</key>
-      <value>URL</value>
+      <value>URL информационной базы</value>
     </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Database URL</value>
+    </synonym>
+    <comment>Веб-адрес развернутой на сервере информационной базы</comment>
     <type>
       <types>String</types>
       <stringQualifiers>
         <length>250</length>
       </stringQualifiers>
     </type>
+    <toolTip>
+      <key>en</key>
+      <value>URL of the server-published database</value>
+    </toolTip>
     <fillChecking>ShowError</fillChecking>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="80ca67dc-497c-4360-afd6-3a83201a506a">
-    <name>RootURL</name>
+    <name>ПутьКСервисам</name>
     <synonym>
       <key>ru</key>
-      <value>Корневой URL</value>
+      <value>Относительный путь к сервисам</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Services relative path</value>
     </synonym>
     <type>
       <types>String</types>
@@ -133,6 +163,14 @@
         <length>250</length>
       </stringQualifiers>
     </type>
+    <toolTip>
+      <key>en</key>
+      <value>The relative service path defines the entry point for HTTP services in the recipient's information base</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Относительный путь к сервисам задает точку входа для HTTP-сервисов в информационной базе получателя</value>
+    </toolTip>
     <fillFromFillingValue>true</fillFromFillingValue>
     <fillValue xsi:type="core:StringValue">
       <value>/hs/epf</value>
@@ -141,21 +179,26 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="ed8ffcfd-0e12-4c49-968c-7edff41de5d9">
-    <name>StatusOperation</name>
+    <name>ПутьКСтатусуСервиса</name>
     <synonym>
       <key>en</key>
-      <value>Status service</value>
+      <value>Relative service status path</value>
     </synonym>
     <synonym>
       <key>ru</key>
-      <value>Сервис статуса</value>
+      <value>Относительный путь к статусу сервиса</value>
     </synonym>
+    <comment>Относительный путь к конечной точке сервиса, возвращающей текущий статус функциональности загрузки внешних обработок</comment>
     <type>
       <types>String</types>
       <stringQualifiers>
         <length>25</length>
       </stringQualifiers>
     </type>
+    <toolTip>
+      <key>en</key>
+      <value>Relative path to the service endpoint that returns the current status of the external processing upload functionality</value>
+    </toolTip>
     <fillChecking>ShowError</fillChecking>
     <fillFromFillingValue>true</fillFromFillingValue>
     <fillValue xsi:type="core:StringValue">
@@ -165,21 +208,26 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="502de38c-f6fc-4a90-b018-7ff1302929e3">
-    <name>UploadFileOperation</name>
-    <synonym>
-      <key>en</key>
-      <value>Upload file service</value>
-    </synonym>
+    <name>ПутьКЗагрузкеФайла</name>
     <synonym>
       <key>ru</key>
-      <value>Сервис загрузки файла</value>
+      <value>Относительный путь к загрузке файла</value>
     </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Relative path to file upload service</value>
+    </synonym>
+    <comment>Относительный путь к конечной точке сервиса, предназначенной для загрузки внешних обработок</comment>
     <type>
       <types>String</types>
       <stringQualifiers>
         <length>25</length>
       </stringQualifiers>
     </type>
+    <toolTip>
+      <key>en</key>
+      <value>Relative path to the service endpoint used to upload external processing files</value>
+    </toolTip>
     <fillChecking>ShowError</fillChecking>
     <fillFromFillingValue>true</fillFromFillingValue>
     <fillValue xsi:type="core:StringValue">
@@ -199,11 +247,11 @@
       <value>Имя пользователя</value>
     </synonym>
     <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>256</length>
-      </stringQualifiers>
+      <types>DefinedType.Пользователь</types>
     </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
@@ -218,12 +266,12 @@
       <value>Пароль</value>
     </synonym>
     <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>256</length>
-      </stringQualifiers>
+      <types>DefinedType.Пароль</types>
     </type>
     <passwordMode>true</passwordMode>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
@@ -238,28 +286,35 @@
       <value>Таймаут соединения, сек</value>
     </synonym>
     <type>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>4</precision>
-        <nonNegative>true</nonNegative>
-      </numberQualifiers>
+      <types>DefinedType.Таймаут</types>
     </type>
     <toolTip>
       <key>ru</key>
-      <value>Таймаут на доставку файла до информационной базы получателя (0 - таймаут не установлен).</value>
+      <value>Таймаут на доставку файла до информационной базы получателя (0 - таймаут не установлен), сек</value>
     </toolTip>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
     <fillFromFillingValue>true</fillFromFillingValue>
     <fillValue xsi:type="core:NumberValue">
-      <value>5</value>
+      <value>0</value>
     </fillValue>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>
   <forms uuid="bfeea724-899b-4ab1-9b19-747f9411d044">
-    <name>ItemForm</name>
+    <name>ФормаЭлемента</name>
     <synonym>
       <key>ru</key>
-      <value>Item form</value>
+      <value>Форма элемента</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="0b8efed8-09e8-4e77-a167-5d2ecab401fa">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

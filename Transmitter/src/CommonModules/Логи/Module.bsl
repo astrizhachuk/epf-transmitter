@@ -81,12 +81,9 @@
 		|en = 'Request received from GitLab service'"));
 	Результат.Вставить( "ТокенНеНайден", НСтр("ru = 'Токен не найден';en = 'Token not found'") );
 
-
-
-
 	Результат.Вставить( "MESSAGE_ENABLED", НСтр( "ru = 'обработка запросов включена';en = 'request handler enabled'" ) );
 	Результат.Вставить( "MESSAGE_DISABLED", НСтр( "ru = 'обработка запросов отключена';en = 'request handler disabled'" ) );
-	Результат.Вставить( "CUSTOM_RECEIVED", НСтр("ru = 'получен пользовательский запрос';en = 'custom request received'") );
+	Результат.Вставить( "CUSTOM_RECEIVED", НСтр("ru = 'получен Пользовательская запрос';en = 'custom request received'") );
 	Результат.Вставить( "GITLAB_DISABLED", НСтр("ru = 'обработка запросов от внешнего хранилища отключена';en = 'external storage request disabled'") );
 	Результат.Вставить( "CUSTOM_DISABLED", НСтр("ru = 'обработка пользовательских запросов отключена';en = 'custom request disabled'") );
 	Результат.Вставить( "REQUEST_HANDLER_NOT_FOUND", НСтр("ru = 'обработчик внешних запросов не найден';en = 'external request handler not found'") );

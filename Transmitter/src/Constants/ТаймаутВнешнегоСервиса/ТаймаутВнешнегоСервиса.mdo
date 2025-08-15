@@ -15,17 +15,9 @@
     <value>Таймаут соединения</value>
   </synonym>
   <type>
-    <types>Number</types>
-    <numberQualifiers>
-      <precision>4</precision>
-      <nonNegative>true</nonNegative>
-    </numberQualifiers>
+    <types>DefinedType.Таймаут</types>
   </type>
   <useStandardCommands>true</useStandardCommands>
-  <explanation>
-    <key>ru</key>
-    <value>0 - таймаут не установлен, сек</value>
-  </explanation>
   <explanation>
     <key>en</key>
     <value>0 - timeout is not set, sec</value>

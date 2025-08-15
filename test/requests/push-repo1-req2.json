@@ -1,0 +1,123 @@
+{
+  "object_kind": "push",
+  "event_name": "push",
+  "before": "968eca170a80a5c825b0808734cb5b109eaedcd3",
+  "after": "1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+  "ref": "refs/heads/master",
+  "checkout_sha": "2b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+  "message": "По идее, всегда null при push, но заполним значением для тестов",
+  "user_id": 1,
+  "user_name": "Administrator",
+  "user_username": "root",
+  "user_email": "",
+  "user_avatar": "https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&d=identicon",
+  "project_id": 1,
+  "project": {
+    "id": 1,
+    "name": "external-epf",
+    "description": "",
+    "web_url": "http://mockserver:1080/root/external-epf",
+    "avatar_url": null,
+    "git_ssh_url": "git@gitlab:root/external-epf.git",
+    "git_http_url": "http://mockserver:1080/root/external-epf.git",
+    "namespace": "Administrator",
+    "visibility_level": 0,
+    "path_with_namespace": "root/external-epf",
+    "default_branch": "master",
+    "ci_config_path": null,
+    "homepage": "http://mockserver:1080/root/external-epf",
+    "url": "git@gitlab:root/external-epf.git",
+    "ssh_url": "git@gitlab:root/external-epf.git",
+    "http_url": "http://mockserver:1080/root/external-epf.git"
+  },
+  "commits": [
+    {
+      "id": "2b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+      "message": "feat: это второй запрос на push коммит 1b9949a21...\n\nДобавлена новая внешняя обработка 3",
+      "title": "Merge branch 'feature/update-epf' into 'master'",
+      "timestamp": "2020-07-21T09:22:30+00:00",
+      "url": "http://mockserver:1080/root/external-epf/-/commit/1b9949a21e6c897b3dcb4dd510ddb5f893adae2f",
+      "author": {
+        "name": "Administrator",
+        "email": "admin@example.com"
+      },
+      "added": [
+        ".ext-epf.json",
+        "src/Внешняя Обработка 3.xml",
+        "src/Внешняя Обработка 3/Forms/Форма.xml",
+        "src/Внешняя Обработка 3/Forms/Форма/Ext/Form.bin",
+        "Каталог с отчетами и обработками/Внешняя Обработка 3.epf"
+      ],
+      "modified": [
+        "src/Внешняя Обработка 1.xml",
+        "src/Внешняя Обработка 1/Forms/Форма.xml",
+        "src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin",
+        "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
+      ],
+      "removed": [
+
+      ]
+    },
+    {
+      "id": "ef886bb4e372250d8212387350f7e139cbe5a1af",
+      "message": "deploy\n",
+      "title": "deploy",
+      "timestamp": "2020-07-21T09:22:30+00:00",
+      "url": "http://mockserver:1080/root/external-epf/-/commit/ef886bb4e372250d8212387350f7e139cbe5a1af",
+      "author": {
+        "name": "Administrator",
+        "email": "admin@example.com"
+      },
+      "added": [
+        ".ext-epf.json",
+        "src/Внешняя Обработка 3.xml",
+        "src/Внешняя Обработка 3/Forms/Форма.xml",
+        "src/Внешняя Обработка 3/Forms/Форма/Ext/Form.bin",
+        "Каталог с отчетами и обработками/Внешняя Обработка 3.epf"
+      ],
+      "modified": [
+        "src/Внешняя Обработка 1.xml",
+        "src/Внешняя Обработка 1/Forms/Форма.xml",
+        "src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin",
+        "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
+      ],
+      "removed": [
+
+      ]
+    },
+    {
+      "id": "968eca170a80a5c825b0808734cb5b109eaedcd3",
+      "message": "first\n",
+      "title": "first",
+      "timestamp": "2020-03-16T16:00:15+03:00",
+      "url": "http://mockserver:1080/root/external-epf/-/commit/968eca170a80a5c825b0808734cb5b109eaedcd3",
+      "author": {
+        "name": "a.strizhachuk",
+        "email": "strizhhh@mail.ru"
+      },
+      "added": [
+
+      ],
+      "modified": [
+        "src/Внешняя Обработка 1/Forms/Форма.xml",
+        "src/Внешняя Обработка 1/Forms/Форма/Ext/Form.bin",
+        "Каталог с отчетами и обработками/Внешняя Обработка 1.epf"
+      ],
+      "removed": [
+
+      ]
+    }
+  ],
+  "total_commits_count": 3,
+  "push_options": {
+  },
+  "repository": {
+    "name": "external-epf",
+    "url": "git@gitlab:root/external-epf.git",
+    "description": "",
+    "homepage": "http://mockserver:1080/root/external-epf",
+    "git_http_url": "http://mockserver:1080/root/external-epf.git",
+    "git_ssh_url": "git@gitlab:root/external-epf.git",
+    "visibility_level": 0
+  }
+}

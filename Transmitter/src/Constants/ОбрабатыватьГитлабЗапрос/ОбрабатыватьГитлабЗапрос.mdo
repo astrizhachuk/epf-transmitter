@@ -7,12 +7,12 @@
   </producedTypes>
   <name>ОбрабатыватьГитлабЗапрос</name>
   <synonym>
-    <key>en</key>
-    <value>Handle GitLab request</value>
+    <key>ru</key>
+    <value>Обрабатывать запрос GitLab</value>
   </synonym>
   <synonym>
-    <key>ru</key>
-    <value>Обрабатывать запрос с сервера Гитлаб</value>
+    <key>en</key>
+    <value>Handle GitLab request</value>
   </synonym>
   <type>
     <types>Boolean</types>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DefinedType xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="f486d61a-b87b-47b8-8d60-d2bea4af1d5b">
+  <producedTypes>
+    <containerType typeId="eb6f8dc8-59c3-49b6-ab45-c157b7367371" valueTypeId="a62acaa9-55e6-46da-8bb4-28eaeca61c52"/>
+  </producedTypes>
+  <name>Таймаут</name>
+  <synonym>
+    <key>ru</key>
+    <value>Таймаут</value>
+  </synonym>
+  <type>
+    <types>Number</types>
+    <numberQualifiers>
+      <precision>4</precision>
+      <nonNegative>true</nonNegative>
+    </numberQualifiers>
+  </type>
+</mdclass:DefinedType>

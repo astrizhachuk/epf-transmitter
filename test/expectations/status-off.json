@@ -1,0 +1,20 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*path/status-off",
+        "headers": {
+            "Authorization": ["Basic VXNlcjE6UGFzc3dvcmQx"]
+        }
+    },
+    "httpResponse": {
+        "statusCode": 200,
+        "body": {
+            "type": "JSON",
+            "json": {"message":"загрузка файлов отключена"},
+            "contentType": "text/plain; charset=utf-8"
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

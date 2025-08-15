@@ -1,13 +1,20 @@
 {
-    "$schema": "https://1c-syntax.github.io/bsl-language-server/configuration/schema.json",
-    "language": "ru",
-    "diagnostics": {
-      "computeTrigger": "onType",
-      "parameters": {
-        "Typo": {
-            "minWordLength": 3,
-            "userWordsToIgnore": "json, gitlab, коммит, Коммите, Гитлаб, Логировать"
-        }
+  "$schema": "https://1c-syntax.github.io/bsl-language-server/configuration/schema.json",
+  "language": "ru",
+  "diagnostics": {
+    "computeTrigger": "onType",
+    "parameters": {
+      "Typo": {
+        "minWordLength": 3,
+        "userWordsToIgnore": "json, gitlab, коммит, Коммите, Гитлаб, Логировать"
+      },
+      "UsingServiceTag": {
+        "serviceTags": "todo|fixme|!!|mrg|отладка|debug|для\\s*отладки|(\\{\\{|\\}\\})КОНСТРУКТОР_|(\\{\\{|\\}\\})MRG|Вставить\\s*содержимое\\s*обработчика|Paste\\s*handler\\s*content|Insert\\s*handler\\s*code|Insert\\s*handler\\s*content|Insert\\s*handler\\s*contents"
+      },
+      "LineLength": {
+        "maxLineLength": 120,
+        "checkMethodDescription": true
       }
     }
   }
+}

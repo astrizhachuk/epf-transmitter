@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings xmlns="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core">
+	<filter>
+		<userSettingID>c85342af-997d-4de1-8245-620c3c0cc97c</userSettingID>
+	</filter>
+	<order>
+		<item xsi:type="OrderItemField">
+			<field>Дата</field>
+			<orderType>Desc</orderType>
+		</item>
+		<userSettingID>3bac4b5f-fdd3-4459-bd56-61b9da96a3b4</userSettingID>
+	</order>
+	<conditionalAppearance>
+		<userSettingID>ac8560e6-e3dd-407e-bdb8-7304351bad14</userSettingID>
+	</conditionalAppearance>
+	<itemsUserSettingID>25b3ab45-5e98-44f8-9530-9d48e548817a</itemsUserSettingID>
+</Settings>

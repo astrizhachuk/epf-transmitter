@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3e5f4557-43bf-4c1c-8376-a7ebe08ac8cc">
-  <name>CustomRequest</name>
-  <synonym>
-    <key>ru</key>
-    <value>Работа с пользовательскими запросами</value>
-  </synonym>
-</mdclass:CommonPicture>

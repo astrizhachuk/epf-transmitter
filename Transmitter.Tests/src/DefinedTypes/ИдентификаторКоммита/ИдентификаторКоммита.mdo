@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DefinedType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="13ce5547-27c5-42ca-9fb4-00321095c673" extendedConfigurationObject="d08fe56e-a8af-4e10-9728-97e33229be96">
+  <producedTypes>
+    <containerType typeId="5b7bc07e-5957-464e-a455-621e0321d66f" valueTypeId="b973dd0f-8dcd-4707-947b-cd713cb21b43"/>
+  </producedTypes>
+  <name>ИдентификаторКоммита</name>
+  <objectBelonging>Adopted</objectBelonging>
+  <extension xsi:type="mdclassExtension:DefinedTypeExtension">
+    <extendedConfigurationObject>Checked</extendedConfigurationObject>
+    <type>Checked</type>
+  </extension>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>40</length>
+      <fixed>true</fixed>
+    </stringQualifiers>
+  </type>
+</mdclass:DefinedType>

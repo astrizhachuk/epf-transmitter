@@ -73,8 +73,48 @@
     <dataHistory>Use</dataHistory>
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
+  <attributes uuid="4a606aac-354d-403b-acec-f6d099ce300a">
+    <name>Сообщение</name>
+    <synonym>
+      <key>ru</key>
+      <value>Сообщение</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Message</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="9d22ee1b-75da-4db4-8e92-51ecfa06c3b5">
+    <name>Дата</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Date</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </attributes>
   <dimensions uuid="c9166ddb-3b90-4103-a795-5b301304f6d4">
-    <name>RequestHandler</name>
+    <name>Обработчик</name>
     <synonym>
       <key>en</key>
       <value>External request handler</value>
@@ -97,29 +137,24 @@
     <mainFilter>true</mainFilter>
   </dimensions>
   <dimensions uuid="228bede1-2c6c-4420-9c89-db095fa86a11">
-    <name>CheckoutSHA</name>
-    <synonym>
-      <key>en</key>
-      <value>checkout_sha</value>
-    </synonym>
+    <name>Идентификатор</name>
     <synonym>
       <key>ru</key>
-      <value>checkout_sha</value>
+      <value>Идентификатор события</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Event Id</value>
     </synonym>
     <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>40</length>
-      </stringQualifiers>
+      <types>DefinedType.ИдентификаторКоммита</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <denyIncompleteValues>true</denyIncompleteValues>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
-    <fillValue xsi:type="core:StringValue">
-      <value></value>
-    </fillValue>
+    <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
   </dimensions>
 </mdclass:InformationRegister>

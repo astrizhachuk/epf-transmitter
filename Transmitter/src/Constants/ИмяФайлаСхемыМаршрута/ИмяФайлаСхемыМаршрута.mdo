@@ -7,13 +7,14 @@
   </producedTypes>
   <name>ИмяФайлаСхемыМаршрута</name>
   <synonym>
-    <key>ru</key>
-    <value>Имя файла со схемой маршрутов</value>
-  </synonym>
-  <synonym>
     <key>en</key>
     <value>Route map file name</value>
   </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Имя файла со схемой маршрутов</value>
+  </synonym>
+  <comment>TODO маршрута и маршрутов, привести к единообразию (везде сделать маршрутов? посчитать тех и тех и принять решение)</comment>
   <type>
     <types>String</types>
     <stringQualifiers>
@@ -23,5 +24,6 @@
   <useStandardCommands>true</useStandardCommands>
   <minValue xsi:type="core:UndefinedValue"/>
   <maxValue xsi:type="core:UndefinedValue"/>
+  <fillChecking>ShowError</fillChecking>
   <dataLockControlMode>Managed</dataLockControlMode>
 </mdclass:Constant>

@@ -15,18 +15,11 @@
     <value>Пароль</value>
   </synonym>
   <type>
-    <types>String</types>
-    <stringQualifiers>
-      <length>256</length>
-    </stringQualifiers>
+    <types>DefinedType.Пароль</types>
   </type>
   <useStandardCommands>true</useStandardCommands>
   <passwordMode>true</passwordMode>
-  <minValue xsi:type="core:StringValue">
-    <value>0</value>
-  </minValue>
-  <maxValue xsi:type="core:StringValue">
-    <value>3600</value>
-  </maxValue>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
   <dataLockControlMode>Managed</dataLockControlMode>
 </mdclass:Constant>

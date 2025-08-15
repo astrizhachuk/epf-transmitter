@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0507b172-6a60-4a48-8ba6-94fc5d8cdff9">
+  <name>УниверсальныеЗапросы</name>
+  <synonym>
+    <key>ru</key>
+    <value>Универсальные запросы</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Universal Requests</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.УниверсальныеЗапросы</picture>
+  </picture>
+  <content>Constant.ОбрабатыватьПользовательскийЗапрос</content>
+  <content>Catalog.Получатели</content>
+</mdclass:Subsystem>

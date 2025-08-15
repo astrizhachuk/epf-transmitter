@@ -1,0 +1,15 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*/status-(on|off)",
+        "headers" : {
+            "?Authorization": ["!Basic VXNlcjE6UGFzc3dvcmQx"]
+          }
+    },
+    "httpResponse": {
+        "statusCode": 401
+    },
+    "times": {
+        "unlimited": true
+    }
+}

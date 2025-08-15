@@ -1,0 +1,28 @@
+{
+    "httpRequest": {
+        "method": "GET",
+        "path": ".*path/status-on",
+        "headers": {
+            "Authorization": [
+                "Basic VXNlcjE6UGFzc3dvcmQx"
+            ]
+        }
+    },
+    "httpResponse": {
+        "statusCode": 200,
+        "body": {
+            "type": "JSON",
+            "json": {
+                "message": "загрузка файлов включена"
+            },
+            "contentType": "text/plain; charset=utf-8"
+        },
+        "delay": {
+            "timeUnit": "SECONDS",
+            "value": 3
+        }
+    },
+    "times": {
+        "unlimited": true
+    }
+}

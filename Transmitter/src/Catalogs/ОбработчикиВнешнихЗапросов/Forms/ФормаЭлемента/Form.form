@@ -114,7 +114,11 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Группа идентификаторов</value>
+      <value>Идентификаторы обработчика</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Handler IDs</value>
     </title>
     <extendedTooltip>
       <name>ГруппаИдентификаторовРасширеннаяПодсказка</name>
@@ -145,7 +149,7 @@
     <name>ГруппаПроект</name>
     <id>376</id>
     <items xsi:type="form:FormField">
-      <name>ProjectURL</name>
+      <name>АдресПроекта</name>
       <id>380</id>
       <title>
         <key>en</key>
@@ -161,10 +165,10 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Объект.ProjectURL</segments>
+        <segments>Объект.АдресПроекта</segments>
       </dataPath>
       <extendedTooltip>
-        <name>ProjectURLExtendedTooltip</name>
+        <name>АдресПроектаРасширеннаяПодсказка</name>
         <id>382</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -179,7 +183,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ProjectURLContextMenu</name>
+        <name>АдресПроектаКонтекстноеМеню</name>
         <id>381</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -203,7 +207,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>OpenRepositoryOnRemote</name>
+      <name>ОткрытьРепозиторийНаСервере</name>
       <id>341</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -211,7 +215,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>OpenRepositoryOnRemoteExtendedTooltip</name>
+        <name>ОткрытьРепозиторийНаСервереРасширеннаяПодсказка</name>
         <id>342</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -226,7 +230,7 @@
         </extInfo>
       </extendedTooltip>
       <type>Hyperlink</type>
-      <commandName>Form.Command.OpenRepositoryOnRemote</commandName>
+      <commandName>Form.Command.ОткрытьРепозиторийНаСервере</commandName>
       <representation>Picture</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -237,7 +241,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormField">
-      <name>SecretToken</name>
+      <name>Токен</name>
       <id>7</id>
       <title>
         <key>en</key>
@@ -254,15 +258,24 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.Token</segments>
+          <segments>Объект.Токен</segments>
         </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
-        <value>Настройки репозитория GitLab (Settings -> Integrations)</value>
+        <value>Токен (ключ) доступа к репозиторию.
+
+GitLab: см. настройки проекта - Settings -> Webhooks.</value>
       </toolTip>
+      <toolTip>
+        <key>en</key>
+        <value>Repository secret token.
+
+GitLab: Project -> Settings -> Webhooks.</value>
+      </toolTip>
+      <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>
-        <name>SecretTokenExtendedTooltip</name>
+        <name>ТокенРасширеннаяПодсказка</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -277,7 +290,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>SecretTokenContextMenu</name>
+        <name>ТокенКонтекстноеМеню</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -311,7 +324,7 @@
     </title>
     <title>
       <key>ru</key>
-      <value>Проект на сервере</value>
+      <value>Внешний репозиторий проекта</value>
     </title>
     <extendedTooltip>
       <name>ГруппаПроектРасширеннаяПодсказка</name>
@@ -340,13 +353,13 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>GroupData</name>
+    <name>ГруппаДанные</name>
     <id>325</id>
     <items xsi:type="form:FormGroup">
-      <name>GroupReceivedRequests</name>
+      <name>ГруппаПолученныеЗапросы</name>
       <id>304</id>
       <items xsi:type="form:Table">
-        <name>ReceivedRequests</name>
+        <name>ПолученныеЗапросы</name>
         <id>349</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -354,7 +367,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ReceivedRequests</segments>
+          <segments>ПолученныеЗапросы</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Create</excludedCommands>
@@ -363,22 +376,60 @@
         <excludedCommands>Delete</excludedCommands>
         <excludedCommands>ShowMultipleSelection</excludedCommands>
         <items xsi:type="form:FormField">
-          <name>ReceivedRequestsCheckoutSHA</name>
-          <id>365</id>
-          <title>
-            <key>ru</key>
-            <value>checkout_sha</value>
-          </title>
+          <name>ПолученныеЗапросыДата</name>
+          <id>395</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ReceivedRequests.CheckoutSHA</segments>
+            <segments>ПолученныеЗапросы.Дата</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ReceivedRequestsCheckoutSHAExtendedTooltip</name>
+            <name>ПолученныеЗапросыДатаРасширеннаяПодсказка</name>
+            <id>397</id>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПолученныеЗапросыДатаКонтекстноеМеню</name>
+            <id>396</id>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ПолученныеЗапросыИдентификатор</name>
+          <id>365</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible/>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПолученныеЗапросы.Идентификатор</segments>
+          </dataPath>
+          <toolTip>
+            <key>ru</key>
+            <value>Идентификатор внешнего запроса: GitLab → поле &quot;checkout_sha&quot; из тела запроса</value>
+          </toolTip>
+          <extendedTooltip>
+            <name>ПолученныеЗапросыИдентификаторРасширеннаяПодсказка</name>
             <id>367</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -393,7 +444,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ReceivedRequestsCheckoutSHAContextMenu</name>
+            <name>ПолученныеЗапросыИдентификаторКонтекстноеМеню</name>
             <id>366</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -416,8 +467,96 @@
             <textEdit>true</textEdit>
           </extInfo>
         </items>
+        <items xsi:type="form:FormField">
+          <name>ПолученныеЗапросыКраткийИдентификатор</name>
+          <id>392</id>
+          <title>
+            <key>ru</key>
+            <value>Идентификатор (краткий)</value>
+          </title>
+          <title>
+            <key>en</key>
+            <value>Event Id (short)</value>
+          </title>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПолученныеЗапросы.КраткийИдентификаторСобытия</segments>
+          </dataPath>
+          <extendedTooltip>
+            <name>ПолученныеЗапросыКраткийИдентификаторРасширеннаяПодсказка</name>
+            <id>394</id>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПолученныеЗапросыКраткийИдентификаторКонтекстноеМеню</name>
+            <id>393</id>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ПолученныеЗапросыСообщение</name>
+          <id>389</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПолученныеЗапросы.Сообщение</segments>
+          </dataPath>
+          <extendedTooltip>
+            <name>ПолученныеЗапросыСообщениеРасширеннаяПодсказка</name>
+            <id>391</id>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПолученныеЗапросыСообщениеКонтекстноеМеню</name>
+            <id>390</id>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
         <autoCommandBar>
-          <name>ReceivedRequestsКоманднаяПанель</name>
+          <name>ПолученныеЗапросыКоманднаяПанель</name>
           <id>350</id>
           <items xsi:type="form:Button">
             <name>HandleRequest</name>
@@ -453,7 +592,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>OpenRequest</name>
+            <name>ПоказатьТелоЗапроса</name>
             <id>327</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -461,7 +600,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>OpenRequestExtendedTooltip</name>
+              <name>ПоказатьТелоЗапросаРасширеннаяПодсказка</name>
               <id>328</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -476,7 +615,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenRequest</commandName>
+            <commandName>Form.Command.ПоказатьТелоЗапроса</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -484,7 +623,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>OpenRoutingSettings</name>
+            <name>ОткрытьРедакторМаршрутов</name>
             <id>329</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -492,7 +631,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>OpenRoutingSettingsExtendedTooltip</name>
+              <name>ОткрытьРедакторМаршрутовРасширеннаяПодсказка</name>
               <id>330</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -507,7 +646,7 @@
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenRoutingSettings</commandName>
+            <commandName>Form.Command.ОткрытьРедакторМаршрутов</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -554,10 +693,11 @@
             <common>true</common>
           </userVisible>
           <horizontalAlign>Left</horizontalAlign>
+          <autoFill>true</autoFill>
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ReceivedRequestsSelection</name>
+          <name>ПолученныеЗапросыВыбор</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -565,10 +705,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ReceivedRequestsСтрокаПоиска</name>
+          <name>ПолученныеЗапросыСтрокаПоиска</name>
           <id>353</id>
           <extendedTooltip>
-            <name>ReceivedRequestsСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>ПолученныеЗапросыСтрокаПоискаРасширеннаяПодсказка</name>
             <id>355</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -583,7 +723,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ReceivedRequestsСтрокаПоискаКонтекстноеМеню</name>
+            <name>ПолученныеЗапросыСтрокаПоискаКонтекстноеМеню</name>
             <id>354</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -602,10 +742,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ReceivedRequestsСостояниеПросмотра</name>
+          <name>ПолученныеЗапросыСостояниеПросмотра</name>
           <id>359</id>
           <extendedTooltip>
-            <name>ReceivedRequestsСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>ПолученныеЗапросыСостояниеПросмотраРасширеннаяПодсказка</name>
             <id>361</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -620,7 +760,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ReceivedRequestsСостояниеПросмотраКонтекстноеМеню</name>
+            <name>ПолученныеЗапросыСостояниеПросмотраКонтекстноеМеню</name>
             <id>360</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -640,10 +780,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ReceivedRequestsУправлениеПоиском</name>
+          <name>ПолученныеЗапросыУправлениеПоиском</name>
           <id>356</id>
           <extendedTooltip>
-            <name>ReceivedRequestsУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>ПолученныеЗапросыУправлениеПоискомРасширеннаяПодсказка</name>
             <id>358</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -658,7 +798,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ReceivedRequestsУправлениеПоискомКонтекстноеМеню</name>
+            <name>ПолученныеЗапросыУправлениеПоискомКонтекстноеМеню</name>
             <id>357</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -673,7 +813,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ReceivedRequestsРасширеннаяПодсказка</name>
+          <name>ПолученныеЗапросыРасширеннаяПодсказка</name>
           <id>352</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -688,98 +828,8 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ReceivedRequestsКонтекстноеМеню</name>
+          <name>ПолученныеЗапросыКонтекстноеМеню</name>
           <id>351</id>
-          <items xsi:type="form:Button">
-            <name>ContextMenuResendData</name>
-            <id>345</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>ContextMenuResendDataExtendedTooltip</name>
-              <id>346</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.HandleRequest</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
-            <name>ContextMenuOpenBackgrounds</name>
-            <id>343</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>ContextMenuOpenBackgroundsExtendedTooltip</name>
-              <id>344</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.OpenBackgrounds</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
-            <name>ContextMenuOpenRepositoryOnRemote</name>
-            <id>347</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>ContextMenuOpenRepositoryOnRemoteExtendedTooltip</name>
-              <id>348</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.OpenRepositoryOnRemote</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -822,12 +872,12 @@
         <key>ru</key>
         <value>Полученные запросы</value>
       </title>
-      <toolTip>
-        <key>ru</key>
-        <value>Группа сохраненные данные</value>
-      </toolTip>
+      <title>
+        <key>en</key>
+        <value>Received Requests</value>
+      </title>
       <extendedTooltip>
-        <name>GroupReceivedRequestsРасширеннаяПодсказка</name>
+        <name>ГруппаПолученныеЗапросыРасширеннаяПодсказка</name>
         <id>305</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1061,54 +1111,7 @@
             <autoFill>true</autoFill>
           </contextMenu>
           <type>InputField</type>
-          <editMode>Enter</editMode>
-          <showInHeader>true</showInHeader>
-          <headerHorizontalAlign>Left</headerHorizontalAlign>
-          <showInFooter>true</showInFooter>
-          <extInfo xsi:type="form:InputFieldExtInfo">
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <wrap>true</wrap>
-            <chooseType>true</chooseType>
-            <typeDomainEnabled>true</typeDomainEnabled>
-            <textEdit>true</textEdit>
-          </extInfo>
-        </items>
-        <items xsi:type="form:FormField">
-          <name>ИсторияСобытийПредставлениеДанных</name>
-          <id>383</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible/>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияСобытий.ПредставлениеДанных</segments>
-          </dataPath>
-          <extendedTooltip>
-            <name>ИсторияСобытийПредставлениеДанныхРасширеннаяПодсказка</name>
-            <id>385</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <contextMenu>
-            <name>ИсторияСобытийПредставлениеДанныхКонтекстноеМеню</name>
-            <id>384</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <autoFill>true</autoFill>
-          </contextMenu>
-          <type>InputField</type>
+          <horizontalAlign>Left</horizontalAlign>
           <editMode>Enter</editMode>
           <showInHeader>true</showInHeader>
           <headerHorizontalAlign>Left</headerHorizontalAlign>
@@ -1257,6 +1260,71 @@
           <contextMenu>
             <name>ИсторияСобытийПредставлениеПриложенияКонтекстноеМеню</name>
             <id>253</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ИсторияСобытийТекущийОбработчик</name>
+          <id>383</id>
+          <title>
+            <key>ru</key>
+            <value>Текущий обработчик</value>
+          </title>
+          <title>
+            <key>en</key>
+            <value>Current handler</value>
+          </title>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <for>
+              <value>true</value>
+              <role>Role.ПолныеПрава</role>
+            </for>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ИсторияСобытий.ТекущийОбработчик</segments>
+          </dataPath>
+          <toolTip>
+            <key>ru</key>
+            <value>Указывает, относится ли событие к текущему обработчику (да/нет).</value>
+          </toolTip>
+          <extendedTooltip>
+            <name>ИсторияСобытийТекущийОбработчикРасширеннаяПодсказка</name>
+            <id>385</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ИсторияСобытийТекущийОбработчикКонтекстноеМеню</name>
+            <id>384</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -1503,8 +1571,16 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>ru</key>
+      <value>Данные</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Data</value>
+    </title>
     <extendedTooltip>
-      <name>GroupDataРасширеннаяПодсказка</name>
+      <name>ГруппаДанныеРасширеннаяПодсказка</name>
       <id>326</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1573,7 +1649,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>OnOpen</name>
+    <name>ПриОткрытии</name>
+  </handlers>
+  <handlers>
+    <event>OnCreateAtServer</event>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoTitle>true</autoTitle>
@@ -1630,7 +1710,11 @@
 	ИсторияСобытий.Уровень,
 	ИсторияСобытий.Событие,
 	ИсторияСобытий.КодСостояния,
-	ИсторияСобытий.ПредставлениеДанных,
+	ВЫБОР
+		КОГДА ИсторияСобытий.ПредставлениеДанных &lt;> &quot;&quot;
+			ТОГДА ИСТИНА
+		ИНАЧЕ ЛОЖЬ
+	КОНЕЦ КАК ТекущийОбработчик,
 	ИсторияСобытий.ПредставлениеПриложения,
 	ИсторияСобытий.ИмяПользователя,
 	ИсторияСобытий.Комментарий
@@ -1643,7 +1727,7 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ReceivedRequests</name>
+    <name>ПолученныеЗапросы</name>
     <title>
       <key>en</key>
       <value>Received Requests</value>
@@ -1663,12 +1747,38 @@
       <common>true</common>
     </edit>
     <extInfo xsi:type="form:DynamicListExtInfo">
+      <queryText>ВЫБРАТЬ
+	ВнешниеЗапросы.Обработчик,
+	ВнешниеЗапросы.Дата,
+	ВнешниеЗапросы.Идентификатор,
+	ПОДСТРОКА(ВнешниеЗапросы.Идентификатор, 1, 8) КАК КраткийИдентификаторСобытия,
+	ВнешниеЗапросы.Data,
+	ВнешниеЗапросы.Сообщение
+ИЗ
+	РегистрСведений.ВнешниеЗапросы КАК ВнешниеЗапросы</queryText>
       <mainTable>InformationRegister.ВнешниеЗапросы</mainTable>
       <dynamicDataRead>true</dynamicDataRead>
       <autoFillAvailableFields>true</autoFillAvailableFields>
+      <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>
       <getInvisibleFieldPresentations>true</getInvisibleFieldPresentations>
     </extInfo>
+  </attributes>
+  <attributes>
+    <name>КодСостоянияОК</name>
+    <id>5</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>3</precision>
+      </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
   </attributes>
   <formCommands>
     <name>ЗагрузитьИсториюСобытий</name>
@@ -1700,7 +1810,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenRequest</name>
+    <name>ПоказатьТелоЗапроса</name>
     <title>
       <key>en</key>
       <value>Request body</value>
@@ -1715,20 +1825,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenRequest</name>
+        <name>ПоказатьТелоЗапроса</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenRoutingSettings</name>
+    <name>ОткрытьРедакторМаршрутов</name>
     <title>
       <key>en</key>
       <value>Routing settings</value>
     </title>
     <title>
       <key>ru</key>
-      <value>Настройки маршрутизации</value>
+      <value>Маршрутизация</value>
     </title>
     <id>3</id>
     <use>
@@ -1736,7 +1846,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenRoutingSettings</name>
+        <name>ОткрытьРедакторМаршрутов</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
@@ -1784,7 +1894,7 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenRepositoryOnRemote</name>
+    <name>ОткрытьРепозиторийНаСервере</name>
     <title>
       <key>en</key>
       <value>Open repository on remote</value>
@@ -1796,14 +1906,18 @@
     <id>6</id>
     <toolTip>
       <key>ru</key>
-      <value>Открыть проект на удаленном сервере</value>
+      <value>Открыть репозиторий проекта на сервере GitLab</value>
+    </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Open the project repository on the GitLab server</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenRepositoryOnRemote</name>
+        <name>ОткрытьРепозиторийНаСервере</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
@@ -1811,15 +1925,9 @@
   <commandInterface>
     <navigationPanel>
       <cmiFragmentRecord>
-        <command>InformationRegister.ВнешниеЗапросы.StandardCommand.OpenByValue.RequestHandler</command>
+        <command>InformationRegister.ВнешниеЗапросы.StandardCommand.OpenByValue.Обработчик</command>
         <group>FormNavigationPanelGoTo</group>
-        <index>1</index>
-        <userVisible/>
-      </cmiFragmentRecord>
-      <cmiFragmentRecord>
-        <command>InformationRegister.ВнешниеФайлы.StandardCommand.OpenByValue.RequestHandler</command>
-        <group>FormNavigationPanelGoTo</group>
-        <index>2</index>
+        <index>0</index>
         <userVisible/>
       </cmiFragmentRecord>
     </navigationPanel>
