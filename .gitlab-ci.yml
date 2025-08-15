@@ -89,6 +89,7 @@ include:
   - remote: 'https://raw.githubusercontent.com/astrizhachuk/onec-gitlab-ci/master/.sonarqube-ci.yml'
 
 .start_services: &start_services
+  - docker network create $DEPLOY_NETWORK || true
   - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME up --no-start
   - docker cp $DEPLOY_NETHASP ${DEPLOY_NAME}_${IB_SERVER}_1:/opt/1cv8/current/conf/nethasp.ini
   - docker cp $DEPLOY_ONEC_CONFIG ${DEPLOY_NAME}_${IB_SERVER}_1:/opt/1cv8/current/conf/conf.cfg
