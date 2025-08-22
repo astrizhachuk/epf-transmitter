@@ -20,6 +20,8 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.ВнешниеЗапросы.Form.ФормаЗаписи</defaultRecordForm>
+  <defaultListForm>InformationRegister.ВнешниеЗапросы.Form.ФормаСписка</defaultListForm>
   <standardAttributes>
     <dataHistory>Use</dataHistory>
     <name>Active</name>
@@ -54,15 +56,31 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </standardAttributes>
   <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>ru</key>
+    <value>Внешний запрос</value>
+  </recordPresentation>
+  <recordPresentation>
+    <key>en</key>
+    <value>External Request</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Внешние запросы</value>
+  </listPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>External Requests</value>
+  </listPresentation>
   <resources uuid="4773d106-7e31-4ba1-8475-b868984cedf4">
-    <name>Data</name>
-    <synonym>
-      <key>en</key>
-      <value>Query Data</value>
-    </synonym>
+    <name>Данные</name>
     <synonym>
       <key>ru</key>
       <value>Данные запросов</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Request Data</value>
     </synonym>
     <type>
       <types>ValueStorage</types>
@@ -157,4 +175,39 @@
     <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
   </dimensions>
+  <forms uuid="e8fec73b-7da0-4a92-8dca-cd7bb1cf9fc7">
+    <name>ФормаЗаписи</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма записи</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="e18fd326-b894-47d4-bdbb-f569f07d536f">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="13083c83-04a1-4c94-9b03-b78e5b2ac6c2">
+    <name>ОткрытьРедакторМаршрутов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Маршрутизация</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Routing</value>
+    </synonym>
+    <group>FormCommandBarImportant</group>
+    <commandParameterType>
+      <types>EnumRef.ИсточникКлючаЗаписи</types>
+    </commandParameterType>
+    <modifiesData>true</modifiesData>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:InformationRegister>

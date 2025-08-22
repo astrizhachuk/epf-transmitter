@@ -371,19 +371,6 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="73a4b558-dde7-418a-b9db-eeaff642abda">
-    <name>РедакторМаршрутов</name>
-    <synonym>
-      <key>en</key>
-      <value>JSON Editor</value>
-    </synonym>
-    <synonym>
-      <key>ru</key>
-      <value>Редактор JSON</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="4ee52620-a982-4067-b0a5-c2668019d87b">
     <name>Backgrounds</name>
     <synonym>

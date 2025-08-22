@@ -119,6 +119,7 @@
   <catalogs>Catalog.ОбработчикиВнешнихЗапросов</catalogs>
   <catalogs>Catalog.Получатели</catalogs>
   <enums>Enum.ИсточникЗапроса</enums>
+  <enums>Enum.ИсточникКлючаЗаписи</enums>
   <dataProcessors>DataProcessor.ВнешнийЗапрос</dataProcessors>
   <informationRegisters>InformationRegister.ВнешниеЗапросы</informationRegisters>
   <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>

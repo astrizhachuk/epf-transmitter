@@ -1,0 +1,27 @@
+{
+  "priority": 10,
+  "httpRequest": {
+    "method": "GET",
+    "path": "/api/v4/projects/.*/repository/files/.*non-existent-file\\.epf/raw",
+    "queryStringParameters": {
+      "ref": [
+        "[a-z0-9]+"
+      ]
+    },
+    "headers": {
+      "PRIVATE-TOKEN": [
+        "-U2ssrBsM4rmx85HXzZ1"
+      ]
+    }
+  },
+  "httpResponse": {
+    "statusCode": 404,
+    "body": "{\"message\":\"404 File Not Found\"}",
+    "headers": {
+      "Content-Type": ["application/json; charset=utf-8"]
+    }
+  },
+  "times": {
+    "unlimited": true
+  }
+}

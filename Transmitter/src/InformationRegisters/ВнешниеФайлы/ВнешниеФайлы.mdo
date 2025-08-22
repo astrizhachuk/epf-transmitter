@@ -20,6 +20,8 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.ВнешниеФайлы.Form.ФормаЗаписи</defaultRecordForm>
+  <defaultListForm>InformationRegister.ВнешниеФайлы.Form.ФормаСписка</defaultListForm>
   <standardAttributes>
     <dataHistory>Use</dataHistory>
     <name>Active</name>
@@ -54,8 +56,24 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </standardAttributes>
   <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>ru</key>
+    <value>Внешний файл</value>
+  </recordPresentation>
+  <recordPresentation>
+    <key>en</key>
+    <value>Remote File</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Внешние файлы</value>
+  </listPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>Remote Files</value>
+  </listPresentation>
   <resources uuid="5a818e35-5f75-44ac-940d-58f638e1b10d">
-    <name>Data</name>
+    <name>Данные</name>
     <synonym>
       <key>en</key>
       <value>Remote Files</value>
@@ -117,4 +135,38 @@
     <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
   </dimensions>
+  <forms uuid="5cde61e1-b378-45af-8606-f8a2f0141191">
+    <name>ФормаЗаписи</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма записи</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="aa7e3aa2-b1f5-4682-b9ba-337135532efd">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="9cce97be-e86a-47af-96ca-40c7ea986fd6">
+    <name>ОткрытьПросмотрФайлов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Файлы</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Files</value>
+    </synonym>
+    <group>FormNavigationPanelImportant</group>
+    <commandParameterType>
+      <types>EnumRef.ИсточникКлючаЗаписи</types>
+    </commandParameterType>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:InformationRegister>

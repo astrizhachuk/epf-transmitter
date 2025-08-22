@@ -529,13 +529,13 @@
 
 #Область СлужебныеПроцедурыИФункции
 
-Function GetContentDisposition(Val Name, Val Content, Val FileName = Undefined)
+Function GetContentDisposition(Val Name, Val Content, Val ИмяФайла = Undefined)
 	
 	Stream = New MemoryStream();
 	DataWriter = New DataWriter(Stream);
 	ContentDisposition = "Content-Disposition: form-data; name=" + Name;
-	If FileName <> Undefined Then
-		ContentDisposition = ContentDisposition + "; filename=" + FileName;
+	If ИмяФайла <> Undefined Then
+		ContentDisposition = ContentDisposition + "; filename=" + ИмяФайла;
 	EndIf;
 	DataWriter.WriteLine(ContentDisposition);
 	If TypeOf(Content) = Type("BinaryData") Then

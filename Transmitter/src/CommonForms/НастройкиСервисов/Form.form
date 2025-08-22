@@ -122,11 +122,11 @@
       </dataPath>
       <toolTip>
         <key>en</key>
-        <value>See personal user settings on the GitLab server: User Settings → Access Tokens → Personal Access Tokens</value>
+        <value>See the project settings on the GitLab server in the section Project Settings → Access Tokens → Project access tokens or personal settings</value>
       </toolTip>
       <toolTip>
         <key>ru</key>
-        <value>См. персональные настройки пользователя на сервере GitLab в разделе User Settings → Access Tokens → Personal Access Tokens</value>
+        <value>См. настройки проекта на сервере GitLab в разделе Project Settings → Access Tokens → Project access tokens или персональные настройки</value>
       </toolTip>
       <toolTipRepresentation>Button</toolTipRepresentation>
       <extendedTooltip>

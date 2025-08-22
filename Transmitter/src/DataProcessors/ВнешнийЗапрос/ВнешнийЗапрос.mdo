@@ -176,10 +176,14 @@
       <fillValue xsi:type="core:UndefinedValue"/>
     </attributes>
     <attributes uuid="3acc6ecf-acb7-4578-9e2d-0df56f603e9c">
-      <name>FilePath</name>
+      <name>ПутьКФайлу</name>
       <synonym>
         <key>ru</key>
         <value>Путь к файлу</value>
+      </synonym>
+      <synonym>
+        <key>en</key>
+        <value>File Path</value>
       </synonym>
       <type>
         <types>String</types>

@@ -624,20 +624,26 @@ GitLab: Project -> Settings -> Webhooks.</value>
           </items>
           <items xsi:type="form:Button">
             <name>ОткрытьРедакторМаршрутов</name>
-            <id>329</id>
+            <id>412</id>
+            <title>
+              <key>ru</key>
+              <value>Маршрутизация</value>
+            </title>
+            <title>
+              <key>en</key>
+              <value>Routing</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ИсточникКлючаЗапросов</segments>
+            </dataPath>
             <extendedTooltip>
               <name>ОткрытьРедакторМаршрутовРасширеннаяПодсказка</name>
-              <id>330</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
+              <id>413</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -646,7 +652,36 @@ GitLab: Project -> Settings -> Webhooks.</value>
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.ОткрытьРедакторМаршрутов</commandName>
+            <commandName>InformationRegister.ВнешниеЗапросы.Command.ОткрытьРедакторМаршрутов</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>ОткрытьПросмотрФайлов</name>
+            <id>416</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ИсточникКлючаЗапросов</segments>
+            </dataPath>
+            <extendedTooltip>
+              <name>ОткрытьПросмотрФайловРасширеннаяПодсказка</name>
+              <id>417</id>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>CommandBarHyperlink</type>
+            <commandName>InformationRegister.ВнешниеФайлы.Command.ОткрытьПросмотрФайлов</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1752,7 +1787,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
 	ВнешниеЗапросы.Дата,
 	ВнешниеЗапросы.Идентификатор,
 	ПОДСТРОКА(ВнешниеЗапросы.Идентификатор, 1, 8) КАК КраткийИдентификаторСобытия,
-	ВнешниеЗапросы.Data,
+	ВнешниеЗапросы.Данные,
 	ВнешниеЗапросы.Сообщение
 ИЗ
 	РегистрСведений.ВнешниеЗапросы КАК ВнешниеЗапросы</queryText>
@@ -1772,6 +1807,19 @@ GitLab: Project -> Settings -> Webhooks.</value>
       <numberQualifiers>
         <precision>3</precision>
       </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИсточникКлючаЗапросов</name>
+    <id>8</id>
+    <valueType>
+      <types>EnumRef.ИсточникКлючаЗаписи</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1826,27 +1874,6 @@ GitLab: Project -> Settings -> Webhooks.</value>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ПоказатьТелоЗапроса</name>
-      </handler>
-    </action>
-    <currentRowUse>DontUse</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>ОткрытьРедакторМаршрутов</name>
-    <title>
-      <key>en</key>
-      <value>Routing settings</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Маршрутизация</value>
-    </title>
-    <id>3</id>
-    <use>
-      <common>true</common>
-    </use>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>ОткрытьРедакторМаршрутов</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
@@ -1928,6 +1955,12 @@ GitLab: Project -> Settings -> Webhooks.</value>
         <command>InformationRegister.ВнешниеЗапросы.StandardCommand.OpenByValue.Обработчик</command>
         <group>FormNavigationPanelGoTo</group>
         <index>0</index>
+        <userVisible/>
+      </cmiFragmentRecord>
+      <cmiFragmentRecord>
+        <command>InformationRegister.ВнешниеФайлы.StandardCommand.OpenByValue.Обработчик</command>
+        <group>FormNavigationPanelGoTo</group>
+        <index>1</index>
         <userVisible/>
       </cmiFragmentRecord>
     </navigationPanel>

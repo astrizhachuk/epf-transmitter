@@ -19,7 +19,7 @@
   </extension>
   <useStandardCommands>true</useStandardCommands>
   <resources uuid="04777baf-6adb-4d64-b398-704ff42a6dbb" extendedConfigurationObject="4773d106-7e31-4ba1-8475-b868984cedf4">
-    <name>Data</name>
+    <name>Данные</name>
     <objectBelonging>Adopted</objectBelonging>
     <extension xsi:type="mdclassExtension:BasicFeatureExtension">
       <extendedConfigurationObject>Checked</extendedConfigurationObject>

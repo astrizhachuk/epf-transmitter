@@ -61,6 +61,13 @@
 		</right>
 	</object>
 	<object>
+		<name>InformationRegister.ВнешниеЗапросы.Command.ОткрытьРедакторМаршрутов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Constant.ТокенГитлаб</name>
 		<right>
 			<name>Read</name>
@@ -241,6 +248,13 @@
 		</right>
 		<right>
 			<name>Edit</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>InformationRegister.ВнешниеФайлы.Command.ОткрытьПросмотрФайлов</name>
+		<right>
+			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>

@@ -1,27 +1,24 @@
 {
-    "httpRequest": {
-        "method": "GET",
-        "path": "/api/v4/projects/.*/repository/files/.*.epf/raw",
-        "queryStringParameters": {
-            "ref": [
-                "[a-z0-9]+"
-            ]
-        },
-        "headers": {
-            "PRIVATE-TOKEN": [
-                "-U2ssrBsM4rmx85HXzZ1"
-            ]
-        }
+  "priority": 0,
+  "httpRequest": {
+    "method": "GET",
+    "path": "/api/v4/projects/.*/repository/files/.*\\.epf/raw",
+    "queryStringParameters": {
+      "ref": [
+        "[a-z0-9]+"
+      ]
     },
-    "httpResponse": {
-        "headers": {
-            "X-Gitlab-File-Name": [
-                "ÐÐ½ÐµÑÐ½ÑÑ ÐÐ±ÑÐ°Ð±Ð¾ÑÐºÐ° 1.epf"
-            ]
-        },
-        "body": "some_response_body"
-    },
-    "times": {
-        "unlimited": true
+    "headers": {
+      "PRIVATE-TOKEN": [
+        "-U2ssrBsM4rmx85HXzZ1"
+      ]
     }
+  },
+  "httpResponseTemplate": {
+    "templateType": "JAVASCRIPT",
+    "template": "function decodeAsLatin1(encoded){var bytes=[];for(var i=0;i<encoded.length;){if(encoded[i]==='%'){bytes.push(parseInt(encoded.substr(i+1,2),16));i+=3;}else{bytes.push(encoded.charCodeAt(i));i++;}}var out='';for(var j=0;j<bytes.length;j++){out+=String.fromCharCode(bytes[j]);}return out;}\n\nvar path=request.path;\nvar segments=path.split('/');\nvar encodedFilePath=segments[segments.length-2]; // весь URL-encoded путь внутри repo\n// берём ТОЛЬКО последний компонент после последнего %2F / %2f\nvar lastSlash=Math.max(encodedFilePath.lastIndexOf('%2F'), encodedFilePath.lastIndexOf('%2f'));\nvar encodedFileName=(lastSlash>=0)?encodedFilePath.substring(lastSlash+3):encodedFilePath;\nvar latin1Name=decodeAsLatin1(encodedFileName);\n\nreturn {\n  headers: {\n    'X-Gitlab-File-Name': [latin1Name]\n  },\n  body: 'some_response_body'\n};"
+  },
+  "times": {
+    "unlimited": true
+  }
 }
