@@ -207,6 +207,13 @@
 		</right>
 	</object>
 	<object>
+		<name>SessionParameter.ДлинаХэшаКоммита</name>
+		<right>
+			<name>Get</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Constant.ТаймаутВнешнегоСервиса</name>
 		<right>
 			<name>Read</name>
@@ -222,6 +229,13 @@
 		</right>
 		<right>
 			<name>Edit</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>SessionParameter.РазделительСообщений</name>
+		<right>
+			<name>Get</name>
 			<value>true</value>
 		</right>
 	</object>
@@ -255,6 +269,13 @@
 		<name>InformationRegister.ВнешниеФайлы.Command.ОткрытьПросмотрФайлов</name>
 		<right>
 			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>SessionParameter.РазделительКлюча</name>
+		<right>
+			<name>Get</name>
 			<value>true</value>
 		</right>
 	</object>

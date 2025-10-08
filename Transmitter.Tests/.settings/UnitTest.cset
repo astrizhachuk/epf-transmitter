@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "settings": {
+    "export-procedure-missing-comment": {
+      "enabled": false
+    }
+  }
+}

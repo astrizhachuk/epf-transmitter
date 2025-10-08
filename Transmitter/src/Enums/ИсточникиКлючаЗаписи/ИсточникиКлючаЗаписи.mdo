@@ -5,10 +5,14 @@
     <listType typeId="4d3730d5-f5a5-4fb7-a46f-cbc565e7f5c1" valueTypeId="033e774e-a449-4dbc-9a7f-df6d9e5e859c"/>
     <managerType typeId="4c6abf81-aa46-4558-ac63-132bb52f8d84" valueTypeId="8621eabb-e254-452e-85e9-aaa3572bce09"/>
   </producedTypes>
-  <name>ИсточникКлючаЗаписи</name>
+  <name>ИсточникиКлючаЗаписи</name>
   <synonym>
     <key>ru</key>
-    <value>Источник ключа записи</value>
+    <value>Источники ключа записи</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Record Key Sources</value>
   </synonym>
   <quickChoice>true</quickChoice>
   <choiceMode>BothWays</choiceMode>

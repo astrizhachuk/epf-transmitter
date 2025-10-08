@@ -69,15 +69,18 @@
   <commonModules>CommonModule.ОМ_ПолучателиВызовСервера</commonModules>
   <commonModules>CommonModule.ОМ_ПолучателиКлиентСервер</commonModules>
   <commonModules>CommonModule.ОМ_СервисыHTTP</commonModules>
+  <commonModules>CommonModule.ОМ_СистемаУправленияВерсиями</commonModules>
   <commonModules>CommonModule.ОМ_СтрокиКлиентСервер</commonModules>
   <commonModules>CommonModule.ОМ_ТестовыеДанные</commonModules>
   <commonModules>CommonModule.ОМ_Тесты</commonModules>
   <commonModules>CommonModule.ОМ_УчетныеДанные</commonModules>
+  <commonModules>CommonModule.ОМ_ФайловыеМодели</commonModules>
   <commonModules>CommonModule.ОМ_ФайлыВнешнегоХранилища</commonModules>
   <commonModules>CommonModule.ОМ_Фоновые</commonModules>
   <commonModules>CommonModule.Получатели</commonModules>
   <commonModules>CommonModule.РС_ВнешниеЗапросы_ММ</commonModules>
   <commonModules>CommonModule.РС_ВнешниеФайлы_ММ</commonModules>
+  <commonModules>CommonModule.СистемаУправленияВерсиями</commonModules>
   <commonModules>CommonModule.Спр_ОбработчикиВнешнихЗапросов_ММ</commonModules>
   <commonModules>CommonModule.Спр_ОбработчикиВнешнихЗапросов_МО</commonModules>
   <commonModules>CommonModule.Спр_Получатели_ММ</commonModules>
@@ -85,6 +88,7 @@
   <commonModules>CommonModule.ФайлыВнешнегоХранилища</commonModules>
   <definedTypes>DefinedType.ИдентификаторКоммита</definedTypes>
   <catalogs>Catalog.ОбработчикиВнешнихЗапросов</catalogs>
+  <enums>Enum.ВидыИзмененийФайла</enums>
   <dataProcessors>DataProcessor.ВнешнийЗапрос</dataProcessors>
   <informationRegisters>InformationRegister.ВнешниеЗапросы</informationRegisters>
   <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>

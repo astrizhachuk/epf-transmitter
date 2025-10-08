@@ -1,6 +1,8 @@
 *.epf
-.settings
-.vscode
-build
-reports
+/.cursor/
+/.settings/
+/.vscode/
+/.sonarlint/
+/build/
+/reports/
 !/test/**/*.epf

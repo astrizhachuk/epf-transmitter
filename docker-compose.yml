@@ -17,7 +17,7 @@ services:
       - back_net
 
   mkdocs:
-    image: squidfunk/mkdocs-material:latest
+    image: ${CI_REGISTRY}/devops/mkdocs-material-plugins:latest
     container_name: mkdocs
     restart: always
     ports:
@@ -63,7 +63,7 @@ services:
       - "1080:1080"
     volumes:
       # file extension 'yml' doesn't work
-      - ./api/endpoint.yml:/tmp/endpoint.yaml
+      - ./api/endpoint-openapi.yml:/tmp/endpoint.yaml
     networks:
       - back_net
 
@@ -72,6 +72,8 @@ services:
     hostname: srv
     depends_on:
       - db
+    environment:
+      - TZ=Europe/Moscow
     ports:
       - "1540-1541:1540-1541"
       - "1550:1550" # для режима отладки
@@ -93,6 +95,8 @@ services:
     image: $DOCKER_USERNAME/server:$ONEC_VERSION
     depends_on:
       - srv
+    environment:
+      - TZ=Europe/Moscow
     entrypoint: /opt/1cv8/current/ras
     command: "cluster srv:1540"
     volumes:
@@ -105,6 +109,8 @@ services:
     image: strizhhh/postgresql-pro-1c:9.6
     ports:
       - "5432:5432"
+    environment:
+      - TZ=Europe/Moscow
     volumes:
       - db_data:/var/lib/postgresql
     networks:
@@ -123,6 +129,8 @@ services:
         - WS_PASSWORD
     depends_on:
       - ras
+    environment:
+      - TZ=Europe/Moscow
     # && /opt/1cv8/current/ibcmd infobase config load --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres /tmp/config.cf
     command: >
       bash -c "/opt/1cv8/current/ibcmd infobase create --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres --create-database --restore=/tmp/data.dt
@@ -171,6 +179,8 @@ services:
     image: $DOCKER_USERNAME/client-vnc:$ONEC_VERSION
     ports:
       - "5900:5900"
+    environment:
+      - TZ=Europe/Moscow
     volumes:
       - client_data:/home/usr1cv8/.1cv8
       - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i

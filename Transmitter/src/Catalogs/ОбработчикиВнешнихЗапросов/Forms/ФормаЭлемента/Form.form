@@ -559,7 +559,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
           <name>ПолученныеЗапросыКоманднаяПанель</name>
           <id>350</id>
           <items xsi:type="form:Button">
-            <name>HandleRequest</name>
+            <name>ПовторитьОбработку</name>
             <id>339</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -567,7 +567,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>HandleRequestExtendedTooltip</name>
+              <name>ПовторитьОбработкуРасширеннаяПодсказка</name>
               <id>340</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -581,7 +581,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.HandleRequest</commandName>
+            <commandName>Form.Command.ПовторитьОбработку</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -616,10 +616,13 @@ GitLab: Project -> Settings -> Webhooks.</value>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
             <commandName>Form.Command.ПоказатьТелоЗапроса</commandName>
-            <representation>Auto</representation>
+            <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <picture xsi:type="core:PictureRef">
+              <picture>StdPicture.Document</picture>
+            </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -653,10 +656,13 @@ GitLab: Project -> Settings -> Webhooks.</value>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
             <commandName>InformationRegister.ВнешниеЗапросы.Command.ОткрытьРедакторМаршрутов</commandName>
-            <representation>Auto</representation>
+            <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <picture xsi:type="core:PictureRef">
+              <picture>StdPicture.SettingsStorage</picture>
+            </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -682,14 +688,17 @@ GitLab: Project -> Settings -> Webhooks.</value>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
             <commandName>InformationRegister.ВнешниеФайлы.Command.ОткрытьПросмотрФайлов</commandName>
-            <representation>Auto</representation>
+            <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <picture xsi:type="core:PictureRef">
+              <picture>StdPicture.ListViewModeHierarchicalList</picture>
+            </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>OpenBackgrounds</name>
+            <name>ОткрытьФоновыеЗадания</name>
             <id>331</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -697,7 +706,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>OpenBackgroundsExtendedTooltip</name>
+              <name>ОткрытьФоновыеЗаданияРасширеннаяПодсказка</name>
               <id>332</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -712,7 +721,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
               </extInfo>
             </extendedTooltip>
             <type>CommandBarHyperlink</type>
-            <commandName>Form.Command.OpenBackgrounds</commandName>
+            <commandName>Form.Command.ОткрытьФоновыеЗадания</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1819,7 +1828,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
     <name>ИсточникКлючаЗапросов</name>
     <id>8</id>
     <valueType>
-      <types>EnumRef.ИсточникКлючаЗаписи</types>
+      <types>EnumRef.ИсточникиКлючаЗаписи</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1868,6 +1877,14 @@ GitLab: Project -> Settings -> Webhooks.</value>
       <value>Тело запроса</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Показать тело обрабатываемого HTTP-запроса</value>
+    </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Show the body of the HTTP request being processed</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
@@ -1879,7 +1896,7 @@ GitLab: Project -> Settings -> Webhooks.</value>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenBackgrounds</name>
+    <name>ОткрытьФоновыеЗадания</name>
     <title>
       <key>en</key>
       <value>Background Jobs</value>
@@ -1889,33 +1906,49 @@ GitLab: Project -> Settings -> Webhooks.</value>
       <value>Фоновые задания</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Открыть фоновые задания обработчика</value>
+    </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Open handler background jobs</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenBackgrounds</name>
+        <name>ОткрытьФоновыеЗадания</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>HandleRequest</name>
-    <title>
-      <key>en</key>
-      <value>Handle manually</value>
-    </title>
+    <name>ПовторитьОбработку</name>
     <title>
       <key>ru</key>
-      <value>Обработать вручную</value>
+      <value>Повторить обработку</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Rerun</value>
     </title>
     <id>5</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Повторно запустить обработку выбранного запроса.</value>
+    </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Rerun processing for the selected request.</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>HandleRequest</name>
+        <name>ПовторитьОбработку</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="41131780-8a83-43f2-a073-2c634da1400b">
+  <name>СистемаУправленияВерсиями</name>
+  <synonym>
+    <key>ru</key>
+    <value>Система управления версиями</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Version control</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

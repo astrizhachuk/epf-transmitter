@@ -10,6 +10,11 @@
     <value>Интеграция с GitLab</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <includeInCommandInterface>true</includeInCommandInterface>
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.Гитлаб</picture>
@@ -35,4 +40,10 @@
   <content>DefinedType.Пользователь</content>
   <content>InformationRegister.ВнешниеЗапросы</content>
   <content>InformationRegister.ВнешниеФайлы</content>
+  <content>SessionParameter.ДлинаХэшаКоммита</content>
+  <content>SessionParameter.РазделительКлюча</content>
+  <content>SessionParameter.РазделительСообщений</content>
+  <content>Enum.ВидыИзмененийФайла</content>
+  <content>Enum.ИсточникиЗапроса</content>
+  <content>Enum.ИсточникиКлючаЗаписи</content>
 </mdclass:Subsystem>

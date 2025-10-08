@@ -12,20 +12,18 @@
 
 Function SendPost( Request )
 	
-	Var MultipartMessage;
-	Var Message;
+	Ответ = Новый HTTPСервисОтвет( СервисыHTTP.КодыСостояния().НайтиКодПоИдентификатору("OK") );
+
+	Логи.Информация( Логи.События().ВебСервис, Логи.Сообщения().ЗапросПолучен,
+		Логи.КонтекстОтветаСервиса(Ответ, Метаданные.HTTPСервисы.Custom) );
 	
-	Логи.Информация( Логи.События().ВебСервис, Логи.Сообщения().CUSTOM_RECEIVED );
+	CheckGlobalSettings( Ответ );
 	
-	Response = New HTTPServiceResponse( СервисыHTTP.КодыСостояния().FindCodeById("OK") );
+	CheckHeaders( Request, Ответ );
 	
-	CheckGlobalSettings( Response );
-	
-	CheckHeaders( Request, Response );
-	
-	If ( NOT СервисыHTTP.КодыСостояния().isOk(Response.StatusCode) ) Then
+	If ( NOT СервисыHTTP.КодыСостояния().isOk(Ответ.StatusCode) ) Then
 		
-		Return Response;
+		Return Ответ;
 		
 	EndIf;
 	
@@ -37,7 +35,7 @@ Function SendPost( Request )
 						|en = 'request not in multipart/form-data format'" );
 
 		//Return СервисыHTTP.НоваяОшибкаНеправильныйЗапрос( Message );
-		Return СервисыHTTP.СоздатьОтвет( СервисыHTTP.КодыСостояния().FindCodeById("BAD_REQUEST"), Message );
+		Return СервисыHTTP.СоздатьОтвет( СервисыHTTP.КодыСостояния().НайтиКодПоИдентификатору("BAD_REQUEST"), Message );
 		
 	EndIf;
 	
@@ -61,8 +59,8 @@ Procedure CheckGlobalSettings( Response )
 
 	If ( NOT НастройкиСервисов.ОбработкаЗапросаВключена(Метаданные.HTTPСервисы.Custom) ) Then
 		
-		Response = СервисыHTTP.СоздатьОтвет(СервисыHTTP.КодыСостояния().FindCodeById("LOCKED"), "???" );
-		Логи.Ошибка( Логи.События().ВебСервис, Логи.Сообщения().CUSTOM_DISABLED, Логи.Параметры(, , Response) );
+		Response = СервисыHTTP.СоздатьОтвет(СервисыHTTP.КодыСостояния().НайтиКодПоИдентификатору("LOCKED"), "???" );
+		Логи.Ошибка( Логи.События().ВебСервис, Логи.Сообщения().ОбработкаЗапросовОтключена, Логи.КонтекстОтветаСервиса(Response, Метаданные.HTTPСервисы.Custom) );
 
 	EndIf;
 
@@ -83,8 +81,8 @@ Procedure CheckHeaders( Val Request, Response )
 	If ( NOT ValueIsFilled(Token) ) Then
 		
 //		Response = New HTTPServiceResponse( СервисыHTTP.КодыСостояния().FindCodeById("BAD_REQUEST") );
-		Response = СервисыHTTP.СоздатьОтвет(СервисыHTTP.КодыСостояния().FindCodeById("BAD_REQUEST"), Логи.Сообщения().NO_TOKEN );
-		Логи.Ошибка( Логи.События().ВебСервис, Логи.Сообщения().NO_TOKEN, Логи.Параметры(, , Response) );
+		Response = СервисыHTTP.СоздатьОтвет(СервисыHTTP.КодыСостояния().НайтиКодПоИдентификатору("BAD_REQUEST"), Логи.Сообщения().NO_TOKEN );
+		Логи.Ошибка( Логи.События().ВебСервис, Логи.Сообщения().NO_TOKEN, Логи.КонтекстОтветаСервиса(Response, Метаданные.HTTPСервисы.Custom) );
 		
 		Return;
 		

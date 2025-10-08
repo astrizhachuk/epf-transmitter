@@ -6,7 +6,7 @@
     "parameters": {
       "Typo": {
         "minWordLength": 3,
-        "userWordsToIgnore": "json, gitlab, коммит, Коммите, Коммиты, Коммита, Гитлаб, Логировать"
+        "userWordsToIgnore": "json, gitlab, коммит, Коммите, Коммиты, Коммита, Коммитам, Гитлаб, Логировать"
       },
       "UsingServiceTag": {
         "serviceTags": "todo|fixme|!!|mrg|отладка|debug|для\\s*отладки|(\\{\\{|\\}\\})КОНСТРУКТОР_|(\\{\\{|\\}\\})MRG|Вставить\\s*содержимое\\s*обработчика|Paste\\s*handler\\s*content|Insert\\s*handler\\s*code|Insert\\s*handler\\s*content|Insert\\s*handler\\s*contents"

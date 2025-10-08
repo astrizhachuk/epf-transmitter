@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:SessionParameter xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a5eff881-4681-44ee-8acb-de65162250e0">
+  <name>РазделительКлюча</name>
+  <synonym>
+    <key>ru</key>
+    <value>Разделитель ключа</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Key delimiter</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>3</length>
+      <fixed>true</fixed>
+    </stringQualifiers>
+  </type>
+</mdclass:SessionParameter>

@@ -3,11 +3,11 @@
   <name>Фоновые</name>
   <synonym>
     <key>ru</key>
-    <value>Фоновые</value>
+    <value>Фоновые задания</value>
   </synonym>
   <synonym>
     <key>en</key>
-    <value>Backgrounds</value>
+    <value>Background Jobs</value>
   </synonym>
   <server>true</server>
   <externalConnection>true</externalConnection>

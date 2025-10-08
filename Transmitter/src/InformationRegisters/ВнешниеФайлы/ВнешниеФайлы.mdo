@@ -165,8 +165,16 @@
     </synonym>
     <group>FormNavigationPanelImportant</group>
     <commandParameterType>
-      <types>EnumRef.ИсточникКлючаЗаписи</types>
+      <types>EnumRef.ИсточникиКлючаЗаписи</types>
     </commandParameterType>
     <representation>Auto</representation>
+    <toolTip>
+      <key>ru</key>
+      <value>Открыть просмотр метаинформации по загруженным файлам</value>
+    </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Open metadata view for uploaded files</value>
+    </toolTip>
   </commands>
 </mdclass:InformationRegister>

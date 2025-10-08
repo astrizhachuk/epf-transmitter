@@ -71,6 +71,9 @@
   <styleItems>StyleItem.КурсивныйШрифт</styleItems>
   <commonPictures>CommonPicture.Гитлаб</commonPictures>
   <commonPictures>CommonPicture.УниверсальныеЗапросы</commonPictures>
+  <sessionParameters>SessionParameter.ДлинаХэшаКоммита</sessionParameters>
+  <sessionParameters>SessionParameter.РазделительКлюча</sessionParameters>
+  <sessionParameters>SessionParameter.РазделительСообщений</sessionParameters>
   <roles>Role.ПолныеПрава</roles>
   <roles>Role.ГитлабКлиент</roles>
   <roles>Role.ГитлабИнтерфейс</roles>
@@ -93,8 +96,10 @@
   <commonModules>CommonModule.ПолучателиВызовСервера</commonModules>
   <commonModules>CommonModule.ПолучателиКлиентСервер</commonModules>
   <commonModules>CommonModule.СервисыHTTP</commonModules>
+  <commonModules>CommonModule.СистемаУправленияВерсиями</commonModules>
   <commonModules>CommonModule.СтрокиКлиентСервер</commonModules>
   <commonModules>CommonModule.УчетныеДанные</commonModules>
+  <commonModules>CommonModule.ФайловыеМодели</commonModules>
   <commonModules>CommonModule.ФайлыВнешнегоХранилища</commonModules>
   <commonModules>CommonModule.Фоновые</commonModules>
   <httpServices>HTTPService.GitLab</httpServices>
@@ -118,8 +123,9 @@
   <commonForms>CommonForm.ПроверкаВнешнегоСервиса</commonForms>
   <catalogs>Catalog.ОбработчикиВнешнихЗапросов</catalogs>
   <catalogs>Catalog.Получатели</catalogs>
-  <enums>Enum.ИсточникЗапроса</enums>
-  <enums>Enum.ИсточникКлючаЗаписи</enums>
+  <enums>Enum.ВидыИзмененийФайла</enums>
+  <enums>Enum.ИсточникиЗапроса</enums>
+  <enums>Enum.ИсточникиКлючаЗаписи</enums>
   <dataProcessors>DataProcessor.ВнешнийЗапрос</dataProcessors>
   <informationRegisters>InformationRegister.ВнешниеЗапросы</informationRegisters>
   <informationRegisters>InformationRegister.ВнешниеФайлы</informationRegisters>

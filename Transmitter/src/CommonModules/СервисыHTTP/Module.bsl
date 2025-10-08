@@ -13,7 +13,7 @@
 	
 КонецФункции
 
-// СоздатьОтвет по коду состояния создает ответ HTTP-сервиса согласно спецификации api: смотри "./api/transmitter.yml".
+// СоздатьОтвет по коду состояния создает ответ HTTP-сервиса согласно спецификации api: смотри "./api/transmitter-openapi.yml".
 // 
 // Параметры:
 //  КодСостояния - Число - код состояния создаваемого ответа;
@@ -103,7 +103,7 @@
 #Область Ошибки
 
 // ПолучитьСхемуСообщения возвращает схему сообщения об ошибке согласно спецификации api:
-// смотри "./api/transmitter.yml" -> components: schemas: message.
+// смотри "./api/transmitter-openapi.yml" -> components: schemas: message.
 // 
 // Параметры:
 // 	Сообщение - Неопределено, Строка - текст ошибки;
@@ -352,9 +352,9 @@ EndFunction
 
 Procedure AddByContextType( Result, Context )
 	
-	If ( TypeOf(Context) = Type("BinaryData") ) Then
+	If ( TypeOf(Context) = Type("ДвоичныеДанные") ) Then
 		
-		Result.Insert( "BinaryData", Context );
+		Result.Insert( "ДвоичныеДанные", Context );
 		
 	Else
 		

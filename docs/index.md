@@ -31,7 +31,7 @@
 
     === "local"
 
-        https://github.com/astrizhachuk/epf-transmitter/tree/master/api/transmitter.yml
+        https://github.com/astrizhachuk/epf-transmitter/tree/master/api/transmitter-openapi.yml
 
     === "swagger"
 
@@ -45,7 +45,7 @@
 
     === "local"
 
-        https://github.com/astrizhachuk/epf-transmitter/tree/master/api/endpoint.yml
+        https://github.com/astrizhachuk/epf-transmitter/tree/master/api/endpoint-openapi.yml
 
     === "swagger"
 
@@ -55,7 +55,7 @@
 
         https://documenter.getpostman.com/view/3977639/UVCCe3qs
 
-### BPMN: изменение внешней обработки
+### BPMN: процесс разработки внешней обработки
 
 ![Клонирование репозитория](images/bpmn-1.png)
 ![Изменение внешней обработки](images/bpmn-2.png)
@@ -64,27 +64,23 @@
 
 #### GitLab
 
-Информация об изменении кода во внешнем хранилище поступает через систему оповещения о событиях (webhooks).
+Информация об изменении кода во внешнем хранилище поступает через систему оповещения о событиях (webhooks). Диаграмма последовательности иллюстрирует этот процесс.
 
-![UML](images/UML.png)
-
-??? example "plantuml"
-
-    ``` plantuml
-    @startuml
-    GitLab -> "1C:Transmitter" ++ : webhook
-    "1C:Transmitter" -> "1C:Transmitter:BackgroundJobs" ** : start job
-    return 200
-    "1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : prepare
-    GitLab <- "1C:Transmitter:BackgroundJobs" ++ : request files
-    return 200
-    "1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
-    "1C:Transmitter:BackgroundJobs" -> "1C:Endpoint" : file
-    "1C:Transmitter:BackgroundJobs" <- "1C:Endpoint" : status
-    return
-    return
-    @enduml
-    ```
+```puml
+@startuml
+GitLab -> "1C:Transmitter" ++ : webhook
+"1C:Transmitter" -> "1C:Transmitter:BackgroundJobs" ** : start job
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : prepare
+GitLab <- "1C:Transmitter:BackgroundJobs" ++ : request files
+return 200
+"1C:Transmitter:BackgroundJobs" -> "1C:Transmitter:BackgroundJobs" ++ : send file
+"1C:Transmitter:BackgroundJobs" -> "1C:Endpoint" : file
+"1C:Transmitter:BackgroundJobs" <- "1C:Endpoint" : status
+return
+return
+@enduml
+```
 
 1. Для контролируемой ветки в удаленном репозитории на сервере GitLab выполняется некоторое событие.
 2. На сервере GitLab срабатывает webhook в виде запроса по методу POST к HTTP-сервису 1С `epf-transmitter`.
@@ -95,3 +91,15 @@
     * данные сохраняются в `epf-transmitter` для возможности анализа и повторной отправки данных;
     * подготавливаются данные согласно маршрутам доставки;
     * каждый файл в своем фоновом задании отправляется в информационную базу-приемник с сохранением данных о результатах доставки;
+
+##### Рекомендуемый вариант workflow
+
+Рекомендуемый подход к работе с `epf-transmitter` заключается в использовании выделенных веток для контролируемой доставки изменений.
+
+* **Основная разработка** ведется в ветке `master` (или `develop`).
+* **Подготовка релиза** выполняется релиз-менеджером. Он отбирает готовые к доставке коммиты из `master`, при необходимости корректирует файл маршрутизации `.ext-epf.json` и формирует единый, самодостаточный релизный коммит.
+* **Доставка изменений** инициируется через принудительный push (`force push`) этого релизного коммита в специализированные ветки, например, `deploy-test-srs-XXX`, `deploy-test` и `deploy-prod`.
+
+Такой подход обеспечивает полный контроль над процессом доставки, сохраняя при этом историю релизов в `deploy-*` ветках чистой и понятной: **один коммит = один деплой**.
+
+См. [управление доставкой файлов](./workflow.md).

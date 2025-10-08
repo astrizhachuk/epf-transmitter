@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="aedfe1d7-2d8b-4669-aa51-3db330fad7ad">
+  <producedTypes>
+    <refType typeId="73d419bb-ec6f-4f95-96ba-623d5a76c84d" valueTypeId="7168385e-9222-4b5c-a928-f8f00c490e10"/>
+    <listType typeId="32a80d4b-f805-4fa8-a577-64a865f1f934" valueTypeId="4cc10a08-9600-4bbb-9a99-95b1ec05d9d1"/>
+    <managerType typeId="ef09605c-5dd8-45d2-bd96-571681e0653b" valueTypeId="5e9ab91a-753c-4e75-9230-eba564c87e75"/>
+  </producedTypes>
+  <name>ВидыИзмененийФайла</name>
+  <synonym>
+    <key>ru</key>
+    <value>Виды изменений файла</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>File Change Types</value>
+  </synonym>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="e20d49ef-35ab-4820-b7a0-ba136d66a0f9">
+    <name>Добавлен</name>
+    <synonym>
+      <key>ru</key>
+      <value>Добавлен</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Added</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="cfc4624a-bb84-4ba8-b496-d2ced6827d77">
+    <name>Изменен</name>
+    <synonym>
+      <key>ru</key>
+      <value>Изменен</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Modified</value>
+    </synonym>
+  </enumValues>
+</mdclass:Enum>

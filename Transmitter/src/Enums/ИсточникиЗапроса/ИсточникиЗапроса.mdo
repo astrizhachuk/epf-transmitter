@@ -5,16 +5,15 @@
     <listType typeId="260e7c61-2586-4cdf-b962-506be03e849e" valueTypeId="33de0469-a4aa-4424-9329-b45070228d6b"/>
     <managerType typeId="91702650-17bc-4849-b7ff-1ba8a6e2af98" valueTypeId="912e7536-c99f-4ce7-a32f-da1c71a372eb"/>
   </producedTypes>
-  <name>ИсточникЗапроса</name>
+  <name>ИсточникиЗапроса</name>
   <synonym>
     <key>ru</key>
-    <value>Источник запроса</value>
+    <value>Источники запроса</value>
   </synonym>
   <synonym>
     <key>en</key>
-    <value>Request source</value>
+    <value>Request sources</value>
   </synonym>
-  <comment>Перечень сервисов со своими форматами передачи данных</comment>
   <quickChoice>true</quickChoice>
   <choiceMode>BothWays</choiceMode>
   <enumValues uuid="64f64a59-a7ce-400d-90cd-7453fe9d8acf">
@@ -22,6 +21,10 @@
     <synonym>
       <key>ru</key>
       <value>Гитлаб</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>GitLab</value>
     </synonym>
   </enumValues>
 </mdclass:Enum>

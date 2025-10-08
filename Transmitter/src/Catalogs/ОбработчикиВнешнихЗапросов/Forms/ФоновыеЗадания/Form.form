@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>Backgrounds</name>
+    <name>ФоновыеЗадания</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,11 +9,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>BackgroundsList</segments>
+      <segments>ФоновыеЗадания</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>Begin</name>
+      <name>Начало</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -22,11 +22,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.Begin</segments>
+          <segments>ФоновыеЗадания.Начало</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>BeginExtendedTooltip</name>
+        <name>НачалоРасширеннаяПодсказка</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -41,7 +41,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BeginContextMenu</name>
+        <name>НачалоКонтекстноеМеню</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -65,7 +65,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>End</name>
+      <name>Конец</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -74,11 +74,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.End</segments>
+          <segments>ФоновыеЗадания.Конец</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>EndExtendedTooltip</name>
+        <name>КонецРасширеннаяПодсказка</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -93,7 +93,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>EndContextMenu</name>
+        <name>КонецКонтекстноеМеню</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -117,7 +117,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>MethodName</name>
+      <name>ИмяМетода</name>
       <id>35</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -126,11 +126,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.MethodName</segments>
+          <segments>ФоновыеЗадания.ИмяМетода</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>MethodNameExtendedTooltip</name>
+        <name>ИмяМетодаРасширеннаяПодсказка</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -145,7 +145,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>MethodNameContextMenu</name>
+        <name>ИмяМетодаКонтекстноеМеню</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -169,7 +169,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Key</name>
+      <name>Ключ</name>
       <id>20</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -178,11 +178,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.Key</segments>
+          <segments>ФоновыеЗадания.Ключ</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>KeyExtendedTooltip</name>
+        <name>КлючРасширеннаяПодсказка</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -197,7 +197,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>KeyContextMenu</name>
+        <name>КлючКонтекстноеМеню</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -221,7 +221,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>State</name>
+      <name>Состояние</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -230,11 +230,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.State</segments>
+          <segments>ФоновыеЗадания.Состояние</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>StateExtendedTooltip</name>
+        <name>СостояниеРасширеннаяПодсказка</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -249,7 +249,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>StateContextMenu</name>
+        <name>СостояниеКонтекстноеМеню</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -273,7 +273,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ErrorDetail</name>
+      <name>ПредставлениеОшибки</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -282,11 +282,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.ErrorDetail</segments>
+          <segments>ФоновыеЗадания.ПредставлениеОшибки</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ErrorDetailExtendedTooltip</name>
+        <name>ПредставлениеОшибкиРасширеннаяПодсказка</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -301,7 +301,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ErrorDetailContextMenu</name>
+        <name>ПредставлениеОшибкиКонтекстноеМеню</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -325,7 +325,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>UUID</name>
+      <name>УникальныйИдентификатор</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -334,11 +334,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>BackgroundsList.UUID</segments>
+          <segments>ФоновыеЗадания.УникальныйИдентификатор</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>UUIDExtendedTooltip</name>
+        <name>УникальныйИдентификаторРасширеннаяПодсказка</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -353,7 +353,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>UUIDContextMenu</name>
+        <name>УникальныйИдентификаторКонтекстноеМеню</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -373,7 +373,7 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>BackgroundsCommandBar</name>
+      <name>ФоновыеЗаданияКоманднаяПанель</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -388,10 +388,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundsSearchString</name>
+      <name>ФоновыеЗаданияСтрокаПоиска</name>
       <id>5</id>
       <extendedTooltip>
-        <name>BackgroundsSearchStringExtendedTooltip</name>
+        <name>ФоновыеЗаданияСтрокаПоискаРасширеннаяПодсказка</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -406,7 +406,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundsSearchStringContextMenu</name>
+        <name>ФоновыеЗаданияСтрокаПоискаКонтекстноеМеню</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -425,10 +425,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundsViewStatus</name>
+      <name>ФоновыеЗаданияСостояниеПросмотра</name>
       <id>8</id>
       <extendedTooltip>
-        <name>BackgroundsViewStatusExtendedTooltip</name>
+        <name>ФоновыеЗаданияСостояниеПросмотраРасширеннаяПодсказка</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -443,7 +443,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundsViewStatusContextMenu</name>
+        <name>ФоновыеЗаданияСостояниеПросмотраКонтекстноеМеню</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -464,10 +464,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>BackgroundsSearchControl</name>
+      <name>ФоновыеЗаданияУправлениеПоиском</name>
       <id>11</id>
       <extendedTooltip>
-        <name>BackgroundsSearchControlExtendedTooltip</name>
+        <name>ФоновыеЗаданияУправлениеПоискомРасширеннаяПодсказка</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -482,7 +482,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BackgroundsSearchControlContextMenu</name>
+        <name>ФоновыеЗаданияУправлениеПоискомКонтекстноеМеню</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -497,7 +497,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>BackgroundsExtendedTooltip</name>
+      <name>ФоновыеЗаданияРасширеннаяПодсказка</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -512,68 +512,8 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>BackgroundsContextMenu</name>
+      <name>ФоновыеЗаданияКонтекстноеМеню</name>
       <id>2</id>
-      <items xsi:type="form:Button">
-        <name>BackgroundsContextMenuRefreshCurrent</name>
-        <id>40</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <extendedTooltip>
-          <name>BackgroundsContextMenuRefreshCurrentExtendedTooltip</name>
-          <id>41</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <type>Label</type>
-          <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
-          <extInfo xsi:type="form:LabelDecorationExtInfo">
-            <horizontalAlign>Left</horizontalAlign>
-          </extInfo>
-        </extendedTooltip>
-        <commandName>Form.Command.RefreshCurrent</commandName>
-        <representation>Auto</representation>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <placementArea>UserCmds</placementArea>
-        <representationInContextMenu>Auto</representationInContextMenu>
-      </items>
-      <items xsi:type="form:Button">
-        <name>BackgroundsContextMenuKillCurrent</name>
-        <id>48</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <extendedTooltip>
-          <name>BackgroundsContextMenuKillCurrentExtendedTooltip</name>
-          <id>49</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <type>Label</type>
-          <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
-          <extInfo xsi:type="form:LabelDecorationExtInfo">
-            <horizontalAlign>Left</horizontalAlign>
-          </extInfo>
-        </extendedTooltip>
-        <commandName>Form.Command.KillCurrent</commandName>
-        <representation>Auto</representation>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <placementArea>UserCmds</placementArea>
-        <representationInContextMenu>Auto</representationInContextMenu>
-      </items>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -608,7 +548,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>RefreshAll</name>
+      <name>ОбновитьВсе</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -616,7 +556,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>RefreshAllExtendedTooltip</name>
+        <name>ОбновитьВсеРасширеннаяПодсказка</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -630,7 +570,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.RefreshAll</commandName>
+      <commandName>Form.Command.ОбновитьВсе</commandName>
       <representation>PictureAndText</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -641,7 +581,7 @@
       <name>CurrentRow</name>
       <id>42</id>
       <items xsi:type="form:Button">
-        <name>RefreshCurrent</name>
+        <name>ОбновитьЗадание</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -649,7 +589,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>RefreshCurrentExtendedTooltip</name>
+          <name>ОбновитьЗаданиеРасширеннаяПодсказка</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -663,7 +603,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.RefreshCurrent</commandName>
+        <commandName>Form.Command.ОбновитьЗадание</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -671,7 +611,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>KillCurrent</name>
+        <name>ОтменитьЗадание</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -679,7 +619,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>KillCurrentExtendedTooltip</name>
+          <name>ОтменитьЗаданиеРасширеннаяПодсказка</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -693,7 +633,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.KillCurrent</commandName>
+        <commandName>Form.Command.ОтменитьЗадание</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -742,7 +682,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>OnCreateAtServer</name>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -753,10 +693,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>BackgroundsList</name>
+    <name>ФоновыеЗадания</name>
     <title>
       <key>ru</key>
-      <value>Backgrounds list</value>
+      <value>Фоновые задания</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Background Jobs</value>
     </title>
     <id>1</id>
     <valueType>
@@ -769,7 +713,7 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>UUID</name>
+      <name>УникальныйИдентификатор</name>
       <title>
         <key>en</key>
         <value>UUID</value>
@@ -790,7 +734,7 @@
       </edit>
     </columns>
     <columns>
-      <name>State</name>
+      <name>Состояние</name>
       <title>
         <key>en</key>
         <value>State</value>
@@ -812,7 +756,7 @@
       </edit>
     </columns>
     <columns>
-      <name>Key</name>
+      <name>Ключ</name>
       <title>
         <key>en</key>
         <value>Key</value>
@@ -834,7 +778,7 @@
       </edit>
     </columns>
     <columns>
-      <name>Begin</name>
+      <name>Начало</name>
       <title>
         <key>en</key>
         <value>Begin</value>
@@ -856,7 +800,7 @@
       </edit>
     </columns>
     <columns>
-      <name>End</name>
+      <name>Конец</name>
       <title>
         <key>en</key>
         <value>End</value>
@@ -878,7 +822,7 @@
       </edit>
     </columns>
     <columns>
-      <name>ErrorDetail</name>
+      <name>ПредставлениеОшибки</name>
       <title>
         <key>en</key>
         <value>Error Info</value>
@@ -900,7 +844,7 @@
       </edit>
     </columns>
     <columns>
-      <name>MethodName</name>
+      <name>ИмяМетода</name>
       <title>
         <key>en</key>
         <value>Method Name</value>
@@ -923,14 +867,14 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>RefreshAll</name>
-    <title>
-      <key>en</key>
-      <value>Refresh all</value>
-    </title>
+    <name>ОбновитьВсе</name>
     <title>
       <key>ru</key>
       <value>Обновить все</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Refresh All</value>
     </title>
     <id>1</id>
     <use>
@@ -941,20 +885,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RefreshAll</name>
+        <name>ОбновитьВсе</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>RefreshCurrent</name>
-    <title>
-      <key>en</key>
-      <value>Refresh current</value>
-    </title>
+    <name>ОбновитьЗадание</name>
     <title>
       <key>ru</key>
-      <value>Обновить текущее</value>
+      <value>Обновить задание</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Refresh Job</value>
     </title>
     <id>2</id>
     <use>
@@ -962,20 +906,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RefreshCurrent</name>
+        <name>ОбновитьТекущееЗадание</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>KillCurrent</name>
-    <title>
-      <key>en</key>
-      <value>Kill сurrent</value>
-    </title>
+    <name>ОтменитьЗадание</name>
     <title>
       <key>ru</key>
-      <value>Завершить текущее</value>
+      <value>Отменить задание</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Cancel Job</value>
     </title>
     <id>3</id>
     <use>
@@ -983,14 +927,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>KillCurrent</name>
+        <name>ОтменитьТекущееЗадание</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <parameters>
-    <name>КлючЗаписи</name>
-    <valueType/>
+    <name>Ключ</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers>
+        <length>40</length>
+        <fixed>true</fixed>
+      </stringQualifiers>
+    </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <commandInterface>

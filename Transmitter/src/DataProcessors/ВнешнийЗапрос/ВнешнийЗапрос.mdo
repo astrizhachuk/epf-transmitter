@@ -11,21 +11,21 @@
   </synonym>
   <synonym>
     <key>en</key>
-    <value>External request</value>
+    <value>External Request</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <attributes uuid="6ce6a395-e7eb-4532-a8c6-f272d1cde9f4">
-    <name>Type</name>
-    <synonym>
-      <key>en</key>
-      <value>Type</value>
-    </synonym>
+    <name>ТипИсточника</name>
     <synonym>
       <key>ru</key>
-      <value>Тип</value>
+      <value>Тип источника запроса</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Request source type</value>
     </synonym>
     <type>
-      <types>EnumRef.ИсточникЗапроса</types>
+      <types>EnumRef.ИсточникиЗапроса</types>
     </type>
     <fillChecking>ShowError</fillChecking>
   </attributes>
@@ -143,58 +143,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <tabularSections uuid="dbfdc40a-ef86-4101-b04f-d2bd3029fc60">
-    <producedTypes>
-      <objectType typeId="2d4ce3a4-2986-4604-9a2b-be2d34c31895" valueTypeId="526d7051-5417-4493-857c-f2c423706ba3"/>
-      <rowType typeId="ee1543bb-d05c-4077-bf1f-aab9e39c8654" valueTypeId="18c80ba3-ae12-44a9-9fae-15d0b9a91993"/>
-    </producedTypes>
-    <name>ModifiedFiles</name>
-    <synonym>
-      <key>en</key>
-      <value>Modified files</value>
-    </synonym>
-    <synonym>
-      <key>ru</key>
-      <value>Измененные файлы</value>
-    </synonym>
-    <attributes uuid="46207363-6cbb-4fd5-a29e-d7a309b39e7d">
-      <name>Идентификатор</name>
-      <synonym>
-        <key>ru</key>
-        <value>Идентификатор</value>
-      </synonym>
-      <synonym>
-        <key>en</key>
-        <value>Id</value>
-      </synonym>
-      <type>
-        <types>DefinedType.ИдентификаторКоммита</types>
-      </type>
-      <minValue xsi:type="core:UndefinedValue"/>
-      <maxValue xsi:type="core:UndefinedValue"/>
-      <fillChecking>ShowError</fillChecking>
-      <fillValue xsi:type="core:UndefinedValue"/>
-    </attributes>
-    <attributes uuid="3acc6ecf-acb7-4578-9e2d-0df56f603e9c">
-      <name>ПутьКФайлу</name>
-      <synonym>
-        <key>ru</key>
-        <value>Путь к файлу</value>
-      </synonym>
-      <synonym>
-        <key>en</key>
-        <value>File Path</value>
-      </synonym>
-      <type>
-        <types>String</types>
-        <stringQualifiers/>
-      </type>
-      <toolTip>
-        <key>ru</key>
-        <value>Относительный путь к файлу внешнего репозитория, например, &quot;Каталог с отчетами и обработками/Внешняя Обработка 1.epf&quot;.</value>
-      </toolTip>
-    </attributes>
-  </tabularSections>
   <tabularSections uuid="e18daf9c-8dd9-4eb8-9ebd-12f83d84243d">
     <producedTypes>
       <objectType typeId="6ea5c727-0fd6-48d6-915c-9f6203a301e9" valueTypeId="fb91ca73-d647-44fd-849c-a9717d4794ec"/>
@@ -255,6 +203,110 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+  </tabularSections>
+  <tabularSections uuid="ecdbd621-e532-4958-b861-557bb3821e64">
+    <producedTypes>
+      <objectType typeId="c4fcf1a3-c715-495d-9264-009dd5030a52" valueTypeId="7cc0101d-206d-4a89-a03b-0e282d09729c"/>
+      <rowType typeId="c3613022-984b-43de-8dfe-f39258559211" valueTypeId="0a53d287-7a78-45e6-90c3-db9f2fc112bc"/>
+    </producedTypes>
+    <name>ДобавленныеФайлы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Добавленные файлы</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Added Files</value>
+    </synonym>
+    <attributes uuid="4cad1dfd-dac5-4987-8bbb-57f162616ad8">
+      <name>Идентификатор</name>
+      <synonym>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </synonym>
+      <synonym>
+        <key>en</key>
+        <value>Id</value>
+      </synonym>
+      <type>
+        <types>DefinedType.ИдентификаторКоммита</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillChecking>ShowError</fillChecking>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+    <attributes uuid="00ac3fac-f2b6-4738-bcb9-acdbe49f6d78">
+      <name>ПутьКФайлу</name>
+      <synonym>
+        <key>ru</key>
+        <value>Путь к файлу</value>
+      </synonym>
+      <synonym>
+        <key>en</key>
+        <value>File Path</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers/>
+      </type>
+      <toolTip>
+        <key>ru</key>
+        <value>Относительный путь к файлу внешнего репозитория, например, &quot;Каталог с отчетами и обработками/Внешняя Обработка 1.epf&quot;.</value>
+      </toolTip>
+    </attributes>
+  </tabularSections>
+  <tabularSections uuid="dbfdc40a-ef86-4101-b04f-d2bd3029fc60">
+    <producedTypes>
+      <objectType typeId="2d4ce3a4-2986-4604-9a2b-be2d34c31895" valueTypeId="526d7051-5417-4493-857c-f2c423706ba3"/>
+      <rowType typeId="ee1543bb-d05c-4077-bf1f-aab9e39c8654" valueTypeId="18c80ba3-ae12-44a9-9fae-15d0b9a91993"/>
+    </producedTypes>
+    <name>ИзмененныеФайлы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Измененные файлы</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Modified Files</value>
+    </synonym>
+    <attributes uuid="46207363-6cbb-4fd5-a29e-d7a309b39e7d">
+      <name>Идентификатор</name>
+      <synonym>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </synonym>
+      <synonym>
+        <key>en</key>
+        <value>Id</value>
+      </synonym>
+      <type>
+        <types>DefinedType.ИдентификаторКоммита</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillChecking>ShowError</fillChecking>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+    <attributes uuid="3acc6ecf-acb7-4578-9e2d-0df56f603e9c">
+      <name>ПутьКФайлу</name>
+      <synonym>
+        <key>ru</key>
+        <value>Путь к файлу</value>
+      </synonym>
+      <synonym>
+        <key>en</key>
+        <value>File Path</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers/>
+      </type>
+      <toolTip>
+        <key>ru</key>
+        <value>Относительный путь к файлу внешнего репозитория, например, &quot;Каталог с отчетами и обработками/Внешняя Обработка 1.epf&quot;.</value>
+      </toolTip>
     </attributes>
   </tabularSections>
   <tabularSections uuid="835911a3-fbeb-40a0-b350-b196e75c6378">

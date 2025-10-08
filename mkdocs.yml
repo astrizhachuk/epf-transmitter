@@ -5,6 +5,14 @@ repo_name: 'astrizhachuk/epf-transmitter'
 repo_url: 'https://github.com/astrizhachuk/epf-transmitter'
 edit_uri: 'edit/master/docs'
 
+nav:
+  - 'Описание': 'index.md'
+  - 'Управление доставкой файлов': 'workflow.md'
+  - 'Руководство пользователя': 'manual.md'
+  - 'Разработка':
+    - 'Разворачивание': 'deploy.md'
+    - 'Участие в разработке': 'contributing.md'
+
 theme: 
   name: material
   language: ru
@@ -27,6 +35,8 @@ theme:
         name: Switch to dark mode
   features:
     - content.code.annotate
+    - content.code.copy
+    - content.tooltips
     - navigation.tabs
     - search.highlight
     - toc.integrate
@@ -39,45 +49,49 @@ extra_css:
   - 'assets/stylesheets/extra.css'
 
 plugins:
+  - plantuml:
+      puml_url: https://www.plantuml.com/plantuml/
+      num_workers: 8
   - search:
-      lang: ru
+      lang:
+        - ru
 
 markdown_extensions:
-  - admonition
   - abbr
+  - admonition
   - attr_list
   - def_list
   - footnotes
-  - meta
   - md_in_html
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
   - toc:
       permalink: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
       smart_enable: all
-  - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
       user: squidfunk
       repo: mkdocs-material
-  - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
-          class: mermaid-experimental
+          class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.tilde
-  - pymdownx.snippets

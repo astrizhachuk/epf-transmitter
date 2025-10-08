@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="71b75252-b1cd-4c33-b5e7-4e87b7e7621a">
+  <name>ФайловыеМодели</name>
+  <synonym>
+    <key>ru</key>
+    <value>Файловые модели</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>FileModels</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>
