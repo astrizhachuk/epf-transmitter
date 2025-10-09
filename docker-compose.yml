@@ -17,19 +17,17 @@ services:
       - back_net
 
   mkdocs:
-    image: ${CI_REGISTRY}/devops/mkdocs-material-plugins:latest
+    build:
+      context: .
+      dockerfile: ./docker/mkdocs.Dockerfile
     container_name: mkdocs
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      LIVE_RELOAD_SUPPORT: 'true'
-      FAST_MODE: 'true'
-      DOCS_DIRECTORY: 'docs'
     volumes:
       - ./:/mkdocs
     working_dir: /mkdocs
-    command: serve --dev-addr=0.0.0.0:8000
+    command: serve --dev-addr=0.0.0.0:8000 --dirty -v
     networks:
       - back_net
 

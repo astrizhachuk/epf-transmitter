@@ -38,9 +38,11 @@ theme:
     - content.code.copy
     - content.tooltips
     - navigation.tabs
+    - navigation.top
     - search.highlight
     - toc.integrate
     - header.autohide
+    
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -50,8 +52,7 @@ extra_css:
 
 plugins:
   - plantuml:
-      puml_url: https://www.plantuml.com/plantuml/
-      num_workers: 8
+      puml_url: https://www.plantuml.com/plantuml
   - search:
       lang:
         - ru
@@ -68,16 +69,14 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
-  - toc:
-      permalink: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -95,3 +94,5 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - toc:
+      permalink: true
