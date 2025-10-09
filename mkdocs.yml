@@ -1,9 +1,9 @@
 site_name: epf-transmitter
 
-site_url: 'https://astrizhachuk.github.io/epf-transmitter'
-repo_name: 'astrizhachuk/epf-transmitter'
-repo_url: 'https://github.com/astrizhachuk/epf-transmitter'
-edit_uri: 'edit/master/docs'
+site_url: !ENV [SITE_URL, 'https://astrizhachuk.github.io/epf-transmitter']
+repo_name: !ENV [REPO_NAME, 'astrizhachuk/epf-transmitter']
+repo_url: !ENV [REPO_URL, 'https://github.com/astrizhachuk/epf-transmitter']
+edit_uri: !ENV [EDIT_URI, 'edit/master/docs']
 
 nav:
   - 'Описание': 'index.md'
@@ -37,20 +37,21 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.tooltips
+    - header.autohide
     - navigation.tabs
     - navigation.top
     - search.highlight
     - toc.integrate
-    - header.autohide
     
 extra:
   social:
-    - icon: fontawesome/brands/github
-      link: 'https://github.com/astrizhachuk/epf-transmitter'
+    - icon: !ENV [SOCIAL_ICON, 'fontawesome/brands/github']
+      link: !ENV [SOCIAL_LINK, 'https://github.com/astrizhachuk/epf-transmitter']
 extra_css:
   - 'assets/stylesheets/extra.css'
 
 plugins:
+  - macros
   - plantuml:
       puml_url: https://www.plantuml.com/plantuml
   - search:

@@ -22,6 +22,7 @@ jobs:
       - run: >-
           pip install
           mkdocs-material
+          mkdocs-macros-plugin
           mkdocs-puml
           pygments-bsl
       - run: mkdocs gh-deploy --force

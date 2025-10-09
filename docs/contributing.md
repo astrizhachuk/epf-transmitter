@@ -125,21 +125,21 @@ docker-compose up --scale endpoint=2 --build endpoint
 Определение внутренних IP адресов:
 
 === "windows"
-
+    {% raw %}
     ``` bash
     docker inspect ^
         --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" ^
         epf-transmitter_endpoint_1 epf-transmitter_endpoint_2
     ```
-
+    {% endraw %}
 === "linux"
-
+    {% raw %}
     ``` bash
     docker inspect \
         --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" \
         epf-transmitter_endpoint_1 epf-transmitter_endpoint_2
     ```
-
+    {% endraw %}
 #### GitLab
 
 ##### Создание архива

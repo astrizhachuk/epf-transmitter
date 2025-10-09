@@ -70,6 +70,7 @@ variables:
 workflow:
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+    - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_MERGE_REQUEST_IID
 
 stages:
@@ -83,6 +84,7 @@ stages:
   - update
   - init
   - ws
+  - pages
 
 include:
   - remote: 'https://raw.githubusercontent.com/astrizhachuk/onec-gitlab-ci/master/.ibcmd-ci.yml'
@@ -160,6 +162,27 @@ docker login:
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+
+build-mkdocs-image:
+  stage: build
+  tags:
+    - docker
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_JOB_TOKEN\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/docker/mkdocs.Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/mkdocs:latest"
+      --cache=true
+      --cache-repo="${CI_REGISTRY_IMAGE}/cache"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - docker/mkdocs.Dockerfile
+        - mkdocs.yml
 
 export xml:
   stage: build
@@ -428,8 +451,33 @@ sonarqube on tag:
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
-
-
+pages:
+  stage: pages
+  tags:
+    - docker # Принудительно выбираем runner с docker executor'ом
+  image:
+    name: $CI_REGISTRY_IMAGE/mkdocs:latest
+    entrypoint: [""]
+  needs:
+    - job: build-image
+      optional: true
+  script:
+    - export SITE_URL="$MKDOCS_GITLAB_SITE_URL"
+    - export SOCIAL_LINK="$MKDOCS_GITLAB_SOCIAL_LINK"
+    - export SOCIAL_ICON="fontawesome/brands/gitlab"
+    - export REPO_NAME="$MKDOCS_GITLAB_REPO_NAME"
+    - export REPO_URL="$MKDOCS_GITLAB_REPO_URL"
+    - export EDIT_URI="$MKDOCS_GITLAB_EDIT_URI"
+    - mkdocs build --verbose --strict --site-dir public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - docs/**/*
+        - mkdocs.yml
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
 
 # prepare:
 #   stage: .pre
