@@ -5,3 +5,5 @@
 [![Maintainability Rating](https://sonar.openbsl.ru/api/project_badges/measure?project=epf-transmitter&metric=sqale_rating)](https://sonar.openbsl.ru/dashboard?id=epf-transmitter)
 
 Набрасыватель и разбрасыватель внешних обработок - см. [документацию](https://astrizhachuk.github.io/epf-transmitter/).
+
+![logo](docs/images/logo.png)
