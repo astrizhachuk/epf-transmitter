@@ -1,4 +1,10 @@
-version: '3.8'
+# Обязательные переменные окружения (ENV):
+# - DOCKER_USERNAME: учетная запись Docker Hub или путь к репозиторию в локальном хранилище
+# - ONEC_VERSION:    версия платформы "1С:Предприятие 8"
+# - NETHASP_PATH:    путь к файлу nethasp.ini для получения лицензий "1С:Предприятие 8" в контейнерах
+# - WS_USER:         пользователь для строки подключения веб-сервисов к информационной базе (по умолчанию: сайт)
+# - WS_PASSWORD:     пароль для строки подключения веб-сервисов к информационной базе
+# - WS_LOCALE:       дополнительная локализация API (по умолчанию: ru)
 
 services:
 
@@ -27,7 +33,7 @@ services:
     volumes:
       - ./:/mkdocs
     working_dir: /mkdocs
-    command: serve --dev-addr=0.0.0.0:8000 --dirty -v
+    command: serve --dev-addr=0.0.0.0:8000 --dirty -v --livereload
     networks:
       - back_net
 
@@ -66,7 +72,7 @@ services:
       - back_net
 
   srv:
-    image: $DOCKER_USERNAME/server:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/server:${ONEC_VERSION:?ONEC_VERSION is required}
     hostname: srv
     depends_on:
       - db
@@ -80,7 +86,7 @@ services:
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ${NETHASP_PATH:?NETHASP_PATH is required}:/opt/1cv8/current/conf/nethasp.ini
       - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test:/home/usr1cv8/test # чтобы не передавать данные с клиента на сервер в самом тесте (todo удалить после оптимизации!!!)
       - ./test/requests:/test/requests
@@ -90,7 +96,7 @@ services:
       - back_net
 
   ras:
-    image: $DOCKER_USERNAME/server:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/server:${ONEC_VERSION:?ONEC_VERSION is required}
     depends_on:
       - srv
     environment:
@@ -111,41 +117,49 @@ services:
       - TZ=Europe/Moscow
     volumes:
       - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - back_net
 
   init:
-    image: $DOCKER_USERNAME/transmitter:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/transmitter:${ONEC_VERSION:?ONEC_VERSION is required}
     build:
       context: .
       dockerfile: ./docker/transmitter.Dockerfile
       args:
-        - DOCKER_USERNAME
-        - ONEC_VERSION
-        - WS_USER_EN=site
-        - WS_USER_RU=сайт
-        - WS_PASSWORD
+        DOCKER_USERNAME: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}
+        ONEC_VERSION: ${ONEC_VERSION:?ONEC_VERSION is required}
+        WS_USER: ${WS_USER:-сайт}
+        WS_LOCALE: ${WS_LOCALE:-ru}
+        WS_PASSWORD: ${WS_PASSWORD:?WS_PASSWORD is required}
     depends_on:
-      - ras
+      db:
+        condition: service_healthy
+      ras:
+        condition: service_started
     environment:
       - TZ=Europe/Moscow
-    # && /opt/1cv8/current/ibcmd infobase config load --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres /tmp/config.cf
-    command: >
-      bash -c "/opt/1cv8/current/ibcmd infobase create --db-server=db --dbms=postgresql --db-name=transmitter --db-user=postgres --create-database --restore=/tmp/data.dt
-      && /opt/1cv8/current/rac infobase --cluster=$$(/opt/1cv8/current/rac cluster list ras | grep cluster | awk '{print $$3}') create --name=transmitter --dbms=PostgreSQL --db-server=db --db-name=transmitter --locale=ru --db-user=postgres --license-distribution=allow ras
-      && /usr/sbin/apache2ctl -DFOREGROUND"
+      - WS_PASSWORD=${WS_PASSWORD:?WS_PASSWORD is required}
+    command: ["/scripts/init-ib.sh"]
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
+      - ./scripts/init-ib.sh:/scripts/init-ib.sh:ro
     networks:
       - back_net
+    restart: "no"
 
   transmitter:
-    image: $DOCKER_USERNAME/transmitter:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/transmitter:${ONEC_VERSION:?ONEC_VERSION is required}
     environment:
-        - WS_USER_EN=site
-        - WS_USER_RU=сайт
-        - WS_PASSWORD
+        - TZ=Europe/Moscow
+        - WS_USER=${WS_USER:-сайт}
+        - WS_LOCALE=${WS_LOCALE:-ru}
+        - WS_PASSWORD=${WS_PASSWORD:?WS_PASSWORD is required}
     depends_on:
       - srv
     ports:
@@ -157,24 +171,24 @@ services:
       - back_net
     
   endpoint:
-    image: $DOCKER_USERNAME/endpoint:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/endpoint:${ONEC_VERSION:?ONEC_VERSION is required}
     build:
       context: .
       dockerfile: ./docker/endpoint.Dockerfile
       args:
-        - DOCKER_USERNAME
-        - ONEC_VERSION
+        DOCKER_USERNAME: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}
+        ONEC_VERSION: ${ONEC_VERSION:?ONEC_VERSION is required}
     ports:
       - "8081-8082:80"
     volumes:
       - srv_data:/home/usr1cv8/.1cv8
       - srv_log:/var/log/1C
-      - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ${NETHASP_PATH:?NETHASP_PATH is required}:/opt/1cv8/current/conf/nethasp.ini
     networks:
       - back_net
 
   client:
-    image: $DOCKER_USERNAME/client-vnc:$ONEC_VERSION
+    image: ${DOCKER_USERNAME:?DOCKER_USERNAME is required}/client-vnc:${ONEC_VERSION:?ONEC_VERSION is required}
     ports:
       - "5900:5900"
     environment:
@@ -182,7 +196,7 @@ services:
     volumes:
       - client_data:/home/usr1cv8/.1cv8
       - ./tools/ibases.v8i:/home/usr1cv8/.1C/1cestart/ibases.v8i
-      - ~/nethasp.ini:/opt/1cv8/current/conf/nethasp.ini
+      - ${NETHASP_PATH:?NETHASP_PATH is required}:/opt/1cv8/current/conf/nethasp.ini
       - ./configs/conf.cfg:/opt/1cv8/current/conf/conf.cfg
       - ./test/empty.dt:/home/usr1cv8/empty.dt
     networks:

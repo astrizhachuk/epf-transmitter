@@ -1,0 +1,17 @@
+{
+  "projectPath": "${CI_PROJECT_DIR}",
+  "closeAfterTests": true,
+  "filter": {
+    "extensions": [
+      "Tests"
+    ]
+  },
+  "reportFormat": "allure",
+  "reportPath": "${ALLURE_RESULTS}",
+  "logging": {
+    "file": "./test-unit.log",
+    "console": false,
+    "enable": null,
+    "level": "debug"
+  }
+}

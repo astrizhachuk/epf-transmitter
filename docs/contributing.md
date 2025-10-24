@@ -2,13 +2,13 @@
 
 ## Инструменты разработки
 
-* [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2020.4.0+425
+* [EDT](https://releases.1c.ru/project/DevelopmentTools10) не ниже 2024.2.6
 
 * Платформа 1С не ниже 8.3.17.1549
 
-* [1CUnits](https://github.com/DoublesunRUS/ru.capralow.dt.unit.launcher) не ниже 0.4.0 (см. [Transmitter.Tests](https://github.com/astrizhachuk/epf-transmitter/tree/master/Transmitter.Tests))
+* [YAxUnit](https://github.com/bia-technologies/yaxunit) не ниже [25.04](https://github.com/bia-technologies/yaxunit/releases/tag/25.04) (см. [Transmitter.Tests](https://github.com/astrizhachuk/epf-transmitter/tree/master/Transmitter.Tests))
 
-* [MockServer client for 1C:Enterprise Platform](https://github.com/astrizhachuk/mockserver-client-1c)
+* [MockServer client for 1C:Enterprise Platform](https://github.com/astrizhachuk/mockserver-client-1c) (интеграционные тесты)
 
 * [Docker-compose](https://docs.docker.com/compose)
 
@@ -19,63 +19,142 @@
 
 Предполагается следующий цикл при работе над проектом:
 
-1. Получение последних изменений проекта из репозитория.
+### 1. Подготовка к разработке
 
-2. Разработка.
+- **Получение последних изменений** проекта из репозитория
+- **Настройка окружения разработки** - сборка контейнеров для разработки
+- **Проверка работоспособности** всех сервисов
 
-3. Тестирование в `develop` среде (модальные тесты, функциональные и интеграционные тесты)[^1].
+### 2. Разработка
 
-4. Запрос на добавление изменений в репозиторий.
+- **Разработка функциональности** в локальной среде
+- **Локальное тестирование** изменений
 
-## Окружение
+### 3. Тестирование и интеграция
+
+- **Тестирование в `develop` среде** (юнит-тесты, функциональные и интеграционные тесты)[^1]
+- **Запрос на добавление изменений** в репозиторий
+
+!!! note "Автоматизация vs ручная настройка"
+
+    Настройка переменных окружения, hosts и docker-образов предназначена для автоматизированной настройки среды разработки. Если предпочитаете ручную настройку, можете развернуть компоненты вручную: создать базу данных, настроить сервисы, сконфигурировать сеть и т.д.
+
+## Настройка окружения разработки
 
 ### Конфигурация проекта
 
-1. Собрать [docker-образы](https://github.com/astrizhachuk/onec-docker) для работы с 1С:Предприятие 8.
+#### Обязательные переменные окружения
 
-    ???+ note "Обязательные переменные окружения при конфигурации проекта"
+???+ note "Обязательные переменные окружения при конфигурации проекта"
 
-        `DOCKER_USERNAME`
+    `DOCKER_USERNAME`
 
-        : учетная запись [Docker Hub](https://hub.docker.com) или путь к репозиторию в локальном хранилище (см. [pull from a different registry](https://docs.docker.com/engine/reference/commandline/pull/#pull-from-a-different-registry))
+    : учетная запись [Docker Hub](https://hub.docker.com) или путь к репозиторию в локальном хранилище (см. [pull from a different registry](https://docs.docker.com/engine/reference/commandline/pull/#pull-from-a-different-registry))
 
-        `ONEC_VERSION`
-        
-        : версия платформы "1С:Предприятие 8"
+    `ONEC_VERSION`
+    
+    : версия платформы "1С:Предприятие 8"
 
-2. Сконфигурировать `nethasp.ini` для получение лицензий "1С:Предприятие 8" в контейнерах.
+    `NETHASP_PATH`
 
-3. Добавить в файл `hosts` необходимые для разработки/тестирования сервисы из [конфигурационного файла](https://github.com/astrizhachuk/epf-transmitter/tree/master/docker-compose.yml) проекта.
+    : путь к файлу `nethasp.ini` для получения лицензий "1С:Предприятие 8" в контейнерах
 
-    ``` powershell title="hosts"
-    # ...
-    172.28.189.202 srv # сервер "1С:Предприятие 8"
-    127.0.0.1 transmitter # веб-сервер для API и веб-клиента разрабатываемого сервиса
-    127.0.0.1 endpoint # веб-сервер получателя внешних обработок (интеграционные тесты)
-    127.0.0.1 mockserver # mock-сервер (модульное тестирование)
-    127.0.0.1 gitlab # Omnibus GitLab (интеграционные тесты)
-    # ...
-    ```
+    `WS_USER`
 
-    ??? hint "Местоположение файла"
+    : пользователь для строки подключения веб-сервисов к информационной базе при публикации сервиса, значение по умолчанию - `сайт` (`-connstr "Srvr=srv;Ref=transmitter;usr=$WS_USER;pwd=$WS_PASSWORD"`)
 
-        === "windows"
+    `WS_PASSWORD`
 
-            ``` cmd
-            C:\Windows\System32\drivers\etc\hosts
-            ```
+    : пароль для строки подключения веб-сервисов к информационной базе при публикации сервиса (`-connstr "Srvr=srv;Ref=transmitter;usr=$WS_USER;pwd=$WS_PASSWORD"`)
 
-        === "linux"
+    `WS_LOCALE`
 
-            ``` bash
-            /etc/hosts
-            ```
+    : локализация веб-сервиса, добавляющая дополнительный путь к конечным точкам API, значение по умолчанию - `ru`
 
-### Операции с окружением
+#### Создание и настройка окружения
+
+**Шаг 1:** Создать файл `nethasp.ini` для получения лицензий "1С:Предприятие 8" в контейнерах.
+
+**Шаг 2:** Настроить обязательные переменные окружения.
+
+**Шаг 3:** Проверить переменные окружения:
+
+???+ note "Как проверить переменные окружения"
+
+    Перед запуском контейнеров проверьте обязательные переменные окружения.
+
+    === "windows"
+
+        ``` cmd
+        scripts\check-env.bat
+        ```
+
+        Тихий режим:
+
+        ``` cmd
+        scripts\check-env.bat --quiet
+        ```
+
+        Запуск под WSL с пробросом текущих переменных Windows:
+
+        ``` cmd
+        wsl bash -lc "DOCKER_USERNAME=\"%DOCKER_USERNAME%\" ONEC_VERSION=\"%ONEC_VERSION%\" NETHASP_PATH=\"%NETHASP_PATH%\" WS_PASSWORD=\"%WS_PASSWORD%\" ./scripts/check-env.sh"
+        ```
+
+    === "WSL/Linux/macOS"
+
+        ``` bash
+        ./scripts/check-env.sh
+        ```
+
+        Тихий режим:
+
+        ``` bash
+        ./scripts/check-env.sh --quiet
+        ```
+
+    !!! hint "Что делает флаг --quiet"
+
+        Режим `--quiet` подавляет информационные сообщения и прогресс, оставляя только сообщения об ошибках. Коды возврата не меняются: `0` при успехе, `1` при отсутствии обязательных переменных или ошибке конфигурации.
+
+    Скрипты возвращают код 0 при успехе и 1 при отсутствии обязательных переменных либо ошибке конфигурации `docker-compose.yml`.
+
+    Пример шаблона переменных: `env.example` (скопируйте в `.env` и заполните значения).
+
+**Шаг 4:** Собрать [docker-образы](https://github.com/astrizhachuk/onec-docker) для работы с 1С:Предприятие 8 (база данных, сервер 1С:Предприятие, веб-сервисы, различные сервисы для тестирования).
+
+**Шаг 5:** Добавить в файл `hosts` необходимые для разработки/тестирования сервисы из [конфигурационного файла](https://github.com/astrizhachuk/epf-transmitter/tree/master/docker-compose.yml) проекта.
+
+``` powershell title="hosts"
+# ...
+172.28.189.202 srv # сервер "1С:Предприятие 8"
+127.0.0.1 transmitter # веб-сервер для API и веб-клиента разрабатываемого сервиса
+127.0.0.1 endpoint # веб-сервер получателя внешних обработок (интеграционные тесты)
+127.0.0.1 mockserver # mock-сервер (модульное тестирование)
+127.0.0.1 gitlab # Omnibus GitLab (интеграционные тесты)
+# ...
+```
+
+???+ hint "Местоположение файла"
+
+    Файл hosts находится в разных местах в зависимости от операционной системы.
+
+    === "windows"
+
+        ``` cmd
+        C:\Windows\System32\drivers\etc\hosts
+        ```
+    === "linux"
+
+        ``` bash
+        /etc/hosts
+        ```
 
 #### Transmitter
 
 ##### Инициализация информационной базы
+
+С помощью следующих команд можно полностью развернуть всю среду для разработки. Это делается один раз, когда нужно инициализировать окружение "с чистого листа":
 
 ``` bash
 docker-compose up --build -d init
