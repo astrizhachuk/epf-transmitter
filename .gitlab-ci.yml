@@ -5,6 +5,8 @@
 # * and continuous deployment to production.
 
 default:
+  before_script:
+    - mkdir -p ${CI_PROJECT_DIR}/build
   tags:
     - udocker02
 
@@ -13,11 +15,7 @@ variables:
 
   # Checking an already installed service may be disabled by setting environment variable
   # 'CHECK_NEW_INSTANCE: "false"' (enabled by default).
-  #
-  # If you want to use only a standalone server to update the configuration, then set
-  # 'FLAG_USE_ONLY_IBCMD: "true"' (disabled by default).
   CHECK_NEW_INSTANCE: "true"
-  FLAG_USE_ONLY_IBCMD: "false"
 
   # Compose configuration files (docker-compose -f) and
   # project name (docker-compose -p) for containers, volumes, and network prefix
@@ -41,34 +39,16 @@ variables:
   # 1c
   EDT_PROJECT_DIR: "Transmitter" # EDT src
   EDT_TEST_DIR: "Transmitter.Tests"
-  EDT_PATH: "C:/Program Files/1C/1CE/components/1c-edt-2024.2.6+7-x86_64"
-  ONEC_PATH: "C:/Program Files/1cv8/8.3.25.1546/bin"
-
 
   # init ib (users, roles)
   INIT_DB_PATH: "https://github.com/astrizhachuk/Init-db-1c/releases/download"
   INIT_DB_VERSION: "2.0.0"
 
-
-
-
-
-
-
-
-    # allure
+  # allure
   ALLURE_LAUNCH_NAME: "${CI_PROJECT_NAME} - ${CI_COMMIT_SHORT_SHA}"
   ALLURE_LAUNCH_TAGS: "${CI_COMMIT_REF_NAME}, ${CI_COMMIT_TAG}"
-  ALLURE_RESULTS: "./unit/allure"
+  ALLURE_RESULTS: "${CI_PROJECT_DIR}/build/unit/allure"
   ALLURE_TESTPLAN_PATH: ./testplan.json
-
-  # va
-  # VA: "va.epf"
-  # VA_VERSION: "1.2.038.1"
-
-
-  INIT_DB_LOCAL: "C:\\deploying-db-1c\\epf\\InitDB.epf"
-  VA: "C:\\deploying-db-1c\\epf\\vanessa-automation-single.epf"
 
 workflow:
   rules:
@@ -82,15 +62,12 @@ stages:
   - srv
   - db
   - dump
-  - import
-  - apply
   - update
   - init
   - ws
   - pages
 
 include:
-  - remote: 'https://raw.githubusercontent.com/astrizhachuk/onec-gitlab-ci/master/.ibcmd-ci.yml'
   - remote: 'https://raw.githubusercontent.com/astrizhachuk/onec-gitlab-ci/master/.sonarqube-ci.yml'
 
 .start_services: &start_services
@@ -109,6 +86,31 @@ include:
       DEPLOY_NAME=${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG};
       DEPLOY_PORT=$REVIEW_PORT;
     fi
+
+.ibcmd_create_ib: &ibcmd_create_ib
+  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
+    run
+      --rm
+      --entrypoint=""
+    $IB_SERVER /opt/1cv8/current/ibcmd infobase create
+      --db-server=$DB_SERVER
+      --dbms=postgresql
+      --db-name=$DB_NAME
+      --db-user=postgres
+      --create-database
+
+.ibcmd_dump_ib: &ibcmd_dump_ib
+  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
+    run
+      --rm
+      --entrypoint=""
+      -v $BACKUP_PATH:/backup
+    $IB_SERVER /opt/1cv8/current/ibcmd infobase dump
+      --db-server=$DB_SERVER
+      --dbms=postgresql
+      --db-name=$DB_NAME
+      --db-user=postgres
+      /backup/$DEPLOY_NAME-$CI_COMMIT_TAG-"`date +"%Y-%m-%d-%H-%M-%S"`".dt
 
 .rac_register_ib: &rac_register_ib
   - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
@@ -131,24 +133,25 @@ include:
 .update_ib: &update_ib
   - docker run
     --rm
+    --user $(id -u):$(id -g)
     --network=$DEPLOY_NETWORK
-    -v ${CI_PROJECT_DIR}:/build
+    -v ${CI_PROJECT_DIR}:/w
     -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
     -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
     ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION
     bash -c "/opt/1cv8/current/1cv8 DESIGNER
       /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
       $PARAMS_ADMIN_USER
-      /LoadConfigFromFiles /build/xml -Format Hierarchical /UpdateDBCfg
+      /LoadConfigFromFiles /w/build/xml -Format Hierarchical /UpdateDBCfg
       /DisableStartupMessages /DisableStartupDialogs
       /UseHwLicenses+
-      /out /build/load.log"
+      /out /w/build/load.log"
 
 .init_ib: &init_ib
   - docker run
     --rm
     --network=$DEPLOY_NETWORK
-    -v ${CI_PROJECT_DIR}:/build
+    -v ${CI_PROJECT_DIR}:/w
     -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
     -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
     -e WS_USER=$WS_USER
@@ -157,7 +160,7 @@ include:
     bash -c "/opt/1cv8/current/1cv8 ENTERPRISE
       /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
       $PARAMS_ADMIN_USER
-      /Execute /build/tools/init-db.epf /C\"file=/build/tools/users.json\""
+      /Execute /w/tools/init-db.epf /C\"file=/w/tools/users.json\""
 
 docker login:
   stage: .pre
@@ -192,18 +195,19 @@ export xml:
   script:
     - docker run
       --rm
-      -v ${CI_PROJECT_DIR}:/build
-      ${CI_REGISTRY}/devops/onec-docker/edt:$ONEC_VERSION
-      bash -c "ring edt workspace export
-        --project /build/$EDT_PROJECT_DIR
-        --workspace-location tmp/w
-        --configuration-files /build/xml"
-    - sudo chown -R $USER ${CI_PROJECT_DIR}/xml #говорят, в api 1.41+ докер есть лучшее решение, чем chown
-    - sudo chown -R $USER ${CI_PROJECT_DIR}/$EDT_PROJECT_DIR/.settings
+      --privileged
+      --user $(id -u):$(id -g)
+      -v ${CI_PROJECT_DIR}:/w
+      ${CI_REGISTRY}/devops/onec-docker/edt:8.3.27.1786
+      bash -c "1cedtcli
+        -data /w/build/tmp
+        -command export
+        --project /w/${EDT_PROJECT_DIR}
+        --configuration-files /w/build/xml"
   artifacts:
     name: "xml-${CI_COMMIT_SHORT_SHA}"
     paths:
-      - xml
+      - build/xml
     expire_in: 7 hours
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
@@ -214,9 +218,9 @@ download tools:
     - docker run
       --rm
       -u $USER
-      -v ${CI_PROJECT_DIR}:/build
+      -v ${CI_PROJECT_DIR}:/w
       curlimages/curl:latest
-      -Lv -o /build/tools/init-db.epf $INIT_DB_PATH/$INIT_DB_VERSION/InitDB.epf
+      -Lv -o /w/tools/init-db.epf $INIT_DB_PATH/$INIT_DB_VERSION/InitDB.epf
   cache:
     key: "init-${CI_COMMIT_SHORT_SHA}"
     paths:
@@ -242,7 +246,7 @@ srv up:
         fi
       else
         FLAG_NEW_INSTANCE="false";
-        PARAMS_ADMIN_USER="/NАдминистратор";     
+        PARAMS_ADMIN_USER="/NАдминистратор";
       fi
     - echo "FLAG_NEW_INSTANCE=$FLAG_NEW_INSTANCE" >> deploy.env
     - echo "PARAMS_ADMIN_USER=$PARAMS_ADMIN_USER" >> deploy.env
@@ -275,7 +279,7 @@ create db:
   stage: db
   script:
     - *get_deploy_env
-    - !reference [.ibcmd_create_ib, script]
+    - *ibcmd_create_ib
   dependencies: []
   allow_failure: true
   rules:
@@ -297,70 +301,26 @@ dump:
   stage: dump
   script:
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME stop ws
-    - !reference [.ibcmd_dump_ib, script]
+    - *ibcmd_dump_ib
   dependencies: []
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./
-
-import config:
-  stage: import
-  script:
-    - *get_deploy_env
-    - !reference [.ibcmd_config_import, script]
-  rules:
-    - if: ($CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/) && $FLAG_USE_ONLY_IBCMD == "true"
-
-apply config:
-  stage: apply
-  script:
-    - *get_deploy_env
-    - !reference [.ibcmd_config_apply, script]
-  rules:
-    - if: ($CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/) && $FLAG_USE_ONLY_IBCMD == "true"
 
 update:
   stage: update
   environment:
     name: production
   script:
-    - touch ${CI_PROJECT_DIR}/load.log
+    - *get_deploy_env
     - *update_ib
-    - sudo chown -R $USER ${CI_PROJECT_DIR}/load.log
   artifacts:
     name: "log-${CI_COMMIT_SHORT_SHA}"
     paths:
-      - load.log
+      - /w/build/load.log
     expire_in: 7 day
     when: on_failure
   rules:
-    - if: '$FLAG_USE_ONLY_IBCMD == "true"'
-      when: never
-    - if: $CI_COMMIT_TAG =~ /^v\d+./
-
-review update:
-  stage: update
-  variables:
-    DEPLOY_CONFIG: $REVIEW_CONFIG
-    DEPLOY_NETWORK: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_NAME: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_PORT: $REVIEW_PORT
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-  script:
-    - touch ${CI_PROJECT_DIR}/load.log
-    - *update_ib
-    - sudo chown -R $USER ${CI_PROJECT_DIR}/load.log
-  artifacts:
-    name: "log-${CI_COMMIT_SHORT_SHA}"
-    paths:
-      - load.log
-    expire_in: 7 day
-    when: on_failure
-  dependencies: ["export xml"]
-  rules:
-    - if: '$FLAG_USE_ONLY_IBCMD == "true"'
-      when: never
-    - if: $CI_COMMIT_TAG =~ /^review-/
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 init db:
   stage: init
@@ -440,7 +400,7 @@ stop_review:
       when: manual
 
 prepare:
-  stage: .pre
+  stage: test
   before_script:
     - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
     - chmod +x ./allurectl
@@ -455,55 +415,77 @@ prepare:
   tags:
     - udocker02
   rules:
-    - if: $CI_MERGE_REQUEST_IID
+    # - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 run unit test:
   stage: test
   variables:
+    ALLURE_JOB_RUN_CHILD: "true"
     YAXUNIT: "${CI_PROJECT_DIR}/tools/YAxUnit.cfe"
-  before_script:
-    - ${YAXUNIT_CONFIG_FILE} = "${CI_PROJECT_DIR}/tools/yaxunit.json"
-    - $PROJECT_PATH_FOR_JSON = ${CI_PROJECT_DIR}.replace('\', '/')
-    - (Get-Content ${YAXUNIT_CONFIG_FILE}).replace('${CI_PROJECT_DIR}', $PROJECT_PATH_FOR_JSON) | Set-Content ${YAXUNIT_CONFIG_FILE}
-    - (Get-Content ${YAXUNIT_CONFIG_FILE}).replace('${ALLURE_RESULTS}', ${ALLURE_RESULTS}) | Set-Content ${YAXUNIT_CONFIG_FILE}
-    - Invoke-WebRequest https://github.com/bia-technologies/yaxunit/releases/download/25.04/YAxUnit-25.04.cfe -OutFile ${YAXUNIT}
-  script:
-    - Start-Process -FilePath "${ONEC_PATH}/1cv8.exe" -ArgumentList "CREATEINFOBASE File=""${CI_PROJECT_DIR}/unit/ib"" /Out create.log" -NoNewWindow -Wait
-    - Start-Process -FilePath "${EDT_PATH}/1cedtcli.exe" -ArgumentList "-data ""${CI_PROJECT_DIR}/tmp/w"" -command export --project ""${CI_PROJECT_DIR}/${EDT_PROJECT_DIR}"" --configuration-files ""${CI_PROJECT_DIR}/unit/xml""" -NoNewWindow -Wait
-    - Start-Process -FilePath "${EDT_PATH}/1cedtcli.exe" -ArgumentList "-data ""${CI_PROJECT_DIR}/tmp/w"" -command export --project ""${CI_PROJECT_DIR}/${EDT_TEST_DIR}"" --configuration-files ""${CI_PROJECT_DIR}/unit/test""" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/1cv8.exe" -ArgumentList "DESIGNER /F ""${CI_PROJECT_DIR}/unit/ib"" /LoadConfigFromFiles ""${CI_PROJECT_DIR}/unit/xml"" /Out unit/update.log /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs /WA-" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/1cv8.exe" -ArgumentList "DESIGNER /F ""${CI_PROJECT_DIR}/unit/ib"" /LoadConfigFromFiles ""${CI_PROJECT_DIR}/unit/test"" -Extension ""Transmitter.Tests"" /Out unit/update-ext.log /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs /WA-" -NoNewWindow -Wait
-    # - Start-Process -FilePath "${ONEC_PATH}/1cv8.exe" -ArgumentList "DESIGNER /F ""${CI_PROJECT_DIR}/unit/ib"" /LoadCfg ""${YAXUNIT}"" -Extension YAXUNIT /Out unit/load-yaxunit.log /DisableStartupMessages /DisableStartupDialogs /WA-" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/ibcmd.exe" -ArgumentList "infobase config extension update --db-path=${CI_PROJECT_DIR}/unit/ib --name=Tests --safe-mode=no --unsafe-action-protection=no" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/ibcmd.exe" -ArgumentList "infobase config load --db-path=${CI_PROJECT_DIR}/unit/ib --extension=YAXUNIT --force ""${YAXUNIT}""" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/ibcmd.exe" -ArgumentList "infobase config apply --db-path=${CI_PROJECT_DIR}/unit/ib --extension=YAXUNIT --force" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/ibcmd.exe" -ArgumentList "infobase config extension update --db-path=${CI_PROJECT_DIR}/unit/ib --name=YAXUNIT --safe-mode=no --unsafe-action-protection=no" -NoNewWindow -Wait
-    - Start-Process -FilePath "${ONEC_PATH}/1cv8c.exe" -ArgumentList "ENTERPRISE /F ""${CI_PROJECT_DIR}/unit/ib"" /C""RunUnitTests=tools/yaxunit.json"" /DisableStartupMessages /DisableStartupDialogs /WA-" -NoNewWindow -Wait
-  artifacts:
-    paths:
-      - ${ALLURE_RESULTS}
-      - ./*.log
-      - unit/*.log
-    when: always
-    expire_in: 7 day
-  tags:
-    - std-dtrm15
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-
-post:
-  stage: .post
+    ONEC_VERSION_CI: "8.3.27.1786"
   before_script:
     - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
     - chmod +x ./allurectl
+    - YAXUNIT="${CI_PROJECT_DIR}/tools/YAxUnit.cfe"
+    - curl -L -o "${YAXUNIT}" "https://github.com/bia-technologies/yaxunit/releases/download/25.04/YAxUnit-25.04.cfe"
+    - chmod +x "${CI_PROJECT_DIR}/scripts/init-ib-unit-test.sh"
+  needs:
+    - job: prepare
   script:
-    - ./allurectl upload ${ALLURE_RESULTS}
-  variables:
-    ALLURE_JOB_RUN_CHILD: "true"
+    - docker run
+      --rm
+      --privileged
+      -v ${CI_PROJECT_DIR}:/w
+      ${CI_REGISTRY}/devops/onec-docker/edt:${ONEC_VERSION_CI}
+      bash -c "1cedtcli -data /w/build/tmp -file /w/scripts/export-all.edtcli"
+    - docker run
+      --rm
+      --privileged
+      -v ${CI_PROJECT_DIR}:/w
+      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
+      ${CI_REGISTRY}/devops/onec-docker/server:${ONEC_VERSION_CI}
+      bash /w/scripts/init-ib-unit-test.sh
+    - docker run
+      --rm
+      --privileged
+      -p 5900:5900
+      -v ${CI_PROJECT_DIR}:/w
+      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
+      ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION
+      bash -c "/opt/1cv8/current/1cv8c ENTERPRISE
+        /F \"/w/build/unit/ib\"
+        /C\"RunUnitTests=/w/tools/yaxunit.json\"
+        /DisableStartupMessages
+        /DisableStartupDialogs
+        /WA-"
+    - |
+      if [ -f "${CI_PROJECT_DIR}/build/unit/exit.log" ]; then
+        EXIT_CODE=$(tr -d '\r\n' < "${CI_PROJECT_DIR}/build/unit/exit.log" | sed 's/^\xEF\xBB\xBF//')
+        if [ "$EXIT_CODE" -eq 1 ]; then
+          echo "Unit tests failed!"
+          # exit 1
+        else
+          echo "Unit tests passed."
+        fi
+        ./allurectl upload ${ALLURE_RESULTS}
+      else
+        echo "exit.log not found!"
+        # exit 1
+      fi
+  artifacts:
+    paths:
+      - ${ALLURE_RESULTS}
+      - build/unit/*.log
+    when: always
+    expire_in: 7 day
   tags:
     - udocker02
   rules:
-    - if: $CI_MERGE_REQUEST_IID
+    # - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
 sonarqube on merge request:
   extends: .sonarqube

@@ -1,0 +1,2 @@
+export --project /w/Transmitter --configuration-files /w/build/unit/xml
+export --project /w/Transmitter.Tests --configuration-files /w/build/unit/test

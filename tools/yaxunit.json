@@ -1,17 +1,18 @@
 {
-  "projectPath": "${CI_PROJECT_DIR}",
+  "projectPath": "/w",
   "closeAfterTests": true,
+  "exitCode": "/w/build/unit/exit.log",
   "filter": {
     "extensions": [
       "Tests"
     ]
   },
   "reportFormat": "allure",
-  "reportPath": "${ALLURE_RESULTS}",
+  "reportPath": "/w/build/unit/allure",
   "logging": {
-    "file": "./test-unit.log",
-    "console": false,
-    "enable": null,
+    "file": "/w/build/unit/progress.log",
+    "console": true,
+    "enable": true,
     "level": "debug"
   }
 }
