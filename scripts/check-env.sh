@@ -12,6 +12,8 @@ REQUIRED_VARS=(
     "DOCKER_USERNAME"
     "ONEC_VERSION" 
     "NETHASP_PATH"
+    "IB_NAME"
+    "DB_NAME"
     "WS_PASSWORD"
 )
 

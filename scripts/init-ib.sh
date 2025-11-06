@@ -30,6 +30,7 @@ echo "[SCRIPT] ID кластера: $CLUSTER_ID"
 
 # Проверяем, существует ли уже информационная база в кластере
 echo "[SCRIPT] Проверка существования информационной базы в кластере..."
+echo "[SCRIPT] Имя базы данных для поиска: $IB_NAME"
 RAC_LIST_OUTPUT=$(/opt/1cv8/current/rac infobase summary list --cluster="$CLUSTER_ID" ras 2>&1)
 if [ -n "$RAC_LIST_OUTPUT" ]; then
     echo "[SCRIPT] Вывод команды rac infobase summary list:"
@@ -38,7 +39,7 @@ else
     echo "[SCRIPT] Список информационных баз пуст"
 fi
 
-if [ -n "$RAC_LIST_OUTPUT" ] && echo "$RAC_LIST_OUTPUT" | grep -q "transmitter"; then
+if [ -n "$RAC_LIST_OUTPUT" ] && echo "$RAC_LIST_OUTPUT" | grep -q "$IB_NAME"; then
     echo "[SCRIPT] Информационная база уже зарегистрирована в кластере"
     echo "[SCRIPT] Пропускаем создание информационной базы"
 else
@@ -49,10 +50,10 @@ else
     RAC_CREATE_OUTPUT=$(/opt/1cv8/current/rac infobase \
         --cluster="$CLUSTER_ID" \
         create \
-        --name=transmitter \
+        --name="$IB_NAME" \
         --dbms=PostgreSQL \
         --db-server=db \
-        --db-name=transmitter \
+        --db-name="$DB_NAME" \
         --locale=ru \
         --db-user=postgres \
         --license-distribution=allow \
@@ -74,7 +75,7 @@ else
             if /opt/1cv8/current/ibcmd infobase restore \
                 --db-server=db \
                 --dbms=PostgreSQL \
-                --db-name=transmitter \
+                --db-name="$DB_NAME" \
                 --db-user=postgres \
                 /tmp/data.dt; then
                 echo "[SCRIPT] Данные восстановлены успешно"
@@ -91,7 +92,7 @@ else
         # Проверяем, может быть база уже зарегистрирована
         echo "[SCRIPT] Проверяем, может быть база уже зарегистрирована..."
         RAC_CHECK_OUTPUT=$(/opt/1cv8/current/rac infobase summary list --cluster="$CLUSTER_ID" ras 2>&1)
-        if echo "$RAC_CHECK_OUTPUT" | grep -q "transmitter"; then
+        if echo "$RAC_CHECK_OUTPUT" | grep -q "$DB_NAME"; then
             echo "[SCRIPT] Информационная база уже зарегистрирована в кластере"
         else
             echo "[SCRIPT] Критическая ошибка - база не зарегистрирована"
@@ -102,4 +103,4 @@ fi
 
 echo "[SCRIPT] Инициализация завершена успешно"
 echo "[SCRIPT] Информационная база готова к использованию"
-echo "[SCRIPT] Строка подключения: Srvr=srv;Ref=transmitter;"
+echo "[SCRIPT] Строка подключения: Srvr=srv;Ref=$IB_NAME;"

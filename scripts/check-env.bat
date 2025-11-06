@@ -5,7 +5,7 @@ REM Usage check-env.bat [--quiet]
 setlocal enabledelayedexpansion
 
 REM Required environment variables
-set "REQUIRED_VARS=DOCKER_USERNAME ONEC_VERSION NETHASP_PATH WS_PASSWORD"
+set "REQUIRED_VARS=DOCKER_USERNAME ONEC_VERSION NETHASP_PATH IB_NAME DB_NAME WS_PASSWORD"
 
 REM Optional variables removed
 

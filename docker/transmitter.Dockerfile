@@ -10,8 +10,6 @@ ARG WS_USER
 ARG WS_LOCALE
 ARG WS_PASSWORD
 
-COPY ./test/transmitter.dt /tmp/data.dt
-
 COPY ./web/transmitter /var/www
 
 RUN /opt/1cv8/current/webinst -apache24 -wsdir client -dir /var/www/client -descriptor /var/www/client-debug.vrd -connstr "Srvr=srv;Ref=transmitter;" \

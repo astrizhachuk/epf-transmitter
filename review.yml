@@ -21,6 +21,20 @@ services:
     networks:
       - backend
 
+  ras:
+    image: $CI_REGISTRY/devops/onec-docker/server:$ONEC_VERSION
+    depends_on:
+      - srv
+    environment:
+      - TZ=Europe/Moscow
+    entrypoint: /opt/1cv8/current/ras
+    command: "cluster srv:1540"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8
+      - srv_log:/var/log/1C
+    networks:
+      - backend
+
   ws:
     image: $CI_REGISTRY/devops/onec-docker/ws:$ONEC_VERSION
     depends_on:

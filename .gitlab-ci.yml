@@ -87,18 +87,6 @@ include:
       DEPLOY_PORT=$REVIEW_PORT;
     fi
 
-.ibcmd_create_ib: &ibcmd_create_ib
-  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
-    run
-      --rm
-      --entrypoint=""
-    $IB_SERVER /opt/1cv8/current/ibcmd infobase create
-      --db-server=$DB_SERVER
-      --dbms=postgresql
-      --db-name=$DB_NAME
-      --db-user=postgres
-      --create-database
-
 .ibcmd_dump_ib: &ibcmd_dump_ib
   - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
     run
@@ -111,24 +99,6 @@ include:
       --db-name=$DB_NAME
       --db-user=postgres
       /backup/$DEPLOY_NAME-$CI_COMMIT_TAG-"`date +"%Y-%m-%d-%H-%M-%S"`".dt
-
-.rac_register_ib: &rac_register_ib
-  - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
-    exec -T
-    $IB_SERVER bash -c "/opt/1cv8/current/ras cluster --daemon &&
-      sleep 10s &&
-      /opt/1cv8/current/rac cluster list $IB_SERVER &&
-      /opt/1cv8/current/rac infobase
-        --cluster=\$(/opt/1cv8/current/rac cluster list $IB_SERVER | grep cluster | awk '{print \$3}')
-      create
-        --name=$IB_NAME
-        --dbms=PostgreSQL
-        --db-server=$DB_SERVER
-        --db-name=$DB_NAME
-        --locale=ru
-        --db-user=postgres
-        --license-distribution=allow
-      $IB_SERVER"
 
 .update_ib: &update_ib
   - docker run
@@ -147,21 +117,6 @@ include:
       /UseHwLicenses+
       /out /w/build/load.log"
 
-.init_ib: &init_ib
-  - docker run
-    --rm
-    --network=$DEPLOY_NETWORK
-    -v ${CI_PROJECT_DIR}:/w
-    -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
-    -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
-    -e WS_USER=$WS_USER
-    -e WS_PASSWORD=$WS_PASSWORD
-    ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION
-    bash -c "/opt/1cv8/current/1cv8 ENTERPRISE
-      /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
-      $PARAMS_ADMIN_USER
-      /Execute /w/tools/init-db.epf /C\"file=/w/tools/users.json\""
-
 docker login:
   stage: .pre
   script:
@@ -169,7 +124,7 @@ docker login:
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
-build-mkdocs-image:
+build mkdocs image:
   stage: build
   tags:
     - docker
@@ -231,45 +186,16 @@ download tools:
 
 srv up:
   stage: srv
-  environment:
-    name: production
-    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/version
-    on_stop: stop_production
   script:
-    - if [[ $CHECK_NEW_INSTANCE == "true" ]]; then
-        if [[ ! -n $(docker volume ls -f name=$DEPLOY_NAME --format "{{.Name}}") ]]; then
-          FLAG_NEW_INSTANCE="true";
-          PARAMS_ADMIN_USER="";
-        else
-          FLAG_NEW_INSTANCE="false";
-          PARAMS_ADMIN_USER="/NАдминистратор";
-        fi
-      else
-        FLAG_NEW_INSTANCE="false";
-        PARAMS_ADMIN_USER="/NАдминистратор";
-      fi
-    - echo "FLAG_NEW_INSTANCE=$FLAG_NEW_INSTANCE" >> deploy.env
-    - echo "PARAMS_ADMIN_USER=$PARAMS_ADMIN_USER" >> deploy.env
     - *start_services
-  artifacts:
-    reports:
-      dotenv: deploy.env
   dependencies: []
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./
 
 review srv up:
   stage: srv
-  variables:
-    DEPLOY_CONFIG: $REVIEW_CONFIG
-    DEPLOY_NETWORK: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_NAME: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_PORT: $REVIEW_PORT
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/version
-    on_stop: stop_review
   script:
+    - *get_deploy_env
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME down -v
     - *start_services
   rules:
@@ -279,7 +205,15 @@ create db:
   stage: db
   script:
     - *get_deploy_env
-    - *ibcmd_create_ib
+    - chmod +x "${CI_PROJECT_DIR}/scripts/init-ib.sh"
+    - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME
+      run
+        --rm
+        --entrypoint=""
+        -e IB_NAME=$IB_NAME
+        -e DB_NAME=$DB_NAME
+        -v ${CI_PROJECT_DIR}:/w
+      $IB_SERVER bash /w/scripts/init-ib.sh
   dependencies: []
   allow_failure: true
   rules:
@@ -287,22 +221,13 @@ create db:
       when: delayed
       start_in: 5 seconds
 
-register ib:
-  stage: db
-  script:
-    - *get_deploy_env
-    - *rac_register_ib
-  needs: ["create db"]
-  allow_failure: true
-  rules:
-    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
-
 dump:
   stage: dump
   script:
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME stop ws
     - *ibcmd_dump_ib
   dependencies: []
+  allow_failure: true
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./
 
@@ -310,52 +235,129 @@ update:
   stage: update
   environment:
     name: production
+    url: $DEPLOY_SERVER:$DEPLOY_PORT/api/hs/version
+    on_stop: stop_production
+    auto_stop_in: never
+  script:
+    - |
+      echo "Попытка обновления информационной базы..."
+      docker run \
+        --rm \
+        --user $(id -u):$(id -g) \
+        --network=$DEPLOY_NETWORK \
+        -v ${CI_PROJECT_DIR}:/w \
+        -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini \
+        -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg \
+        ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION \
+        bash -c "/opt/1cv8/current/1cv8 DESIGNER \
+          /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\" \
+          /LoadConfigFromFiles /w/build/xml -Format Hierarchical /UpdateDBCfg \
+          /DisableStartupMessages /DisableStartupDialogs \
+          /UseHwLicenses+ \
+          /out /w/build/load.log" \
+      || ( \
+        echo "Первая попытка обновления не удалась. Повторяем с правами администратора..." && \
+        docker run \
+          --rm \
+          --user $(id -u):$(id -g) \
+          --network=$DEPLOY_NETWORK \
+          -v ${CI_PROJECT_DIR}:/w \
+          -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini \
+          -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg \
+          ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION \
+          bash -c "/opt/1cv8/current/1cv8 DESIGNER \
+            /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\" \
+            /NАдминистратор \
+            /LoadConfigFromFiles /w/build/xml -Format Hierarchical /UpdateDBCfg \
+            /DisableStartupMessages /DisableStartupDialogs \
+            /UseHwLicenses+ \
+            /out /w/build/load-retry.log" \
+      )
+  artifacts:
+    name: "log-${CI_COMMIT_SHORT_SHA}"
+    paths:
+      - build/*.log
+    expire_in: 7 day
+    when: always
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+./
+
+review update:
+  stage: update
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: $DEPLOY_SERVER:$REVIEW_PORT/api/hs/version
+    on_stop: stop_review
+    auto_stop_in: 1 week
   script:
     - *get_deploy_env
     - *update_ib
   artifacts:
     name: "log-${CI_COMMIT_SHORT_SHA}"
     paths:
-      - /w/build/load.log
+      - build/load.log
     expire_in: 7 day
     when: on_failure
   rules:
-    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+    - if: $CI_COMMIT_TAG =~ /^review-/
 
 init db:
   stage: init
-  environment:
-    name: production
   script:
-    - if [[ $FLAG_NEW_INSTANCE == "false" ]]; then
-        exit 0;
+    - |
+      if [ -f "${CI_PROJECT_DIR}/build/load-retry.log" ]; then
+        echo "load-retry.log found, skipping database initialization as it was already initialized with admin user."
+      else
+        docker run \
+          --rm \
+          --network=$DEPLOY_NETWORK \
+          --user $(id -u):$(id -g) \
+          -v ${CI_PROJECT_DIR}:/w \
+          -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini \
+          -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg \
+          -e WS_USER=$WS_USER \
+          -e WS_PASSWORD=$WS_PASSWORD \
+          ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION \
+          bash -c "/opt/1cv8/current/1cv8 ENTERPRISE \
+            /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\" \
+            $PARAMS_ADMIN_USER \
+            /Execute /w/tools/init-db.epf /C\"file=/w/tools/users.json\""
       fi
-    - *init_ib
   cache:
     key: "init-${CI_COMMIT_SHORT_SHA}"
     paths:
       - tools/init-db.epf
     policy: pull
+  needs:
+    - job: update
+      artifacts: true
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./
 
 review init db:
   stage: init
-  variables:
-    DEPLOY_CONFIG: $REVIEW_CONFIG
-    DEPLOY_NETWORK: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_NAME: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_PORT: $REVIEW_PORT
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
   script:
-    - *init_ib
+    - *get_deploy_env
+    - docker run
+      --rm
+      --network=$DEPLOY_NETWORK
+      --user $(id -u):$(id -g)
+      -v ${CI_PROJECT_DIR}:/w
+      -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
+      -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
+      -e WS_USER=$WS_USER
+      -e WS_PASSWORD=$WS_PASSWORD
+      ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION
+      bash -c "/opt/1cv8/current/1cv8 ENTERPRISE
+        /IBConnectionString \"Srvr=$IB_SERVER;Ref=$IB_NAME;\"
+        $PARAMS_ADMIN_USER
+        /Execute /w/tools/init-db.epf /C\"file=/w/tools/users.json\""
+  dependencies: []
   cache:
     key: "init-${CI_COMMIT_SHORT_SHA}"
     paths:
       - tools/init-db.epf
     policy: pull
-  dependencies: []
   rules:
     - if: $CI_COMMIT_TAG =~ /^review-/
 
@@ -364,6 +366,7 @@ ws:
   script:
     - *get_deploy_env
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME restart ws
+  dependencies: []
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
 
@@ -376,7 +379,7 @@ stop_production:
   environment:
     name: production
     action: stop
-  needs: ["srv up"]
+  needs: ["update"]
   rules:
     - if: $CI_COMMIT_TAG =~ /^v\d+./
       when: manual
@@ -385,16 +388,13 @@ stop_review:
   stage: .post
   variables:
     GIT_STRATEGY: none
-    DEPLOY_CONFIG: $REVIEW_CONFIG
-    DEPLOY_NETWORK: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_NAME: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
-    DEPLOY_PORT: $REVIEW_PORT
   script:
+    - *get_deploy_env
     - docker-compose -f $DEPLOY_CONFIG -p $DEPLOY_NAME down -v
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     action: stop
-  needs: ["review srv up"]
+  needs: ["review update"]
   rules:
     - if: $CI_COMMIT_TAG =~ /^review-/
       when: manual
@@ -412,11 +412,11 @@ prepare:
       - .allure
     expire_in: 1 day
   allow_failure: true
+  dependencies: []
   tags:
     - udocker02
   rules:
-    # - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+    - if: $CI_MERGE_REQUEST_IID
 
 run unit test:
   stage: test
@@ -466,14 +466,14 @@ run unit test:
         EXIT_CODE=$(tr -d '\r\n' < "${CI_PROJECT_DIR}/build/unit/exit.log" | sed 's/^\xEF\xBB\xBF//')
         if [ "$EXIT_CODE" -eq 1 ]; then
           echo "Unit tests failed!"
-          # exit 1
+          exit 1
         else
           echo "Unit tests passed."
         fi
         ./allurectl upload ${ALLURE_RESULTS}
       else
         echo "exit.log not found!"
-        # exit 1
+        exit 1
       fi
   artifacts:
     paths:
@@ -481,11 +481,11 @@ run unit test:
       - build/unit/*.log
     when: always
     expire_in: 7 day
+  allow_failure: true
   tags:
     - udocker02
   rules:
-    # - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_TAG =~ /^v\d+./ || $CI_COMMIT_TAG =~ /^review-/
+    - if: $CI_MERGE_REQUEST_IID
 
 sonarqube on merge request:
   extends: .sonarqube
