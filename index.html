@@ -1,0 +1,830 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://astrizhachuk.github.io/epf-transmitter/">
+      
+      
+      
+        <link rel="next" href="workflow/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>epf-transmitter</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="." title="epf-transmitter" class="md-header__button md-logo" aria-label="epf-transmitter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            epf-transmitter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Описание
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/astrizhachuk/epf-transmitter" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    astrizhachuk/epf-transmitter
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Описание
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="workflow/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Управление доставкой файлов
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="manual/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Руководство пользователя
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="deploy/" class="md-tabs__link">
+          
+  
+  
+  Разработка
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="epf-transmitter" class="md-nav__button md-logo" aria-label="epf-transmitter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    epf-transmitter
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/astrizhachuk/epf-transmitter" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    astrizhachuk/epf-transmitter
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Описание
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Описание
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Суть проблемы
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Цели
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Связь с целями и стратегией
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Решение
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Решение">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bpmn" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPMN: процесс разработки внешней обработки
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Интеграция с внешними хранилищами кода
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Интеграция с внешними хранилищами кода">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gitlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitLab
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitLab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Рекомендуемый вариант workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Управление доставкой файлов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Руководство пользователя
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Разработка
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Разработка
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Разворачивание
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Участие в разработке
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">Описание<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><a href="https://github.com/astrizhachuk/epf-transmitter/releases/latest"><img alt="Download" src="https://img.shields.io/github/release/astrizhachuk/epf-transmitter.svg?label=download&amp;style=flat" /></a>
+<a href="https://sonar.openbsl.ru/dashboard?id=epf-transmitter"><img alt="Quality Gate Status" src="https://sonar.openbsl.ru/api/project_badges/measure?project=epf-transmitter&amp;metric=alert_status" /></a>
+<a href="https://sonar.openbsl.ru/dashboard?id=epf-transmitter"><img alt="Maintainability Rating" src="https://sonar.openbsl.ru/api/project_badges/measure?project=epf-transmitter&amp;metric=sqale_rating" /></a></p>
+<h2 id="_2">Суть проблемы<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Редактирование неактуальных версий внешних отчетов и обработок.</li>
+<li>Ручной процесс применения изменений сразу для нескольких информационных баз.</li>
+<li>Отсутствие контроля за процессом изменения внешних отчетов и обработок.</li>
+</ul>
+<h2 id="_3">Цели<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Хранение внешних обработок в одном месте для различных информационных баз.</li>
+<li>Использование системы контроля версий.</li>
+<li>Автоматизированная доставка изменений до информационных баз.</li>
+</ul>
+<h2 id="_4">Связь с целями и стратегией<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Однотипность процесса разработки, уменьшение затрат на разработку, разработка в любой среде, контроль качества кода.</p>
+<h2 id="_5">Решение<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Хранить внешние обработки в системах управления репозиториями программного кода для распределенной системы контроля версий Git.</p>
+<ul>
+<li>GitLab Enterprise Edition не ниже 11.4.0-ee.</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p>Разработать веб-сервисы и клиент для интеграции с внешними хранилищами кода.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">local</label><label for="__tabbed_1_2">swagger</label><label for="__tabbed_1_3">postman</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="https://github.com/astrizhachuk/epf-transmitter/tree/master/api/transmitter-openapi.yml">https://github.com/astrizhachuk/epf-transmitter/tree/master/api/transmitter-openapi.yml</a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-transmitter">https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-transmitter</a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://documenter.getpostman.com/view/3977639/UVJbHcxQ">https://documenter.getpostman.com/view/3977639/UVJbHcxQ</a></p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Реализовать в информационных базах получателях API обновления внешний отчетов и обработок. <a href="https://github.com/astrizhachuk/epf-endpoint">Пример</a> подобной реализации.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">local</label><label for="__tabbed_2_2">swagger</label><label for="__tabbed_2_3">postman</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="https://github.com/astrizhachuk/epf-transmitter/tree/master/api/endpoint-openapi.yml">https://github.com/astrizhachuk/epf-transmitter/tree/master/api/endpoint-openapi.yml</a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-endpoint">https://app.swaggerhub.com/apis-docs/astrizhachuk/epf-endpoint</a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://documenter.getpostman.com/view/3977639/UVCCe3qs">https://documenter.getpostman.com/view/3977639/UVCCe3qs</a></p>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h3 id="bpmn">BPMN: процесс разработки внешней обработки<a class="headerlink" href="#bpmn" title="Permanent link">&para;</a></h3>
+<p><img alt="Клонирование репозитория" src="images/bpmn-1.png" />
+<img alt="Изменение внешней обработки" src="images/bpmn-2.png" /></p>
+<h3 id="_6">Интеграция с внешними хранилищами кода<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="gitlab">GitLab<a class="headerlink" href="#gitlab" title="Permanent link">&para;</a></h4>
+<p>Информация об изменении кода во внешнем хранилище поступает через систему оповещения о событиях (webhooks). Диаграмма последовательности иллюстрирует этот процесс.</p>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="445px" preserveAspectRatio="xMidYMid meet" style="width:569px;height:445px;background:#FFFFFF;" version="1.1" viewBox="0 0 569 445" width="569px" zoomAndPan="magnify" class="diagram"><defs/><g><g><title>GitLab</title><rect fill="#F1F1F1" height="29.1328" style="stroke:#181818;stroke-width:1;" width="10" x="29.7466" y="209.125"/></g><g><title>1C.Transmitter</title><rect fill="#F1F1F1" height="70.4297" style="stroke:#181818;stroke-width:1;" width="10" x="129.1572" y="67.4297"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#F1F1F1" height="210.6641" style="stroke:#181818;stroke-width:1;" width="10" x="330.7598" y="174.9922"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#F1F1F1" height="83.2656" style="stroke:#181818;stroke-width:1;" width="10" x="335.7598" y="275.3906"/></g><g><title>GitLab</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="30.7466" y="36.2969"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="34" x2="34" y1="36.2969" y2="410.6563"/></g><g><title>1C.Transmitter</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="130.1572" y="36.2969"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="133.4932" x2="133.4932" y1="36.2969" y2="410.6563"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#000000" fill-opacity="0.00000" height="304.5781" width="8" x="331.7598" y="106.0781"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="335.3853" x2="335.3853" y1="106.0781" y2="410.6563"/></g><g><title>1C.Endpoint</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="509.9888" y="36.2969"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="513.1343" x2="513.1343" y1="36.2969" y2="410.6563"/></g><g class="participant participant-head" data-participant="GitLab"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="59.4932" x="5" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.4932" x="12" y="24.9951">GitLab</text></g><g class="participant participant-tail" data-participant="GitLab"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="59.4932" x="5" y="409.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.4932" x="12" y="429.6514">GitLab</text></g><g class="participant participant-head" data-participant="1C.Transmitter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="119.3281" x="74.4932" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.3281" x="81.4932" y="24.9951">1C:Transmitter</text></g><g class="participant participant-tail" data-participant="1C.Transmitter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="119.3281" x="74.4932" y="409.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.3281" x="81.4932" y="429.6514">1C:Transmitter</text></g><g class="participant participant-tail" data-participant="1C.Transmitter.BackgroundJobs"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="236.749" x="217.3853" y="409.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222.749" x="224.3853" y="429.6514">1C:Transmitter:BackgroundJobs</text></g><g class="participant participant-head" data-participant="1C.Endpoint"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="99.709" x="464.1343" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.709" x="471.1343" y="24.9951">1C:Endpoint</text></g><g class="participant participant-tail" data-participant="1C.Endpoint"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="99.709" x="464.1343" y="409.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.709" x="471.1343" y="429.6514">1C:Endpoint</text></g><g><title>GitLab</title><rect fill="#F1F1F1" height="29.1328" style="stroke:#181818;stroke-width:1;" width="10" x="29.7466" y="209.125"/></g><g><title>1C.Transmitter</title><rect fill="#F1F1F1" height="70.4297" style="stroke:#181818;stroke-width:1;" width="10" x="129.1572" y="67.4297"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#F1F1F1" height="210.6641" style="stroke:#181818;stroke-width:1;" width="10" x="330.7598" y="174.9922"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#F1F1F1" height="83.2656" style="stroke:#181818;stroke-width:1;" width="10" x="335.7598" y="275.3906"/></g><g class="message" data-participant-1="GitLab" data-participant-2="1C.Transmitter"><polygon fill="#181818" points="117.1572,63.4297,127.1572,67.4297,117.1572,71.4297,121.1572,67.4297" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="34.7466" x2="123.1572" y1="67.4297" y2="67.4297"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58.5571" x="41.7466" y="62.3638">webhook</text></g><g class="message" data-participant-1="1C.Transmitter" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#181818" points="205.3853,92.5625,215.3853,96.5625,205.3853,100.5625,209.3853,96.5625" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="139.1572" x2="211.3853" y1="96.5625" y2="96.5625"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54.228" x="146.1572" y="91.4966">start job</text></g><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="236.749" x="217.3853" y="75.4297"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222.749" x="224.3853" y="95.4248">1C:Transmitter:BackgroundJobs</text><g class="message" data-participant-1="1C.Transmitter" data-participant-2="GitLab"><polygon fill="#181818" points="45.7466,133.8594,35.7466,137.8594,45.7466,141.8594,41.7466,137.8594" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="39.7466" x2="133.1572" y1="137.8594" y2="137.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="24.813" x="51.7466" y="132.7935">200</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#181818;stroke-width:1;" x1="335.7598" x2="382.7598" y1="161.9922" y2="161.9922"/><line style="stroke:#181818;stroke-width:1;" x1="382.7598" x2="382.7598" y1="161.9922" y2="174.9922"/><line style="stroke:#181818;stroke-width:1;" x1="341.7598" x2="382.7598" y1="174.9922" y2="174.9922"/><polygon fill="#181818" points="351.7598,170.9922,341.7598,174.9922,351.7598,178.9922,347.7598,174.9922" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="51.1558" x="347.7598" y="156.9263">prepare</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="GitLab"><polygon fill="#181818" points="50.7466,205.125,40.7466,209.125,50.7466,213.125,46.7466,209.125" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="44.7466" x2="329.7598" y1="209.125" y2="209.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80.4058" x="56.7466" y="204.0591">request files</text></g><g class="message" data-participant-1="GitLab" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#181818" points="318.7598,234.2578,328.7598,238.2578,318.7598,242.2578,322.7598,238.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="34.7466" x2="324.7598" y1="238.2578" y2="238.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="24.813" x="41.7466" y="233.1919">200</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#181818;stroke-width:1;" x1="340.7598" x2="387.7598" y1="262.3906" y2="262.3906"/><line style="stroke:#181818;stroke-width:1;" x1="387.7598" x2="387.7598" y1="262.3906" y2="275.3906"/><line style="stroke:#181818;stroke-width:1;" x1="346.7598" x2="387.7598" y1="275.3906" y2="275.3906"/><polygon fill="#181818" points="356.7598,271.3906,346.7598,275.3906,356.7598,279.3906,352.7598,275.3906" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.1929" x="352.7598" y="257.3247">send file</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Endpoint"><polygon fill="#181818" points="501.9888,305.5234,511.9888,309.5234,501.9888,313.5234,505.9888,309.5234" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="345.7598" x2="507.9888" y1="309.5234" y2="309.5234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="19.7983" x="352.7598" y="304.4575">file</text></g><g class="message" data-participant-1="1C.Endpoint" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#181818" points="356.7598,334.6563,346.7598,338.6563,356.7598,342.6563,352.7598,338.6563" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="350.7598" x2="512.9888" y1="338.6563" y2="338.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39.9458" x="362.7598" y="333.5903">status</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="345.7598" x2="387.7598" y1="357.6563" y2="357.6563"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="387.7598" x2="387.7598" y1="357.6563" y2="370.6563"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="340.7598" x2="387.7598" y1="370.6563" y2="370.6563"/><polygon fill="#181818" points="350.7598,366.6563,340.7598,370.6563,350.7598,374.6563,346.7598,370.6563" style="stroke:#181818;stroke-width:1;"/></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="340.7598" x2="382.7598" y1="384.6563" y2="384.6563"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="382.7598" x2="382.7598" y1="384.6563" y2="397.6563"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="335.7598" x2="382.7598" y1="397.6563" y2="397.6563"/><polygon fill="#181818" points="345.7598,393.6563,335.7598,397.6563,345.7598,401.6563,341.7598,397.6563" style="stroke:#181818;stroke-width:1;"/></g></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="445px" preserveAspectRatio="xMidYMid meet" style="width:569px;height:445px;background:#1B1B1B;" version="1.1" viewBox="0 0 569 445" width="569px" zoomAndPan="magnify" class="diagram"><defs/><g><rect fill="#1B1B1B" height="445" style="stroke:none;stroke-width:1;" width="569" x="0" y="0"/><g><title>GitLab</title><rect fill="#313139" height="29.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="29.7466" y="209.125"/></g><g><title>1C.Transmitter</title><rect fill="#313139" height="70.4297" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="129.1572" y="67.4297"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#313139" height="210.6641" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="330.7598" y="174.9922"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#313139" height="83.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="335.7598" y="275.3906"/></g><g><title>GitLab</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="30.7466" y="36.2969"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="34" x2="34" y1="36.2969" y2="410.6563"/></g><g><title>1C.Transmitter</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="130.1572" y="36.2969"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="133.4932" x2="133.4932" y1="36.2969" y2="410.6563"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#000000" fill-opacity="0.00000" height="304.5781" width="8" x="331.7598" y="106.0781"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="335.3853" x2="335.3853" y1="106.0781" y2="410.6563"/></g><g><title>1C.Endpoint</title><rect fill="#000000" fill-opacity="0.00000" height="374.3594" width="8" x="509.9888" y="36.2969"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="513.1343" x2="513.1343" y1="36.2969" y2="410.6563"/></g><g class="participant participant-head" data-participant="GitLab"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="59.4932" x="5" y="5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.4932" x="12" y="24.9951">GitLab</text></g><g class="participant participant-tail" data-participant="GitLab"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="59.4932" x="5" y="409.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.4932" x="12" y="429.6514">GitLab</text></g><g class="participant participant-head" data-participant="1C.Transmitter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="119.3281" x="74.4932" y="5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.3281" x="81.4932" y="24.9951">1C:Transmitter</text></g><g class="participant participant-tail" data-participant="1C.Transmitter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="119.3281" x="74.4932" y="409.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.3281" x="81.4932" y="429.6514">1C:Transmitter</text></g><g class="participant participant-tail" data-participant="1C.Transmitter.BackgroundJobs"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="236.749" x="217.3853" y="409.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222.749" x="224.3853" y="429.6514">1C:Transmitter:BackgroundJobs</text></g><g class="participant participant-head" data-participant="1C.Endpoint"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="99.709" x="464.1343" y="5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.709" x="471.1343" y="24.9951">1C:Endpoint</text></g><g class="participant participant-tail" data-participant="1C.Endpoint"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="99.709" x="464.1343" y="409.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.709" x="471.1343" y="429.6514">1C:Endpoint</text></g><g><title>GitLab</title><rect fill="#313139" height="29.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="29.7466" y="209.125"/></g><g><title>1C.Transmitter</title><rect fill="#313139" height="70.4297" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="129.1572" y="67.4297"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#313139" height="210.6641" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="330.7598" y="174.9922"/></g><g><title>1C.Transmitter.BackgroundJobs</title><rect fill="#313139" height="83.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="335.7598" y="275.3906"/></g><g class="message" data-participant-1="GitLab" data-participant-2="1C.Transmitter"><polygon fill="#E7E7E7" points="117.1572,63.4297,127.1572,67.4297,117.1572,71.4297,121.1572,67.4297" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="34.7466" x2="123.1572" y1="67.4297" y2="67.4297"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58.5571" x="41.7466" y="62.3638">webhook</text></g><g class="message" data-participant-1="1C.Transmitter" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#E7E7E7" points="205.3853,92.5625,215.3853,96.5625,205.3853,100.5625,209.3853,96.5625" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="139.1572" x2="211.3853" y1="96.5625" y2="96.5625"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54.228" x="146.1572" y="91.4966">start job</text></g><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="236.749" x="217.3853" y="75.4297"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222.749" x="224.3853" y="95.4248">1C:Transmitter:BackgroundJobs</text><g class="message" data-participant-1="1C.Transmitter" data-participant-2="GitLab"><polygon fill="#E7E7E7" points="45.7466,133.8594,35.7466,137.8594,45.7466,141.8594,41.7466,137.8594" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="39.7466" x2="133.1572" y1="137.8594" y2="137.8594"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="24.813" x="51.7466" y="132.7935">200</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#E7E7E7;stroke-width:1;" x1="335.7598" x2="382.7598" y1="161.9922" y2="161.9922"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="382.7598" x2="382.7598" y1="161.9922" y2="174.9922"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="341.7598" x2="382.7598" y1="174.9922" y2="174.9922"/><polygon fill="#E7E7E7" points="351.7598,170.9922,341.7598,174.9922,351.7598,178.9922,347.7598,174.9922" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="51.1558" x="347.7598" y="156.9263">prepare</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="GitLab"><polygon fill="#E7E7E7" points="50.7466,205.125,40.7466,209.125,50.7466,213.125,46.7466,209.125" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="44.7466" x2="329.7598" y1="209.125" y2="209.125"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80.4058" x="56.7466" y="204.0591">request files</text></g><g class="message" data-participant-1="GitLab" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#E7E7E7" points="318.7598,234.2578,328.7598,238.2578,318.7598,242.2578,322.7598,238.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="34.7466" x2="324.7598" y1="238.2578" y2="238.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="24.813" x="41.7466" y="233.1919">200</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#E7E7E7;stroke-width:1;" x1="340.7598" x2="387.7598" y1="262.3906" y2="262.3906"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="387.7598" x2="387.7598" y1="262.3906" y2="275.3906"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="346.7598" x2="387.7598" y1="275.3906" y2="275.3906"/><polygon fill="#E7E7E7" points="356.7598,271.3906,346.7598,275.3906,356.7598,279.3906,352.7598,275.3906" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.1929" x="352.7598" y="257.3247">send file</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Endpoint"><polygon fill="#E7E7E7" points="501.9888,305.5234,511.9888,309.5234,501.9888,313.5234,505.9888,309.5234" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="345.7598" x2="507.9888" y1="309.5234" y2="309.5234"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="19.7983" x="352.7598" y="304.4575">file</text></g><g class="message" data-participant-1="1C.Endpoint" data-participant-2="1C.Transmitter.BackgroundJobs"><polygon fill="#E7E7E7" points="356.7598,334.6563,346.7598,338.6563,356.7598,342.6563,352.7598,338.6563" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="350.7598" x2="512.9888" y1="338.6563" y2="338.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39.9458" x="362.7598" y="333.5903">status</text></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="345.7598" x2="387.7598" y1="357.6563" y2="357.6563"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="387.7598" x2="387.7598" y1="357.6563" y2="370.6563"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="340.7598" x2="387.7598" y1="370.6563" y2="370.6563"/><polygon fill="#E7E7E7" points="350.7598,366.6563,340.7598,370.6563,350.7598,374.6563,346.7598,370.6563" style="stroke:#E7E7E7;stroke-width:1;"/></g><g class="message" data-participant-1="1C.Transmitter.BackgroundJobs" data-participant-2="1C.Transmitter.BackgroundJobs"><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="340.7598" x2="382.7598" y1="384.6563" y2="384.6563"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="382.7598" x2="382.7598" y1="384.6563" y2="397.6563"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="335.7598" x2="382.7598" y1="397.6563" y2="397.6563"/><polygon fill="#E7E7E7" points="345.7598,393.6563,335.7598,397.6563,345.7598,401.6563,341.7598,397.6563" style="stroke:#E7E7E7;stroke-width:1;"/></g></g></svg></div></div>
+
+<ol>
+<li>Для контролируемой ветки в удаленном репозитории на сервере GitLab выполняется некоторое событие.</li>
+<li>На сервере GitLab срабатывает webhook в виде запроса по методу POST к HTTP-сервису 1С <code>epf-transmitter</code>.</li>
+<li>Веб-сервис <code>epf-transmitter</code> проводит аутентификацию и проверяет данные запроса, переданный в формате <code>json (application/json)</code>. Если аутентификация пройдена и данные корректны, то возвращается HTTP-ответ с кодом 200. В противном случае - код ошибки.</li>
+<li>Веб-сервис <code>epf-transmitter</code> в фоновом задании обрабатывает тело запроса, подготавливая данные для каждого <code>commit</code> из запроса:<ul>
+<li>с сервера GitLab для каждого <code>commit</code> забирается своя версия файла настроек маршрутизации данных по базам-получателям (по умолчанию, файл<code>.ext-epf.json</code> в корне репозитория);</li>
+<li>с сервера GitLab для каждого <code>commit</code> забирается своя версия бинарного файла с расширением <code>*.epf, *.erf</code>;</li>
+<li>данные сохраняются в <code>epf-transmitter</code> для возможности анализа и повторной отправки данных;</li>
+<li>подготавливаются данные согласно маршрутам доставки;</li>
+<li>каждый файл в своем фоновом задании отправляется в информационную базу-приемник с сохранением данных о результатах доставки;</li>
+</ul>
+</li>
+</ol>
+<h5 id="workflow">Рекомендуемый вариант workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h5>
+<p>Рекомендуемый подход к работе с <code>epf-transmitter</code> заключается в использовании выделенных веток для контролируемой доставки изменений.</p>
+<ul>
+<li><strong>Основная разработка</strong> ведется в ветке <code>master</code> (или <code>develop</code>).</li>
+<li><strong>Подготовка релиза</strong> выполняется релиз-менеджером. Он отбирает готовые к доставке коммиты из <code>master</code>, при необходимости корректирует файл маршрутизации <code>.ext-epf.json</code> и формирует единый, самодостаточный релизный коммит.</li>
+<li><strong>Доставка изменений</strong> инициируется через принудительный push (<code>force push</code>) этого релизного коммита в специализированные ветки, например, <code>deploy-test-srs-XXX</code>, <code>deploy-test</code> и <code>deploy-prod</code>.</li>
+</ul>
+<p>Такой подход обеспечивает полный контроль над процессом доставки, сохраняя при этом историю релизов в <code>deploy-*</code> ветках чистой и понятной: <strong>один коммит = один деплой</strong>.</p>
+<p>См. <a href="workflow/">управление доставкой файлов</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/astrizhachuk/epf-transmitter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.tabs", "navigation.top", "search.highlight", "toc.integrate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1015 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://astrizhachuk.github.io/epf-transmitter/manual/">
+      
+      
+        <link rel="prev" href="../workflow/">
+      
+      
+        <link rel="next" href="../deploy/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Руководство пользователя - epf-transmitter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href=".." title="epf-transmitter" class="md-header__button md-logo" aria-label="epf-transmitter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            epf-transmitter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Руководство пользователя
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/astrizhachuk/epf-transmitter" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    astrizhachuk/epf-transmitter
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Описание
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../workflow/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Управление доставкой файлов
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Руководство пользователя
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../deploy/" class="md-tabs__link">
+          
+  
+  
+  Разработка
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="epf-transmitter" class="md-nav__button md-logo" aria-label="epf-transmitter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    epf-transmitter
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/astrizhachuk/epf-transmitter" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    astrizhachuk/epf-transmitter
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Описание
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Управление доставкой файлов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Руководство пользователя
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Руководство пользователя
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Как начать работать
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-gitlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Настройка веб-хуков в GitLab
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Настройки интеграции с GitLab
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Настройки интеграции с GitLab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gitlab_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Настройки GitLab
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Информационные базы-получатели
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обработчики внешних запросов
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Обработчики внешних запросов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Реквизиты обработчика
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Основной функционал
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Правила маршрутизации
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Правила маршрутизации">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ws-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Секция ws (веб-сервисы)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Секция epf (правила для файлов)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Логика построения маршрута
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Логика построения маршрута">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Определение файлов для отправки
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Построение маршрута для каждого файла
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Пример работы алгоритма
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Пример работы алгоритма">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Состояние репозитория
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Анализ и результат
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Разработка
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Разработка
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Разворачивание
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Участие в разработке
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">Руководство пользователя<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">Как начать работать<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Настройте веб-хуки в репозиториях GitLab, которые будут отправлять запросы. Подробнее см. <a href="#настройка-веб-хуков-в-gitlab">ниже</a>.</li>
+<li>Откройте настройки интеграции, укажите глобальные параметры работы сервиса и включите обработку запросов.</li>
+<li>Создайте и настройте <a href="#обработчики-внешних-запросов">обработчики внешних запросов</a> для нужных проектов/репозиториев, указав для каждого токен из веб-хука.</li>
+</ol>
+<h2 id="-gitlab">Настройка веб-хуков в GitLab <a name="настройка-веб-хуков-в-gitlab"></a><a class="headerlink" href="#-gitlab" title="Permanent link">&para;</a></h2>
+<p>Для каждого репозитория, события из которого должен обрабатывать сервис-распределитель, необходимо настроить веб-хук (<em>Settings → Webhooks</em>). При настройке укажите следующие параметры:</p>
+<ul>
+<li><strong>URL</strong> — адрес HTTP-сервиса 1С (endpoint), который принимает запросы. Например: <code>http://&lt;адрес_сервера&gt;/transmitter/hs/gitlab/event/</code>.</li>
+<li><strong>Secret Token</strong> — секретный ключ, который будет использоваться для аутентификации запросов на стороне 1С. Это значение необходимо указать в качестве <strong>токена</strong> в справочнике «Обработчики внешних запросов» в 1С.</li>
+<li><strong>Trigger</strong> — событие, которое будет вызывать веб-хук. Для работы сервиса необходимо выбрать <strong>Push events</strong>.</li>
+</ul>
+<p>После настройки GitLab будет отправлять POST-запросы на указанный URL при каждом push-событии в репозитории.</p>
+<h2 id="gitlab">Настройки интеграции с GitLab<a class="headerlink" href="#gitlab" title="Permanent link">&para;</a></h2>
+<p>Используется для задания глобальных параметров работы сервиса-распределителя (transmitter), обеспечивающего интеграцию с GitLab и информационными базами-получателями.</p>
+<h3 id="gitlab_1">Настройки GitLab<a class="headerlink" href="#gitlab_1" title="Permanent link">&para;</a></h3>
+<p>Параметры для подключения к серверу GitLab и получения данных:</p>
+<ul>
+<li><strong>Обрабатывать запрос GitLab</strong> — включает или отключает обработку входящих webhook-событий. Если флажок снят, сервис не реагирует на push-события в репозиториях.</li>
+<li><strong>Имя файла со схемой маршрутов</strong> — имя JSON-файла (по умолчанию <code>.ext-epf.json</code>), расположенного в корне репозитория. Файл содержит правила маршрутизации.</li>
+<li><strong>Токен</strong> — <em>Personal Access Token</em> пользователя GitLab. Используется для аутентификации при обращении к API GitLab для загрузки схемы маршрутов и файлов <code>*.epf</code>, <code>*.erf</code>.
+  <br><strong>Как получить токен:</strong> в GitLab откройте <em>User Settings → Access Tokens</em>, создайте новый токен с правами (scopes) <code>api</code>.</li>
+<li><strong>Таймаут соединения, сек</strong> — максимальное время ожидания ответа от GitLab. Если указано <code>0</code>, таймаут не используется.</li>
+</ul>
+<h3 id="-">Информационные базы-получатели<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
+<p>Задаются параметры по умолчанию для подключения к HTTP-сервисам баз-получателей внешних обработок.</p>
+<ul>
+<li><strong>Имя пользователя</strong> и <strong>Пароль</strong> — учётные данные для аутентификации на HTTP-сервисе базы-получателя. Пользователь должен иметь права на приём и сохранение файлов.</li>
+<li><strong>Таймаут соединения, сек</strong> — максимальное время ожидания при отправке файла. Если указано <code>0</code>, таймаут не используется.</li>
+</ul>
+<h2 id="_3">Обработчики внешних запросов <a name="обработчики-внешних-запросов"></a><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Справочник «Обработчики внешних запросов» предназначен для регистрации репозиториев GitLab, от которых сервис будет принимать и обрабатывать webhook-события.
+Для каждого репозитория создаётся отдельный элемент справочника, в котором указывается секретный токен для аутентификации входящих запросов.</p>
+<h3 id="_4">Реквизиты обработчика<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Наименование</strong> — произвольное имя для идентификации обработчика в системе. Рекомендуется указывать имя проекта или репозитория.</li>
+<li><strong>URL</strong> — URL проекта в GitLab. Это ключевой реквизит, который используется для привязки обработчика к конкретному репозиторию. Система находит нужный обработчик, сопоставляя URL проекта из тела веб-хука со значением этого поля. Также используется для быстрой навигации к репозиторию из интерфейса 1С.</li>
+<li><strong>Токен</strong> — секретный ключ (<strong>Secret Token</strong>), который указывается в настройках веб-хука на стороне GitLab. Этот ключ используется для проверки подлинности входящих запросов.</li>
+</ul>
+<p><strong>Важно:</strong> для загрузки файлов из репозитория (схемы маршрутов и самих обработок) система использует <strong>Personal Access Token</strong>, который задаётся глобально в общих настройках сервиса.</p>
+<h3 id="_5">Основной функционал<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Форма элемента справочника предоставляет доступ к инструментам для управления и анализа обработки событий, связанных с конкретным репозиторием.</p>
+<ul>
+<li><strong>Элемент справочника</strong>: сам по себе обеспечивает приём, запись и последующую обработку событий GitLab (например, push-событий) в соответствии с указанными в нём параметрами (URL проекта, токен).</li>
+<li><strong>История событий</strong>: команда «Загрузить историю» открывает журнал событий из журнала регистрации для анализа работы текущего обработчика и общих процессов.</li>
+<li><strong>Повторная обработка</strong>: команда «Повторить обработку» позволяет вручную запустить повторную обработку выбранного события. Это полезно в случае, если первоначальная обработка завершилась с ошибкой.</li>
+<li><strong>Фоновые задания</strong>: команда «Фоновые задания» открывает монитор фоновых задач, связанных с этим обработчиком. Здесь можно отслеживать статус доставки файлов получателям.</li>
+<li><strong>Тело запроса</strong>: команда «Тело запроса» показывает полное тело обрабатываемого HTTP‑запроса в формате JSON, полученного от GitLab.</li>
+<li><strong>Маршрутизация</strong>: команда «Маршрутизация» (в регистре «Внешние запросы») открывает редактор маршрутов отправки файлов. Подробнее о правилах см. Правила маршрутизации.</li>
+<li><strong>Файлы</strong>: команда «Файлы» (в регистре «Внешние файлы») открывает просмотр метаинформации по загруженным из репозитория файлам.</li>
+</ul>
+<h2 id="_6">Правила маршрутизации<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Маршрутизация файлов определяется правилами, заданными в JSON-файле в корне репозитория (по умолчанию <code>.ext-epf.json</code>). Этот файл содержит две основные секции: <code>ws</code> для описания сервисов-получателей и <code>epf</code> для задания правил отправки файлов.</p>
+<h3 id="ws-">Секция <code>ws</code> (веб-сервисы)<a class="headerlink" href="#ws-" title="Permanent link">&para;</a></h3>
+<p>Эта секция представляет собой массив объектов, где каждый объект описывает один сервис-получатель.</p>
+<p><strong>Атрибуты объекта сервиса:</strong></p>
+<ul>
+<li><code>url</code> (обязательный): <code>Строка</code>. Полный URL-адрес конечной точки (endpoint) HTTP-сервиса, который будет принимать файл.</li>
+<li><code>enabled</code> (необязательный): <code>Булево</code>. Определяет, активен ли сервис. Сервис участвует в маршрутизации, только если значение этого поля установлено в <code>true</code>. Если поле отсутствует или его значение <code>false</code>, сервис игнорируется.</li>
+<li><code>name</code> (необязательный): <code>Строка</code>. Уникальное имя (синоним) сервиса. Используется для обращения к сервису в других атрибутах, например, в правилах исключений (<code>exclude</code>).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&quot;ws&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ProductionDB1&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://endpoint1.example.com/api/hs/epf/uploadFile&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://endpoint2.example.com/api/hs/epf/uploadFile&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TestDB_Archive&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://endpoint3.example.com/api/hs/epf/uploadFile&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="epf">Секция <code>epf</code> (правила для файлов)<a class="headerlink" href="#epf" title="Permanent link">&para;</a></h3>
+<p>Эта секция является массивом объектов, где каждый объект задаёт правило для конкретного файла.</p>
+<p><strong>Атрибуты объекта правила:</strong></p>
+<ul>
+<li><code>name</code> (обязательный): <code>Строка</code>. Относительный путь к файлу (<code>*.epf</code>, <code>*.erf</code>) в репозитории, для которого применяется правило.</li>
+<li><code>exclude</code> (необязательный): <code>Массив строк</code>. Список сервисов, которые нужно <strong>исключить</strong> из маршрута для данного файла. Исключение можно задавать как по имени сервиса (<code>name</code>), так и по URL-адресу конечной точки загрузки файлов в информационную базу-приемник (<code>url</code>).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;epf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/ExternalReports/Report1.erf&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/ExternalDataProcessors/Processor2.epf&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">            </span><span class="s2">&quot;ProductionDB1&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">            </span><span class="s2">&quot;http://endpoint2.example.com/api/hs/epf/uploadFile&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="_7">Логика построения маршрута<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Push-событие (webhook) от GitLab может содержать несколько коммитов. Система обрабатывает их по особому алгоритму, чтобы гарантировать отправку только актуальных версий файлов и применение правильных правил маршрутизации.</p>
+<h4 id="1">1. Определение файлов для отправки<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>Из всего набора коммитов в push-событии система выбирает для отправки только <strong>последнюю версию каждого измененного файла</strong> (<code>*.epf</code>, <code>*.erf</code>). Например, если файл <code>Report.erf</code> был изменен в первом и третьем коммите, для отправки будет взята только версия из третьего коммита.</p>
+<h4 id="2">2. Построение маршрута для каждого файла<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>Для каждого отобранного файла маршрут строится индивидуально по следующему алгоритму:</p>
+<ol>
+<li><strong>Выбирается схема маршрутизации</strong>: система использует файл схемы (<code>.ext-epf.json</code>) из того же коммита, в котором находится последняя версия отправляемого файла. Это гарантирует, что правила маршрутизации соответствуют состоянию репозитория на момент изменения файла.</li>
+<li><strong>Выбираются активные сервисы</strong>: из секции <code>ws</code> выбранной схемы маршрутов отбираются все сервисы, у которых <code>enabled</code> установлено в <code>true</code>.</li>
+<li><strong>Применяются исключения</strong>: если для файла найдено правило с секцией <code>exclude</code>, из списка активных сервисов удаляются те, чьё имя (<code>name</code>) или адрес (<code>url</code>) присутствуют в списке <code>exclude</code>.</li>
+<li><strong>Формируется итоговый маршрут</strong>: файл будет отправлен на URL-адреса всех сервисов, оставшихся после применения исключений.</li>
+</ol>
+<p>Если для файла не найдено соответствующего правила в секции <code>epf</code> или после применения исключений не осталось ни одного сервиса, файл не будет отправлен никуда.</p>
+<h3 id="_8">Пример работы алгоритма<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Рассмотрим сценарий, когда в GitLab происходит push-событие, содержащее два коммита.</p>
+<h4 id="_9">Состояние репозитория<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><strong>Коммит 1 (старый):</strong></p>
+<p>В этом коммите были изменены два отчёта и заданы первоначальные правила маршрутизации.</p>
+<ul>
+<li>Изменены файлы:<ul>
+<li><code>src/reports/Report1.erf</code></li>
+<li><code>src/reports/Report2.erf</code></li>
+</ul>
+</li>
+<li>Содержимое <code>.ext-epf.json</code> (Схема №1):
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;ws&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://prod.server/api/endpoint&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://test.server/api/endpoint&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">&quot;epf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/reports/Report1.erf&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/reports/Report2.erf&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<p><strong>Коммит 2 (последний в push-событии):</strong></p>
+<p>В этом коммите повторно изменили первый отчёт и обновили правила маршрутизации, добавив новый сервис.</p>
+<ul>
+<li>Изменены файлы:<ul>
+<li><code>src/reports/Report1.erf</code> (повторно)</li>
+<li><code>.ext-epf.json</code></li>
+</ul>
+</li>
+<li>Новое содержимое <code>.ext-epf.json</code> (Схема №2):
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;ws&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://prod.server/api/endpoint&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://test.server/api/endpoint&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;archive&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://archive.server/api/endpoint&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">&quot;epf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/reports/Report1.erf&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_10">Анализ и результат<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Определение файлов для отправки:</strong><ul>
+<li><code>src/reports/Report1.erf</code>: будет отправлена версия из <strong>Коммита 2</strong>, так как это его последнее изменение.</li>
+<li><code>src/reports/Report2.erf</code>: будет отправлена версия из <strong>Коммита 1</strong>, так как в <strong>Коммите 2</strong> он не менялся.</li>
+</ul>
+</li>
+<li><strong>Построение маршрута для <code>src/reports/Report1.erf</code>:</strong><ul>
+<li>Используется схема <code>.ext-epf.json</code> из <strong>Коммита 2</strong> (Схема №2).</li>
+<li>Активные сервисы из Схемы №2: <code>prod</code>, <code>test</code>, <code>archive</code>.</li>
+<li>Правило для файла в Схеме №2: <code>{ "name": "src/reports/Report1.erf" }</code>. Исключений нет.</li>
+<li><strong>Итог:</strong> файл будет отправлен на все три адреса: <code>http://prod.server/api/endpoint</code>, <code>http://test.server/api/endpoint</code>, <code>http://archive.server/api/endpoint</code>.</li>
+</ul>
+</li>
+<li><strong>Построение маршрута для <code>src/reports/Report2.erf</code>:</strong><ul>
+<li>Используется схема <code>.ext-epf.json</code> из <strong>Коммита 1</strong> (Схема №1), так как файл последний раз менялся именно там.</li>
+<li>Активные сервисы из Схемы №1: <code>prod</code>, <code>test</code>.</li>
+<li>Правило для файла в Схеме №1: <code>{ "name": "src/reports/Report2.erf" }</code>. Исключений нет.</li>
+<li><strong>Итог:</strong> файл будет отправлен на адреса <code>http://prod.server/api/endpoint</code> и <code>http://test.server/api/endpoint</code>.</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/astrizhachuk/epf-transmitter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.tabs", "navigation.top", "search.highlight", "toc.integrate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>
