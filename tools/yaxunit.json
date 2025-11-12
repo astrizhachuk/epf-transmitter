@@ -13,6 +13,6 @@
     "file": "/w/build/unit/progress.log",
     "console": true,
     "enable": true,
-    "level": "debug"
+    "level": "info"
   }
 }

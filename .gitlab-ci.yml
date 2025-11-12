@@ -399,25 +399,6 @@ stop_review:
     - if: $CI_COMMIT_TAG =~ /^review-/
       when: manual
 
-prepare:
-  stage: test
-  before_script:
-    - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
-    - chmod +x ./allurectl
-  script:
-    - mkdir .allure
-    - ./allurectl job-run start
-  artifacts:
-    paths:
-      - .allure
-    expire_in: 1 day
-  allow_failure: true
-  dependencies: []
-  tags:
-    - udocker02
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-
 run unit test:
   stage: test
   variables:
@@ -430,9 +411,9 @@ run unit test:
     - YAXUNIT="${CI_PROJECT_DIR}/tools/YAxUnit.cfe"
     - curl -L -o "${YAXUNIT}" "https://github.com/bia-technologies/yaxunit/releases/download/25.04/YAxUnit-25.04.cfe"
     - chmod +x "${CI_PROJECT_DIR}/scripts/init-ib-unit-test.sh"
-  needs:
-    - job: prepare
   script:
+    - mkdir .allure
+    - ./allurectl job-run start
     - docker run
       --rm
       --privileged
@@ -455,22 +436,18 @@ run unit test:
       -v $DEPLOY_NETHASP:/opt/1cv8/current/conf/nethasp.ini
       -v $DEPLOY_ONEC_CONFIG:/opt/1cv8/current/conf/conf.cfg
       ${CI_REGISTRY}/devops/onec-docker/client-vnc:$ONEC_VERSION
-      bash -c "/opt/1cv8/current/1cv8c ENTERPRISE
-        /F \"/w/build/unit/ib\"
-        /C\"RunUnitTests=/w/tools/yaxunit.json\"
-        /DisableStartupMessages
-        /DisableStartupDialogs
-        /WA-"
+      bash -c "/opt/1cv8/current/1cv8c /F /w/build/unit/ib /C RunUnitTests=/w/tools/yaxunit.json"
     - |
       if [ -f "${CI_PROJECT_DIR}/build/unit/exit.log" ]; then
         EXIT_CODE=$(tr -d '\r\n' < "${CI_PROJECT_DIR}/build/unit/exit.log" | sed 's/^\xEF\xBB\xBF//')
         if [ "$EXIT_CODE" -eq 1 ]; then
           echo "Unit tests failed!"
+          ./allurectl upload ${ALLURE_RESULTS}
           exit 1
         else
           echo "Unit tests passed."
+          ./allurectl upload ${ALLURE_RESULTS}
         fi
-        ./allurectl upload ${ALLURE_RESULTS}
       else
         echo "exit.log not found!"
         exit 1
